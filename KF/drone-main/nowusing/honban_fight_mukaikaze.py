@@ -194,8 +194,8 @@ async def run(): #asyncをつけることで平行処理
            if str(flight_mode) == "HOLD":
                print("hold確認")
                flag=True
-               break
-           else:
+               break #holdしてたら抜ける
+           else: #holdしてなかったら何かしてる(mission planのリセットなど？)
                try:
                    await drone.action.hold()
                except Exception as e:
@@ -301,7 +301,7 @@ async def run(): #asyncをつけることで平行処理
         if time.time()-start > waitSecond:
             break
             
-    #hold mode 
+    #アイドリング
     print("-- Arming")
     await drone.action.arm()
 
