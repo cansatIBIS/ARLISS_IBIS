@@ -1,12 +1,23 @@
+#元々KFの人たちが書いたコメントと俺らが推測で追加したコメントとが混ざらないように(編集者名)とか書いた方がいいかも
+#見た感じ、多い風と向かい風のコード一緒(松島)
+
 #!/usr/bin/env python3
 
-import asyncio
+import asyncio #非同期I/O:平行処理を行う(int main 二つを動かす)
+               #sleepの値によって同期のタイミングを測っている(await)
+               #main関数にあたる処理をasync付きで記述する
+               #for文にもついてるから、同期したい(タイミングを合わせたいものの前につけるのかも)
+               #https://docs.python.org/ja/3/library/asyncio.html (松島)
 
-from mavsdk import System
-from mavsdk.mission import (MissionItem, MissionPlan)
+from mavsdk import System #ドローンからテレメトリーを取得する?
+                          #ドローンの通信に使うライブラリ
+                          #https://tomofiles.hatenablog.com/entry/2019/10/14/113348 (松島)
+from mavsdk.mission import (MissionItem, MissionPlan) #ドローンの状態を理解するもの？
+                                                      #specify a position, altitude, fly-through behaviour, camera action, gimbal position, and the speed を配列の要素として指定
+                                                      #https://mavsdk.mavlink.io/main/en/cpp/guide/missions.html (松島)
 import time #時間制御用モジュール
 import spidev #SPI通信のモジュール
-import serial
+import serial #シリアル通信(松島)
 
  #光センサのしきい値の設定
 bright_border=350
@@ -26,7 +37,7 @@ longitude_end=-119.0791373
 altitude_end_hover=5
 altitude_end_first=2000
 
-async def run():
+async def run(): 
     while True:
        try:
            ser = serial.Serial('/dev/ttyAMA0',19200,timeout=1)
