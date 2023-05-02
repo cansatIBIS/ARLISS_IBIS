@@ -1,25 +1,25 @@
-#元々KFの人たちが書いたコメントと俺らが推測で追加したコメントとが混ざらないように(編集者名)とか書いた方がいいかも
-#見た感じ、多い風と向かい風のコード一緒(松島)
+#元々KFの人たちが書いたコメントと俺らが推測で追加したコメントとが混ざらないように(KF)と書いておきました
+#見た感じ、多い風と向かい風のコード一緒
 
-#!/usr/bin/env python3
+#!/usr/bin/env python3(KF)
 
 import asyncio #非同期I/O:平行処理を行う(int main 二つを動かす)
                #sleepの値によって同期のタイミングを測っている(await)
                #main関数にあたる処理をasync付きで記述する
                #for文にもついてるから、同期したい(タイミングを合わせたいものの前につけるのかも)
-               #https://docs.python.org/ja/3/library/asyncio.html (松島)
+               #https://docs.python.org/ja/3/library/asyncio.html 
 
 from mavsdk import System #ドローンからテレメトリーを取得する?
                           #ドローンの通信に使うライブラリ
-                          #https://tomofiles.hatenablog.com/entry/2019/10/14/113348 (松島)
-from mavsdk.mission import (MissionItem, MissionPlan) #ドローンの状態を理解するもの？
-                                                      #specify a position, altitude, fly-through behaviour, camera action, gimbal position, and the speed を配列の要素として指定
-                                                      #https://mavsdk.mavlink.io/main/en/cpp/guide/missions.html (松島)
-import time #時間制御用モジュール
-import spidev #SPI通信のモジュール
-import serial #シリアル通信(松島)
+                          #https://tomofiles.hatenablog.com/entry/2019/10/14/113348 
+from mavsdk.mission import (MissionItem, MissionPlan) #ドローンの状態を理解するもの
+                                                      #specify a position, altitude, fly-through behaviour, camera action, gimbal position, and the speed などを配列の要素として指定
+                                                      #https://mavsdk.mavlink.io/main/en/cpp/guide/missions.html 
+import time #時間制御用モジュール(KF)
+import spidev #SPI通信のモジュール(KF)
+import serial  #シリアル通信モジュール
 
- #光センサのしきい値の設定
+ #光センサのしきい値の設定(KF)
 bright_border=350
 bright_border_low=0
 bright_border_high=800
@@ -29,7 +29,7 @@ waitSecond=25
 lightSecond=0.2
 hidenoriSecond=10
 
-# flag=False
+# flag=False(KF)
 
 latitude_end=40.9004985
 
@@ -37,57 +37,60 @@ longitude_end=-119.0791373
 altitude_end_hover=5
 altitude_end_first=2000
 
-async def run(): 
-    while True:
+async def run(): #メイン関数1asyncをつけることで平行処理を行う
+    while True:  #シリアルデータ受信。通信が来るまで受信を続けるためのwhile True
+                 #https://engineer-lifestyle-blog.com/code/python/pyserial-communication-usage/
        try:
-           ser = serial.Serial('/dev/ttyAMA0',19200,timeout=1)
+           ser = serial.Serial('/dev/ttyAMA0',19200,timeout=1) #(シリアルポート, ボーレート, タイムアウト設定(読み取り操作が完了していないときにタイムアウトになるまで時間)) 
        except:
            print ("Serial port error. Waiting.")
-           time.sleep(5)
+           time.sleep(5) #timeモジュールのsleep関数。処理を一時停止できる(5秒) 
        else:
-           break
-    print ("Serial port OK.") 
+           break              #通信がとれたら抜ける
+    print ("Serial port OK.") #通信がとれたことを出力
 
-    ser.write(b'1\r\n')
+    ser.write(b'1\r\n') #writeメソッドでシリアルデータを送信(bで文字列をバイト型に) 
     time.sleep(10)
     ser.write(b'z\r\n')
     time.sleep(10)
 
-    ser.write(("Let's GO\r\n").encode())
-    print("READY")
+    ser.write(("Let's GO\r\n").encode()) #encodeも文字列をバイト型にしてるらしい
+                                         #https://ameblo.jp/hitochan007/entry-12103254519.html 
+    print("READY") #通信がつながってここからスタート？
 
-    spi=spidev.SpiDev() #インスタンス生成
-    spi.open(0,0) #CE0（24番ピン）に接続したデバイスと通信を開始
-    spi.max_speed_hz=1000000 #転送速度を指定
+    spi=spidev.SpiDev() #インスタンス生成(KF) #spi通信に使うインスタンス https://pypi.org/project/spidev/ 
+    spi.open(0,0) #CE0（24番ピン）に接続したデバイスと通信を開始(KF)
+    spi.max_speed_hz=1000000 #転送速度を指定(KF)
 
-    hikariSumHigh=0
+    hikariSumHigh=0 
     for i in range(100):
-        resp=spi.xfer2([0x68,0x00]) #SPI通信で値を読み込む
+        resp=spi.xfer2([0x68,0x00]) #SPI通信で値を読み込む(KF)
         hikariSumHigh += ((resp[0]<<8)+resp[1])&0x3FF 
     
     bright_border_high = hikariSumHigh/100
 
-    print("high読み取り完了")
+    print("high読み取り完了") #何かの最大値を読んでる
     print(bright_border_high)
 
     await asyncio.sleep(hidenoriSecond)
 
-    print("lowデータ読み始めるだよ")
-
+    print("lowデータ読み始めるだよ") #何かの最低値を読んでる
+ 
     hikariSumLow=0
     for i in range(100):
-        resp=spi.xfer2([0x68,0x00]) #SPI通信で値を読み込む
-        hikariSumLow += ((resp[0]<<8)+resp[1])&0x3FF #値を10ビット数値に変換
+        resp=spi.xfer2([0x68,0x00]) #SPI通信で値を読み込む(KF)
+        hikariSumLow += ((resp[0]<<8)+resp[1])&0x3FF #値を10ビット数値に変換(KF)
 
     bright_border_low=hikariSumLow/100
 
     print("low読み取り完了")
     print(bright_border_low)
 
-    bright_border=(bright_border_low + bright_border_high)/2
+    bright_border=(bright_border_low + bright_border_high)/2 #平均をとって採用
     print(bright_border)
-    drone = System()
-    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    drone = System() #mavsdkに用意されたclassのコピーコンストラクタぽい
+                     #https://mavsdk.mavlink.io/v0.37.0/en/api_reference/classmavsdk_1_1_system.html 
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200") #mavsdk classのメンバ関数だと思うけど見つからない 
     # await drone.connect(system_address="udp://:14540")
 
     print("Waiting for drone to connect...")
@@ -146,15 +149,15 @@ async def run():
     await drone.mission.upload_mission(mission_plan)
 
    
-    #ループの中で値を読み込んで判定
-    cds_time=time.process_time() #現在の時刻を取得
+    #ループの中で値を読み込んで判定(KF)
+    cds_time=time.process_time() #現在の時刻を取得(KF)
     while True:
-        resp=spi.xfer2([0x68,0x00]) #SPI通信で値を読み込む
-        volume=((resp[0]<<8)+resp[1])&0x3FF #値を10ビット数値に変換
-        # print(volume) #変換した値をPRINT
-        if volume < bright_border: #しきい値よりセンサの値が低かったら時間リセット
+        resp=spi.xfer2([0x68,0x00]) #SPI通信で値を読み込む(KF)
+        volume=((resp[0]<<8)+resp[1])&0x3FF #値を10ビット数値に変換(KF)
+        # print(volume) #変換した値をPRINT(KF)
+        if volume < bright_border: #しきい値よりセンサの値が低かったら時間リセット(KF)
             cds_time=time.process_time()
-        if time.process_time() > (cds_time + lightSecond):#5秒間しきい値を超えたらループ脱出
+        if time.process_time() > (cds_time + lightSecond):#5秒間しきい値を超えたらループ脱出(KF)
             spi.close()
             break
     
@@ -234,7 +237,7 @@ async def run():
 
                    print("-- Uploading mission")
                    await drone.mission.upload_mission(mission_plan)
-                   #await asyncio.sleep(0.5)
+                   #await asyncio.sleep(0.5)(KF)
                    break 
 
 
@@ -297,9 +300,9 @@ async def run():
 
     await asyncio.sleep(10)
 
-    # await drone.action.land()
+    # await drone.action.land()(KF)
 
-    # await termination_task
+    # await termination_task(KF)
 
 
 async def print_mission_progress(drone):
