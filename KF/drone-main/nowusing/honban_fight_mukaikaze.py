@@ -88,9 +88,10 @@ async def run(): #メイン関数1asyncをつけることで平行処理を行�
 
     bright_border=(bright_border_low + bright_border_high)/2 #平均をとって採用
     print(bright_border)
-    drone = System() #mavsdkに用意されたclassのコピーコンストラクタぽい
+    drone = System() #mavsdkに用意されたclassの初期化メソッド
                      #https://mavsdk.mavlink.io/v0.37.0/en/api_reference/classmavsdk_1_1_system.html 
-    await drone.connect(system_address="serial:///dev/ttyACM0:115200") #mavsdk classのメンバ関数だと思うけど見つからない 
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200") #System classのメンバ関数だと思うけど見つからない 
+                                                                       #ドローンとの接続をシリアル通信で行う関数?
     # await drone.connect(system_address="udp://:14540")
 
     print("Waiting for drone to connect...")
