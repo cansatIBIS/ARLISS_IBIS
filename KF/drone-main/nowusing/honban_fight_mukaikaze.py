@@ -12,11 +12,16 @@ import asyncio #非同期I/O:平行処理を行う(int main 二つを動かす)
 from mavsdk import System #ドローンからテレメトリーを取得する?
                           #ドローンの通信に使うライブラリ
                           #https://tomofiles.hatenablog.com/entry/2019/10/14/113348 
-from mavsdk.mission import (MissionItem, MissionPlan) #ドローンの状態を理解するもの
-                                                      #specify a position, altitude, fly-through behaviour, camera action, gimbal position, and the speed などを配列の要素として指定
-                                                      #https://mavsdk.mavlink.io/main/en/cpp/guide/missions.html 
+                          #http://mavsdk-python-docs.s3-website.eu-central-1.amazonaws.com/system.html#mavsdk.system.System.connect
+from mavsdk.mission import (MissionItem, MissionPlan) #ドローンの状態を理解するclass
+                                                      #MisssionItem
+                                                      #  specify a position, altitude, fly-through behaviour, camera action, gimbal position, and the speed などを配列の要素として指定
+                                                      #  class mavsdk.mission.MissionItem(latitude_deg, longitude_deg, relative_altitude_m, speed_m_s, is_fly_through, gimbal_pitch_deg, gimbal_yaw_deg, camera_action, loiter_time_s, camera_photo_interval_s, acceptance_radius_m, yaw_deg, camera_photo_distance_m)
+                                                      #MissionPlan
+                                                      #  class mavsdk.mission.MissionPlan(mission_items)
+                                                      #http://mavsdk-python-docs.s3-website.eu-central-1.amazonaws.com/plugins/mission.html
 import time #時間制御用モジュール(KF)
-import spidev #SPI通信のモジュール(KF)
+import spidev #SPI通信のモジュール(KF) #raspi内でしかインストールできなそう
 import serial  #シリアル通信モジュール
 
  #光センサのしきい値の設定(KF)
@@ -88,15 +93,15 @@ async def run(): #メイン関数1asyncをつけることで平行処理を行�
 
     bright_border=(bright_border_low + bright_border_high)/2 #平均をとって採用
     print(bright_border)
-    drone = System() #mavsdkに用意されたclassの初期化メソッド
+    drone = System() #mavsdkに用意されたSystem classの初期化メソッド
                      #https://mavsdk.mavlink.io/v0.37.0/en/api_reference/classmavsdk_1_1_system.html 
     await drone.connect(system_address="serial:///dev/ttyACM0:115200") #System classのメンバ関数だと思うけど見つからない 
                                                                        #ドローンとの接続をシリアル通信で行う関数?
     # await drone.connect(system_address="udp://:14540")
 
     print("Waiting for drone to connect...")
-    async for state in drone.core.connection_state():
-        if state.is_connected:
+    async for state in drone.core.connection_state(): #for文にもasyncを使ってる
+        if state.is_connected: #is_connected:Systemclassのメンバ関数。connectされているか確認してくれる
             print(f"-- Connected to drone!")
             break
 
