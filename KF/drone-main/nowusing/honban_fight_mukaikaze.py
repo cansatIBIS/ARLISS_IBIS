@@ -20,6 +20,10 @@ from mavsdk.mission import (MissionItem, MissionPlan) #ドローンの状態を�
                                                       #MissionPlan
                                                       #  class mavsdk.mission.MissionPlan(mission_items)
                                                       #http://mavsdk-python-docs.s3-website.eu-central-1.amazonaws.com/plugins/mission.html
+
+#mavsdkのサイト
+#http://mavsdk-python-docs.s3-website.eu-central-1.amazonaws.com/index.html
+
 import time #時間制御用モジュール(KF)
 import spidev #SPI通信のモジュール(KF) #raspi内でしかインストールできなそう
 import serial  #シリアル通信モジュール
@@ -42,7 +46,8 @@ longitude_end=-119.0791373
 altitude_end_hover=5
 altitude_end_first=2000
 
-async def run(): #メイン関数1asyncをつけることで平行処理を行う
+async def run(): #asyncをつけることで平行処理
+    #ここから、通信、高度、座標のsetup
     while True:  #シリアルデータ受信。通信が来るまで受信を続けるためのwhile True
                  #https://engineer-lifestyle-blog.com/code/python/pyserial-communication-usage/
        try:
@@ -53,6 +58,8 @@ async def run(): #メイン関数1asyncをつけることで平行処理を行�
        else:
            break              #通信がとれたら抜ける
     print ("Serial port OK.") #通信がとれたことを出力
+
+    #通信完了
 
     ser.write(b'1\r\n') #writeメソッドでシリアルデータを送信(bで文字列をバイト型に) 
     time.sleep(10)
@@ -74,12 +81,12 @@ async def run(): #メイン関数1asyncをつけることで平行処理を行�
     
     bright_border_high = hikariSumHigh/100
 
-    print("high読み取り完了") #何かの最大値を読んでる
+    print("high読み取り完了") #光センサの最大値を読んでる
     print(bright_border_high)
 
     await asyncio.sleep(hidenoriSecond)
 
-    print("lowデータ読み始めるだよ") #何かの最低値を読んでる
+    print("lowデータ読み始めるだよ") #光センサの最低値を読んでる
  
     hikariSumLow=0
     for i in range(100):
@@ -94,21 +101,21 @@ async def run(): #メイン関数1asyncをつけることで平行処理を行�
     bright_border=(bright_border_low + bright_border_high)/2 #平均をとって採用
     print(bright_border)
     drone = System() #mavsdkに用意されたSystem classの初期化メソッド
-                     #https://mavsdk.mavlink.io/v0.37.0/en/api_reference/classmavsdk_1_1_system.html 
     await drone.connect(system_address="serial:///dev/ttyACM0:115200") #System classのメンバ関数だと思うけど見つからない 
                                                                        #ドローンとの接続をシリアル通信で行う関数?
     # await drone.connect(system_address="udp://:14540")
 
     print("Waiting for drone to connect...")
-    async for state in drone.core.connection_state(): #for文にもasyncを使ってる
-        if state.is_connected: #is_connected:Systemclassのメンバ関数。connectされているか確認してくれる
+    async for state in drone.core.connection_state(): #connection_state:接続の状態を書き込む
+                                                      #http://mavsdk-python-docs.s3-website.eu-central-1.amazonaws.com/plugins/core.html
+        if state.is_connected: #is_connected:bool値を与える。connected or disconnected
             print(f"-- Connected to drone!")
             break
 
     mission_items = []
     mission_items.append(MissionItem(latitude_end,
-                                     longitude_end,
-                                     altitude_end_first,
+                                     longitude_end, 
+                                     altitude_end_first, 
                                      0,
                                      False,
                                      float('nan'),
@@ -149,12 +156,16 @@ async def run(): #メイン関数1asyncをつけることで平行処理を行�
 
     mission_plan = MissionPlan(mission_items)
 
-    await drone.mission.set_return_to_launch_after_mission(False)
+    #位置情報完了
+
+    await drone.mission.set_return_to_launch_after_mission(False) #RTL(return-to-launch)状態に移行する(True時)
 
     print("-- Uploading mission")
     await drone.mission.upload_mission(mission_plan)
 
    
+    #光センサー
+    #ドローン軌道の条件を待っている
     #ループの中で値を読み込んで判定(KF)
     cds_time=time.process_time() #現在の時刻を取得(KF)
     while True:
@@ -166,11 +177,14 @@ async def run(): #メイン関数1asyncをつけることで平行処理を行�
         if time.process_time() > (cds_time + lightSecond):#5秒間しきい値を超えたらループ脱出(KF)
             spi.close()
             break
+
+    #光センサ完了
     
+    #タイマースタート
     start=time.time()
 
 
-
+    #hold modeに入る (高度と座標を維持する定常飛行)
     print("waiting for pixhawk to hold")
     flag = False
     while True:
@@ -287,10 +301,11 @@ async def run(): #メイン関数1asyncをつけることで平行処理を行�
         if time.time()-start > waitSecond:
             break
             
-
+    #hold mode 
     print("-- Arming")
     await drone.action.arm()
 
+    #指示されたmissionを開始
     print("-- Starting mission")
     await drone.mission.start_mission()
 
