@@ -3,7 +3,7 @@
 ---
 ### __なにそれ？__
 簡単に言うと __いくつもの"オブジェクト（もの）"をつくり、それらを組み合わせて何かを完成させること。__
-![picture 1](../../images/d181886eeab347512723fac424df768ac691d587522b689a6894a0a341f0d239.jpeg)  
+![d181886eeab347512723fac424df768ac691d587522b689a6894a0a341f0d239](https://user-images.githubusercontent.com/131977893/235936338-ead71640-fba0-44c2-a1df-d5304f392f11.jpeg)
 
 ### __メリット__
 __プログラムがわかりやすくなる__
@@ -11,7 +11,8 @@ __プログラムがわかりやすくなる__
 
 例:
 
-![picture 2](../../images/ed1f353a814489816e4a5c59495f43420bc8833aaacf42d38386c038b93fe6fb.jpeg)  
+![ed1f353a814489816e4a5c59495f43420bc8833aaacf42d38386c038b93fe6fb](https://user-images.githubusercontent.com/131977893/235936358-168ea0b7-d6f8-4648-93bd-817c3fce6af0.jpeg)
+  
 
 敵に新たに"MP"を追加することになったら従来の方法では大変！
 
