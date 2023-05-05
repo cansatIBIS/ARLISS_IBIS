@@ -18,7 +18,7 @@ async def run():
     # Start the tasks
     # asyncio.ensure_future(print_battery(drone))
     # asyncio.ensure_future(print_in_air(drone))
-    asyncio.ensure_future(print_altitude(drone))
+    asyncio.ensure_future(print_altitude(drone)) #ensure_future:コルーチンオブジェクトの実行をスケジュール(福田)
     asyncio.ensure_future(print_position(drone))
 
 # async def print_battery(drone):
@@ -27,7 +27,7 @@ async def run():
 
 
 
-
+#高度を取得（福田）
 async def print_altitude(drone):
     async for terrain_info in drone.telemetry.home():
         print("absolute")
@@ -37,7 +37,7 @@ async def print_altitude(drone):
 #     async for in_air in drone.telemetry.in_air():
 #         print(f"In air: {in_air}")
 
-
+#現在地を取得(福田)
 async def print_position(drone):
     async for position in drone.telemetry.position():
         print("position")
