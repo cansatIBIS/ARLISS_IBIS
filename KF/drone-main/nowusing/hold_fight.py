@@ -1,20 +1,20 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3(KF)
 
-import asyncio
+import asyncio #async/await構文を使い、並行処理のコードを書くためのライブラリ
 
-from mavsdk import System
-from mavsdk.mission import (MissionItem, MissionPlan)
-import time #時間制御用モジュール
-import spidev #SPI通信のモジュール
+from mavsdk import System #ドローンの通信に使うライブラリ
+from mavsdk.mission import (MissionItem, MissionPlan) #ドローンの状態を理解するclass
+import time #時間制御用モジュール(KF)
+import spidev #SPI通信のモジュール(KF)
 
  
 
 
 async def run():
 
-    # Init the drone
+    # Init the drone(KF)
     drone = System()
-    # await drone.connect(system_address="udp://:14540")
+    # await drone.connect(system_address="udp://:14540")(KF)
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     print("Waiting for drone to connect...")
@@ -24,7 +24,7 @@ async def run():
             break
 
 
-   # print_flight_mode_task = asyncio.ensure_future(print_flight_mode(drone))
+   # print_flight_mode_task = asyncio.ensure_future(print_flight_mode(drone))(KF)
 
     print("waiting for pixhawk to hold")
     flag = False
@@ -32,14 +32,14 @@ async def run():
        if flag==True:
            break
        async for flight_mode in drone.telemetry.flight_mode():
-           if str(flight_mode) == "HOLD":
+           if str(flight_mode) == "HOLD": #いくつかのモードがある　http://mavsdk-python-docs.s3-website.eu-central-1.amazonaws.com/plugins/telemetry.html
                print("hold確認")
                flag=True
                break
-           else:
+           else: #flight_modeがHOLDじゃなかったら
                try:
-                   await drone.action.hold()
-               except Exception as e:
+                   await drone.action.hold() #HOLDコマンドを送る
+               except Exception as e: #HOLDにならなかったら再接続
                    print(e)
                    drone = System()
                    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
@@ -50,6 +50,7 @@ async def run():
                             
                             print(f"-- Connected to drone!")
                             break
+                   #以下（KF)
                    #mission_items = []
                    #mission_items.append(MissionItem(latitude_end,
                    #                                 longitude_end,
@@ -103,6 +104,7 @@ async def run():
     #            except Exception as e:
     #                print(e)
     #    await asyncio.sleep(0.5)
+    #ここまで(KF)
 
 
 
@@ -120,11 +122,11 @@ async def run():
 async def print_flight_mode(drone):
     """ Prints the flight mode when it changes """
 
-    previous_flight_mode = None
+    previous_flight_mode = None #最初はNoneにしておく
 
     async for flight_mode in drone.telemetry.flight_mode():
         if flight_mode != previous_flight_mode:
-            previous_flight_mode = flight_mode
+            previous_flight_mode = flight_mode #前のflight_modeと違かったら更新
             print(f"Flight mode: {flight_mode}")
 
 
@@ -150,7 +152,7 @@ async def print_flight_mode(drone):
 
     #         return
 
-
+#実行
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run())
