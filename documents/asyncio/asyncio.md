@@ -5,6 +5,7 @@ asyncioとは __シングルスレッドで非同期・並行処理__ を行う�
 
 ### シングルスレッド
 シングルスレッドとマルチスレッド、マルチプロセスの違いは以下の通りです。
+
 ![image1](images/image1.png)
 
 ### 非同期処理
@@ -207,6 +208,7 @@ __Future__ とは処理の結果を格納するためのオブジェクトです
 ステータスには初期状態の"__pending__"、終了状態の"__finished__"（結果が格納）と、”__cancelled__"の3種類があります。
 
 相関図は次の通りです。
+
 ![image2](images/image2.png)
 
 実際にawaitにFutureを直接使うことは基本的にありません。（Futureはタスクの低レベルAPIだからだそう。）
@@ -217,6 +219,7 @@ __「コルーチンやタスクを実行させる行では、書式Futureのや
 
 ## プログラムのイメージ
 全体のイメージは下のようになると思います。緑の矢印はFutureを通じて「pending」を報告している様子です。実際は前の図のようにタスクを介していて、別で「finished」も報告されていると思います。
+
 ![image3](images/image3.jpg)
 
 ## gather
@@ -235,7 +238,11 @@ async def main():
 
 ## 最後に
 ネットの記事のパクリばっかりですみません！URL載せておきます。
+
 https://qiita.com/ku_a_i/items/129543dd7a05342d132f
+
 https://qiita.com/haryuu/items/b948c2953d4c4493ba7a
+
 https://qiita.com/shota-s123/items/36e365d99c7413f60826
+
 https://note.crohaco.net/2019/python-asyncio/
