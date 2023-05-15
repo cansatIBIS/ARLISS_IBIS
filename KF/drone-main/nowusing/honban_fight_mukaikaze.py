@@ -28,7 +28,7 @@ import time #時間制御用モジュール(KF)
 import spidev #SPI通信のモジュール(KF) #raspi内でしかインストールできなそう
 import serial  #シリアル通信モジュール
 
- #光センサのしきい値の設定(KF)
+ #光センサのしきい値の設定(KF)　いらない
 bright_border=350
 bright_border_low=0
 bright_border_high=800
@@ -36,10 +36,10 @@ bright_border_high=800
 
 waitSecond=25
 lightSecond=0.2
-hidenoriSecond=10
+hidenoriSecond=10 #ケースに入れたりする作業時間
 
 # flag=False(KF)
-
+# ゴール地点の緯度、経度
 latitude_end=40.9004985
 
 longitude_end=-119.0791373
@@ -48,6 +48,7 @@ altitude_end_first=2000
 
 async def run(): #asyncをつけることで平行処理
     #ここから、通信、高度、座標のsetup
+    #LoRa 設定モード、実際に書き込むモード
     while True:  #シリアルデータ受信。通信が来るまで受信を続けるためのwhile True
                  #https://engineer-lifestyle-blog.com/code/python/pyserial-communication-usage/
        try:
@@ -61,6 +62,7 @@ async def run(): #asyncをつけることで平行処理
 
     #通信完了
 
+# 初期化されている場合に備えて（1とzを押さなきゃいけない）
     ser.write(b'1\r\n') #writeメソッドでシリアルデータを送信(bで文字列をバイト型に) 
     time.sleep(10)
     ser.write(b'z\r\n')
@@ -75,7 +77,7 @@ async def run(): #asyncをつけることで平行処理
     spi.max_speed_hz=1000000 #転送速度を指定(KF)
 
     hikariSumHigh=0 
-    for i in range(100):
+    for i in range(100): #100回光センサで読み込み、平均を出す
         resp=spi.xfer2([0x68,0x00]) #SPI通信で値を読み込む(KF)
         hikariSumHigh += ((resp[0]<<8)+resp[1])&0x3FF 
     
@@ -100,10 +102,11 @@ async def run(): #asyncをつけることで平行処理
 
     bright_border=(bright_border_low + bright_border_high)/2 #平均をとって採用
     print(bright_border)
+    #Pixhawkと通信開始
     drone = System() #mavsdkに用意されたSystem classの初期化メソッド
     await drone.connect(system_address="serial:///dev/ttyACM0:115200") #System classのメンバ関数だと思うけど見つからない 
                                                                        #ドローンとの接続をシリアル通信で行う関数?
-    # await drone.connect(system_address="udp://:14540")
+    # await drone.connect(system_address="udp://:14540")udp...でガゼボに繋がる
 
     print("Waiting for drone to connect...")
     async for state in drone.core.connection_state(): #connection_state:接続の状態を書き込む
@@ -112,6 +115,7 @@ async def run(): #asyncをつけることで平行処理
             print(f"-- Connected to drone!")
             break
 
+# way pointをappend
     mission_items = []
     mission_items.append(MissionItem(latitude_end,
                                      longitude_end, 
@@ -158,7 +162,7 @@ async def run(): #asyncをつけることで平行処理
 
     #位置情報完了
 
-    await drone.mission.set_return_to_launch_after_mission(False) #RTL(return-to-launch)状態に移行する(True時)
+    await drone.mission.set_return_to_launch_after_mission(False) #RTL(return-to-launch)状態に移行する(True時) RTLでもどって来ないようにfalse
 
     print("-- Uploading mission")
     await drone.mission.upload_mission(mission_plan)
@@ -174,7 +178,7 @@ async def run(): #asyncをつけることで平行処理
         # print(volume) #変換した値をPRINT(KF)
         if volume < bright_border: #しきい値よりセンサの値が低かったら時間リセット(KF)
             cds_time=time.process_time()
-        if time.process_time() > (cds_time + lightSecond):#5秒間しきい値を超えたらループ脱出(KF)
+        if time.process_time() > (cds_time + lightSecond):#lightsecond=0.2秒間しきい値を超えたらループ脱出(KF)
             spi.close()
             break
 
@@ -184,9 +188,9 @@ async def run(): #asyncをつけることで平行処理
     start=time.time()
 
 
-    #hold modeに入る (高度と座標を維持する定常飛行)
+    #hold mode(じゃないとtake offとかできない)に入る (高度と座標を維持する定常飛行)　外れちゃうかもだからもう一回やる
     print("waiting for pixhawk to hold")
-    flag = False
+    flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
     while True:
        if flag==True:
            break
@@ -197,7 +201,7 @@ async def run(): #asyncをつけることで平行処理
                break
            else:
                try:
-                   await drone.action.hold()
+                   await drone.action.hold() #holdじゃない状態からholdしようてしても無理だからもう一回exceptで繋ぎなおす
                except Exception as e:
                    print(e)
                    drone = System()
@@ -264,17 +268,17 @@ async def run(): #asyncをつけることで平行処理
 
 
     print("Waiting for drone to have a global position estimate...")
-    async for health in drone.telemetry.health():
+    async for health in drone.telemetry.health(): #どうせ落ちるだけだからあんま意味ない
         if health.is_global_position_ok and health.is_home_position_ok:
             print("-- Global position estimate OK")
             break
     
-    print_flight_mode_task = asyncio.ensure_future(print_position(drone,ser))
+    print_flight_mode_task = asyncio.ensure_future(print_position(drone,ser)) #print_positionが繰り返されてたからちゃんとタスク化されてたらしい
  
 
     while True:
         time.sleep(0.01)
-        if time.time()-start > waitSecond-10:
+        if time.time()-start > waitSecond-10: #10秒待つだけだと他の処理が入った時に時間がずれるから、0.01秒待つっていうのを700回繰り返してる
             print("10秒前やで")
             break
 
@@ -303,7 +307,7 @@ async def run(): #asyncをつけることで平行処理
             
     #アイドリング
     print("-- Arming")
-    await drone.action.arm()
+    await drone.action.arm() #１０秒後に勝手にdisarm
 
     #指示されたmissionを開始
     print("-- Starting mission")
@@ -312,14 +316,14 @@ async def run(): #asyncをつけることで平行処理
 
     while True:
         await asyncio.sleep(1)
-        mission_finished = await drone.mission.is_mission_finished()
+        mission_finished = await drone.mission.is_mission_finished() #finishedになったら（falseを入れてくれない）並行処理だとすぐlandしちゃう
         if mission_finished:
             break
         
 
     await drone.action.land()
 
-    await asyncio.sleep(10)
+    await asyncio.sleep(10) #なくてもいい
 
     # await drone.action.land()(KF)
 
