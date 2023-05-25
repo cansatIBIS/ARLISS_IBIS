@@ -8,15 +8,15 @@ async def run():
     # ttyACM0が rasberrypi to pixhawk、 ボーレート115200
     print("conected")
 
-#     # Get the list of parameters
-#     all_params = await drone.param.get_all_params()
+    # Get the list of parameters
+    all_params = await drone.param.get_all_params()
 
-#     # Iterate through all int parameters
-#     for param in all_params.int_params:
-#         print(f"{param.name}: {param.value}")
+    # Iterate through all int parameters
+    for param in all_params.int_params:
+        print(f"{param.name}: {param.value}")
 
-#     for param in all_params.float_params:
-#         print(f"{param.name}: {param.value}")
+    for param in all_params.float_params:
+        print(f"{param.name}: {param.value}")
 
 # # Run the asyncio loop
 asyncio.run(run())
