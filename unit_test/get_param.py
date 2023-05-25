@@ -4,7 +4,8 @@ from mavsdk import System
 async def run():
     # Connect to the drone
     drone = System()
-    await drone.connect(system_address="udp://:14540")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    # ttyACM0が rasberrypi to pixhawk、 ボーレート115200
     print("conected")
 
 #     # Get the list of parameters
