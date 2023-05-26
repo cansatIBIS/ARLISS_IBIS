@@ -17,9 +17,10 @@ async def run():
             print(f"-- Connected to drone!")
             break
         
+    gps_info_0 = drone.telemetry.gps_info()
     while True:
         gps_info = drone.telemetry.gps_info()
-        if gps_info[0]>2:
+        if gps_info != gps_info_0
             break
     
 
