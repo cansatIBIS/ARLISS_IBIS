@@ -14,7 +14,7 @@ async def run():
     print("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
         if state.is_connected:
-            print(f"-- Connected to drone!")
+            print("-- Connected to drone!")
             break
         
     # gps_info_0 = drone.telemetry.gps_info()
@@ -30,13 +30,13 @@ async def run():
             print("-- Global position estimate OK")
             break
 
-    print("-- Arming")
+    print("-- arming")
     await drone.action.arm()
     
     # drone.is_armed = False
     # drone.is_armed = drone.telemetry.Telemetry.armed()
     
-    print("is_arm : {}".format(drone.telemetry.is_armed))
+    print("-- Armed")
 
     # print("-- Taking off")
     # await drone.action.takeoff()
