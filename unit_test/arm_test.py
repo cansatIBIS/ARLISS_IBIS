@@ -18,7 +18,7 @@ async def run():
             break
         
     while True:
-        gps_info = drone.telemetry.gps_info() 
+        gps_info = drone.telemetry.gps_info
         if gps_info[0]>2:
             break
     
