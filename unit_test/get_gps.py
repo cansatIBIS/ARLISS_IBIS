@@ -17,7 +17,7 @@ async def run():
             print(f"-- Connected to drone!")
             break
     
-    print(drone.telemetry.gps_info())
+    print(drone.telemetry.get_gps_grobal_origin())
 
 if __name__ == "__main__":
     # Run the asyncio loop
