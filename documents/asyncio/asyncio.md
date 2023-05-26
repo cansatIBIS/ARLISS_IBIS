@@ -1,7 +1,7 @@
 # asyncio入門！！！
 
 ## asyncioとは？
-asyncioとは __シングルスレッドで非同期・並行処理__ を行うための標準ライブラリです。読み方は「エイシンシオ」らしい。
+asyncioとは __シングルスレッドで非同期・並行処理__ を行うための標準ライブラリです。読み方は~~「エイシンシオ」~~「エイシンクアイオー」らしい。
 
 ### シングルスレッド
 シングルスレッドとマルチスレッド、マルチプロセスの違いは以下の通りです。
@@ -235,7 +235,59 @@ async def main():
     end = time.time() #終了時間
     print(f"かかった時間：{end-start}")
 ```
+## ensure_future
+`ensyre_future`でもタスクを作ることができるが、`create_task`の利用が推奨されています。違いは以下の通りです。（`create_task`の方がより具体的みたいだけどよくわかりません…。）
+### `create_task`
+- コルーチンを受け入れる。
+- タスクを返す。
+- ループのコンテキストで呼び出される。
+### `ensure_future`
+- Future、コルーチン、awaitableオブジェクトを受け入れます。
+- タスク (Future が渡された場合は Future) を返します。
+- 指定された引数がコルーチンの場合`create_task`を使用。
+- ループオブジェクトを渡すことができる。
+### 実装例
+```python
+async def one_print(): #6秒後に1をprint
+    await asyncio.sleep(6)
+    print(1)
 
+async def two_print(): #5秒後に2をprint
+    await asyncio.sleep(5)
+    print(2)
+
+async def three_print(): #4秒後に3をprint
+    await asyncio.sleep(4)
+    print(3)
+
+async def main():
+    start = time.time() #開始時間
+    task1 = asyncio.ensure_future(one_print())
+    task2 = asyncio.ensure_future(two_print())
+    task3 = asyncio.ensure_future(three_print())
+    await task1
+    await task2
+    await task3
+    end = time.time() #終了時間
+    print(f"かかった時間：{end-start}")
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main()) #実行
+```
+```python
+3
+2
+1
+かかった時間：6.0050060749053955
+```
+KFのコードには
+```python
+await task1
+await task2
+await task3
+```
+に当たる部分がなく、タスクが実行されていないのでは…。
 ## 最後に
 ネットの記事のパクリばっかりですみません！URL載せておきます。
 
@@ -246,3 +298,5 @@ https://qiita.com/haryuu/items/b948c2953d4c4493ba7a
 https://qiita.com/shota-s123/items/36e365d99c7413f60826
 
 https://note.crohaco.net/2019/python-asyncio/
+
+https://stackoverflow.com/questions/36342899/asyncio-ensure-future-vs-baseeventloop-create-task-vs-simple-coroutine
