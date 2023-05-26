@@ -17,18 +17,18 @@ async def run():
             print(f"-- Connected to drone!")
             break
         
-    gps_info_0 = drone.telemetry.gps_info()
-    while True:
-        gps_info = drone.telemetry.gps_info()
-        if gps_info != gps_info_0:
-            break
+    # gps_info_0 = drone.telemetry.gps_info()
+    # while True:
+    #     gps_info = drone.telemetry.gps_info()
+    #     if gps_info != gps_info_0:
+    #         break
     
 
-    # print("Waiting for drone to have a global position estimate...")
-    # async for health in drone.telemetry.health():
-    #     if health.is_global_position_ok and health.is_home_position_ok:
-    #         print("-- Global position estimate OK")
-    #         break
+    print("Waiting for drone to have a global position estimate...")
+    async for health in drone.telemetry.health():
+        if health.is_global_position_ok and health.is_home_position_ok:
+            print("-- Global position estimate OK")
+            break
 
     print("-- Arming")
     await drone.action.arm()
