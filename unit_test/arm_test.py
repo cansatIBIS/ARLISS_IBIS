@@ -16,6 +16,12 @@ async def run():
         if state.is_connected:
             print(f"-- Connected to drone!")
             break
+        
+    while True:
+        gps_info = drone.gps_info 
+        if gps_info[0]>2:
+            break
+    
 
     # print("Waiting for drone to have a global position estimate...")
     # async for health in drone.telemetry.health():
