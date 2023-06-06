@@ -34,7 +34,6 @@ if __name__ == '__main__':
 	try:
 		getTFminiData()
 	except:
-                print("except")
+		print("except")
 		pi.bb_serial_read_close(RX)
 		pi.stop()
-
