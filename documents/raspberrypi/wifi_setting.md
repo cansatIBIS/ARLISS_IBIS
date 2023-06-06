@@ -19,6 +19,10 @@ network={
 iphoneの場合，これ使え！！！
 
 ```bash
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=JP
+
 network={
     ssid="iPhone"
     psk="pass"
