@@ -2,7 +2,7 @@
 import pigpio
 import time
 
-RX = 23
+RX = 15
 
 pi = pigpio.pi()
 pi.set_mode(RX, pigpio.INPUT)
