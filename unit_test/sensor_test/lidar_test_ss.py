@@ -4,13 +4,14 @@ import time
 
 RX = 15
 
+
 pi = pigpio.pi()
 pi.set_mode(RX, pigpio.INPUT)
 pi.bb_serial_read_open(RX, 115200) 
 
 def getTFminiData():
 	while True:
-		#print("#############")
+		print("#############")
 		time.sleep(0.05)	#change the value if needed
 		(count, recv) = pi.bb_serial_read(RX)
 		if count > 8:
@@ -32,7 +33,8 @@ def getTFminiData():
 if __name__ == '__main__':
 	try:
 		getTFminiData()
-	except:  
+	except:
+                print("except")
 		pi.bb_serial_read_close(RX)
 		pi.stop()
- 
+
