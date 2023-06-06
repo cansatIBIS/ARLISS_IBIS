@@ -12,9 +12,10 @@ pi.bb_serial_read_open(RX, 115200)
 def getTFminiData():
 	while True:
 		print("#############")
-		time.sleep(0.05)	#change the value if needed
+		time.sleep(1)	#change the value if needed
 		(count, recv) = pi.bb_serial_read(RX)
 		if count > 8:
+			print("@@@@@@@")
 			for i in range(0, count-9):
 				if recv[i] == 89 and recv[i+1] == 89: # 0x59 is 89
 					checksum = 0
