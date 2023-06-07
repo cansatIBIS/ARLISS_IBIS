@@ -1,6 +1,6 @@
 import asyncio
 from mavsdk import System
-from unit_test.logger import logger_info, logger_debug
+from ..logger import logger_info, logger_debug
 
 
 async def run():
