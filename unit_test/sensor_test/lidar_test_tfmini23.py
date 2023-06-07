@@ -2,7 +2,7 @@
 import serial
 import time
 
-ser = serial.Serial("COM12", 115200)
+ser = serial.Serial("/dev/tty.Bluetooth-Incoming-Port", 115200)
 
 def getTFminiData():
     while True:
