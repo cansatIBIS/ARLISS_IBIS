@@ -43,4 +43,4 @@ if __name__ == '__main__':
         getTFminiData()
     except KeyboardInterrupt:   # Ctrl+C
         if ser != None:
-            ser.close()
+            ser.close()     
