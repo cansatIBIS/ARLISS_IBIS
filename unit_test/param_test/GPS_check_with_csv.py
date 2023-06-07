@@ -26,7 +26,7 @@ async def create_position_dict(drone) -> None:
         log_dict["lng_deg"] = []
         log_dict["abs_alt_m"] = []
         log_dict["rel_alt_m"] = []
-        while True: 
+        for _ in range(100): 
             # get_position(self)
             async for position in drone.telemetry.position():
                 latitude_deg = position.latitude_deg
@@ -37,7 +37,7 @@ async def create_position_dict(drone) -> None:
             log_dict["lng_deg"].append(longitude_deg)
             log_dict["abs_alt_m"].append(absolute_altitude_m)
             log_dict["rel_alt_m"].append(relative_altitude_m)
-            print(log_dict)
+        print(log_dict)
 
 
 # async def get_position(self) -> None:
