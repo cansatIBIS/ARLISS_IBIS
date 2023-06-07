@@ -6,7 +6,12 @@ async def run():
     # Init the drone
     drone = System()
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    print("Waiting for drone to connect...")
+    async for state in drone.core.connection_state():
 
+        if state.is_connected:
+            print(f"-- Connected to drone!")
+            break
     # Start the task
     task = cycle_record_log(drone)
     await task
