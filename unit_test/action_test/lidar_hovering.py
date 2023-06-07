@@ -1,33 +1,47 @@
 import asyncio
-import serial
+import pigpio
+import time
 from mavsdk import System
 
+#Lidar関係
+RX = 23
+pi = pigpio.pi()
+pi.set_mode(RX, pigpio.INPUT)
+pi.bb_serial_read_open(RX, 115200) 
 
+
+#高さ指定
 hovering_hight = 5
+
+
 ser = serial.Serial("/dev/ttyAMA0", 115200) #dev/ttyACM0:115200 ?
 
 
 def getTFminiData():
-    while True:
-        count = ser.in_waiting
-        if count > 8:
-            recv = ser.read(9)
-            ser.reset_input_buffer()
-            if recv[0] == 'Y' and recv[1] == 'Y': # 0x59 is 'Y'
-                low = int(recv[2].encode('hex'), 16)
-                high = int(recv[3].encode('hex'), 16)
-                distance = low + high * 256
-                return distance
+	while True:
+		#print("#############")
+		time.sleep(0.05)	#change the value if needed
+		(count, recv) = pi.bb_serial_read(RX)
+		if count > 8:
+			for i in range(0, count-9):
+				if recv[i] == 89 and recv[i+1] == 89: # 0x59 is 89
+					checksum = 0
+					for j in range(0, 8):
+						checksum = checksum + recv[i+j]
+					checksum = checksum % 256
+					if checksum == recv[i+8]:
+						distance = recv[i+2] + recv[i+3] * 256
+						strength = recv[i+4] + recv[i+5] * 256
+						if distance <= 1200 and strength < 2000:
+							print(distance, strength) 
             
             
 def get_hight():
     try:
-        if ser.is_open == False:
-            ser.open()
         getTFminiData()
-    except KeyboardInterrupt:   # Ctrl+C
-        if ser != None:
-            ser.close()
+    except:  
+        pi.bb_serial_read_close(RX)
+        pi.stop()
             
 
 def get_xy_position(drone):
