@@ -13,10 +13,12 @@ async def run():
             print(f"-- Connected to drone!")
             break
     # Start the task
-    task = cycle_record_log(drone)
-    await task
+    asyncio.ensure_future(create_position_dict(drone))
 
-async def cycle_record_log(drone) -> None:
+    while True:
+        await asyncio.sleep(1)
+
+async def create_position_dict(drone) -> None:
         # log_file = self.create_log_file()
         log_dict = {}
         log_dict["mode"] = []
@@ -25,10 +27,6 @@ async def cycle_record_log(drone) -> None:
         log_dict["abs_alt_m"] = []
         log_dict["rel_alt_m"] = []
         while True: 
-            latitude_deg = 0
-            longitude_deg = 0
-            absolute_altitude_m = 0
-            relative_altitude_m = 0
             # get_position(self)
             async for position in drone.telemetry.position():
                 latitude_deg = position.latitude_deg
@@ -40,7 +38,7 @@ async def cycle_record_log(drone) -> None:
             log_dict["abs_alt_m"].append(absolute_altitude_m)
             log_dict["rel_alt_m"].append(relative_altitude_m)
             print(log_dict)
-            await asyncio.sleep(1)
+
 
 # async def get_position(self) -> None:
 #     """get gps position in (lat, lng, abusolute altitude, relative altitude)"""
@@ -54,5 +52,4 @@ async def cycle_record_log(drone) -> None:
 
 if __name__ == "__main__":
     # Start the main function
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(run())
+    asyncio.run(run())
