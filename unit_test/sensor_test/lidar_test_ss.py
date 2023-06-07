@@ -2,7 +2,7 @@
 import pigpio
 import time
 
-RX = 15
+RX = 23
 
 
 pi = pigpio.pi()
