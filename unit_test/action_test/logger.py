@@ -63,4 +63,4 @@ def set_logger():
 
     return logger_info, logger_debug
 
-# logger_info, logger_debug = set_logger()
+logger_info, logger_debug = set_logger()
