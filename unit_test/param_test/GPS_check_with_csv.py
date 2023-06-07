@@ -1,7 +1,10 @@
 import asyncio
 from mavsdk import System
+import time
+import csv
 
 async def run():
+    start = time.time()
     #座標格納用配列
     latitude_list = []
     longitude_list = []
@@ -23,8 +26,16 @@ async def run():
             longitude_list.append(position.longitude_deg)
             print(latitude_list)
             print(longitude_list)
-
             break #async forのループから抜け出す
+        now = time.time()
+        if now-start>50:
+            break
+
+    with open("gps_test_csv/gps_test.csv","w") as file:
+        writer = csv.writer(file)
+        writer.writerow(latitude_list)
+        writer.writerow(longitude_list)
+    
 
 if __name__ == "__main__":
     #run()関数を一度だけ実行する
