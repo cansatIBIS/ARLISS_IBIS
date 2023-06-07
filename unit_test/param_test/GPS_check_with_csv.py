@@ -24,11 +24,11 @@ async def cycle_record_log(drone) -> None:
         log_dict["lng_deg"] = []
         log_dict["abs_alt_m"] = []
         log_dict["rel_alt_m"] = []
-        latitude_deg = 0
-        longitude_deg = 0
-        absolute_altitude_m = 0
-        relative_altitude_m = 0
-        while True:
+        while True: 
+            latitude_deg = 0
+            longitude_deg = 0
+            absolute_altitude_m = 0
+            relative_altitude_m = 0
             # get_position(self)
             async for position in drone.telemetry.position():
                 latitude_deg = position.latitude_deg
