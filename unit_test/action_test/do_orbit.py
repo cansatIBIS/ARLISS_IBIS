@@ -2,12 +2,10 @@ import asyncio
 from mavsdk import System
 from mavsdk.action import OrbitYawBehavior
 
+
 orbit_hight = 5
 orbit_radius = 5
 
-def get_xy_position(drone):
-    position = drone.telemetry.position()
-    return position
 
 async def run():
     drone = System()
@@ -24,12 +22,14 @@ async def run():
         if health.is_global_position_ok and health.is_home_position_ok:
             print("-- Global position estimate OK")
             break
-
+    
     position = await drone.telemetry.position().__aiter__().__anext__()
     orbit_height += position.absolute_altitude_m
     yaw_behavior = OrbitYawBehavior.HOLD_FRONT_TO_CIRCLE_CENTER
     
-    xy_coo = get_xy_position()
+    async for position in drone.telemetry.position():
+        lati_deg, long_deg = position.latitude_deg, position.longitude_deg
+        
 
     print("-- Arming")
     await drone.action.arm()
@@ -42,8 +42,8 @@ async def run():
     await drone.action.do_orbit(radius_m=orbit_radius,
                                 velocity_ms=2,
                                 yaw_behavior=yaw_behavior,
-                                latitude_deg=xy_coo[0],
-                                longitude_deg=xy_coo[1],
+                                latitude_deg=lati_deg,
+                                longitude_deg=long_deg,
                                 absolute_altitude_m=orbit_height)
     await asyncio.sleep(60)
 
