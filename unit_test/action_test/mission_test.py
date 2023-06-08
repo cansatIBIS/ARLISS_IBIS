@@ -6,11 +6,6 @@ from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 
 
-def get_xy_position(drone):
-    position = drone.telemetry.position()
-    return position
-
-
 async def run():
     drone = System()
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
@@ -28,11 +23,12 @@ async def run():
     termination_task = asyncio.ensure_future(
         observe_is_in_air(drone, running_tasks))
     
-    xy_coo = get_xy_position()
+    async for position in drone.telemetry.positio():
+        lati_deg, long_deg = position.latitude_deg, position.longitude_deg
 
     mission_items = []
-    mission_items.append(MissionItem(xy_coo[0],
-                                     xy_coo[1],
+    mission_items.append(MissionItem(lati_deg,
+                                     long_deg,
                                      25,
                                      10,
                                      True,
@@ -44,8 +40,8 @@ async def run():
                                      float('nan'),
                                      float('nan'),
                                      float('nan')))
-    mission_items.append(MissionItem(xy_coo[0]+0.00001,
-                                     xy_coo[1],
+    mission_items.append(MissionItem(lati_deg+0.00001,
+                                     long_deg,
                                      25,
                                      10,
                                      True,
@@ -57,8 +53,8 @@ async def run():
                                      float('nan'),
                                      float('nan'),
                                      float('nan')))
-    mission_items.append(MissionItem(xy_coo[0]+0.00001,
-                                     xy_coo[1]+0.00001,
+    mission_items.append(MissionItem(lati_deg+0.00001,
+                                     long_deg+0.00001,
                                      25,
                                      10,
                                      True,
