@@ -28,7 +28,7 @@ async def run():
             print(longitude_list)
             break #async forのループから抜け出す
         now = time.time()
-        if now-start>50:
+        if now-start>300:
             break
 
     with open("gps_test_csv/gps_test.csv","w") as file:
