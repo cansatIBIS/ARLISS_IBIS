@@ -4,7 +4,6 @@ import time
 
 RX = 23
 
-
 pi = pigpio.pi()
 pi.set_mode(RX, pigpio.INPUT)
 pi.bb_serial_read_open(RX, 115200) 
