@@ -13,7 +13,7 @@ class Ibis:
         await self.connect(system_address="serial:///dev/ttyACM0:115200")
         async for state in self.ibis.core.connection_state():
             if state.is_connected:
-                print("Drone connected!")
+                print("-- Drone connected!")
                 break
         
     def arm(self):
