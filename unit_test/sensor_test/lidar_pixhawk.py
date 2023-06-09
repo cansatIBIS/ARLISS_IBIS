@@ -1,11 +1,7 @@
 import asyncio
-import pigpio
 import time
 from mavsdk import System
 
-
-#高さ指定
-hovering_hight = 5
                 
                 
 async def run():
