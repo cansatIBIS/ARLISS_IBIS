@@ -11,22 +11,8 @@ pi = pigpio.pi()
 pi.set_mode(RX, pigpio.INPUT)
 pi.bb_serial_read_open(RX, 115200) 
 
-<<<<<<< HEAD
 #高さ指定
 hovering_hight = 5
-=======
-
-#高さ指定
-hovering_hight = 5
-
-
-ser = serial.Serial("/dev/ttyAMA0", 115200) #dev/ttyACM0:115200 ?
-
-
-def get_xy_position(drone):
-    position = drone.telemetry.position()
-    return position
->>>>>>> 30acac4 ([modified] lidar_test.py)
                 
                 
 async def run():
