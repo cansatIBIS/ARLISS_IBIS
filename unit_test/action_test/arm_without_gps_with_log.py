@@ -1,6 +1,6 @@
 import asyncio
 import sys
-sys.path.append("../log_test")
+sys.path.append("/home/pi/ARLISS_IBIS/unit_test/log_test")
 from mavsdk import System
 from logger import logger_info, logger_debug
 
