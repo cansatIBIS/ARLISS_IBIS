@@ -5,6 +5,11 @@ import pigpio
 import time
 from mavsdk import System
 
+#Lidar関係
+RX = 23
+pi = pigpio.pi()
+pi.set_mode(RX, pigpio.INPUT)
+pi.bb_serial_read_open(RX, 115200) 
 
 #高さ指定
 hovering_hight = 5
