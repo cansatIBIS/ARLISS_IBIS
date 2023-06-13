@@ -4,7 +4,7 @@ from mavsdk.action import OrbitYawBehavior
 
 
 orbit_hight = 5
-orbit_radius = 5
+orbit_radius = [5,7,9]
 
 
 async def run():
@@ -38,17 +38,18 @@ async def run():
     await drone.action.takeoff()
     await asyncio.sleep(10)
 
-    print('Do orbit at {}m height from the ground'.format(orbit_hight))
-    await drone.action.do_orbit(radius_m=orbit_radius,
-                                velocity_ms=2,
-                                yaw_behavior=yaw_behavior,
-                                latitude_deg=lati_deg,
-                                longitude_deg=long_deg,
-                                absolute_altitude_m=orbit_height)
-    await asyncio.sleep(5)
+    for i in range(len(orbit_radius)):
+        print('Do orbit at {}m radius'.format(orbit_radius[i]))
+        await drone.action.do_orbit(radius_m=orbit_radius[i],
+                                    velocity_ms=2,
+                                    yaw_behavior=yaw_behavior,
+                                    latitude_deg=lati_deg,
+                                    longitude_deg=long_deg,
+                                    absolute_altitude_m=orbit_height)
+        await asyncio.sleep(5)
 
-    await drone.action.return_to_launch()
-    print("--- Landing")
+        await drone.action.return_to_launch()
+        print("--- Landing")
 
 if __name__ == "__main__":
     asyncio.run(run())
