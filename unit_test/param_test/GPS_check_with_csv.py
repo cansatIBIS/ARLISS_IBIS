@@ -24,11 +24,9 @@ async def run():
         async for position in drone.telemetry.position():
             latitude_list.append(position.latitude_deg)
             longitude_list.append(position.longitude_deg)
-            print(latitude_list)
-            print(longitude_list)
             break #async forのループから抜け出す
         now = time.time()
-        if now-start>50:
+        if now-start>300:
             break
 
     with open("gps_test_csv/gps_test.csv","w") as file:
