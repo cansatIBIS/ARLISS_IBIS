@@ -53,19 +53,6 @@ async def run():
                                      float('nan'),
                                      float('nan'),
                                      float('nan')))
-    mission_items.append(MissionItem(47.397825620791885,
-                                     8.5450092830163271,
-                                     25,
-                                     10,
-                                     True,
-                                     float('nan'),
-                                     float('nan'),
-                                     MissionItem.CameraAction.NONE,
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan')))
 
     mission_plan = MissionPlan(mission_items)
 
@@ -129,14 +116,24 @@ async def cycle_show(drone):
         mode = flight_mode
     async for distance in drone.telemetry.distance_sensor:
         lidar = distance.current_distance_m
+    async for position in drone.telemetry.position():
+        print("lat_deg:{} lng_deg:{} abs_alt_m:{} rel_alt_m:{}".format(position.latitude_deg,position.longitude_deg,position.absolute_altitude_m,position.relative_altitude_m))
+        lat = position.latitude_deg
+        lng = position.longitude_deg
+        abs_alt = position.absolute_altitude_m
+        rel_alt = position.relative_altitude_m
     while True:
         log_txt = (
             + " mode:"
             + str(mode)
-            + " abs_alt:"
-            + str(absolute_altitude_m)
             + " lidar: "
             + str(lidar)
+            + "m"
+            + " abs_alt:"
+            + str(abs_alt)
+            + "m"
+            + " rel_alt:"
+            + str(rel_alt)
             + "m"
             )
         logger_info.info(str(log_txt))

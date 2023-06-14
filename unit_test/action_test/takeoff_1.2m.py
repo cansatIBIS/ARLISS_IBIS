@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-
+import os
 import asyncio
 from mavsdk import System
+import sys
+sys.path.append("../log_test")
 from logger import logger_info, logger_debug
-
+os.chdir("/home/pi/ARLISS_IBIS")
 altitude = 3.0
 
 async def run():
