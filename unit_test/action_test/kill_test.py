@@ -24,6 +24,7 @@ async def run():
     await drone.action.arm()
     print("-- Armed")
     
+    
     print("-- Killng the drone")
     drone.action.kill()
     print("-- Killed!")
