@@ -48,8 +48,8 @@ async def run():
                                     absolute_altitude_m=orbit_height)
         await asyncio.sleep(5)
 
-        await drone.action.return_to_launch()
-        print("--- Landing")
+    await drone.action.return_to_launch()
+    print("--- Landing")
 
 if __name__ == "__main__":
     asyncio.run(run())
