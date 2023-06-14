@@ -107,7 +107,6 @@ async def observe_is_in_air(drone, running_tasks):
     returns after landing """
 
     was_in_air = False
-
     async for is_in_air in drone.telemetry.in_air():
         if is_in_air:
             was_in_air = is_in_air
