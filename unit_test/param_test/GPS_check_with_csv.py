@@ -26,7 +26,7 @@ async def run():
             longitude_list.append(position.longitude_deg)
             break #async forのループから抜け出す
         now = time.time()
-        if now-start>300:
+        if now-start>10:
             break
 
     with open("/home/pi/ARLISS_IBIS/log/log_csv/gps_test.csv","w") as file:
