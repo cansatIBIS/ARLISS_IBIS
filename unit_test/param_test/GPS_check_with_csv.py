@@ -29,7 +29,7 @@ async def run():
         if now-start>300:
             break
 
-    with open("gps_test_csv/gps_test.csv","w") as file:
+    with open("/home/pi/ARLISS_IBIS/gps_test_csv/gps_test.csv","w") as file:
         writer = csv.writer(file)
         writer.writerow(latitude_list)
         writer.writerow(longitude_list)
