@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 北に20m→南に40m
+# 北東に15/√2m、高さ3m→南に15m、高さ5m→西に15m、高さ3m→北に15m、高さ5m
 import asyncio
 import csv
 import datetime
@@ -31,9 +31,12 @@ async def run():
     get_log_task = asyncio.ensure_future(get_log(drone))
     get_gps_list_task = asyncio.ensure_future(get_gps_list(drone,latitude_list,longitude_list))
     
-    center = [0,0]
-    waypoint1 = [center[0]+0.000008983148616*20,center[1]]
-    waypoint2 = [center[0]+0.000008983148616*(-40),center[1]]
+    center = [0,0] #中心の位置
+    waypoint1 = [center[0]+0.000008983148616*15,center[1]+0.000008983668124*15]
+    waypoint2 = [waypoint1[0]-0.000008983148616*15,waypoint1[1]]
+    waypoint3 = [waypoint2[0],waypoint2[1]-0.000008983668124*15]
+    waypoint4 = [waypoint3[0]+0.000008983148616*15,waypoint3[1]]
+
     mission_items = []
     mission_items.append(MissionItem(waypoint1[0],
                                      waypoint1[1],
@@ -50,6 +53,19 @@ async def run():
                                      float('nan')))
     mission_items.append(MissionItem(waypoint2[0],
                                      waypoint2[1],
+                                     5,
+                                     5,
+                                     True,
+                                     float('nan'),
+                                     float('nan'),
+                                     MissionItem.CameraAction.NONE,
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan')))
+    mission_items.append(MissionItem(waypoint3[0],
+                                     waypoint3[1],
                                      3,
                                      5,
                                      True,
@@ -61,7 +77,19 @@ async def run():
                                      float('nan'),
                                      float('nan'),
                                      float('nan')))
-
+    mission_items.append(MissionItem(waypoint4[0],
+                                     waypoint4[1],
+                                     5,
+                                     5,
+                                     True,
+                                     float('nan'),
+                                     float('nan'),
+                                     MissionItem.CameraAction.NONE,
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan')))
     mission_plan = MissionPlan(mission_items)
 
     await drone.mission.set_return_to_launch_after_mission(False)
@@ -93,7 +121,7 @@ async def run():
     await get_gps_list_task
     if drone.mission.is_mission_finished():
         dt_now = datetime.datetime.now()
-        with open(f"/home/pi/ARLISS_IBIS/log/log_csv/mission_2_waypoints {dt_now}.csv","w") as file:
+        with open(f"/home/pi/ARLISS_IBIS/log/log_csv/mission_4_waypoints {dt_now}.csv","w") as file:
             writer = csv.writer(file)
             writer.writerow(latitude_list)
             writer.writerow(longitude_list)
@@ -140,7 +168,7 @@ async def get_log(drone):
         rel_alt = position.relative_altitude_m
         break
     async for speed in drone.action.get_maxium_speed():
-        max_speed = speed
+        max_speed  = speed
         break
     async for mission_progress in drone.mission.mission_progress():
         mp_current = mission_progress.current
@@ -163,7 +191,7 @@ async def get_log(drone):
             + str(rel_alt)
             + "m"
             + " max_speed:"
-            +str(max_speed)
+            + str(max_speed)
             + "m/s"
             )
         logger_info.info(str(log_txt))
