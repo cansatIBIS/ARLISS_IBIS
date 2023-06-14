@@ -2,6 +2,7 @@ import asyncio
 from mavsdk import System
 import time
 import csv
+import datetime
 
 async def run():
     start = time.time()
@@ -28,8 +29,8 @@ async def run():
         now = time.time()
         if now-start>10:
             break
-
-    with open("/home/pi/ARLISS_IBIS/log/log_csv/gps_test.csv","w") as file:
+    dt_now = datetime.datetime.now()
+    with open(f"/home/pi/ARLISS_IBIS/log/log_csv/gps_test {dt_now}.csv","w") as file:
         writer = csv.writer(file)
         writer.writerow(latitude_list)
         writer.writerow(longitude_list)
