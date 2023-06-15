@@ -47,6 +47,7 @@ def set_logger():
 
     # file Handler
     log_file = create_logger_log_file()
+    print(log_file)
 
     log =  FileHandler(log_file, 'a', encoding='utf-8')
     log.setLevel(INFO)
