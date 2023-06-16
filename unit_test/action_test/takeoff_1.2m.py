@@ -44,7 +44,7 @@ async def run():
             break
 
     print("waiting for pixhawk to hold")
-    
+'''    
     hold_mode = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
     while True:
        if hold_mode==True:
@@ -68,7 +68,7 @@ async def run():
                             
                             print(f"-- Connected to drone!")
                             break
-
+'''
     # Start parallel tasks
     print_altitude_task = asyncio.ensure_future(print_altitude(drone))
     print_flight_mode_task = asyncio.ensure_future(print_flight_mode(drone))
