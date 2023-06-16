@@ -111,7 +111,7 @@ async def print_altitude(drone):
     previous_altitude = 0.0
     async for flight_mode in drone.telemetry.flight_mode():
         mode = flight_mode
-        print("bababababa")
+        break
     async for distance in drone.telemetry.distance_sensor():
         altitude_now = distance.current_distance_m
         if abs(previous_altitude - altitude_now) >= 0.1:
@@ -134,6 +134,7 @@ async def print_flight_mode(drone):
         if flight_mode != previous_flight_mode:
             previous_flight_mode = flight_mode
             print(f"Flight mode: {flight_mode}")
+            break
 
 # logがループに入ってなかったら
 # async def cycle_log(drone):
