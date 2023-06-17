@@ -72,10 +72,11 @@ async def run():
     # Start parallel tasks
     print_altitude_task = asyncio.create_task(print_altitude(drone))
     # print_flight_mode_task = asyncio.create_task(print_flight_mode(drone))
+    arm_takeoff_task = asyncio.create_task(arm_takeoff(drone))
     await print_altitude_task
     # await print_flight_mode_task
     # termination_task = asyncio.ensure_future(observe_is_in_air(drone, print_altitude_task))
-    arm_takeoff_task = asyncio.create_task(arm_takeoff(drone))
+
     await arm_takeoff_task
     
 
