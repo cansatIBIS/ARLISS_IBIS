@@ -4,7 +4,7 @@ import asyncio
 from mavsdk import System
 from logger import logger_info, logger_debug
 
-altitude = 3.0
+altitude = 2.5
 
 async def run():
     """
@@ -116,9 +116,7 @@ async def print_altitude(drone):
     previous_altitude = 0.0
     
     async for distance in drone.telemetry.distance_sensor():
-        async for flight_mode in drone.telemetry.flight_mode():
-            mode = flight_mode
-            break
+        mode = 0
         altitude_now = distance.current_distance_m
         print("difference : {}".format(altitude_now - previous_altitude))
         if abs(previous_altitude - altitude_now) >= 0.1:
