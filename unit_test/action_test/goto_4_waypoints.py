@@ -5,7 +5,7 @@ import datetime
 from mavsdk import System
 from logger import logger_info, logger_debug
 
-
+side_length = 15
 async def run():
     latitude_list = []
     longitude_list = []
@@ -44,24 +44,44 @@ async def run():
     await get_log_task
     await get_gps_list_task
 
-    center = [0,0] #中心の位置
-    init_abs_alt = 0
-    waypoint1 = [center[0]+0.000008983148616*15,center[1]+0.000008983668124*15]
-    waypoint2 = [waypoint1[0]-0.000008983148616*15,waypoint1[1]]
-    waypoint3 = [waypoint2[0],waypoint2[1]-0.000008983668124*15]
-    waypoint4 = [waypoint3[0]+0.000008983148616*15,waypoint3[1]]
-    await drone.action.goto_location(waypoint1[0], waypoint1[1],init_abs_alt+4,180)
-    print("-- reached 1st. waypoint")
-    logger_info.info("-- reached 1st. waypoint")
-    await drone.action.goto_location(waypoint2[0], waypoint2[1],init_abs_alt+6,270)
-    print("-- reached 2nd. waypoint")
-    logger_info.info("-- reached 2nd. waypoint")
-    await drone.action.goto_location(waypoint3[0], waypoint3[1],init_abs_alt+4,0)
-    print("-- reached 3rd. waypoint")
-    logger_info.info("-- reached 2nd. waypoint")
-    await drone.action.goto_location(waypoint4[0], waypoint4[1],init_abs_alt+6,90)
-    print("-- reached 4th. waypoint")
-    logger_info.info("-- reached 2nd. waypoint")
+    center_lat_deg_list = []
+    center_lng_deg_list = []
+    center_abs_alt_list = []
+    for _ in range(10):
+        async for position in drone.telemetry.position():
+            lat_deg = position.latitude_deg
+            lng_deg = position.longitude_deg
+            abs_alt = position.absolute_altitude_m
+            center_lat_deg_list.append(lat_deg)
+            center_lng_deg_list.append(lng_deg)
+            center_abs_alt_list.append(abs_alt) # ブレるかもしれない
+            break
+
+    center_lat_deg_ave = sum(center_lat_deg_list)/10
+    center_lng_deg_ave = sum(center_lng_deg_list)/10
+    center_abs_alt_ave = sum(center_abs_alt_list)/10
+    
+    center = [center_lat_deg_ave, center_lng_deg_ave]
+    lat_deg_per_m = 0.000008983148616
+    lng_deg_per_m = 0.000008983668124
+
+
+    waypoint1 = [center[0] + lat_deg_per_m * side_length, center[1]+lng_deg_per_m * side_length]
+    waypoint2 = [waypoint1[0] - lat_deg_per_m * side_length, waypoint1[1]]
+    waypoint3 = [waypoint2[0], waypoint2[1] - lng_deg_per_m * side_length]
+    waypoint4 = [waypoint3[0] + lat_deg_per_m * side_length, waypoint3[1]]
+    await drone.action.goto_location(waypoint1[0], waypoint1[1], center_abs_alt_ave + 3, 180)
+    print("-- go to 1st. waypoint")
+    logger_info.info("-- go to 1st. waypoint")
+    await drone.action.goto_location(waypoint2[0], waypoint2[1], center_abs_alt_ave + 5, 270)
+    print("-- go to 2nd. waypoint")
+    logger_info.info("-- go to 2nd. waypoint")
+    await drone.action.goto_location(waypoint3[0], waypoint3[1], center_abs_alt_ave + 3, 0)
+    print("-- go to 3rd. waypoint")
+    logger_info.info("-- go to 3rd. waypoint")
+    await drone.action.goto_location(waypoint4[0], waypoint4[1], center_abs_alt_ave + 5, 90)
+    print("-- go to 4th. waypoint")
+    logger_info.info( "-- go to 4th. waypoint")
     print("-- Landing")
     logger_info.info("-- Landing")
     await drone.action.land()

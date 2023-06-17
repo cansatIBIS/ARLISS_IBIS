@@ -8,7 +8,7 @@ from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
 
-
+side_length = 15
 async def run():
     latitude_list = []
     longitude_list = []
@@ -31,14 +31,31 @@ async def run():
         observe_is_in_air(drone, running_tasks))
     get_log_task = asyncio.ensure_future(get_log(drone))
     get_gps_list_task = asyncio.ensure_future(get_gps_list(drone,latitude_list,longitude_list))
+
+    center_lat_deg_list = []
+    center_lng_deg_list = []
+    for _ in range(10):
+        async for position in drone.telemetry.position():
+            lat_deg = position.latitude_deg
+            lng_deg = position.longitude_deg
+            center_lat_deg_list.append(lat_deg)
+            center_lng_deg_list.append(lng_deg)
+            break
+
+    center_lat_deg_ave = sum(center_lat_deg_list)/10
+    center_lng_deg_ave = sum(center_lng_deg_list)/10
+    
+    center = [center_lat_deg_ave, center_lng_deg_ave]
+    lat_deg_per_m = 0.000008983148616
+    lng_deg_per_m = 0.000008983668124
     
     center = [0,0] #中心の位置
-    waypoint1 = [center[0]+0.000008983148616*15,center[1]]
-    waypoint2 = [center[0]-0.000008983148616*15*m.cos(36*m.pi/180),center[1]+0.000008983668124*15*m.sin(36*m.pi/180)]
-    waypoint3 = [center[0]+0.000008983148616*15*m.sin(18*m.pi/180),center[1]-0.000008983668124*15*m.cos(18*m.pi/180)]
-    waypoint4 = [center[0]+0.000008983148616*15*m.sin(18*m.pi/180),center[1]+0.000008983668124*15*m.cos(18*m.pi/180)]
-    waypoint5 = [center[0]-0.000008983148616*15*m.cos(36*m.pi/180),center[1]-0.000008983668124*15*m.sin(36*m.pi/180)]
-    waypoint6 = [center[0]+0.000008983148616*15,center[1]]
+    waypoint1 = [center[0]+lat_deg_per_m*side_length,center[1]]
+    waypoint2 = [center[0]-lat_deg_per_m*side_length*m.cos(36*m.pi/180),center[1]+lng_deg_per_m*15*m.sin(36*m.pi/180)]
+    waypoint3 = [center[0]+lat_deg_per_m*side_length*m.sin(18*m.pi/180),center[1]-lng_deg_per_m*15*m.cos(18*m.pi/180)]
+    waypoint4 = [center[0]+lat_deg_per_m*side_length*m.sin(18*m.pi/180),center[1]+lng_deg_per_m*15*m.cos(18*m.pi/180)]
+    waypoint5 = [center[0]-lat_deg_per_m*side_length*m.cos(36*m.pi/180),center[1]-lng_deg_per_m*15*m.sin(36*m.pi/180)]
+    waypoint6 = [center[0]+lat_deg_per_m*side_length,center[1]]
 
     mission_items = []
     mission_items.append(MissionItem(waypoint1[0],
