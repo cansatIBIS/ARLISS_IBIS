@@ -119,7 +119,6 @@ async def print_altitude(drone):
         break
     async for distance in drone.telemetry.distance_sensor():
         altitude_now = distance.current_distance_m
-        await asyncio.sleep(1)
         if abs(previous_altitude - altitude_now) >= 0.1:
             previous_altitude = altitude_now
             print(f"Altitude: {altitude_now}")
