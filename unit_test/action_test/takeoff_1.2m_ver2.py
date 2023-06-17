@@ -116,7 +116,7 @@ async def print_altitude(drone):
     previous_altitude = 0.0
     
     async for distance in drone.telemetry.distance_sensor():
-        mode = 0
+        mode = drone.telemetry.flight_mode()
         altitude_now = distance.current_distance_m
         print("difference : {}".format(altitude_now - previous_altitude))
         if abs(previous_altitude - altitude_now) >= 0.1:
@@ -125,8 +125,8 @@ async def print_altitude(drone):
 
             logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
        
-        if altitude_now > 1.2:
-            print("over 1.2")
+        if altitude_now > 0.3:
+            print("over 0.3")
             await drone.action.land()
 
 
