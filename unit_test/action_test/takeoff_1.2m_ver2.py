@@ -114,10 +114,11 @@ async def print_altitude(drone):
     """ Prints the altitude when it changes """
 
     previous_altitude = 0.0
-    async for flight_mode in drone.telemetry.flight_mode():
-        mode = flight_mode
-        break
+    
     async for distance in drone.telemetry.distance_sensor():
+        async for flight_mode in drone.telemetry.flight_mode():
+            mode = flight_mode
+            break
         altitude_now = distance.current_distance_m
         print("difference : {}".format(altitude_now - previous_altitude))
         if abs(previous_altitude - altitude_now) >= 0.1:
