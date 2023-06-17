@@ -109,14 +109,20 @@ async def print_altitude(drone):
     """ Prints the altitude when it changes """
 
     previous_altitude = 0.0
+    print("sakamoto")
     async for flight_mode in drone.telemetry.flight_mode():
+        print("arikana")
         mode = flight_mode
+        break
     async for distance in drone.telemetry.distance_sensor():
+        print("matsushima")
         altitude_now = distance.current_distance_m
         if abs(previous_altitude - altitude_now) >= 0.1:
+            print("ibis")
             previous_altitude = altitude_now
             print(f"Altitude: {altitude_now}")
             logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
+            
         
             
         if altitude_now > 1.2:
