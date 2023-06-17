@@ -71,8 +71,8 @@ async def run():
 
     # Start parallel tasks
     print_altitude_task = asyncio.create_task(print_altitude(drone))
-    print_flight_mode_task = asyncio.create_task(print_flight_mode(drone))
-    # await print_altitude_task
+    # print_flight_mode_task = asyncio.create_task(print_flight_mode(drone))
+    await print_altitude_task
     # await print_flight_mode_task
     # termination_task = asyncio.ensure_future(observe_is_in_air(drone, print_altitude_task))
 
@@ -129,17 +129,17 @@ async def print_altitude(drone):
             await drone.action.land()
 
 
-async def print_flight_mode(drone):
-    """ Prints the flight mode when it changes """
+# async def print_flight_mode(drone):
+#     """ Prints the flight mode when it changes """
 
-    previous_flight_mode = None
+#     previous_flight_mode = None
     
 
-    async for flight_mode in drone.telemetry.flight_mode():
-        if flight_mode != previous_flight_mode:
-            previous_flight_mode = flight_mode
-            print(f"Flight mode: {flight_mode}")
-            break
+#     async for flight_mode in drone.telemetry.flight_mode():
+#         if flight_mode != previous_flight_mode:
+#             previous_flight_mode = flight_mode
+#             print(f"Flight mode: {flight_mode}")
+#             break
 
 # logがループに入ってなかったら
 # async def cycle_log(drone):
