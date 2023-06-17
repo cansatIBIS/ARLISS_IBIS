@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-import os
+
 import asyncio
 from mavsdk import System
-import sys
-sys.path.append("../log_test")
 from logger import logger_info, logger_debug
-os.chdir("/home/pi/ARLISS_IBIS")
+
 altitude = 3.0
 
 async def run():
@@ -46,32 +44,32 @@ async def run():
             break
 
     print("waiting for pixhawk to hold")
-    '''    
-    hold_mode = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
-    while True:
-       if hold_mode==True:
-           break
-       async for flight_mode in drone.telemetry.flight_mode():
-           if str(flight_mode) == "HOLD":
-               print("hold checked")
-               hold_mode=True
-               break
-           else:
-               try:
-                   await drone.action.hold() #holdじゃない状態からholdしようてしても無理だからもう一回exceptで繋ぎなおす
-               except Exception as e:
-                   print(e)
-                   drone = System()
-                   await drone.connect(system_address="serial:///dev/ttyACM0:115200")
-                   print("Waiting for drone to connect...")
-                   async for state in drone.core.connection_state():
+    
+    # hold_mode = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
+    # while True:
+    #    if hold_mode==True:
+    #        break
+    #    async for flight_mode in drone.telemetry.flight_mode():
+    #        if str(flight_mode) == "HOLD":
+    #            print("hold checked")
+    #            hold_mode=True
+    #            break
+    #        else:
+    #            try:
+    #                await drone.action.hold() #holdじゃない状態からholdしようてしても無理だからもう一回exceptで繋ぎなおす
+    #            except Exception as e:
+    #                print(e)
+    #                drone = System()
+    #                await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    #                print("Waiting for drone to connect...")
+    #                async for state in drone.core.connection_state():
 
-                        if state.is_connected:
+    #                     if state.is_connected:
                             
-                            print(f"-- Connected to drone!")
-                            break
-    '''
-    # Start parallel task
+    #                         print(f"-- Connected to drone!")
+    #                         break
+
+    # Start parallel tasks
     print_altitude_task = asyncio.ensure_future(print_altitude(drone))
     print_flight_mode_task = asyncio.ensure_future(print_flight_mode(drone))
     await print_altitude_task
@@ -113,7 +111,7 @@ async def print_altitude(drone):
     previous_altitude = 0.0
     async for flight_mode in drone.telemetry.flight_mode():
         mode = flight_mode
-    async for distance in drone.telemetry.distance_sensor:
+    async for distance in drone.telemetry.distance_sensor():
         altitude_now = distance.current_distance_m
         if abs(previous_altitude - altitude_now) >= 0.1:
             previous_altitude = altitude_now
@@ -135,7 +133,6 @@ async def print_flight_mode(drone):
         if flight_mode != previous_flight_mode:
             previous_flight_mode = flight_mode
             print(f"Flight mode: {flight_mode}")
-            break
 
 # logがループに入ってなかったら
 # async def cycle_log(drone):
