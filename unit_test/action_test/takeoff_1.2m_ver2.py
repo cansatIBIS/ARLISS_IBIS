@@ -31,11 +31,11 @@ async def run():
 
     # cycle_log_task = asyncio.ensure_future(cycle_log(drone))
     # await cycle_log_task
-
+    print("Waiting for drone to connect...")
     # await drone.connect(system_address="udp://:14540")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
-    print("Waiting for drone to connect...")
+    
     logger_info.info("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
         if state.is_connected:
