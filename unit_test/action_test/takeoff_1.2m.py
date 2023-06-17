@@ -71,9 +71,9 @@ async def run():
 
     # Start parallel tasks
     print_altitude_task = asyncio.create_task(print_altitude(drone))
-    # print_flight_mode_task = asyncio.create_task(print_flight_mode(drone))
+    print_flight_mode_task = asyncio.create_task(print_flight_mode(drone))
     await print_altitude_task
-    # await print_flight_mode_task
+    await print_flight_mode_task
     # termination_task = asyncio.ensure_future(observe_is_in_air(drone, print_altitude_task))
 
 
@@ -118,7 +118,7 @@ async def print_altitude(drone):
         print("matsushima")
         altitude_now = distance.current_distance_m
         await asyncio.sleep(1)
-        if abs(previous_altitude - altitude_now) >= 0.1:
+        if abs(previous_altitude - altitude_now) >= 0.05:
             print("ibis")
             previous_altitude = altitude_now
             print(f"Altitude: {altitude_now}")
