@@ -100,7 +100,7 @@ async def arm_takeoff(drone):
     await drone.action.set_takeoff_altitude(altitude)
     await drone.action.takeoff()
 
-    await asyncio.sleep(20)
+    await asyncio.sleep(5)
 
     print("-- Landing")
     logger_info.info("-- Landing")
