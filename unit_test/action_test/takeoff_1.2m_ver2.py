@@ -124,6 +124,7 @@ async def print_altitude(drone):
         if abs(previous_altitude - altitude_now) >= 0.1:
             previous_altitude = altitude_now
             print(f"Altitude: {altitude_now}")
+
             logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
        
         if altitude_now > 1.2:
