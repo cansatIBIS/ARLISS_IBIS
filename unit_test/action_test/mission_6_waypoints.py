@@ -49,7 +49,6 @@ async def run():
     lat_deg_per_m = 0.000008983148616
     lng_deg_per_m = 0.000008983668124
     
-    center = [0,0] #中心の位置
     waypoint1 = [center[0]+lat_deg_per_m*side_length,center[1]]
     waypoint2 = [center[0]-lat_deg_per_m*side_length*m.cos(36*m.pi/180),center[1]+lng_deg_per_m*15*m.sin(36*m.pi/180)]
     waypoint3 = [center[0]+lat_deg_per_m*side_length*m.sin(18*m.pi/180),center[1]-lng_deg_per_m*15*m.cos(18*m.pi/180)]
