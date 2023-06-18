@@ -9,9 +9,10 @@ orbit_radius = [5,7,9]
 
 async def run():
     drone = System()
+    
+    print("Waiting for drone to connect...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
-    print("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
         if state.is_connected:
             print("Drone discovered!")

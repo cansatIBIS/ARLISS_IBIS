@@ -13,6 +13,8 @@ hovering_hight = 5
 async def run():
 
     drone = System()
+    
+    print("Waiting for drone to connect...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     status_text_task = asyncio.ensure_future(print_status_text(drone))
