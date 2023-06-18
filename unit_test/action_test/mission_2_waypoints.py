@@ -49,8 +49,8 @@ async def run():
         break
     print("got gps")
 
-    center_lat_deg_ave = sum(center_lat_deg_list)/10
-    center_lng_deg_ave = sum(center_lng_deg_list)/10
+    center_lat_deg_ave = sum(center_lat_deg_list)/1
+    center_lng_deg_ave = sum(center_lng_deg_list)/1
     
     center = [center_lat_deg_ave, center_lng_deg_ave]
 
