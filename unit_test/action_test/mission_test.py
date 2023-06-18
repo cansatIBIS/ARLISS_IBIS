@@ -8,6 +8,8 @@ from mavsdk.mission import (MissionItem, MissionPlan)
 
 async def run():
     drone = System()
+    
+    print("Waiting for drone to connect...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     print("Waiting for drone to connect...")
