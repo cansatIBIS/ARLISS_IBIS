@@ -111,7 +111,7 @@ async def run():
                                      float('nan'),
                                      float('nan')))
     mission_items.append(MissionItem(waypoint5[0],
-                                     waypoint6[1],
+                                     waypoint5[1],
                                      3,
                                      5,
                                      True,
@@ -123,7 +123,7 @@ async def run():
                                      float('nan'),
                                      float('nan'),
                                      float('nan')))
-    mission_items.append(MissionItem(waypoint5[0],
+    mission_items.append(MissionItem(waypoint6[0],
                                      waypoint6[1],
                                      5,
                                      5,
