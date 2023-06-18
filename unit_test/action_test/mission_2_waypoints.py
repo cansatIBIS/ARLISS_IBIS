@@ -34,25 +34,26 @@ async def run():
     get_log_task = asyncio.ensure_future(get_log(drone))
     get_gps_list_task = asyncio.ensure_future(get_gps_list(drone,latitude_list,longitude_list))
 
-    center_lat_deg_list = []
-    center_lng_deg_list = []
+    # center_lat_deg_list = []
+    # center_lng_deg_list = []
     print("getting gps")
     # for i in range(10):
     #     print("NO{}".format(i))
-    async for position in drone.telemetry.position():
-        print("a")
-        lat_deg = position.latitude_deg
-        lng_deg = position.longitude_deg
-        center_lat_deg_list.append(lat_deg)
-        center_lng_deg_list.append(lng_deg)
-        print("b")
-        break
-    print("got gps")
+    # async for position in drone.telemetry.position():
+    #     print("a")
+    #     lat_deg = position.latitude_deg
+    #     lng_deg = position.longitude_deg
+    #     center_lat_deg_list.append(lat_deg)
+    #     center_lng_deg_list.append(lng_deg)
+    #     print("b")
+    #     break
+    # print("got gps")
 
-    center_lat_deg_ave = sum(center_lat_deg_list)/1
-    center_lng_deg_ave = sum(center_lng_deg_list)/1
+    # center_lat_deg_ave = sum(center_lat_deg_list)/1
+    # center_lng_deg_ave = sum(center_lng_deg_list)/1
     
-    center = [center_lat_deg_ave, center_lng_deg_ave]
+    # center = [center_lat_deg_ave, center_lng_deg_ave]
+    center = [35.796823599999996, 139.8914917]
 
     
     waypoint1 = [center[0] + lat_deg_per_m * north_m, center[1]]
