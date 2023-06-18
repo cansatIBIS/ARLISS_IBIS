@@ -37,16 +37,16 @@ async def run():
     center_lat_deg_list = []
     center_lng_deg_list = []
     print("getting gps")
-    for i in range(10):
-        print("NO{}".format(i))
-        async for position in drone.telemetry.position():
-            print("a")
-            lat_deg = position.latitude_deg
-            lng_deg = position.longitude_deg
-            center_lat_deg_list.append(lat_deg)
-            center_lng_deg_list.append(lng_deg)
-            print("b")
-            break
+    # for i in range(10):
+    #     print("NO{}".format(i))
+    async for position in drone.telemetry.position():
+        print("a")
+        lat_deg = position.latitude_deg
+        lng_deg = position.longitude_deg
+        center_lat_deg_list.append(lat_deg)
+        center_lng_deg_list.append(lng_deg)
+        print("b")
+        break
     print("got gps")
 
     center_lat_deg_ave = sum(center_lat_deg_list)/10
