@@ -5,7 +5,7 @@ import datetime
 from mavsdk import System
 from logger import logger_info, logger_debug
 
-side_length = 15
+side_length = 5
 lat_deg_per_m = 0.000008983148616
 lng_deg_per_m = 0.000008983668124
 

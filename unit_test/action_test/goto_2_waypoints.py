@@ -5,8 +5,8 @@ import datetime
 from mavsdk import System
 from logger import logger_info, logger_debug
 
-north_m = 20
-south_m = -40
+north_m = 5
+south_m = -10
 lat_deg_per_m = 0.000008983148616
 
 async def run():
