@@ -3,9 +3,9 @@
 import asyncio
 from mavsdk import System
 from logger import logger_info, logger_debug
-from logger import logger_info, logger_debug
 
-altitude = 3.0
+altitude = 2.5
+mode = None
 
 async def run():
     """
@@ -32,21 +32,15 @@ async def run():
 
     # cycle_log_task = asyncio.ensure_future(cycle_log(drone))
     # await cycle_log_task
-
-
-    # cycle_log_task = asyncio.ensure_future(cycle_log(drone))
-    # await cycle_log_task
-
+    print("Waiting for drone to connect...")
     # await drone.connect(system_address="udp://:14540")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
-    print("Waiting for drone to connect...")
-    logger_info.info("Waiting for drone to connect...")
+    
     logger_info.info("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
         if state.is_connected:
             print(f"-- Connected to drone!")
-            logger_info.info("-- Connected to drone!")
             logger_info.info("-- Connected to drone!")
             break
 
@@ -79,10 +73,13 @@ async def run():
     # Start parallel tasks
     print_altitude_task = asyncio.create_task(print_altitude(drone))
     print_flight_mode_task = asyncio.create_task(print_flight_mode(drone))
+    arm_takeoff_task = asyncio.create_task(arm_takeoff(drone))
     await print_altitude_task
     await print_flight_mode_task
     # termination_task = asyncio.ensure_future(observe_is_in_air(drone, print_altitude_task))
 
+    await arm_takeoff_task
+    
 
 
     # async for health in drone.telemetry.health():
@@ -92,24 +89,21 @@ async def run():
 
 
     # Execute the maneuvers
+
+async def arm_takeoff(drone):
     print("-- Arming")
-    logger_info.info("-- Arming")
     logger_info.info("-- Arming")
     await drone.action.arm()
     print("-- Armed")
     logger_info.info("-- Armed")
-    print("-- Armed")
-    logger_info.info("-- Armed")
     print("-- Taking off")
-    logger_info.info("-- Taking off")
     logger_info.info("-- Taking off")
     await drone.action.set_takeoff_altitude(altitude)
     await drone.action.takeoff()
 
-    await asyncio.sleep(10)
+    await asyncio.sleep(20)
 
     print("-- Landing")
-    logger_info.info("-- Landing")
     logger_info.info("-- Landing")
     await drone.action.land()
 
@@ -121,55 +115,35 @@ async def print_altitude(drone):
     """ Prints the altitude when it changes """
 
     previous_altitude = 0.0
-    print("sakamoto")
-    async for flight_mode in drone.telemetry.flight_mode():
-        print("arikana")
-        mode = flight_mode
-        break
+    
     async for distance in drone.telemetry.distance_sensor():
-        print("matsushima")
+        # mode = drone.telemetry.flight_mode()
         altitude_now = distance.current_distance_m
-        await asyncio.sleep(1)
-        if abs(previous_altitude - altitude_now) >= 0.05:
-            print("ibis")
+        print("difference : {}".format(altitude_now - previous_altitude))
+        if abs(previous_altitude - altitude_now) >= 0.1:
             previous_altitude = altitude_now
             print(f"Altitude: {altitude_now}")
-            logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
 
-        
-            
-        if altitude_now > 1.2:
+            logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
+       
+        if altitude_now > 0.3:
+            print("over 0.3")
             await drone.action.land()
 
 
-# async def print_flight_mode(drone):
-#     """ Prints the flight mode when it changes """
+async def print_flight_mode(drone):
+    """ Prints the flight mode when it changes """
 
-#     previous_flight_mode = None
+    # previous_flight_mode = None
     
 
-#     async for flight_mode in drone.telemetry.flight_mode():
-#         if flight_mode != previous_flight_mode:
-#             previous_flight_mode = flight_mode
-#             print(f"Flight mode: {flight_mode}")
-#             break
-
-# logがループに入ってなかったら
-# async def cycle_log(drone):
-#     mode = None
-#     height = None
-#     while True:   
-#         async for flight_mode in drone.telemetry.flight_mode():
-#             mode = flight_mode
-#         async for distance in drone.telemetry.distance_sensor:
-#             height = distance.current_distance_m
-
-#         logger_info.info(f"mode:{mode} lidar:{height}m ")
-
-        # logが一生終わらなくてウザかったら
-        # if mode == 6 :
-        #     await asyncio.sleep(10)
-        #     break
+    async for flight_mode in drone.telemetry.flight_mode():
+        mode = flight_mode
+        # if flight_mode != previous_flight_mode:
+        #     previous_flight_mode = flight_mode
+        #     print(f"Flight mode: {flight_mode}")
+            # break
+            
 
 # logがループに入ってなかったら
 # async def cycle_log(drone):

@@ -3,7 +3,7 @@ import os
 import datetime
 
 def create_logger_log_file():
-    LOG_DIR = os.path.abspath("/ARLISS_IBIS/log")
+    LOG_DIR = os.path.abspath("~/ARLISS_IBIS/log")
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
     log_path = LOG_DIR + "/" + str(datetime.date.today())
@@ -47,6 +47,7 @@ def set_logger():
 
     # file Handler
     log_file = create_logger_log_file()
+    print(log_file)
 
     log =  FileHandler(log_file, 'a', encoding='utf-8')
     log.setLevel(INFO)
