@@ -7,6 +7,8 @@ from logger import logger_info, logger_debug
 
 north_m = 20
 south_m = -40
+lat_deg_per_m = 0.000008983148616
+
 async def run():
     latitude_list = []
     longitude_list = []
@@ -63,7 +65,7 @@ async def run():
     center_abs_alt_ave = sum(center_abs_alt_list)/10
     
     center = [center_lat_deg_ave, center_lng_deg_ave]
-    lat_deg_per_m = 0.000008983148616
+    
 
     waypoint1 = [center[0] + lat_deg_per_m * north_m, center[1]]
     waypoint2 = [center[0] + lat_deg_per_m * south_m, center[1]]
