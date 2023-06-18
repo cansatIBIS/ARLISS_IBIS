@@ -8,6 +8,8 @@ from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
 
 side_length = 15
+lat_deg_per_m = 0.000008983148616
+lng_deg_per_m = 0.000008983668124
 
 async def run():
     latitude_list = []
@@ -46,8 +48,7 @@ async def run():
     center_lng_deg_ave = sum(center_lng_deg_list)/10
     
     center = [center_lat_deg_ave, center_lng_deg_ave]
-    lat_deg_per_m = 0.000008983148616
-    lng_deg_per_m = 0.000008983668124
+    
     
     waypoint1 = [center[0] + lat_deg_per_m * side_length, center[1] + lng_deg_per_m * side_length]
     waypoint2 = [waypoint1[0] - lat_deg_per_m * side_length, waypoint1[1]]
