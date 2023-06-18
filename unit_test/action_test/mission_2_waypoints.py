@@ -38,6 +38,7 @@ async def run():
     center_lng_deg_list = []
     print("getting gps")
     for i in range(10):
+        print("NO{}".format(i))
         async for position in drone.telemetry.position():
             lat_deg = position.latitude_deg
             lng_deg = position.longitude_deg
