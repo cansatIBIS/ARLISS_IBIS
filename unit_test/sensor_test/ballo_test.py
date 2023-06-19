@@ -17,6 +17,7 @@ async def run():
         if state.is_connected:
             print(f"-- Connected to drone!")
             break
+    print("a")
         
     async for pressure in drone.telemetry.scaled_pressure():
         print(pressure)
