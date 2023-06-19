@@ -1,13 +1,12 @@
 #lidarがわからないと無理そう
 
 import asyncio
-import pigpio
 import time
 from mavsdk import System
 
 
 #高さ指定
-hovering_hight = 5
+hovering_hight = 2.5
                 
                 
 async def run():
@@ -48,7 +47,6 @@ async def run():
     async for position in drone.telemetry.position():
         lati_deg, long_deg = position.latitude_deg, position.longitude_deg
         
-    hovering_hight += absolute_altitude
     await drone.action.goto_location(lati_deg, long_deg, hovering_hight, 0)
     print("-- Reached the hovering hight")
     
