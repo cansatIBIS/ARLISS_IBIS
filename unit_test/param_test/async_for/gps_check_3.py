@@ -11,6 +11,8 @@ async def print_gps():
             print("-- Connected to drone!")
             break
     asyncio.ensure_future(print_position(drone))
+    while True:
+        await asyncio.sleep(1)
 
 async def print_position(drone):
     async for position in drone.telemetry.position():
