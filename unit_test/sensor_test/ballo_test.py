@@ -21,6 +21,7 @@ async def run():
     asyncio.ensure_future(print_pressure(drone))
     
     while True:
+        print("a")
         await asyncio.sleep(1)
         
 async def print_pressure(drone):
