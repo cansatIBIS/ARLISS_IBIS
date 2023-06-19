@@ -11,7 +11,9 @@ async def print_gps():
             print("-- Connected to drone!")
             break
     for i in range(10):
-            async for position in drone.telemetry.position():
+        print("a")
+        async for position in drone.telemetry.position():
+                print("b")
                 print(position)
                 break
             
