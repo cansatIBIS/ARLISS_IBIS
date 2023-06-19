@@ -15,8 +15,8 @@ async def run():
     asyncio.ensure_future(print_in_air(drone))
     asyncio.ensure_future(print_position(drone))
 
-    # while True:
-    #     await asyncio.sleep(1)
+    while True:
+        await asyncio.sleep(1)
 
 
 async def print_battery(drone):
