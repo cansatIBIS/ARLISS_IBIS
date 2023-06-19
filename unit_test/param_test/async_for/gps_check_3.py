@@ -10,8 +10,9 @@ async def print_gps():
         if state.is_connected:
             print("-- Connected to drone!")
             break
-    # for i in range(10):
-        # print("a")
+    asyncio.ensure_future(print_position(drone))
+
+async def print_position(drone):
     async for position in drone.telemetry.position():
             print("b")
             print(position)
