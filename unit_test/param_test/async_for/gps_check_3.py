@@ -18,6 +18,5 @@ async def print_position(drone):
     async for position in drone.telemetry.position():
             print("b")
             print(position)
-            break
             
 asyncio.run(print_gps())
