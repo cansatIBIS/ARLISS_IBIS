@@ -24,9 +24,7 @@ async def run():
         await asyncio.sleep(1)
         
 async def print_pressure(drone):
-    print("a")
     async for pressure in drone.telemetry.scaled_pressure():
-        print("b")
         print(pressure)
 
 if __name__ == "__main__":
