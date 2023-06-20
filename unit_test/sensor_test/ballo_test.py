@@ -25,7 +25,7 @@ async def run():
         
 async def print_pressure(drone):
     async for pressure in drone.telemetry.scaled_pressure():
-        print(pressure.absolute_pressure_hpa)
+        print(pressure)
 
 if __name__ == "__main__":
     # Run the asyncio loop
