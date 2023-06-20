@@ -15,10 +15,11 @@ async def run():
     asyncio.ensure_future(print_in_air(drone))
     asyncio.ensure_future(print_position(drone))
 
-    while True:
-        await asyncio.sleep(1)
-
-
+    # while True:
+    #     await asyncio.sleep(1)
+    await asyncio.sleep(1)
+    #2行を消して、この1行を代わりに挿入すると1秒情報をプリントしてそのあと終了判定されるはず
+    
 async def print_battery(drone):
     async for battery in drone.telemetry.battery():
         print(f"Battery: {battery.remaining_percent}")
