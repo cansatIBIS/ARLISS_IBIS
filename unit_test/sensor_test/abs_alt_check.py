@@ -15,34 +15,30 @@ async def run():
         if state.is_connected:
             print(f"-- Connected to drone!")
             break
-    center_lat_deg_list = []
-    center_lng_deg_list = []
-    async for _ in range(10):
-        async for position in drone.telemetry.position():
-            lat_deg = position.latitude_deg
-            lng_deg = position.longitude_deg
-            center_lat_deg_list.append(lat_deg)
-            center_lng_deg_list.append(lng_deg)
-            break
-    print("got gps")
+    # center_lat_deg_list = []
+    # center_lng_deg_list = []
+    # async for _ in range(10):
+    #     async for position in drone.telemetry.position():
+    #         lat_deg = position.latitude_deg
+    #         lng_deg = position.longitude_deg
+    #         center_lat_deg_list.append(lat_deg)
+    #         center_lng_deg_list.append(lng_deg)
+    #         break
+    # print("got gps")
 
-    center_lat_deg_ave = sum(center_lat_deg_list)/10
-    center_lng_deg_ave = sum(center_lng_deg_list)/10
+    # center_lat_deg_ave = sum(center_lat_deg_list)/10
+    # center_lng_deg_ave = sum(center_lng_deg_list)/10
     
-    center = [center_lat_deg_ave, center_lng_deg_ave]
-    print(f"中心の緯度={center[0]}")
-    print(f"中心の経度={center[1]}")
+    # center = [center_lat_deg_ave, center_lng_deg_ave]
+    # print(f"中心の緯度={center[0]}")
+    # print(f"中心の経度={center[1]}")
     
-    abs_alt_list = []
-    async for _ in range(10):
-        async for position in drone.telemetry.position():
-            abs_alt=position.absolute_altitude_m
-            abs_alt_list.append(abs_alt)
-            print(abs_alt)
-            break
+    init_abs_alt=0
+    async for position in drone.telemetry.position():
+        init_abs_alt=position.absolute_altitude_m
+        print(init_abs_alt)
+        break
 
-    center_abs_alt_ave=sum(abs_alt_list)/10
-    print(f"cnter_abs_alt_ave={center_abs_alt_ave}")
     rel_alt_lst=[]
     lidar_lst=[]
     while True:
@@ -51,7 +47,7 @@ async def run():
             break
         async for position in drone.telemetry.position():
             abs_alt = position.absolute_altitude_m
-            rel_alt = abs_alt - center_abs_alt_ave
+            rel_alt = abs_alt - init_abs_alt
             rel_alt_lst.append(rel_alt)
             break
         now = time.time()
