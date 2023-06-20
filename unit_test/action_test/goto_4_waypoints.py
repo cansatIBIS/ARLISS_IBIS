@@ -4,14 +4,21 @@ import csv
 import datetime
 from mavsdk import System
 from logger import logger_info, logger_debug
+import atexit
 
 side_length = 5
 lat_deg_per_m = 0.000008983148616
 lng_deg_per_m = 0.000008983668124
+latitude_list = []
+longitude_list = []
+lidar_list = []
+alt_list = []
+center_lat_deg = 0
+center_lng_deg = 0
+center_abs_alt = 0
 
 async def run():
-    latitude_list = []
-    longitude_list = []
+    
     drone = System()
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
@@ -24,7 +31,7 @@ async def run():
             break
 
     get_log_task = asyncio.ensure_future(get_log(drone))
-    get_gps_list_task = asyncio.ensure_future(get_gps_list(drone,latitude_list,longitude_list))
+    get_gps_list_task = asyncio.ensure_future(get_csv_list(drone,latitude_list,longitude_list))
     
     print("Waiting for drone to have a global position estimate...")
     logger_info.info("Waiting for drone to have a global position estimate...")
@@ -47,54 +54,35 @@ async def run():
     await get_log_task
     await get_gps_list_task
 
-    center_lat_deg_list = []
-    center_lng_deg_list = []
-    center_abs_alt_list = []
-    for _ in range(10):
-        async for position in drone.telemetry.position():
-            lat_deg = position.latitude_deg
-            lng_deg = position.longitude_deg
-            abs_alt = position.absolute_altitude_m
-            center_lat_deg_list.append(lat_deg)
-            center_lng_deg_list.append(lng_deg)
-            center_abs_alt_list.append(abs_alt) # ブレるかもしれない
-            break
-
-    center_lat_deg_ave = sum(center_lat_deg_list)/10
-    center_lng_deg_ave = sum(center_lng_deg_list)/10
-    center_abs_alt_ave = sum(center_abs_alt_list)/10
     
-    center = [center_lat_deg_ave, center_lng_deg_ave]
+    async for position in drone.telemetry.position():
+        center_lat_deg = position.latitude_deg
+        center_lng_deg = position.longitude_deg
+        center_abs_alt = position.absolute_altitude_m
+        break
     
-
+    center = [center_lat_deg, center_lng_deg]
+    
 
     waypoint1 = [center[0] + lat_deg_per_m * side_length, center[1]+lng_deg_per_m * side_length]
     waypoint2 = [waypoint1[0] - lat_deg_per_m * side_length, waypoint1[1]]
     waypoint3 = [waypoint2[0], waypoint2[1] - lng_deg_per_m * side_length]
     waypoint4 = [waypoint3[0] + lat_deg_per_m * side_length, waypoint3[1]]
-    await drone.action.goto_location(waypoint1[0], waypoint1[1], center_abs_alt_ave + 3, 180)
+    await drone.action.goto_location(waypoint1[0], waypoint1[1], center_abs_alt + 4, 180)
     print("-- go to 1st. waypoint")
     logger_info.info("-- go to 1st. waypoint")
-    await drone.action.goto_location(waypoint2[0], waypoint2[1], center_abs_alt_ave + 5, 270)
+    await drone.action.goto_location(waypoint2[0], waypoint2[1], center_abs_alt + 5, 270)
     print("-- go to 2nd. waypoint")
     logger_info.info("-- go to 2nd. waypoint")
-    await drone.action.goto_location(waypoint3[0], waypoint3[1], center_abs_alt_ave + 3, 0)
+    await drone.action.goto_location(waypoint3[0], waypoint3[1], center_abs_alt + 4, 0)
     print("-- go to 3rd. waypoint")
     logger_info.info("-- go to 3rd. waypoint")
-    await drone.action.goto_location(waypoint4[0], waypoint4[1], center_abs_alt_ave + 5, 90)
+    await drone.action.goto_location(waypoint4[0], waypoint4[1], center_abs_alt + 5, 90)
     print("-- go to 4th. waypoint")
     logger_info.info( "-- go to 4th. waypoint")
     print("-- Landing")
     logger_info.info("-- Landing")
     await drone.action.land()
-
-    
-    if drone.mission.is_mission_finished():
-        dt_now = datetime.datetime.now()
-        with open(f"/home/pi/ARLISS_IBIS/log/log_csv/goto_4_waypoints {dt_now}.csv","w") as file:
-            writer = csv.writer(file)
-            writer.writerow(latitude_list)
-            writer.writerow(longitude_list)
 
 
 async def observe_is_in_air(drone, running_tasks):
@@ -125,8 +113,6 @@ async def get_log(drone):
         lidar = distance.current_distance_m
         break
     async for position in drone.telemetry.position():
-        lat = position.latitude_deg
-        lng = position.longitude_deg
         abs_alt = position.absolute_altitude_m
         rel_alt = position.relative_altitude_m
         break
@@ -153,13 +139,29 @@ async def get_log(drone):
         logger_info.info(str(log_txt))
         await asyncio.sleep(0.3)
 
-async def get_gps_list(drone,latitude_list,longitude_list):
+async def get_csv_list(drone,latitude_list,longitude_list,lidar_list,alt_list):
      while True:
         async for position in drone.telemetry.position():
             latitude_list.append(position.latitude_deg)
             longitude_list.append(position.longitude_deg)
-            break #async forのループから抜け出す
+            abs_alt = position.absolute_altitude_m
+            rel_alt = abs_alt - center_abs_alt
+            alt_list.append(rel_alt)
+        async for distance in drone.telemetry.distance_sensor():
+            lidar_list.append(distance.current_distance_m)
+            break
+
+@atexit.register
+def get_csv():
+    dt_now = datetime.datetime.now()
+    with open(f"/home/pi/ARLISS_IBIS/log/log_csv/goto_4_waypoints {dt_now}.csv","w") as file:
+        writer = csv.writer(file)
+        writer.writerow(latitude_list)
+        writer.writerow(longitude_list)
+        writer.writerow(alt_list)
+        writer.writerow(lidar_list)
 
 if __name__ == "__main__":
     # Run the asyncio loop
     asyncio.run(run())
+    
