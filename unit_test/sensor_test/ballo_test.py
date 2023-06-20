@@ -18,8 +18,8 @@ async def run():
             print(f"-- Connected to drone!")
             break
         
-    task = asyncio.ensure_future(print_pressure())
-    await print_pressure(drone)
+    task = asyncio.ensure_future(print_pressure(drone))
+    await task
     
     while True:
         await asyncio.sleep(1)
