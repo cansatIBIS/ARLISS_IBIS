@@ -20,13 +20,13 @@ async def run():
         
     print_altitude_task = asyncio.create_task(print_altitude(drone))
     print_flight_mode_task = asyncio.create_task(print_flight_mode(drone))
-    arm_takeoff_task = asyncio.create_task(arm_takeoff(drone))
+    arm_takeoff_task = asyncio.create_task(arm_takeoff_land(drone))
     await print_altitude_task
     await print_flight_mode_task
     await arm_takeoff_task
     
 
-async def arm_takeoff(drone):
+async def arm_takeoff_land(drone):
     print("-- Arming")
     logger_info.info("-- Arming")
     await drone.action.arm()
