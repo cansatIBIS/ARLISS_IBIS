@@ -51,7 +51,7 @@ async def run():
             rel_alt_lst.append(rel_alt)
             break
         now = time.time()
-        if now-start>60:
+        if now-start>90:
             break
     dt_now = datetime.datetime.now()
     with open(f"/home/pi/ARLISS_IBIS/log/log_csv/gps_test {dt_now}.csv","w") as file:
