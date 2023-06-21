@@ -42,19 +42,6 @@ async def run():
             print("-- Global position estimate OK")
             logger_info.info("-- Global position estimate OK")
             break
-
-    print("-- Arming")
-    logger_info.info("-- Arming")
-    await drone.action.arm()
-
-    print("-- Taking off")
-    logger_info.info("-- Taking off")
-    await drone.action.set_takeoff_altitude(3)
-    await drone.action.takeoff()
-
-    await get_log_task
-    await get_gps_list_task
-
     
     async for position in drone.telemetry.position():
         center_lat_deg = position.latitude_deg
@@ -63,6 +50,28 @@ async def run():
         break
     
     center = [center_lat_deg, center_lng_deg]
+
+    if center == [0, 0]:
+        print("No center GPS")
+    else:
+        print(f"center GPS:{center}")
+    
+    print("-- Arming")
+    logger_info.info("-- Arming")
+    await drone.action.arm()
+
+    await get_log_task
+    await get_gps_list_task
+
+    print("-- Taking off")
+    logger_info.info("-- Taking off")
+    await drone.action.set_takeoff_altitude(3)
+    await drone.action.takeoff()
+
+    
+
+    
+    
     
     waypoint1 = [center[0] + lat_deg_per_m * side_length, center[1]]
     waypoint2 = [center[0] - lat_deg_per_m * side_length * m.cos(36*m.pi/180),center[1] + lng_deg_per_m * side_length * m.sin(36*m.pi/180)]
