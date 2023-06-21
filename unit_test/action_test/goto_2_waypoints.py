@@ -31,7 +31,7 @@ async def run():
             logger_info.info("-- Connected to drone!")
             break
 
-    get_log_task = asyncio.ensure_future(get_log(drone))
+    # get_log_task = asyncio.ensure_future(get_log(drone))
     get_gps_list_task = asyncio.ensure_future(get_csv_list(drone))
     
     print("Waiting for drone to have a global position estimate...")
@@ -64,7 +64,7 @@ async def run():
 
     
     
-    await get_log_task
+    # await get_log_task
     await get_gps_list_task
 
     print("-- Taking off")
@@ -107,39 +107,39 @@ async def observe_is_in_air(drone, running_tasks):
 
             return
     
-async def get_log(drone):
-    async for flight_mode in drone.telemetry.flight_mode():
-        mode = flight_mode
-        break
-    async for distance in drone.telemetry.distance_sensor():
-        lidar = distance.current_distance_m
-        break
-    async for position in drone.telemetry.position():
-        abs_alt = position.absolute_altitude_m
-        rel_alt = position.relative_altitude_m
-        break
-    # async for speed in drone.action.get_maxium_speed():
-    #     max_speed  = speed
-    #     break
-    while True:
-        log_txt = (
-            + " mode:"
-            + str(mode)
-            + " lidar: "
-            + str(lidar)
-            + "m"
-            + " abs_alt:"
-            + str(abs_alt)
-            + "m"
-            + " rel_alt:"
-            + str(rel_alt)
-            + "m"
-            # + " max_speed:"
-            # +str(max_speed)
-            # + "m/s"
-            )
-        logger_info.info(str(log_txt))
-        await asyncio.sleep(0.3)
+# async def get_log(drone):
+#     async for flight_mode in drone.telemetry.flight_mode():
+#         mode = flight_mode
+#         break
+#     async for distance in drone.telemetry.distance_sensor():
+#         lidar = distance.current_distance_m
+#         break
+#     async for position in drone.telemetry.position():
+#         abs_alt = position.absolute_altitude_m
+#         rel_alt = position.relative_altitude_m
+#         break
+#     # async for speed in drone.action.get_maxium_speed():
+#     #     max_speed  = speed
+#     #     break
+#     while True:
+#         log_txt = (
+#             + " mode:"
+#             + str(mode)
+#             + " lidar: "
+#             + str(lidar)
+#             + "m"
+#             + " abs_alt:"
+#             + str(abs_alt)
+#             + "m"
+#             + " rel_alt:"
+#             + str(rel_alt)
+#             + "m"
+#             # + " max_speed:"
+#             # +str(max_speed)
+#             # + "m/s"
+#             )
+#         logger_info.info(str(log_txt))
+#         await asyncio.sleep(0.3)
 
 async def get_csv_list(drone):
      global center_abs_alt
