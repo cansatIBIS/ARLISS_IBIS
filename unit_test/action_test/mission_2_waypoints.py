@@ -7,8 +7,8 @@ from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
 
-north_m = 5
-south_m = -10
+north_m = 10
+south_m = -15
 lat_deg_per_m = 0.000008983148616
 
 async def run():
@@ -116,6 +116,7 @@ async def run():
     await get_log_task
     await get_gps_list_task
     if drone.mission.is_mission_finished():
+        await drone.action.land()
         dt_now = datetime.datetime.now()
         with open(f"/home/pi/ARLISS_IBIS/log/log_csv/mission_2_waypoints {dt_now}.csv","w") as file:
             writer = csv.writer(file)
