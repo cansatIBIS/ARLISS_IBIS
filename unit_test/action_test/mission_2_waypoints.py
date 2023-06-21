@@ -7,8 +7,8 @@ from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
 
-north_m = 20
-south_m = -40
+north_m = 5
+south_m = -10
 lat_deg_per_m = 0.000008983148616
 
 async def run():
@@ -34,20 +34,26 @@ async def run():
     get_log_task = asyncio.ensure_future(get_log(drone))
     get_gps_list_task = asyncio.ensure_future(get_gps_list(drone,latitude_list,longitude_list))
 
-    center_lat_deg_list = []
-    center_lng_deg_list = []
-    for _ in range(10):
-        async for position in drone.telemetry.position():
-            lat_deg = position.latitude_deg
-            lng_deg = position.longitude_deg
-            center_lat_deg_list.append(lat_deg)
-            center_lng_deg_list.append(lng_deg)
-            break
+    # center_lat_deg_list = []
+    # center_lng_deg_list = []
+    print("getting gps")
+    # for i in range(10):
+    #     print("NO{}".format(i))
+    # async for position in drone.telemetry.position():
+    #     print("a")
+    #     lat_deg = position.latitude_deg
+    #     lng_deg = position.longitude_deg
+    #     center_lat_deg_list.append(lat_deg)
+    #     center_lng_deg_list.append(lng_deg)
+    #     print("b")
+    #     break
+    # print("got gps")
 
-    center_lat_deg_ave = sum(center_lat_deg_list)/10
-    center_lng_deg_ave = sum(center_lng_deg_list)/10
+    # center_lat_deg_ave = sum(center_lat_deg_list)/1
+    # center_lng_deg_ave = sum(center_lng_deg_list)/1
     
-    center = [center_lat_deg_ave, center_lng_deg_ave]
+    # center = [center_lat_deg_ave, center_lng_deg_ave]
+    center = [35.7973468, 139.892247]
 
     
     waypoint1 = [center[0] + lat_deg_per_m * north_m, center[1]]
