@@ -32,7 +32,7 @@ async def run():
             break
 
     get_log_task = asyncio.ensure_future(get_log(drone))
-    get_gps_list_task = asyncio.ensure_future(get_csv_list(drone,latitude_list,longitude_list))
+    get_gps_list_task = asyncio.ensure_future(get_csv_list(drone))
     
     print("Waiting for drone to have a global position estimate...")
     logger_info.info("Waiting for drone to have a global position estimate...")
