@@ -18,7 +18,7 @@ lidar_list = []
 alt_list = []
 center_lat_deg = 0
 center_lng_deg = 0
-center_abs_alt = 0
+center_abs_alt=-2.55400013923645
 
 async def run():
     
@@ -61,8 +61,8 @@ async def run():
     # center_lng_deg_ave = sum(center_lng_deg_list)/1
     
     # center = [center_lat_deg_ave, center_lng_deg_ave]
-    center = [35.7968853, 139.8915006]
-    center_abs_alt=-2.55400013923645
+    center = [35.797379299999996, 139.8922272]
+    
 
     
     waypoint1 = [center[0] + lat_deg_per_m * north_m, center[1]]
@@ -209,6 +209,7 @@ async def get_log(drone):
         await asyncio.sleep(0.3)
 
 async def get_csv_list(drone):
+     global center_abs_alt
      while True:
         async for position in drone.telemetry.position():
             latitude_list.append(position.latitude_deg)
