@@ -58,6 +58,7 @@ async def print_altitude(drone):
 
 
 async def print_flight_mode(drone):
+    global mode
     async for flight_mode in drone.telemetry.flight_mode():
         mode = flight_mode
         
