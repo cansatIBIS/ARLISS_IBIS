@@ -43,12 +43,15 @@ async def run():
             logger_info.info("-- Global position estimate OK")
             break
 
-    async for position in drone.telemetry.position():
-        global center_lat_deg,center_lng_deg,center_abs_alt
-        center_lat_deg = position.latitude_deg
-        center_lng_deg = position.longitude_deg
-        center_abs_alt = position.absolute_altitude_m
-        break
+    # async for position in drone.telemetry.position():
+    #     global center_lat_deg,center_lng_deg,center_abs_alt
+    #     center_lat_deg = position.latitude_deg
+    #     center_lng_deg = position.longitude_deg
+    #     center_abs_alt = position.absolute_altitude_m
+    center_lat_deg = 35.797311799999996
+    center_lng_deg = 139.8922149
+    center_abs_alt = 0.5210000276565552
+
     
     center = [center_lat_deg, center_lng_deg]
     waypoint1 = [center[0] + lat_deg_per_m * north_m, center[1]]
