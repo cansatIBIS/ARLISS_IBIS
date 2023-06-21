@@ -60,3 +60,4 @@ def get_csv():
         writer.writerow(longitude_list)
         writer.writerow(alt_list)
         writer.writerow(lidar_list)
+asyncio.run(run())
