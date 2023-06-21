@@ -50,6 +50,12 @@ async def run():
         break
     
     center = [center_lat_deg, center_lng_deg]
+    waypoint1 = [center[0] + lat_deg_per_m * side_length, center[1]]
+    waypoint2 = [center[0] - lat_deg_per_m * side_length * m.cos(36*m.pi/180),center[1] + lng_deg_per_m * side_length * m.sin(36*m.pi/180)]
+    waypoint3 = [center[0] + lat_deg_per_m * side_length * m.sin(18*m.pi/180),center[1] - lng_deg_per_m * side_length * m.cos(18*m.pi/180)]
+    waypoint4 = [center[0] + lat_deg_per_m * side_length * m.sin(18*m.pi/180),center[1] + lng_deg_per_m * side_length * m.cos(18*m.pi/180)]
+    waypoint5 = [center[0] - lat_deg_per_m * side_length * m.cos(36*m.pi/180),center[1] - lng_deg_per_m * side_length * m.sin(36*m.pi/180)]
+    waypoint6 = [center[0] + lat_deg_per_m * side_length, center[1]]
 
     if center == [0, 0]:
         print("No center GPS")
@@ -65,20 +71,16 @@ async def run():
 
     print("-- Taking off")
     logger_info.info("-- Taking off")
-    await drone.action.set_takeoff_altitude(3)
+    # await drone.action.set_takeoff_altitude(3)
     await drone.action.takeoff()
+    await asyncio.sleep(2)
 
     
 
     
     
     
-    waypoint1 = [center[0] + lat_deg_per_m * side_length, center[1]]
-    waypoint2 = [center[0] - lat_deg_per_m * side_length * m.cos(36*m.pi/180),center[1] + lng_deg_per_m * side_length * m.sin(36*m.pi/180)]
-    waypoint3 = [center[0] + lat_deg_per_m * side_length * m.sin(18*m.pi/180),center[1] - lng_deg_per_m * side_length * m.cos(18*m.pi/180)]
-    waypoint4 = [center[0] + lat_deg_per_m * side_length * m.sin(18*m.pi/180),center[1] + lng_deg_per_m * side_length * m.cos(18*m.pi/180)]
-    waypoint5 = [center[0] - lat_deg_per_m * side_length * m.cos(36*m.pi/180),center[1] - lng_deg_per_m * side_length * m.sin(36*m.pi/180)]
-    waypoint6 = [center[0] + lat_deg_per_m * side_length, center[1]]
+    
     await drone.action.goto_location(waypoint1[0], waypoint1[1],center_abs_alt+4,162)
     print("-- reached 1st. waypoint")
     logger_info.info("-- reached 1st. waypoint")
