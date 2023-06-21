@@ -6,14 +6,22 @@ import datetime
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
+import atexit
 
 north_m = 10
 south_m = -15
 lat_deg_per_m = 0.000008983148616
+lng_deg_per_m = 0.000008983668124
+latitude_list = []
+longitude_list = []
+lidar_list = []
+alt_list = []
+center_lat_deg = 0
+center_lng_deg = 0
+center_abs_alt = 0
 
 async def run():
-    latitude_list = []
-    longitude_list = []
+    
     drone = System()
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
@@ -32,7 +40,7 @@ async def run():
     termination_task = asyncio.ensure_future(
         observe_is_in_air(drone, running_tasks))
     get_log_task = asyncio.ensure_future(get_log(drone))
-    get_gps_list_task = asyncio.ensure_future(get_gps_list(drone,latitude_list,longitude_list))
+    get_gps_list_task = asyncio.ensure_future(get_csv_list(drone,latitude_list,longitude_list))
 
     # center_lat_deg_list = []
     # center_lng_deg_list = []
@@ -150,7 +158,7 @@ async def observe_is_in_air(drone, running_tasks):
             await asyncio.get_event_loop().shutdown_asyncgens()
 
             return
-    
+        
 async def get_log(drone):
     async for flight_mode in drone.telemetry.flight_mode():
         mode = flight_mode
@@ -194,13 +202,26 @@ async def get_log(drone):
         logger_info.info(str(log_txt))
         await asyncio.sleep(0.3)
 
-async def get_gps_list(drone,latitude_list,longitude_list):
+async def get_csv_list(drone,latitude_list,longitude_list,lidar_list,alt_list):
      while True:
         async for position in drone.telemetry.position():
             latitude_list.append(position.latitude_deg)
             longitude_list.append(position.longitude_deg)
-            break #async forのループから抜け出す
-
+            abs_alt = position.absolute_altitude_m
+            rel_alt = abs_alt - center_abs_alt
+            alt_list.append(rel_alt)
+        async for distance in drone.telemetry.distance_sensor():
+            lidar_list.append(distance.current_distance_m)
+            break
+@atexit.register
+def get_csv():
+    dt_now = datetime.datetime.now()
+    with open(f"/home/pi/ARLISS_IBIS/log/log_csv/goto_2_waypoints {dt_now}.csv","w") as file:
+        writer = csv.writer(file)
+        writer.writerow(latitude_list)
+        writer.writerow(longitude_list)
+        writer.writerow(alt_list)
+        writer.writerow(lidar_list)
 if __name__ == "__main__":
     # Run the asyncio loop
     asyncio.run(run())

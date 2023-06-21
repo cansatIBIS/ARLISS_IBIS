@@ -167,6 +167,7 @@ async def get_csv_list(drone,latitude_list,longitude_list,lidar_list,alt_list):
             abs_alt = position.absolute_altitude_m
             rel_alt = abs_alt - center_abs_alt
             alt_list.append(rel_alt)
+            break
         async for distance in drone.telemetry.distance_sensor():
             lidar_list.append(distance.current_distance_m)
             break
