@@ -44,6 +44,7 @@ async def run():
             break
 
     async for position in drone.telemetry.position():
+        global center_lat_deg,center_lng_deg,center_abs_alt
         center_lat_deg = position.latitude_deg
         center_lng_deg = position.longitude_deg
         center_abs_alt = position.absolute_altitude_m
@@ -140,7 +141,8 @@ async def get_log(drone):
         logger_info.info(str(log_txt))
         await asyncio.sleep(0.3)
 
-async def get_csv_list(drone,latitude_list,longitude_list,lidar_list,alt_list):
+async def get_csv_list(drone):
+     global center_abs_alt
      while True:
         async for position in drone.telemetry.position():
             latitude_list.append(position.latitude_deg)
