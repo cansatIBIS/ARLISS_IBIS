@@ -123,14 +123,19 @@ async def run():
     await termination_task
     await get_log_task
     await get_gps_list_task
-    if drone.mission.is_mission_finished():
-        await drone.action.land()
-        dt_now = datetime.datetime.now()
-        with open(f"/home/pi/ARLISS_IBIS/log/log_csv/mission_2_waypoints {dt_now}.csv","w") as file:
-            writer = csv.writer(file)
-            writer.writerow(latitude_list)
-            writer.writerow(longitude_list)
+    while True:
+        await asyncio.sleep(1)
+        mission_finished = await drone.mission.is_mission_finished()
+        if mission_finished:
+            dt_now = datetime.datetime.now()
+            with open(f"/home/pi/ARLISS_IBIS/log/log_csv/mission_2_waypoints {dt_now}.csv","w") as file:
+                writer = csv.writer(file)
+                writer.writerow(latitude_list)
+                writer.writerow(longitude_list)
+                break
+        
 
+    await drone.action.land()
 
 async def print_mission_progress(drone):
     async for mission_progress in drone.mission.mission_progress():
