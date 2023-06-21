@@ -40,7 +40,7 @@ async def run():
     termination_task = asyncio.ensure_future(
         observe_is_in_air(drone, running_tasks))
     get_log_task = asyncio.ensure_future(get_log(drone))
-    get_gps_list_task = asyncio.ensure_future(get_csv_list(drone,latitude_list,longitude_list))
+    get_gps_list_task = asyncio.ensure_future(get_csv_list(drone))
 
     # center_lat_deg_list = []
     # center_lng_deg_list = []
@@ -208,7 +208,7 @@ async def get_log(drone):
         logger_info.info(str(log_txt))
         await asyncio.sleep(0.3)
 
-async def get_csv_list(drone,latitude_list,longitude_list,lidar_list,alt_list):
+async def get_csv_list(drone):
      while True:
         async for position in drone.telemetry.position():
             latitude_list.append(position.latitude_deg)
