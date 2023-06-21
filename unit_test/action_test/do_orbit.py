@@ -3,11 +3,12 @@ from mavsdk import System
 from mavsdk.action import OrbitYawBehavior
 
 
-orbit_hight = 5
+orbit_height = 5
 orbit_radius = 5
 
 
 async def run():
+    global orbit_height
     drone = System()
     
     print("Waiting for drone to connect...")
@@ -39,7 +40,7 @@ async def run():
     await drone.action.takeoff()
     await asyncio.sleep(10)
 
-    print('Do orbit at {}m height from the ground'.format(orbit_hight))
+    print('Do orbit at {}m height from the ground'.format(orbit_height))
     await drone.action.do_orbit(radius_m=orbit_radius,
                                 velocity_ms=2,
                                 yaw_behavior=yaw_behavior,
