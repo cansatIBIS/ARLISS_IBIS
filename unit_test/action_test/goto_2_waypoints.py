@@ -17,6 +17,7 @@ alt_list = []
 center_lat_deg = 0
 center_lng_deg = 0
 center_abs_alt = 0
+altitude = 3
 
 async def run():
     
@@ -72,7 +73,7 @@ async def run():
 
     print("-- Taking off")
     logger_info.info("-- Taking off")
-    await drone.action.set_takeoff_altitude(3)
+    await drone.action.set_takeoff_altitude(altitude)
     await drone.action.takeoff()
     
 
