@@ -18,7 +18,7 @@ lidar_list = []
 alt_list = []
 center_lat_deg = 0
 center_lng_deg = 0
-center_abs_alt=-2.55400013923645
+center_abs_alt=0.9070000648498535
 side_length=5
 
 async def run():
@@ -64,7 +64,7 @@ async def run():
     # center_lng_deg_ave = sum(center_lng_deg_list)/1
     
     # center = [center_lat_deg_ave, center_lng_deg_ave]
-    center = [35.797379299999996, 139.8922272]
+    center = [35.7973059, 139.8922124]
     
 
     
