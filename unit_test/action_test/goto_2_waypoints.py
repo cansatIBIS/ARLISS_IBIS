@@ -69,9 +69,8 @@ async def run():
 
     print("-- Taking off")
     logger_info.info("-- Taking off")
-    # await drone.action.set_takeoff_altitude(3)
+    await drone.action.set_takeoff_altitude(3)
     await drone.action.takeoff()
-    await asyncio.sleep(2)
     
 
 
