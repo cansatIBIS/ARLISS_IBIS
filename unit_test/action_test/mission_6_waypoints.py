@@ -7,7 +7,7 @@ import math as m
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
-
+import atexit
 
 north_m = 5
 south_m = -10
