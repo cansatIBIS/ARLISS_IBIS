@@ -51,10 +51,10 @@ async def run():
             print(f"-- Connected to drone!")
             break
         
-    print(drone.telemetry.scaled_pressure())
+    print(drone.telemetry.scaled_pressure().timestamp_us)
         
     async for pressure in drone.telemetry.scaled_pressure():
-        print(pressure)
+        print(pressure.timestamp_us)
 
 if __name__ == "__main__":
     # Run the asyncio loop
