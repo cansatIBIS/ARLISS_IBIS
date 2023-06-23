@@ -18,20 +18,23 @@ async def run():
 
 
 async def land_judge(drone):
-    is_landed = True
-    async for distance in drone.telemetry.distance_sensor():
-        if low_alt_judge(distance.current_distance_m):
-            true_distance = IQR_removal(alt_list(drone))
-            num = len(true_distance)
-            ave = sum(true_distance)/num
+    is_landed = False
+    while True:
+        true_distance = IQR_removal(alt_list(drone))
+        num = len(true_distance)
+        ave = sum(true_distance)/num
+        if is_low_alt(ave):
             for i in range(num):
                 if abs(ave-true_distance[i]) > 0.01:
-                    is_landed = False
+                    break
+                if i == num:
+                    is_landed = True
             if is_landed:
                 print("--Landed")
+                break
     
         
-async def low_alt_judge(alt):
+async def is_low_alt(alt):
     if alt <= 1:
         return True
         
@@ -53,7 +56,7 @@ async def IQR_removal(data):
     quartile_75 = (data[74]+data[75])/2
     IQR = quartile_75-quartile_25
     center = (data[49]+data[50])/2
-    true_data = [i for i in data if i > quartile_75+1.5*IQR]
+    true_data = [i for i in data if quartile_25+1.5*IQR< i < quartile_75+1.5*IQR]
     return true_data
 
 
