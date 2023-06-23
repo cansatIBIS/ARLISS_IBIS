@@ -27,8 +27,8 @@ async def land_judge(drone):
             for i in range(num):
                 if abs(ave-true_distance[i]) > 0.01:
                     break
-                else:
-                    is_landed = True
+            else:
+                is_landed = True
             if is_landed:
                 print("--Landed")
                 break
