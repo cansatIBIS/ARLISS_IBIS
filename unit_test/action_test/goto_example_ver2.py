@@ -77,13 +77,14 @@ async def goto(drone):
         print("go to location...")
         await asyncio.sleep(1)
         if lat_diff < diff*lat_deg_per_m and lon_diff < diff*lng_deg_per_m:
+            print("reached location!")
             break
     await drone.action.land()
 
 @atexit.register
 def get_csv():
     dt_now = datetime.datetime.now()
-    with open(f"/home/pi/ARLISS_IBIS/log/log_csv/goto_2_waypoints {dt_now}.csv","w") as file:
+    with open(f"/home/pi/ARLISS_IBIS/log/log_csv/goto_example {dt_now}.csv","w") as file:
         writer = csv.writer(file)
         writer.writerow(lat_list)
         writer.writerow(lng_list)
