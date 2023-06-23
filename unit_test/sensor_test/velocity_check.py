@@ -67,7 +67,7 @@ async def run():
             break
             # position_lst.append("lat_deg:{} lng_deg:{} abs_alt_m:{} rel_alt_m:{}".format(position.latitude_deg,position.longitude_deg,position.absolute_altitude_m,position.relative_altitude_m))
 
-        
+        print(posttime-start)
         if posttime-start>60:
             break
 
