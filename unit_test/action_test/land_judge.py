@@ -1,5 +1,4 @@
 import numpy as np
-import scipy.stats as stats
 import asyncio
 from mavsdk import System
 from logger import logger_info
@@ -22,7 +21,7 @@ async def land_judge(drone):
     is_landed = True
     async for distance in drone.telemetry.distance_sensor():
         if low_alt_judge(distance.current_distance_m):
-            true_distance = smirnov_grubbs(alt_list(drone))[0]
+            true_distance = IQR_removal(alt_list(drone))
             num = len(true_distance)
             ave = sum(true_distance)/num
             for i in range(num):
@@ -48,19 +47,14 @@ async def alt_list(drone):
     return distance_list
         
 
-async def smirnov_grubbs(data, alpha):
-	x, o = list(data), []
-	while True:
-		n = len(x)
-		t = stats.t.isf(q=(alpha / n) / 2, df=n - 2)
-		tau = (n - 1) * t / np.sqrt(n * (n - 2) + n * t * t)
-		i_min, i_max = np.argmin(x), np.argmax(x)
-		myu, std = np.mean(x), np.std(x, ddof=1)
-		i_far = i_max if np.abs(x[i_max] - myu) > np.abs(x[i_min] - myu) else i_min
-		tau_far = np.abs((x[i_far] - myu) / std)
-		if tau_far < tau: break
-		o.append(x.pop(i_far))
-	return (np.array(x), np.array(o))
+async def IQR_removal(data):
+    data.sort()
+    quartile_25 = (data[24]+data[25])/2
+    quartile_75 = (data[74]+data[75])/2
+    IQR = quartile_75-quartile_25
+    center = (data[49]+data[50])/2
+    true_data = [i for i in data if i > quartile_75+1.5*IQR]
+    return true_data
 
 
 if __name__ == "__main__":
