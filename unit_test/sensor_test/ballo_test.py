@@ -51,7 +51,7 @@ async def run():
             print(f"-- Connected to drone!")
             break
         
-    print(drone.telemetry.scaed_pressure())
+    print(drone.telemetry.scaled_pressure())
         
     async for pressure in drone.telemetry.scaled_pressure():
         print(pressure)
