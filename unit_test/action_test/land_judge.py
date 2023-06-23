@@ -27,7 +27,7 @@ async def land_judge(drone):
             for i in range(num):
                 if abs(ave-true_distance[i]) > 0.01:
                     break
-                if i == num:
+                else:
                     is_landed = True
             if is_landed:
                 print("--Landed")
@@ -56,7 +56,7 @@ async def IQR_removal(data):
     quartile_75 = (data[74]+data[75])/2
     IQR = quartile_75-quartile_25
     center = (data[49]+data[50])/2
-    true_data = [i for i in data if quartile_25+1.5*IQR< i < quartile_75+1.5*IQR]
+    true_data = [i for i in data if quartile_25-1.5*IQR< i < quartile_75+1.5*IQR]
     return true_data
 
 
