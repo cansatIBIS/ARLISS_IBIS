@@ -5,7 +5,7 @@ import datetime
 import csv
 
 async def run():
-    start = time.time()
+
     drone = System()
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
@@ -44,6 +44,7 @@ async def run():
     velocity_lst_lidar=[]
     latitude_deg_lst=[]
     longitude_deg_lst=[]
+    start = time.time()
     while True:
         pretime = time.time()
         async for position in drone.telemetry.position():
@@ -51,15 +52,10 @@ async def run():
             rel_alt = -(abs_alt - init_abs_alt)
             rel_alt_lst.append(rel_alt)
             break
-        async for distance in drone.telemetry.distance_sensor():
-            lidar_height = distance.current_distance_m
-            lidar_lst.append(lidar_height)
-            break
         posttime = time.time()
         difference = posttime - pretime
 
         velocity_lst_alt.append(rel_alt / difference)
-        velocity_lst_lidar.append(lidar_height / difference)
         
         async for position in drone.telemetry.position():
             latitude_deg_lst.append(position.latitude_deg)
