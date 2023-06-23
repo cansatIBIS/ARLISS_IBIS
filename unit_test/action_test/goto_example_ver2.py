@@ -2,6 +2,9 @@
 
 import asyncio
 from mavsdk import System
+import atexit
+import csv
+import datetime
 
 absolute_altitude = 0
 lat_deg_per_m = 0.000008983148616
@@ -9,7 +12,7 @@ lng_deg_per_m = 0.000008983668124
 lat_list = []
 lng_list = []
 goal = [35.797311799999996, 139.8922149]
-diff = 3 
+diff = 3
 async def run():
     drone = System()
     global absolute_altitude
@@ -77,7 +80,13 @@ async def goto(drone):
             break
     await drone.action.land()
 
-
+@atexit.register
+def get_csv():
+    dt_now = datetime.datetime.now()
+    with open(f"/home/pi/ARLISS_IBIS/log/log_csv/goto_2_waypoints {dt_now}.csv","w") as file:
+        writer = csv.writer(file)
+        writer.writerow(lat_list)
+        writer.writerow(lng_list)
 
 if __name__ == "__main__":
     # Run the asyncio loop
