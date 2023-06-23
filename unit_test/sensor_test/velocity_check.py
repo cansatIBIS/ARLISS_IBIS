@@ -45,6 +45,7 @@ async def run():
     latitude_deg_lst=[]
     longitude_deg_lst=[]
     start = time.time()
+    print(f"start:{start}")
     while True:
         pretime = time.time()
         async for position in drone.telemetry.position():
