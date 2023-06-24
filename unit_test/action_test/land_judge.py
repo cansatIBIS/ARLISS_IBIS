@@ -1,7 +1,6 @@
 import numpy as np
 import asyncio
 from mavsdk import System
-from logger import logger_info
 
 
 async def run():
@@ -12,12 +11,13 @@ async def run():
     async for state in drone.core.connection_state():
         if state.is_connected:
             print(f"-- Connected to drone!")
-            logger_info.info("-- Connected to drone!")
             break
     land_judge(drone)
 
 
 async def land_judge(drone):
+    print("####### land judge start #######")
+    
     is_landed = False
     while True:
         true_dist = IQR_removal(alt_list(drone))
@@ -31,6 +31,8 @@ async def land_judge(drone):
             if is_landed:
                 print("--Landed")
                 break
+    
+    print("####### land judge finish #######")
 
         
 async def is_low_alt(alt):
