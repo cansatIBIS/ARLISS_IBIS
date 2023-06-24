@@ -8,10 +8,12 @@ import datetime
 from logger import logger_info, logger_debug
 
 absolute_altitude = 0
+abs_alt = 0
 lat_deg_per_m = 0.000008983148616
 lng_deg_per_m = 0.000008983668124
 lat_list = []
 lng_list = []
+alt_list = []
 goal = [35.797311799999996, 139.8922149]
 diff = 3
 async def run():
@@ -64,12 +66,15 @@ async def take_off(drone):
     await asyncio.sleep(1)
 
 async def get_gps(drone):
-     while True:
+    global abs_alt
+    while True:
         async for position in drone.telemetry.position():
             lat = position.latitude_deg
             lng = position.longitude_deg
+            abs_alt = position.absolute_altitude_m
             lat_list.append(lat)
             lng_list.append(lng)
+            alt_list.append(abs_alt)
             print(f"lat:{lat}, lng:{lng}")
             logger_info.info(f"lat:{lat}, lng:{lng}")
             break
@@ -79,7 +84,9 @@ async def goto(drone):
     global absolute_altitude, diff
     lat_diff = abs(lat_list[-1]-goal[0])
     lon_diff = abs(lng_list[-1]-goal[1])
+    
     flying_alt = absolute_altitude + 3.0
+    alt_diff = abs(alt_list[-1] - flying_alt)
     # goto_location() takes Absolute MSL altitude
     await drone.action.goto_location(goal[0], goal[1], flying_alt, 0)
     print(f"goto:{goal[0]}, {goal[1]}")
@@ -88,7 +95,7 @@ async def goto(drone):
         print("go to location...")
         logger_info.info("go to location...")
         await asyncio.sleep(1)
-        if lat_diff < diff*lat_deg_per_m and lon_diff < diff*lng_deg_per_m:
+        if lat_diff < diff*lat_deg_per_m and lon_diff < diff*lng_deg_per_m and alt_diff < diff*abs_alt:
             print("reached location!")
             logger_info.info("reached location!")
             break
