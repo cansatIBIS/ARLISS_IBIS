@@ -8,6 +8,8 @@ from mavsdk.gimbal import GimbalMode, ControlMode
 async def run():
     # Init the drone
     drone = System()
+    
+    print("Waiting for drone to connect...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     # Start printing gimbal position updates

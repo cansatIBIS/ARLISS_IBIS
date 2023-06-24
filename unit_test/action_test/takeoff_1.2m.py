@@ -3,6 +3,7 @@
 import asyncio
 from mavsdk import System
 from logger import logger_info, logger_debug
+from logger import logger_info, logger_debug
 
 altitude = 3.0
 
@@ -32,14 +33,20 @@ async def run():
     # cycle_log_task = asyncio.ensure_future(cycle_log(drone))
     # await cycle_log_task
 
+
+    # cycle_log_task = asyncio.ensure_future(cycle_log(drone))
+    # await cycle_log_task
+
     # await drone.connect(system_address="udp://:14540")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     print("Waiting for drone to connect...")
     logger_info.info("Waiting for drone to connect...")
+    logger_info.info("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
         if state.is_connected:
             print(f"-- Connected to drone!")
+            logger_info.info("-- Connected to drone!")
             logger_info.info("-- Connected to drone!")
             break
 
@@ -87,10 +94,14 @@ async def run():
     # Execute the maneuvers
     print("-- Arming")
     logger_info.info("-- Arming")
+    logger_info.info("-- Arming")
     await drone.action.arm()
     print("-- Armed")
     logger_info.info("-- Armed")
+    print("-- Armed")
+    logger_info.info("-- Armed")
     print("-- Taking off")
+    logger_info.info("-- Taking off")
     logger_info.info("-- Taking off")
     await drone.action.set_takeoff_altitude(altitude)
     await drone.action.takeoff()
@@ -98,6 +109,7 @@ async def run():
     await asyncio.sleep(10)
 
     print("-- Landing")
+    logger_info.info("-- Landing")
     logger_info.info("-- Landing")
     await drone.action.land()
 
@@ -124,7 +136,6 @@ async def print_altitude(drone):
             print(f"Altitude: {altitude_now}")
             logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
         
-            
         if altitude_now > 1.2:
             await drone.action.land()
 

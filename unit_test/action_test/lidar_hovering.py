@@ -1,7 +1,6 @@
 #lidarがわからないと無理そう
 
 import asyncio
-import pigpio
 import time
 from mavsdk import System
 
@@ -12,12 +11,14 @@ pi.set_mode(RX, pigpio.INPUT)
 pi.bb_serial_read_open(RX, 115200) 
 
 #高さ指定
-hovering_hight = 5
+hovering_hight = 2.5
                 
                 
 async def run():
 
     drone = System()
+    
+    print("Waiting for drone to connect...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     status_text_task = asyncio.ensure_future(print_status_text(drone))
@@ -51,7 +52,6 @@ async def run():
     async for position in drone.telemetry.position():
         lati_deg, long_deg = position.latitude_deg, position.longitude_deg
         
-    hovering_hight += absolute_altitude
     await drone.action.goto_location(lati_deg, long_deg, hovering_hight, 0)
     print("-- Reached the hovering hight")
     
