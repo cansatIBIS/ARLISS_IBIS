@@ -65,7 +65,7 @@ def IQR_removal(data):
     IQR = quartile_75-quartile_25
     true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
     return true_data
-
+    
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
