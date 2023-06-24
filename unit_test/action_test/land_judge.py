@@ -13,8 +13,9 @@ async def run():
             print(f"-- Connected to drone!")
             break
     alt_task = asyncio.create_task(get_alt(drone))
+    land_judge_task = asyncio.create_task(land_judge(drone))
     await alt_task
-    await land_judge(drone)
+    await land_judge_task
 
 
 async def land_judge(drone):
@@ -71,10 +72,11 @@ def IQR_removal(data):
 
 
 async def get_alt(drone):
-    async for position in drone.telemetry.position():
-        print("altitude:{}".format(position.absolute_altitude_m))
+    while True:
+        async for position in drone.telemetry.position():
+            print("altitude:{}".format(position.absolute_altitude_m))
+            break
         asyncio.sleep(1)
-    
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
