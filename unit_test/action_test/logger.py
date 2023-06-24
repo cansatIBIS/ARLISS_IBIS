@@ -3,7 +3,7 @@ import os
 import datetime
 
 def create_logger_log_file():
-    LOG_DIR = os.path.abspath("log")
+    LOG_DIR = os.path.abspath("../../log")
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
     log_path = LOG_DIR + "/" + str(datetime.date.today())
