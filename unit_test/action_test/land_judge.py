@@ -14,29 +14,27 @@ async def run():
             print(f"-- Connected to drone!")
             logger_info.info("-- Connected to drone!")
             break
-    land_judge()
+    land_judge(drone)
 
 
 async def land_judge(drone):
     is_landed = False
     while True:
-        true_distance = IQR_removal(alt_list(drone))
-        num = len(true_distance)
-        ave = sum(true_distance)/num
+        true_dist = IQR_removal(alt_list(drone))
+        ave = sum(true_dist)/len(true_dist)
         if is_low_alt(ave):
-            for i in range(num):
-                if abs(ave-true_distance[i]) > 0.01:
+            for distance in true_dist:
+                if abs(ave-distance) > 0.01:
                     break
             else:
                 is_landed = True
             if is_landed:
                 print("--Landed")
                 break
-    
+
         
 async def is_low_alt(alt):
-    if alt <= 1:
-        return True
+    return alt < 1
         
         
 async def alt_list(drone):
@@ -62,4 +60,4 @@ async def IQR_removal(data):
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
-    
+
