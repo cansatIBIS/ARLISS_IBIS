@@ -12,7 +12,7 @@ async def run():
         if state.is_connected:
             print(f"-- Connected to drone!")
             break
-    land_judge(drone)
+    await land_judge(drone)
 
 
 async def land_judge(drone):
@@ -20,9 +20,9 @@ async def land_judge(drone):
     
     is_landed = False
     while True:
-        true_dist = IQR_removal(alt_list(drone))
+        true_dist = await IQR_removal(alt_list(drone))
         ave = sum(true_dist)/len(true_dist)
-        if is_low_alt(ave):
+        if await is_low_alt(ave):
             for distance in true_dist:
                 if abs(ave-distance) > 0.01:
                     break
