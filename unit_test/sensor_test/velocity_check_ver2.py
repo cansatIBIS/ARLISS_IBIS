@@ -18,9 +18,9 @@ async def run():
 
     while True:
         async for v in drone.telemetry.velocity_ned():
-            v_list.append(v)
-            print(type(v))
-            print(f"velocity:{v}")
+            v_list.append(v.down_m_s)
+            print(type(v.down_m_s))
+            print(f"velocity:{v.down_m_s}")
             break
         async for o in drone.telemetry.odometry():
             pb = o.position_body
@@ -31,7 +31,7 @@ async def run():
 
         now = time.time()
         print(now-start)
-        if now-start>1:
+        if now-start>60:
             break
 
 
