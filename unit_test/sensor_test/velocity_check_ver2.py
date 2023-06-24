@@ -13,12 +13,15 @@ async def run():
     # Init the drone
     drone = System()
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    print("conected to drone")
+
 
     while True:
-        async for v in drone.telemetry.velocity_ned():
-            v_list.append(v)
-            print(f"velocity:{v}")
-            break
+        print("a")
+        # async for v in drone.telemetry.velocity_ned():
+        #     v_list.append(v)
+        #     print(f"velocity:{v}")
+        #     break
         async for o in drone.telemetry.odometry():
             pb = o.position_body
             pb_list.append(pb)
