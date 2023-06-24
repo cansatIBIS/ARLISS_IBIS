@@ -12,6 +12,8 @@ async def run():
         if state.is_connected:
             print(f"-- Connected to drone!")
             break
+    alt_task = asyncio.create_task(get_alt(drone))
+    await alt_task
     await land_judge(drone)
 
 
@@ -53,6 +55,7 @@ async def alt_list(drone):
     async for distance in drone.telemetry.distance_sensor():
         iter += 1
         distance_list.append(distance.current_distance_m)
+        asyncio.sleep(0)
         if iter >= 100:
             break
     return distance_list
@@ -65,6 +68,12 @@ def IQR_removal(data):
     IQR = quartile_75-quartile_25
     true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
     return true_data
+
+
+async def get_alt(drone):
+    async for position in drone.telemetry.position():
+        print("altitude:{}".format(position.absolute_altitude_m))
+        asyncio.sleep(1)
     
 
 if __name__ == "__main__":
