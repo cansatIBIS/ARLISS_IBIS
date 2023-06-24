@@ -21,7 +21,12 @@ async def land_judge(drone):
     is_landed = False
     while True:
         true_dist = IQR_removal(await alt_list(drone))
-        ave = sum(true_dist)/len(true_dist)
+        try:
+            ave = sum(true_dist)/len(true_dist)
+        except ZeroDivisionError as e:
+            print(e)
+            continue
+        
         if await is_low_alt(ave):
             for distance in true_dist:
                 if abs(ave-distance) > 0.01:
