@@ -95,7 +95,7 @@ async def goto(drone):
         print("go to location...")
         logger_info.info("go to location...")
         await asyncio.sleep(1)
-        if lat_diff < diff*lat_deg_per_m and lon_diff < diff*lng_deg_per_m:
+        if lat_diff < diff*lat_deg_per_m and lon_diff < diff*lng_deg_per_m and lon_diff < diff*lng_deg_per_m:
             print("reached location!")
             logger_info.info("reached location!")
             break
