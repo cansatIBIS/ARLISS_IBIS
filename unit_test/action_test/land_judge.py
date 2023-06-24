@@ -56,7 +56,7 @@ async def alt_list(drone):
     async for distance in drone.telemetry.distance_sensor():
         iter += 1
         distance_list.append(distance.current_distance_m)
-        asyncio.sleep(0)
+        await asyncio.sleep(0)
         if iter >= 100:
             break
     return distance_list
@@ -76,7 +76,7 @@ async def get_alt(drone):
         async for position in drone.telemetry.position():
             print("altitude:{}".format(position.absolute_altitude_m))
             break
-        asyncio.sleep(1)
+        await asyncio.sleep(1)
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
