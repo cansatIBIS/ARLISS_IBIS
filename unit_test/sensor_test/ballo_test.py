@@ -3,7 +3,6 @@ import time
 from mavsdk import System
 
                 
-                
 async def run():
 
     print("Hey")
