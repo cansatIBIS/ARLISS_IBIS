@@ -14,7 +14,7 @@ lng_deg_per_m = 0.000008983668124
 lat_list = []
 lng_list = []
 alt_list = []
-goal = [35.797311799999996, 139.8922149]
+goal = [35.71673,139.764431]
 diff = 3
 async def run():
     logger_info.info("~goto_example_ver2.py~")
