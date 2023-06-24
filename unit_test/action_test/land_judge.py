@@ -53,7 +53,6 @@ async def IQR_removal(data):
     quartile_25 = (data[24]+data[25])/2
     quartile_75 = (data[74]+data[75])/2
     IQR = quartile_75-quartile_25
-    center = (data[49]+data[50])/2
     true_data = [i for i in data if quartile_25-1.5*IQR< i < quartile_75+1.5*IQR]
     return true_data
 
