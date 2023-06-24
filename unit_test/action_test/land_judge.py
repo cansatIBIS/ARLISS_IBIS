@@ -20,7 +20,7 @@ async def land_judge(drone):
     
     is_landed = False
     while True:
-        true_dist = await IQR_removal(alt_list(drone))
+        true_dist = IQR_removal(await alt_list(drone))
         ave = sum(true_dist)/len(true_dist)
         if await is_low_alt(ave):
             for distance in true_dist:
@@ -50,7 +50,7 @@ async def alt_list(drone):
     return distance_list
         
 
-async def IQR_removal(data):
+def IQR_removal(data):
     data.sort()
     quartile_25 = (data[24]+data[25])/2
     quartile_75 = (data[74]+data[75])/2
