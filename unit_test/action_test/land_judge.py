@@ -25,12 +25,15 @@ async def land_judge(drone):
         if await is_low_alt(ave):
             for distance in true_dist:
                 if abs(ave-distance) > 0.01:
+                    print("--moving")
                     break
             else:
                 is_landed = True
             if is_landed:
                 print("--Landed")
                 break
+        else:
+            print("--rejected")
     
     print("####### land judge finish #######")
 
