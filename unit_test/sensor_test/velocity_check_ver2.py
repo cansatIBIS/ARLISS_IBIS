@@ -17,11 +17,10 @@ async def run():
 
 
     while True:
-        print("a")
-        # async for v in drone.telemetry.velocity_ned():
-        #     v_list.append(v)
-        #     print(f"velocity:{v}")
-        #     break
+        async for v in drone.telemetry.velocity_ned():
+            v_list.append(v)
+            print(f"velocity:{v}")
+            break
         async for o in drone.telemetry.odometry():
             pb = o.position_body
             pb_list.append(pb)
