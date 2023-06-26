@@ -7,6 +7,8 @@ import RPi.GPIO as GPIO
 def fusing():
     # BCM(GPIO番号)で指定する設定
     try:
+        print("-- Start")
+        GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
 
         # GPIO26を出力モード設定
