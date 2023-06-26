@@ -12,10 +12,10 @@ def fusing():
         GPIO.setmode(GPIO.BCM)
 
         # GPIO26を出力モード設定
-        GPIO.setup(26, GPIO.OUT)
+        GPIO.setup(17, GPIO.OUT)
 
         # GPIO26の出力を1にして、LED点灯
-        GPIO.output(26, 1)
+        GPIO.output(17, 1)
         print("-- Fusing")
 
         # 0.5秒待つ
@@ -23,7 +23,7 @@ def fusing():
         print("-- Fused! Please Fly")
 
         # GPIO17の出力を0にして、LED消灯
-        GPIO.output(26, 0)
+        GPIO.output(17, 0)
         
         GPIO.cleanup()
         
