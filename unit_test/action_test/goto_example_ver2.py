@@ -112,6 +112,7 @@ async def goto(drone):
         elif time.time()-start>30:
             print("time up landed")
             break
+    print(f"accuracy:lat={abs(lat_list[-1]-goal[0])*lat_deg_per_m}m, lng={abs(lng_list[-1]-goal[1])*lng_deg_per_m}m")
 
 async def print_landed_state(drone):
     global state
