@@ -16,7 +16,7 @@ class Camera:
 if __name__ == "__main__":
     camera = Camera()
     
-    file_path = '/home/image_test.jpg'
+    file_path = '/home/ARLISS_IBIS/image_test.jpg'
 
     print("taking pic...: {}".format(file_path))
     camera.take_pic(file_path) # 写真を撮る
