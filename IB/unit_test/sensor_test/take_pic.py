@@ -16,7 +16,7 @@ class Camera:
 if __name__ == "__main__":
     camera = Camera()
     
-    file_path = '/home/pi/utat/img/image{:>03d}.jpg'.format("test")
+    file_path = '/home/image{:>03d}.jpg'.format("test")
 
     print("taking pic...: {}".format(file_path))
     camera.take_pic(file_path) # 写真を撮る
