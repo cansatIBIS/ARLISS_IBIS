@@ -1,5 +1,4 @@
 import picamera
-import cv2
 import datetime
 
 
@@ -21,5 +20,3 @@ if __name__ == "__main__":
 
     print("taking pic...: {}".format(file_path))
     camera.take_pic(file_path) # 写真を撮る
-    
-    cv2.destroyAllWindows()
