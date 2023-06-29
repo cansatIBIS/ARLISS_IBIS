@@ -38,13 +38,13 @@ async def run():
 
 
     while True:
-        async for v in drone.telemetry.velocity_ned():
-            vx_list.append(v.north_m_s)
-            vy_list.append(v.east_m_s)
-            vz_list.append(v.down_m_s)
-            v_list.append(m.sqrt((v.north_m_s)**2+(v.east_m_s)**2+(v.down_m_s)**2))
-            # print(f"velocity:{v.down_m_s}")
-            break
+        # async for v in drone.telemetry.velocity_ned():
+        #     vx_list.append(v.north_m_s)
+        #     vy_list.append(v.east_m_s)
+        #     vz_list.append(v.down_m_s)
+        #     v_list.append(m.sqrt((v.north_m_s)**2+(v.east_m_s)**2+(v.down_m_s)**2))
+        #     # print(f"velocity:{v.down_m_s}")
+        #     break
         async for o in drone.telemetry.odometry():
             pb = o.position_body
             x_list.append(pb.x_m - x)
