@@ -6,6 +6,7 @@ import atexit
 import csv
 import datetime
 from logger import logger_info, logger_debug
+import time
 
 absolute_altitude = 0
 abs_alt = 0
@@ -16,6 +17,7 @@ lng_list = []
 alt_list = []
 goal = [35.71673,139.764431]
 diff = 3
+state = None
 async def run():
     logger_info.info("~goto_example_ver2.py~")
     drone = System()
@@ -49,9 +51,11 @@ async def run():
     take_off_task = asyncio.ensure_future(take_off(drone))
     get_gps_task = asyncio.ensure_future(get_gps(drone))
     goto_task = asyncio.ensure_future(goto(drone))
+    print_landed_state_task = asyncio.ensure_future(print_landed_state(drone))
     await take_off_task
     await get_gps_task
     await goto_task
+    await print_landed_state_task
 
 
 async def arm(drone):
@@ -100,6 +104,25 @@ async def goto(drone):
             logger_info.info("reached location!")
             break
     await drone.action.land()
+    while True:
+        start = time.time()
+        if state == "ON_GROUND":
+            print("landed")
+            break
+        elif time.time()-start>30:
+            print("time up landed")
+            break
+    print(f"accuracy:lat={abs(lat_list[-1]-goal[0])*lat_deg_per_m}m, lng={abs(lng_list[-1]-goal[1])*lng_deg_per_m}m")
+
+async def print_landed_state(drone):
+    global state
+    async for landed_state in drone.telemetry.landed_state():
+        state = landed_state
+        await asyncio.sleep(0.1)
+
+
+        
+
 
 @atexit.register
 def get_csv():

@@ -11,13 +11,30 @@ vx_list=[]
 vy_list=[]
 vz_list=[]
 v_list=[]
-pb_list = []
+x_list=[]
+y_list=[]
+z_list=[]
+r_deg=[]
+p_deg=[]
+y_deg=[]
+
 async def run():
     start = time.time()
     # Init the drone
     drone = System()
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     print("connected to drone")
+    async for o in drone.telemetry.odometry():
+        pb = o.position_body
+        x=pb.x_m
+        y=pb.y_m
+        z=pb.z_m
+        break
+    # async for d in drone.telemetry.attitude_euler():
+    #     roll=d.roll_deg
+    #     pitch=d.pitch_deg
+    #     yaw=d.yaw_deg
+    #     break
 
 
     while True:
@@ -30,8 +47,18 @@ async def run():
             break
         async for o in drone.telemetry.odometry():
             pb = o.position_body
-            pb_list.append(pb)
-            print(f"position_body:{pb}")
+            x_list.append(pb.x_m - x)
+            y_list.append(pb.y_m - y)
+            z_list.append(pb.z_m - z)
+            # print(f"position_body:{pb}")
+            break
+        async for d in drone.telemetry.attitude_euler():
+            # r_deg.append(d.roll_deg - roll)
+            # p_deg.append(d.pitch_deg - pitch)
+            # y_deg.append(d.yaw_deg - yaw)
+            r_deg.append(d.roll_deg)
+            p_deg.append(d.pitch_deg)
+            y_deg.append(d.yaw_deg)
             break
 
 
@@ -49,6 +76,12 @@ async def run():
         writer.writerow(vy_list)
         writer.writerow(vz_list)
         writer.writerow(v_list)
+        writer.writerow(x_list)
+        writer.writerow(y_list)
+        writer.writerow(z_list)
+        writer.writerow(r_deg)
+        writer.writerow(p_deg)
+        writer.writerow(y_deg)
 
 
 
