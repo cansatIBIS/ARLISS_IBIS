@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-df = pd.read_csv('/Users/fukudakazuya/ARLISS_IBIS/log/log_csv/velocity_check_ver2 2023-06-29 16:29:15.014349.csv',header=None).T
-df.columns = ["v_x","v_y","v_z","v","x","y","z","roll","pitch","yaw"]
+df = pd.read_csv('/Users/fukudakazuya/ARLISS_IBIS/log/log_csv/velocity_check_ver2 2023-06-29 16:41:01.215033.csv',header=None).T
+df.columns = ["x","y","z","roll","pitch","yaw"]
 # df.columns = ["v_x","v_y","v_z","v"]
 # df[["v_x","v_y","v_z","v"]].plot()
 df[["x"]].plot()
