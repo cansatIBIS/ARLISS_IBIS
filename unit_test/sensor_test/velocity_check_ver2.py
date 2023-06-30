@@ -17,6 +17,10 @@ z_list=[]
 r_deg=[]
 p_deg=[]
 y_deg=[]
+forward_a=[]
+right_a=[]
+down_a=[]
+acc=[]
 
 async def run():
     start = time.time()
@@ -60,6 +64,13 @@ async def run():
             v_list.append(m.sqrt((v.north_m_s)**2+(v.east_m_s)**2+(v.down_m_s)**2))
             # print(f"velocity:{v.down_m_s}")
             break
+        async for i in drone.telemetry.imu():
+            a = i.acceleration_frd
+            forward_a.append(a.forward_m_s2)
+            right_a.append(a.right_m_s2)
+            down_a.append(a.down_m_s2)
+            acc.append(m.sqrt(forward_a**2+right_a**2+down_a**2))
+            break
 
 
         now = time.time()
@@ -82,6 +93,10 @@ async def run():
         writer.writerow(r_deg)
         writer.writerow(p_deg)
         writer.writerow(y_deg)
+        writer.writerow(forward_a)
+        writer.writerow(right_a)
+        writer.writerow(down_a)
+        writer.writerow(acc)
 
 
 
