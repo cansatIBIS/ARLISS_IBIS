@@ -9,7 +9,7 @@ class Pixhawk:
     
     def __init__(self):
         self.pix = mavsdk.System()
-        self.PIN = 17
+        self.PIN = 6
         self.altitude = 3.0
     
     async def connect(self):
@@ -93,39 +93,33 @@ class Pixhawk:
         print("####### land judge finish #######")
 
     def fusing(self):
-    # BCM(GPIO番号)で指定する設定
         try:
             print("-- Start")
             GPIO.cleanup()
             GPIO.setmode(GPIO.BCM)
 
-            # GPIO26を出力モード設定
             GPIO.setup(self.PIN, GPIO.OUT)
 
-            # GPIO26の出力を1にして、LED点灯
-            GPIO.output(self.PIN, 1)
+            GPIO.output(self.PIN, 0)
             print("-- Fusing")
 
-            # 1.0秒待つ
             time.sleep(1.0)
             print("-- Fused! Ready to Fly")
 
-            # GPIO17の出力を0にして、LED消灯
             GPIO.output(self.PIN, 0)
             
             GPIO.cleanup()
             
         
         except KeyboardInterrupt:
-            # GPIO設定クリア
             GPIO.cleanup()
             
     async def health_check(self):
         print("Waiting for drone to have a global position estimate...")
-        logger_info.info.info("Waiting for drone to have a global position estimate...")
+        logger_info.info("Waiting for drone to have a global position estimate...")
         
         async for health in self.pix.telemetry.health():
             if health.is_global_position_ok and health.is_home_position_ok:
                 print("-- Global position estimate OK")
-                logger_info.info.info("-- Global position estimate OK")
+                logger_info.info("-- Global position estimate OK")
                 break
