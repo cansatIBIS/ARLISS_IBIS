@@ -31,7 +31,10 @@ async def run():
             print(f"-- Connected to drone!")
             logger_info.info("-- Connected to drone!")
             break
-
+    
+    land_judge_task = asyncio.create_task(land_judge(drone)) #タスク化しなくていいかも
+    await land_judge_task
+    ##################################################################################
     print("Waiting for drone to have a global position estimate...")
     logger_info.info("Waiting for drone to have a global position estimate...")
     async for health in drone.telemetry.health():
@@ -56,6 +59,65 @@ async def run():
     await get_gps_task
     await goto_task
     await print_landed_state_task
+
+async def land_judge(drone):
+    print("####### land judge start #######")
+    logger_info.info("-- land judge start")
+    
+    is_landed = False
+    while True:
+        true_dist = IQR_removal(await get_alt_list(drone))
+        try:
+            ave = sum(true_dist)/len(true_dist)
+        except ZeroDivisionError as e:
+            print(e)
+            continue
+        
+        if await is_low_alt(ave):
+            for distance in true_dist:
+                if abs(ave-distance) > 0.01:
+                    print("--moving")
+                    logger_info.info("--moving")
+                    break
+            else:
+                is_landed = True
+            if is_landed:
+                print("--Landed")
+                logger_info.info("--Landed")
+                break
+        else:
+            print("--land rejected")
+            logger_info.info("--land rejected")
+    
+    print("####### land judge finish #######")
+    logger_info.info("--land judge finish")
+    print("waiting 10s...")
+    await asyncio.sleep(10)
+
+        
+async def is_low_alt(alt):
+    return alt < 1
+        
+        
+async def get_alt_list(drone):
+    distance_list = []
+    iter = 0
+    async for distance in drone.telemetry.distance_sensor():
+        iter += 1
+        distance_list.append(distance.current_distance_m)
+        await asyncio.sleep(0)
+        if iter >= 100:
+            break
+    return distance_list
+        
+
+def IQR_removal(data):
+    data.sort()
+    quartile_25 = (data[24]+data[25])/2
+    quartile_75 = (data[74]+data[75])/2
+    IQR = quartile_75-quartile_25
+    true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
+    return true_data
 
 
 async def arm(drone):

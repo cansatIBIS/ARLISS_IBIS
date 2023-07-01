@@ -18,6 +18,7 @@ center_lat_deg = 0
 center_lng_deg = 0
 center_abs_alt = 0
 altitude = 3
+diff = 3
 
 async def run():
     
@@ -81,9 +82,28 @@ async def run():
     await drone.action.goto_location(waypoint1[0], waypoint1[1], center_abs_alt+4,0)
     print("-- go to 1st. waypoint")
     logger_info.info("-- go to 1st. waypoint")
+    while True:
+        lat_diff = abs(latitude_list[-1]-waypoint1[0])
+        lon_diff = abs(longitude_list[-1]-waypoint1[1])
+        print("go to location...")
+        logger_info.info("go to location...")
+        await asyncio.sleep(1)
+        if lat_diff < diff*lat_deg_per_m and lon_diff < diff*lng_deg_per_m:
+            print("reached 1st. waypoint!")
+            logger_info.info("reached 1st. waypoint!")
+            break
     await drone.action.goto_location(waypoint2[0], waypoint2[1], center_abs_alt+4,0)
     print("-- go to 2nd. waypoint")
-    logger_info.info("-- go to 2nd. waypoint")
+    while True:
+        lat_diff = abs(latitude_list[-1]-waypoint2[0])
+        lon_diff = abs(longitude_list[-1]-waypoint2[1])
+        print("go to location...")
+        logger_info.info("go to location...")
+        await asyncio.sleep(1)
+        if lat_diff < diff*lat_deg_per_m and lon_diff < diff*lng_deg_per_m:
+            print("reached 2nd. waypoint!")
+            logger_info.info("reached 2nd. waypoint!")
+            break
 
     print("-- Landing")
     logger_info.info("-- Landing")
