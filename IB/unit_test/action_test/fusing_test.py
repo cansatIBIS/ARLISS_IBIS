@@ -27,7 +27,7 @@ def fusing():
         # GPIO17の出力を0にして、LED消灯
         GPIO.output(PIN, 1)
         
-        GPIO.cleanup()
+        # GPIO.cleanup()
         
     
     except KeyboardInterrupt:
