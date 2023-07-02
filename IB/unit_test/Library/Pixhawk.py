@@ -1,5 +1,6 @@
 import asyncio
-import mavsdk
+from mavsdk import System
+from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
 import time
 import RPi.GPIO as GPIO
@@ -8,9 +9,16 @@ import RPi.GPIO as GPIO
 class Pixhawk:
     
     def __init__(self):
-        self.pix = mavsdk.System()
+        self.pix = System()
         self.PIN = 6
         self.altitude = 3.0
+        self.north_m = 10
+        self.south_m = -15
+        self.lat_deg_per_m = 0.000008983148616
+        self.lng_deg_per_m = 0.000008983668124
+        self.center_lat_deg = 0
+        self.center_lng_deg = 0
+        self.center_abs_alt=-2.55400013923645
     
     async def connect(self):
         logger_info.info("-- Waiting for drone to connect...")
@@ -39,7 +47,7 @@ class Pixhawk:
     async def is_low_alt(self, alt):
         return alt < 1
             
-    async def alt_list(self):
+    async def get_alt_list(self):
         distance_list = []
         iter = 0
         async for distance in self.pix.telemetry.distance_sensor():
@@ -70,7 +78,7 @@ class Pixhawk:
         
         is_landed = False
         while True:
-            true_dist = self.IQR_removal(await self.alt_list(self))
+            true_dist = self.IQR_removal(await self.get_alt_list(self))
             try:
                 ave = sum(true_dist)/len(true_dist)
             except ZeroDivisionError as e:
@@ -115,7 +123,6 @@ class Pixhawk:
             GPIO.cleanup()
             
     async def health_check(self):
-        print("Waiting for drone to have a global position estimate...")
         logger_info.info("Waiting for drone to have a global position estimate...")
         
         async for health in self.pix.telemetry.health():
@@ -123,3 +130,56 @@ class Pixhawk:
                 print("-- Global position estimate OK")
                 logger_info.info("-- Global position estimate OK")
                 break
+            
+    async def mission(self, waypoints):
+        print_mission_progress_task = asyncio.ensure_future(self.print_mission_progress())
+        running_tasks = [print_mission_progress_task]
+        termination_task = asyncio.ensure_future(self.observe_is_in_air(running_tasks))
+        mission_items = []
+        for i in range(len(waypoints)):
+            mission_items.append(MissionItem(waypoints[i][0],
+                                     waypoints[i][1],
+                                     waypoints[i][2],
+                                     5,
+                                     True, #止まらない
+                                     float('nan'),
+                                     float('nan'),
+                                     MissionItem.CameraAction.NONE,
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan')))
+        mission_plan = MissionPlan(mission_items)
+        await self.mission.set_return_to_launch_after_mission(False)
+        logger_info.info("-- Uploading mission")
+        await self.mission.upload_mission(mission_plan)
+        self.health_check()
+        self.arm()
+        logger_info.info("-- Starting mission")
+        await self.mission.start_mission()
+        await termination_task
+        
+    async def print_mission_progress(self):
+        async for mission_progress in self.mission.mission_progress():
+            print(f"Mission progress: "
+                f"{mission_progress.current}/"
+                f"{mission_progress.total}")
+    
+    async def observe_is_in_air(self, tasks):
+        was_in_air = False
+        async for is_in_air in self.telemetry.in_air():
+            if is_in_air:
+                was_in_air = is_in_air
+
+            if was_in_air and not is_in_air:
+                for task in tasks:
+                    task.cancel()
+                    try:
+                        await task
+                    except asyncio.CancelledError:
+                        pass
+                await asyncio.get_event_loop().shutdown_asyncgens()
+
+                return
+        
