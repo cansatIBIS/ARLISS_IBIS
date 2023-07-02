@@ -4,7 +4,7 @@ import time
 #RPi.GPIOモジュールをインポート
 import RPi.GPIO as GPIO
 
-PIN = 6
+PIN = 5
 
 def fusing():
     # BCM(GPIO番号)で指定する設定
