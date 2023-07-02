@@ -17,7 +17,7 @@ def fusing():
         GPIO.setup(PIN, GPIO.OUT)
 
         # GPIO26の出力を1にして、LED点灯
-        GPIO.output(PIN, 1)
+        GPIO.output(PIN, 0)
         print("-- Fusing")
 
         # 0.5秒待つ
@@ -25,7 +25,7 @@ def fusing():
         print("-- Fused! Please Fly")
 
         # GPIO17の出力を0にして、LED消灯
-        GPIO.output(PIN, 0)
+        GPIO.output(PIN, 1)
         
         GPIO.cleanup()
         
