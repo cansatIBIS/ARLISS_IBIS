@@ -3,6 +3,7 @@ from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
 import time
+import datetime
 import RPi.GPIO as GPIO
 
 
@@ -135,6 +136,7 @@ class Pixhawk:
         print_mission_progress_task = asyncio.ensure_future(self.print_mission_progress())
         running_tasks = [print_mission_progress_task]
         termination_task = asyncio.ensure_future(self.observe_is_in_air(running_tasks))
+        land_task = asyncio.ensurefuture(self.misssion_land())
         mission_items = []
         for i in range(len(waypoints)):
             mission_items.append(MissionItem(waypoints[i][0],
@@ -159,6 +161,7 @@ class Pixhawk:
         logger_info.info("-- Starting mission")
         await self.mission.start_mission()
         await termination_task
+        await land_task
         
     async def print_mission_progress(self):
         async for mission_progress in self.mission.mission_progress():
@@ -183,3 +186,12 @@ class Pixhawk:
 
                 return
         
+    async def mission_land(self):
+        while True:
+            await asyncio.sleep(1)
+            mission_finished = await self.mission.is_mission_finished()
+            print(mission_finished)
+            if mission_finished:
+                logger_info.info("-- Mission is finished. Landing")
+                await self.action.land()
+                logger_info.info("-- Landed")
