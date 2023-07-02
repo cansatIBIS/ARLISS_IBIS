@@ -192,6 +192,4 @@ class Pixhawk:
             mission_finished = await self.mission.is_mission_finished()
             print(mission_finished)
             if mission_finished:
-                logger_info.info("-- Mission is finished. Landing")
-                await self.action.land()
-                logger_info.info("-- Landed")
+                self.land()
