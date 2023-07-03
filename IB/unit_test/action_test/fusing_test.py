@@ -21,7 +21,7 @@ def fusing():
         print("-- Fusing")
 
         # 0.5秒待つ
-        time.sleep(5.0)
+        time.sleep(2.0)
         print("-- Fused! Please Fly")
 
         # GPIO17の出力を0にして、LED消灯
