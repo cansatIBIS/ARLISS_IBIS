@@ -1,5 +1,6 @@
 import asyncio
 from mavsdk import System
+import timeout_decorator
 
 
 async def run():
@@ -43,6 +44,10 @@ async def land_judge(drone):
             print("--rejected")
     
     print("####### land judge finish #######")
+    
+    
+async def is_lidar_ok(drone):
+    async for position in drone.position.telemetry():
 
         
 async def is_low_alt(alt):
@@ -70,12 +75,19 @@ def IQR_removal(data):
     return true_data
 
 
+@timeout_decorator.timeout(5, timeout_exception = TimeoutError)
 async def get_alt(drone):
     while True:
-        async for position in drone.telemetry.position():
-            print("altitude:{}".format(position.absolute_altitude_m))
-            break
-        await asyncio.sleep(1)
+        try :
+            async for position in drone.telemetry.position():
+                print("altitude:{}".format(position.absolute_altitude_m))
+                yield position 
+                break
+            await asyncio.sleep(0)
+        except TimeoutError as e:
+            print(e)
+            is_lider_ok = False
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
