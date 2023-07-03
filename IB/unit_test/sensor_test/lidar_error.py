@@ -19,7 +19,10 @@ async def run():
         if state.is_connected:
             print("Connected")
             break
-    await get_alt(drone)
+    try:
+        await get_alt(drone)
+    except TimeoutError as e:
+        print(e)
     
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
