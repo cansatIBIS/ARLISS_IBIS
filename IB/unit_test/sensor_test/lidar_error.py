@@ -1,15 +1,14 @@
-import timeout_decorator
 from mavsdk import System
 import asyncio
 
             
-@timeout_decorator.timeout(5, timeout_exception = TimeoutError)
 async def get_alt(drone):
     while True:
         async for distance in drone.telemetry.distance_sensor():
             print("lidar:{}".format(distance))
             break
         await asyncio.sleep(0)
+        
         
 async def run():
     drone = System()
@@ -20,8 +19,8 @@ async def run():
             print("Connected")
             break
     try:
-        await get_alt(drone)
-    except TimeoutError as e:
+        await asyncio.wait_for(get_alt(drone), timeout = 3)
+    except asyncio.TimeoutError as e:
         print(e)
     
 if __name__ == "__main__":
