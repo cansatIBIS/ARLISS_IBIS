@@ -21,7 +21,7 @@ async def run():
     try:
         await asyncio.wait_for(get_alt(drone), timeout = 3)
     except asyncio.TimeoutError as e:
-        print(str(e))
+        print("timeout")
     
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
