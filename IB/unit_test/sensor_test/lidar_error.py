@@ -13,9 +13,11 @@ async def get_alt(drone):
         
 async def run():
     drone = System()
+    print("Connecting")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     async for state in drone.core.connection_state():
         if state.is_connected:
+            print("Connected")
             break
     await get_alt(drone)
     
