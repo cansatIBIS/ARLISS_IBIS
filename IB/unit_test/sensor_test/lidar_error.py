@@ -6,8 +6,8 @@ import asyncio
 @timeout_decorator.timeout(5, timeout_exception = TimeoutError)
 async def get_alt(drone):
     while True:
-        async for position in drone.telemetry.position():
-            print("altitude:{}".format(position.absolute_altitude_m))
+        async for distance in drone.telemetry.distance_sensor():
+            print("lidar:{}".format(distance))
             break
         await asyncio.sleep(0)
         
