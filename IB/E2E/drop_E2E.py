@@ -90,8 +90,7 @@ PIN = 5
 
 def fusing():
     try:
-        print("-- Start")
-        GPIO.cleanup()
+        print("-- Fuse start")
         GPIO.setmode(GPIO.BCM)
 
         GPIO.setup(PIN, GPIO.OUT)
@@ -110,5 +109,6 @@ def fusing():
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
+    time.sleep(5)
     fusing()
 
