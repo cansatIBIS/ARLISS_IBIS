@@ -32,7 +32,7 @@ def fusing():
     
     except KeyboardInterrupt:
         # GPIO設定クリア
-        GPIO.cleanup()
+        GPIO.output(PIN, 1)
 
 if __name__ == "__main__":
     fusing()
