@@ -18,12 +18,12 @@ async def run():
             logger_info.info("-- Connected to drone!")
             break
         
-    alt_task = asyncio.create_task(print_distance(drone))
     # alt_task = asyncio.create_task(print_alt(drone))
-    land_judge_task = asyncio.create_task(land_judge(drone))
+    # land_judge_task = asyncio.create_task(land_judge(drone))
     
-    await alt_task
-    await land_judge_task
+    # await alt_task
+    # await land_judge_task
+    await land_judge(drone)
 
 
 async def land_judge(drone):
@@ -87,18 +87,6 @@ def IQR_removal(data):
 #                 logger_info.info("altitude:{}".format(position.absolute_altitude_m))
 #                 break
 #             await asyncio.sleep(0)
-
-
-async def print_distance(drone):
-    while True:
-        if is_landed:
-            print("task complete")
-            return
-        else:
-            print("a")
-            async for distance in drone.telemetry.distance_sensor():
-                logger_info.info("altitude:{}".format(distance.current_distance_m))
-                asyncio.sleep(0)
 
 
 def fusing():
