@@ -24,6 +24,7 @@ async def run():
     
     await alt_task
     await land_judge_task
+    return
 
 
 async def land_judge(drone):
