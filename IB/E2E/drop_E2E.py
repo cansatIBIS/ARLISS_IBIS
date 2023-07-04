@@ -13,8 +13,10 @@ async def run():
         if state.is_connected:
             print(f"-- Connected to drone!")
             break
+        
     alt_task = asyncio.create_task(get_alt(drone))
     land_judge_task = asyncio.create_task(land_judge(drone))
+    
     await alt_task
     await land_judge_task
 
