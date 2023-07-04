@@ -3,6 +3,7 @@ from mavsdk import System
 import time
 import RPi.GPIO as GPIO
 
+is_landed = False
 
 async def run():
     drone = System()
@@ -23,8 +24,6 @@ async def run():
 
 async def land_judge(drone):
     print("####### land judge start #######")
-    
-    is_landed = False
     while True:
         true_dist = IQR_removal(await alt_list(drone))
         try:
@@ -76,10 +75,13 @@ def IQR_removal(data):
 
 async def get_alt(drone):
     while True:
-        async for position in drone.telemetry.position():
-            print("altitude:{}".format(position.absolute_altitude_m))
-            break
-        await asyncio.sleep(1)
+        if is_landed:
+            return
+        else:
+            async for position in drone.telemetry.position():
+                print("altitude:{}".format(position.absolute_altitude_m))
+                break
+            await asyncio.sleep(1)
 
 
 PIN = 5
@@ -101,7 +103,7 @@ def fusing():
         GPIO.output(PIN, 1)
     
     except KeyboardInterrupt:
-        GPIO.cleanup()
+        GPIO.output(PIN, 1)
 
 
 if __name__ == "__main__":
