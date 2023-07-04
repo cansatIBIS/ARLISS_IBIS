@@ -1,7 +1,10 @@
 import asyncio
 from mavsdk import System
 
-is_distance_sensor_ok = True
+is_judge_alt = False
+is_low_alt = False
+is_landed = False
+is_distance_sensor_OK = True
 
 async def run():
     drone = System()
@@ -20,22 +23,36 @@ async def run():
     await land_judge_task
 
 
-async def land_judge(drone):
-    print("####### land judge start #######")
-    
-    is_landed = False
+async def land_judge(drone):    
     while True:
-        is_distance_sensor_ok = True
-        alt_now = distance(drone)
-        if alt_now < 10:
-            true_dist = IQR_removal(await alt_list(drone))
-            try:
-                ave = sum(true_dist)/len(true_dist)
-            except ZeroDivisionError as e:
-                print(e)
-                continue
+        try :
+            alt_now = await(asyncio.wait_for(distance_alt(drone), timeout = 0.8))
+        except asyncio.TimeoutError:
+            alt_now = await position_alt(drone)
+            #positionの15m以下でいいのか、abs or reative
             
-            if await is_low_alt(ave):
+        judge_alt(alt_now)
+            
+        if judge_alt:
+            true_dist = IQR_removal(await alt_list(drone))
+            if is_distance_sensor_OK:
+                try:
+                    ave = sum(true_dist)/len(true_dist)
+                except ZeroDivisionError as e:
+                    print(e)
+                    continue
+                
+            else:
+                true_dist = IQR_removal(await alt_list(drone))
+                try:
+                    ave = sum(true_dist)/len(true_dist)
+                except ZeroDivisionError as e:
+                    print(e)
+                    continue
+                
+            low_alt(ave)
+            
+            if is_low_alt:
                 for distance in true_dist:
                     if abs(ave-distance) > 0.01:
                         print("--moving")
@@ -47,32 +64,45 @@ async def land_judge(drone):
                     break
             else:
                 print("--rejected")
+                
     
     print("####### land judge finish #######")
 
         
-async def is_low_alt(alt):
-    return alt < 1
+def low_alt(alt):
+    if alt < 1:
+        is_low_alt = True
+    else:
+        is_low_alt = False
+
+
+def judge_alt(alt):
+    if alt < 15:
+        print("####### land judge start #######")
+        is_judge_alt = True
+    else:
+        is_low_alt = False
         
         
 async def alt_list(drone):
-    distance_list = []
+    altitude_list = []
     iter = 0
     while True:
-        iter += 1
-        if is_distance_sensor_ok:
+        if is_distance_sensor_OK:
             try :
-                distance = await asyncio.wait_for(distance(drone), timeout = 1.0)
+                distance = await asyncio.wait_for(distance_alt(drone), timeout = 0.8)
             except asyncio.TimeoutError :
-                print("Distance sensor has some error")
-                is_distance_sensor_ok = False
-                continue
-            distance_list.append(distance)
-        else :
-            break
+                print("Distance sensor might have some error")
+                is_distance_sensor_OK = False
+                return
+            altitude_list.append(distance)
+        else:
+            position = await position_alt(drone)
+            altitude_list.append(position)
+        iter += 1
         if iter >= 100:
             break
-    return distance_list
+    return altitude_list
         
 
 def IQR_removal(data):
@@ -92,9 +122,14 @@ async def print_alt(drone):
         await asyncio.sleep(0)
         
 
-async def distance(drone):
+async def distance_alt(drone):
     async for distance in drone.telemetry.distance_sensor():
         return distance.current_distance_m
+    
+
+async def position_alt(drone):
+    async for position in drone.telemetry.position():
+        return position.absolute_altitude
 
 
 if __name__ == "__main__":
