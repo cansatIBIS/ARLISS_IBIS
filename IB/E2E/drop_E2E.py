@@ -2,18 +2,19 @@ import asyncio
 from mavsdk import System
 import time
 import RPi.GPIO as GPIO
+from logger_E2E import logger_info
 
 is_landed = False
 
 # 審査会でGPS取れるなら
 async def run():
     drone = System()
-    print("--Waiting for drone to connected...")
+    logger_info.info("--Waiting for drone to connected...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
     async for state in drone.core.connection_state():
         if state.is_connected:
-            print(f"-- Connected to drone!")
+            logger_info.info("-- Connected to drone!")
             break
         
     await land_judge(drone)
@@ -25,7 +26,7 @@ async def run():
 
 
 async def land_judge(drone):
-    print("####### land judge start #######")
+    logger_info.info("####### land judge start #######")
     while True:
         true_dist = IQR_removal(await alt_list(drone))
         try:
@@ -37,17 +38,17 @@ async def land_judge(drone):
         if await is_low_alt(ave):
             for distance in true_dist:
                 if abs(ave-distance) > 0.01:
-                    print("--moving")
+                    logger_info.info("--moving")
                     break
             else:
                 is_landed = True
             if is_landed:
-                print("--Landed")
+                logger_info.info("--Landed")
                 break
         else:
-            print("--rejected")
+            logger_info.info("--rejected")
     
-    print("####### land judge finish #######")
+    logger_info.info("####### land judge finish #######")
 
         
 async def is_low_alt(alt):
@@ -81,7 +82,7 @@ def IQR_removal(data):
 #             return
 #         else:
 #             async for position in drone.telemetry.position():
-#                 print("altitude:{}".format(position.absolute_altitude_m))
+#                 logger_info.info("altitude:{}".format(position.absolute_altitude_m))
 #                 break
 #             await asyncio.sleep(1)
 
@@ -90,16 +91,16 @@ PIN = 5
 
 def fusing():
     try:
-        print("-- Fuse start")
+        logger_info.info("-- Fuse start")
         GPIO.setmode(GPIO.BCM)
 
         GPIO.setup(PIN, GPIO.OUT)
 
         GPIO.output(PIN, 0)
-        print("-- Fusing")
+        logger_info.info("-- Fusing")
 
         time.sleep(1.2)
-        print("-- Fused! Please Fly")
+        logger_info.info("-- Fused! Please Fly")
 
         GPIO.output(PIN, 1)
     
