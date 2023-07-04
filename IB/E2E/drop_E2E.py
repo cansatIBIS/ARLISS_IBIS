@@ -24,8 +24,6 @@ async def run():
     
     await alt_task
     await land_judge_task
-    print("task completed")
-    return
 
 
 async def land_judge(drone):
@@ -93,8 +91,10 @@ def IQR_removal(data):
 async def print_distance(drone):
     while True:
         if is_landed:
+            print("task complete")
             return
         else:
+            print("a")
             async for distance in drone.telemetry.distance_sensor():
                 logger_info.info("altitude:{}".format(distance.current_distance_m))
                 asyncio.sleep(0)
