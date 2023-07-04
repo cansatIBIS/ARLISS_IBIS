@@ -5,6 +5,7 @@ import RPi.GPIO as GPIO
 from logger_E2E import logger_info
 
 is_landed = False
+PIN = 5
 
 # 審査会でGPS取れるなら
 async def run():
@@ -17,12 +18,12 @@ async def run():
             logger_info.info("-- Connected to drone!")
             break
         
-    await land_judge(drone)
-    # alt_task = asyncio.create_task(get_alt(drone))
-    # land_judge_task = asyncio.create_task(land_judge(drone))
+    alt_task = asyncio.create_task(print_distance(drone))
+    # alt_task = asyncio.create_task(print_alt(drone))
+    land_judge_task = asyncio.create_task(land_judge(drone))
     
-    # await alt_task
-    # await land_judge_task
+    await alt_task
+    await land_judge_task
 
 
 async def land_judge(drone):
@@ -76,7 +77,7 @@ def IQR_removal(data):
     return true_data
 
 
-# async def get_alt(drone):
+# async def print_alt(drone):
 #     while True:
 #         if is_landed:
 #             return
@@ -87,7 +88,11 @@ def IQR_removal(data):
 #             await asyncio.sleep(1)
 
 
-PIN = 5
+async def print_distance(drone):
+    async for distance in drone.telemetry.distance_sensor():
+        logger_info.info("altitude:{}".format(distance.current_distance_m))
+        asyncio.sleep(0)
+
 
 def fusing():
     try:
