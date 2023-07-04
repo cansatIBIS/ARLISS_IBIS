@@ -61,6 +61,7 @@ async def alt_list(drone):
     iter = 0
     async for distance in drone.telemetry.distance_sensor():
         iter += 1
+        logger_info.info("altitude:{}".format(distance.current_distance_m))
         distance_list.append(distance.current_distance_m)
         await asyncio.sleep(0)
         if iter >= 100:
