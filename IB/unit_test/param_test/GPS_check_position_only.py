@@ -8,6 +8,7 @@ async def run():
     # Init the drone
     drone = System()
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    print("connected")
 
     # Start the tasks
     asyncio.ensure_future(print_position(drone))
