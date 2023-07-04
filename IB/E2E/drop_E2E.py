@@ -5,6 +5,7 @@ import RPi.GPIO as GPIO
 
 is_landed = False
 
+# 審査会でGPS取れるなら
 async def run():
     drone = System()
     print("--Waiting for drone to connected...")
@@ -15,11 +16,12 @@ async def run():
             print(f"-- Connected to drone!")
             break
         
-    alt_task = asyncio.create_task(get_alt(drone))
-    land_judge_task = asyncio.create_task(land_judge(drone))
+    await land_judge(drone)
+    # alt_task = asyncio.create_task(get_alt(drone))
+    # land_judge_task = asyncio.create_task(land_judge(drone))
     
-    await alt_task
-    await land_judge_task
+    # await alt_task
+    # await land_judge_task
 
 
 async def land_judge(drone):
@@ -73,15 +75,15 @@ def IQR_removal(data):
     return true_data
 
 
-async def get_alt(drone):
-    while True:
-        if is_landed:
-            return
-        else:
-            async for position in drone.telemetry.position():
-                print("altitude:{}".format(position.absolute_altitude_m))
-                break
-            await asyncio.sleep(1)
+# async def get_alt(drone):
+#     while True:
+#         if is_landed:
+#             return
+#         else:
+#             async for position in drone.telemetry.position():
+#                 print("altitude:{}".format(position.absolute_altitude_m))
+#                 break
+#             await asyncio.sleep(1)
 
 
 PIN = 5
