@@ -67,6 +67,7 @@ async def alt_list(drone):
         try:
             distance = await asyncio.wait_for(distance_alt(drone), timeout = 0.8)
         except asyncio.TimeoutError:
+            distance = 100
             pass
         iter += 1
         logger_info.info("altitude:{}".format(distance))
