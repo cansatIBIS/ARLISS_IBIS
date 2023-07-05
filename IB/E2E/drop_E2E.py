@@ -63,9 +63,13 @@ async def is_low_alt(alt):
 async def alt_list(drone):
     distance_list = []
     iter = 0
-    async for distance in drone.telemetry.distance_sensor():
+    while True:
+        try:
+            distance = await asyncio.wait_for(distance_alt(drone), timeout = 0.8)
+        except asyncio.TimeoutError:
+            pass
         iter += 1
-        logger_info.info("altitude:{}".format(distance.current_distance_m))
+        logger_info.info("altitude:{}".format(distance))
         distance_list.append(distance.current_distance_m)
         await asyncio.sleep(0)
         if iter >= 100:
@@ -91,6 +95,11 @@ def IQR_removal(data):
 #                 logger_info.info("altitude:{}".format(position.absolute_altitude_m))
 #                 break
 #             await asyncio.sleep(0)
+
+
+async def distance_alt(drone):
+    async for distance in drone.telemetry.distance_sensor():
+        return distance.current_distance_m
 
 
 def fusing():
