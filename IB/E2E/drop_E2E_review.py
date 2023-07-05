@@ -10,7 +10,7 @@ PIN = 5
 # 審査会でGPS取れるなら
 async def run():
     drone = System()
-    logger_info.info("--Waiting for drone to connected...")
+    logger_info.info("-- Waiting for drone to connected...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
     async for state in drone.core.connection_state():
@@ -27,7 +27,7 @@ async def run():
 
 
 async def land_judge(drone):
-    logger_info.info("####### land judge start #######")
+    logger_info.info("####### Land judge start #######")
     start_time = time.time()
     while True:
         time_now = time.time()
@@ -42,18 +42,23 @@ async def land_judge(drone):
             if await is_low_alt(ave):
                 for distance in true_dist:
                     if abs(ave-distance) > 0.01:
-                        logger_info.info("--moving")
+                        logger_info.info("-- Moving")
                         break
                 else:
                     is_landed = True
+                    print("-- Lidar Judge")
+            else:
+                print("-- Rejected")
+                
         else:
             is_landed = True
+            print("-- Timer Judge")
             
         if is_landed:
-                    logger_info.info("--Landed")
-                    break
+            logger_info.info("-- Landed")
+            break
     
-    logger_info.info("####### land judge finish #######")
+    logger_info.info("####### Land judge finish #######")
 
         
 async def is_low_alt(alt):
