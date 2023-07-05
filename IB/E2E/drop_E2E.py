@@ -91,16 +91,24 @@ def IQR_removal(data):
 #         if is_landed:
 #             return
 #         else:
-#             async for position in drone.telemetry.position():
-#                 logger_info.info("altitude:{}".format(position.absolute_altitude_m))
-#                 break
-#             await asyncio.sleep(0)
+#             try:
+#                 await asyncio.wait_for(positin_alt(drone), timeout = 0.8)
+#             except asyncio.TimeoutError:
+#                 pass
+#             logger_info.info("altitude:{}".format(position))
+#             break
+#         await asyncio.sleep(0)
 
 
 async def distance_alt(drone):
     async for distance in drone.telemetry.distance_sensor():
         return distance.current_distance_m
 
+
+# async def position_alt(drone):
+#     async for position in drone.telemetry.position():
+#         return position.absolute_altitude
+    
 
 def fusing():
     try:
@@ -117,7 +125,7 @@ def fusing():
 
         GPIO.output(PIN, 1)
     
-    except KeyboardInterrupt:
+    except:
         GPIO.output(PIN, 1)
 
 

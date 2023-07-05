@@ -29,7 +29,7 @@ def fusing():
         # GPIO.cleanup()
         
     
-    except KeyboardInterrupt:
+    except:
         # GPIO設定クリア
         GPIO.output(PIN, 1)
 
