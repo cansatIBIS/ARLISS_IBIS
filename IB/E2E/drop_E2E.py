@@ -70,7 +70,7 @@ async def alt_list(drone):
             pass
         iter += 1
         logger_info.info("altitude:{}".format(distance))
-        distance_list.append(distance.current_distance_m)
+        distance_list.append(distance)
         await asyncio.sleep(0)
         if iter >= 100:
             break
