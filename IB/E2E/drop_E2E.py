@@ -110,10 +110,21 @@ async def distance_alt(drone):
 #     async for position in drone.telemetry.position():
 #         return position.absolute_altitude
     
+    
+def wait():
+    print("-- Waiting")
+    time.sleep(10)
+    print("10秒経過")
+    time.sleep(10)
+    print("20秒経過")
+    time.sleep(10)
+    print("30秒経過")
+
 
 def fusing():
     try:
         logger_info.info("-- Fuse start")
+        time.sleep(3)
         GPIO.setmode(GPIO.BCM)
 
         GPIO.setup(PIN, GPIO.OUT)
@@ -133,6 +144,6 @@ def fusing():
 if __name__ == "__main__":
     time.sleep(10)
     asyncio.get_event_loop().run_until_complete(run())
-    time.sleep(30)
+    wait()
     fusing()
 
