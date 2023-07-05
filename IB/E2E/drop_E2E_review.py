@@ -119,12 +119,12 @@ async def distance_alt(drone):
     
 def wait():
     logger_info.info("-- Waiting")
-    time.sleep(10)
+    time.sleep(5)
+    logger_info.info("5秒経過")
+    time.sleep(5)
     logger_info.info("10秒経過")
-    time.sleep(10)
-    logger_info.info("20秒経過")
-    time.sleep(10)
-    logger_info.info("30秒経過")
+    time.sleep(5)
+    logger_info.info("15秒経過")
 
 
 def fusing():
