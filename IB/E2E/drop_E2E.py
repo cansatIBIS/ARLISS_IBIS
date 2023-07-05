@@ -28,26 +28,29 @@ async def run():
 
 async def land_judge(drone):
     logger_info.info("####### land judge start #######")
+    start_time = time.time()
     while True:
-        true_dist = IQR_removal(await alt_list(drone))
-        try:
-            ave = sum(true_dist)/len(true_dist)
-        except ZeroDivisionError as e:
-            print(e)
-            continue
-        
-        if await is_low_alt(ave):
-            for distance in true_dist:
-                if abs(ave-distance) > 0.01:
-                    logger_info.info("--moving")
-                    break
-            else:
-                is_landed = True
-            if is_landed:
-                logger_info.info("--Landed")
-                break
+        time_now = time.time()
+        if time_now-start_time < 30:
+            true_dist = IQR_removal(await alt_list(drone))
+            try:
+                ave = sum(true_dist)/len(true_dist)
+            except ZeroDivisionError as e:
+                print(e)
+                continue
+            
+            if await is_low_alt(ave):
+                for distance in true_dist:
+                    if abs(ave-distance) > 0.01:
+                        logger_info.info("--moving")
+                        break
+                else:
+                    is_landed = True
         else:
-            logger_info.info("--rejected")
+            is_landed = True
+        if is_landed:
+                    logger_info.info("--Landed")
+                    break
     
     logger_info.info("####### land judge finish #######")
 
