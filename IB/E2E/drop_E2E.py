@@ -48,6 +48,7 @@ async def land_judge(drone):
                     is_landed = True
         else:
             is_landed = True
+            
         if is_landed:
                     logger_info.info("--Landed")
                     break
