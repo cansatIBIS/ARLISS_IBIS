@@ -10,6 +10,7 @@ def fusing():
     # BCM(GPIO番号)で指定する設定
     try:
         print("-- Start")
+        time.sleep(3)
         GPIO.setmode(GPIO.BCM)
 
         # GPIO26を出力モード設定
@@ -20,7 +21,7 @@ def fusing():
         print("-- Fusing")
 
         # 0.5秒待つ
-        time.sleep(1.2)
+        time.sleep(5.0)
         print("-- Fused! Please Fly")
 
         # GPIO17の出力を0にして、LED消灯

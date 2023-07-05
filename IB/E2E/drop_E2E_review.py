@@ -36,7 +36,7 @@ async def land_judge(drone):
             try:
                 ave = sum(true_dist)/len(true_dist)
             except ZeroDivisionError as e:
-                print(e)
+                logger_info.info(e)
                 continue
             
             if await is_low_alt(ave):
@@ -67,8 +67,9 @@ async def alt_list(drone):
         try:
             distance = await asyncio.wait_for(distance_alt(drone), timeout = 0.8)
         except asyncio.TimeoutError:
-            distance = 100
-            pass
+            logger_info.info("Too high or something error")
+            distance_list = []
+            continue
         iter += 1
         logger_info.info("altitude:{}".format(distance))
         distance_list.append(distance)
@@ -112,13 +113,13 @@ async def distance_alt(drone):
     
     
 def wait():
-    print("-- Waiting")
+    logger_info.info("-- Waiting")
     time.sleep(10)
-    print("10秒経過")
+    logger_info.info("10秒経過")
     time.sleep(10)
-    print("20秒経過")
+    logger_info.info("20秒経過")
     time.sleep(10)
-    print("30秒経過")
+    logger_info.info("30秒経過")
 
 
 def fusing():
@@ -132,7 +133,7 @@ def fusing():
         GPIO.output(PIN, 0)
         logger_info.info("-- Fusing")
 
-        time.sleep(1.2)
+        time.sleep(5.0)
         logger_info.info("-- Fused! Please Fly")
 
         GPIO.output(PIN, 1)
