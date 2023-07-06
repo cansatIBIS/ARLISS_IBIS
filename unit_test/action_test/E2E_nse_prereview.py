@@ -2,13 +2,15 @@ import asyncio
 from mavsdk import System
 import time
 import RPi.GPIO as GPIO
-from logger_E2E import logger_info
+from logger import logger_info
+from mavsdk.mission import (MissionItem, MissionPlan)
 
 is_landed = False
 PIN = 5
 is_fused = False
 is_mission_finished = False
 mode = None
+goal = [35.797379299999996, 139.8922272]
 
 async def run():
     drone = System()
@@ -31,19 +33,19 @@ async def run():
         land_task = asyncio.create_task(land(drone))
 
         mission_items = []
-        mission_items.append(MissionItem(waypoint1[0],
-                                            waypoint1[1],
-                                            3,
-                                            5,
-                                            True, 
-                                            float('nan'),
-                                            float('nan'),
-                                            MissionItem.CameraAction.NONE,
-                                            float('nan'),
-                                            float('nan'),
-                                            float('nan'),
-                                            float('nan'),
-                                            float('nan')))
+        mission_items.append(MissionItem(goal[0],
+                                         goal[1],
+                                         3,
+                                         5,
+                                         True, #止まらない
+                                         float('nan'),
+                                         float('nan'),
+                                         MissionItem.CameraAction.NONE,
+                                         float('nan'),
+                                         float('nan'),
+                                         float('nan'),
+                                         float('nan'),
+                                         float('nan')))
 
         mission_plan = MissionPlan(mission_items)
 
@@ -211,6 +213,7 @@ def wait():
 
 
 def fusing():
+    global is_fused
     try:
         logger_info.info("-- Fuse start")
         time.sleep(3)
@@ -225,11 +228,14 @@ def fusing():
         logger_info.info("--Nichrome Wire Fused")
 
         GPIO.output(PIN, 1)
+        is_fused = True
+        time.sleep(5.0)
     
     except:
         GPIO.output(PIN, 1)
 
 async def land(drone):
+    global is_mission_finished
     while True:
         await asyncio.sleep(1)
         is_mission_finished = await drone.mission.is_mission_finished()
@@ -241,6 +247,7 @@ async def land(drone):
         logger_info.info("-- Mission Complete")
 
 async def get_log(drone):
+    global mode
     async for flight_mode in drone.telemetry.flight_mode():
         mode = flight_mode
     async for distance in drone.telemetry.distance_sensor():
