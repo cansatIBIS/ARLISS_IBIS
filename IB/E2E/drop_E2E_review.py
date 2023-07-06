@@ -21,6 +21,9 @@ async def run():
     # alt_task = asyncio.create_task(print_alt(drone))
     # land_judge_task = asyncio.create_task(land_judge(drone))
     
+    print("-- Throw the viecle")
+    time.sleep(5)
+    
     # await alt_task
     # await land_judge_task
     await land_judge(drone)
@@ -148,7 +151,6 @@ def fusing():
 
 
 if __name__ == "__main__":
-    time.sleep(3)
     asyncio.get_event_loop().run_until_complete(run())
     wait()
     fusing()
