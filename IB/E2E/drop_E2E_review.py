@@ -10,7 +10,7 @@ PIN = 5
 # 審査会でGPS取れるなら
 async def run():
     drone = System()
-    logger_info.info("--Waiting for drone to connected...")
+    logger_info.info("-- Waiting for drone to be connected...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
     async for state in drone.core.connection_state():
@@ -21,13 +21,16 @@ async def run():
     # alt_task = asyncio.create_task(print_alt(drone))
     # land_judge_task = asyncio.create_task(land_judge(drone))
     
+    logger_info.info("-- Throw the viecle")
+    time.sleep(5)
+    
     # await alt_task
     # await land_judge_task
     await land_judge(drone)
 
 
 async def land_judge(drone):
-    logger_info.info("####### land judge start #######")
+    logger_info.info("####### Land judge start #######")
     start_time = time.time()
     while True:
         time_now = time.time()
@@ -42,18 +45,23 @@ async def land_judge(drone):
             if await is_low_alt(ave):
                 for distance in true_dist:
                     if abs(ave-distance) > 0.01:
-                        logger_info.info("--moving")
+                        logger_info.info("-- Moving")
                         break
                 else:
                     is_landed = True
+                    logger_info.info("-- Lidar Judge")
+            else:
+                logger_info.info("-- Over 1m")
+                
         else:
             is_landed = True
+            logger_info.info("-- Timer Judge")
             
         if is_landed:
-                    logger_info.info("--Landed")
-                    break
+            logger_info.info("-- Landed")
+            break
     
-    logger_info.info("####### land judge finish #######")
+    logger_info.info("####### Land judge finish #######")
 
         
 async def is_low_alt(alt):
@@ -67,22 +75,22 @@ async def alt_list(drone):
         try:
             distance = await asyncio.wait_for(distance_alt(drone), timeout = 0.8)
         except asyncio.TimeoutError:
-            logger_info.info("Too high or something error")
+            logger_info.info("Too high or lidar error")
             distance_list = []
             continue
         iter += 1
         logger_info.info("altitude:{}".format(distance))
         distance_list.append(distance)
         await asyncio.sleep(0)
-        if iter >= 100:
+        if iter >= 30:
             break
     return distance_list
         
 
 def IQR_removal(data):
     data.sort()
-    quartile_25 = (data[24]+data[25])/2
-    quartile_75 = (data[74]+data[75])/2
+    quartile_25 = data[7]
+    quartile_75 = data[23]
     IQR = quartile_75-quartile_25
     true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
     return true_data
@@ -114,12 +122,12 @@ async def distance_alt(drone):
     
 def wait():
     logger_info.info("-- Waiting")
-    time.sleep(10)
+    time.sleep(5)
+    logger_info.info("5秒経過")
+    time.sleep(5)
     logger_info.info("10秒経過")
-    time.sleep(10)
-    logger_info.info("20秒経過")
-    time.sleep(10)
-    logger_info.info("30秒経過")
+    time.sleep(5)
+    logger_info.info("15秒経過")
 
 
 def fusing():
@@ -143,8 +151,6 @@ def fusing():
 
 
 if __name__ == "__main__":
-    time.sleep(10)
     asyncio.get_event_loop().run_until_complete(run())
     wait()
     fusing()
-

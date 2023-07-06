@@ -1,19 +1,20 @@
 import asyncio
 from mavsdk import System
 import time
+import RPi.GPIO as GPIO
+from logger_E2E import logger_info
 
-is_judge_alt = False
-is_low_alt = False
 is_landed = False
+PIN = 5
 
 async def run():
     drone = System()
-    print("-- Waiting for drone to be connected...")
+    logger_info.info("-- Waiting for drone to be connected...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
     async for state in drone.core.connection_state():
         if state.is_connected:
-            print(f"-- Connected to drone!")
+            logger_info.info(f"-- Connected to drone!")
             break
         
     print_alt_task = asyncio.create_task(print_alt(drone))
@@ -33,24 +34,20 @@ async def land_judge(drone):
             except asyncio.TimeoutError:
                 continue
                 
-            is_judge_alt(alt_now)
-                
-            if is_judge_alt:
+            if is_judge_alt(alt_now):
                 true_dist = IQR_removal(await get_alt_list(drone, "LIDAR"))
                 if len(true_dist) == 0:
                     continue
                 try:
                     ave = sum(true_dist)/len(true_dist)
                 except ZeroDivisionError as e:
-                    print(e)
+                    logger_info.info(e)
                     continue
-                    
-                is_low_alt(ave)
                 
-                if is_low_alt:
+                if is_low_alt(ave):
                     for distance in true_dist:
                         if abs(ave-distance) > 0.01:
-                            print("-- Moving")
+                            logger_info.info("-- Moving")
                             break
                     else:
                         true_posi = IQR_removal(await get_alt_list(drone, "POSITION"))
@@ -59,42 +56,43 @@ async def land_judge(drone):
                         try:
                             ave = sum(true_posi)/len(true_posi)
                         except ZeroDivisionError as e:
-                            print(e)
+                            logger_info.info(e)
                             continue
                         for position in true_posi:
                             if abs(ave-position) > 0.01:
-                                print("-- Moving. Lidar might have some error")
+                                logger_info.info("-- Moving. Lidar might have some error")
                                 break
                         else:
                             is_landed = True
                         
                     if is_landed:
-                        print("-- Lidar & Position Judge")
+                        logger_info.info("-- Lidar & Position Judge")
                         break
                 else:
-                    print("-- Over 1m")
+                    logger_info.info("-- Over 1m")
         else:
             is_landed = True
-            print("-- Timer Judge")
-            break
+            if is_landed:
+                logger_info.info("-- Timer Judge")
+                break
                 
     
-    print("####### Land judge finish #######")
+    logger_info.info("####### Land judge finish #######")
 
         
 def is_low_alt(alt):
     if alt < 1:
-        is_low_alt = True
+        return True
     else:
-        is_low_alt = False
+        return False
 
 
 def is_judge_alt(alt):
     if alt < 15:
-        print("####### Land judge start #######")
-        is_judge_alt = True
+        logger_info.info("####### Land judge start #######")
+        return True
     else:
-        is_low_alt = False
+        return False
         
         
 async def get_alt_list(drone, priority):
@@ -105,7 +103,7 @@ async def get_alt_list(drone, priority):
             try :
                 distance = await asyncio.wait_for(get_distance_alt(drone), timeout = 0.8)
             except asyncio.TimeoutError:
-                print("Distance sensor might have some error")
+                logger_info.info("Distance sensor might have some error")
                 altitude_list =[]
                 return altitude_list
             altitude_list.append(distance)
@@ -114,7 +112,7 @@ async def get_alt_list(drone, priority):
             try:
                 position = await asyncio.wait_for(get_position_alt(drone), timeout = 0.8)
             except asyncio.TimeoutError:
-                print("Pixhawk might have some error")
+                logger_info.info("Pixhawk might have some error")
                 altitude_list =[]
                 return altitude_list
             altitude_list.append(position)
@@ -138,10 +136,10 @@ async def print_alt(drone):
     while True:
         try:
             position = await asyncio.wait_for(get_position_alt(drone), timeout = 0.8)
-            print("altitude:{}".format(position))
+            logger_info.info("altitude:{}".format(position))
             break
         except asyncio.TimeoutError:
-            print("Pixhawk might have some error")
+            logger_info.info("Pixhawk might have some error")
             pass
         await asyncio.sleep(0)
         
@@ -156,6 +154,38 @@ async def get_position_alt(drone):
         return position.absolute_altitude
 
 
+def wait():
+    logger_info.info("-- Waiting")
+    time.sleep(5)
+    logger_info.info("5秒経過")
+    time.sleep(5)
+    logger_info.info("10秒経過")
+    time.sleep(5)
+    logger_info.info("15秒経過")
+
+
+def fusing():
+    try:
+        logger_info.info("-- Fuse start")
+        time.sleep(3)
+        GPIO.setmode(GPIO.BCM)
+
+        GPIO.setup(PIN, GPIO.OUT)
+
+        GPIO.output(PIN, 0)
+        logger_info.info("-- Fusing")
+
+        time.sleep(5.0)
+        logger_info.info("-- Fused! Please Fly")
+
+        GPIO.output(PIN, 1)
+    
+    except:
+        GPIO.output(PIN, 1)
+
+
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
+    wait()
+    fusing()
 
