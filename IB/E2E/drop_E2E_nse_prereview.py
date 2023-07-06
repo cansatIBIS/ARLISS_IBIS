@@ -185,7 +185,7 @@ def fusing():
 
 
 if __name__ == "__main__":
-    time.sleep(10)
+    time.sleep(3)
     asyncio.get_event_loop().run_until_complete(run())
     wait()
     fusing()

@@ -79,15 +79,15 @@ async def alt_list(drone):
         logger_info.info("altitude:{}".format(distance))
         distance_list.append(distance)
         await asyncio.sleep(0)
-        if iter >= 100:
+        if iter >= 30:
             break
     return distance_list
         
 
 def IQR_removal(data):
     data.sort()
-    quartile_25 = (data[24]+data[25])/2
-    quartile_75 = (data[74]+data[75])/2
+    quartile_25 = data[7]
+    quartile_75 = data[23]
     IQR = quartile_75-quartile_25
     true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
     return true_data
@@ -148,8 +148,7 @@ def fusing():
 
 
 if __name__ == "__main__":
-    time.sleep(10)
+    time.sleep(3)
     asyncio.get_event_loop().run_until_complete(run())
     wait()
     fusing()
-
