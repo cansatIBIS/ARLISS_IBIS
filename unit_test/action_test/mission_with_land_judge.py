@@ -194,7 +194,6 @@ async def take_csv_and_land(drone):
     while True:
         await asyncio.sleep(1)
         mission_finished = await drone.mission.is_mission_finished()
-        print(mission_finished)
         if mission_finished:
             dt_now = datetime.datetime.now()
             with open(f"/home/pi/ARLISS_IBIS/log/log_csv/mission_2_waypoints {dt_now}.csv","w") as file:
