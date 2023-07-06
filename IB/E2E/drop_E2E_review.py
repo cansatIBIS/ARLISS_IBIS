@@ -10,7 +10,7 @@ PIN = 5
 # 審査会でGPS取れるなら
 async def run():
     drone = System()
-    logger_info.info("-- Waiting for drone to connected...")
+    logger_info.info("-- Waiting for drone to be connected...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
     async for state in drone.core.connection_state():
@@ -48,7 +48,7 @@ async def land_judge(drone):
                     is_landed = True
                     print("-- Lidar Judge")
             else:
-                print("-- Rejected")
+                print("-- Over 1m")
                 
         else:
             is_landed = True
@@ -72,7 +72,7 @@ async def alt_list(drone):
         try:
             distance = await asyncio.wait_for(distance_alt(drone), timeout = 0.8)
         except asyncio.TimeoutError:
-            logger_info.info("Too high or something error")
+            logger_info.info("Too high or lidar error")
             distance_list = []
             continue
         iter += 1
