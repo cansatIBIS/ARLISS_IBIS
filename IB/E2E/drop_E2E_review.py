@@ -21,7 +21,7 @@ async def run():
     # alt_task = asyncio.create_task(print_alt(drone))
     # land_judge_task = asyncio.create_task(land_judge(drone))
     
-    print("-- Throw the viecle")
+    logger_info.info("-- Throw the viecle")
     time.sleep(5)
     
     # await alt_task
@@ -49,13 +49,13 @@ async def land_judge(drone):
                         break
                 else:
                     is_landed = True
-                    print("-- Lidar Judge")
+                    logger_info.info("-- Lidar Judge")
             else:
-                print("-- Over 1m")
+                logger_info.info("-- Over 1m")
                 
         else:
             is_landed = True
-            print("-- Timer Judge")
+            logger_info.info("-- Timer Judge")
             
         if is_landed:
             logger_info.info("-- Landed")
