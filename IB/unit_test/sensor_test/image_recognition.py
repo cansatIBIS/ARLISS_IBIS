@@ -2,6 +2,7 @@ import picamera
 import cv2
 import numpy as np
 import time
+import datetime
 
 class Camera:
     
@@ -70,7 +71,7 @@ if __name__ == "__main__":
     
     file_No = 0
     while True:
-        file_path = '/home/pi/utat/img/image{:>03d}.jpg'.format(file_No)
+        file_path = '/home/pi/ARLISS_IBIS/IB/Images/img/image{:>03d}{}.jpg'.format(file_No, datetime.datetime.now())
         file_No += 1
 
         print("taking pic...: {}".format(file_path))
