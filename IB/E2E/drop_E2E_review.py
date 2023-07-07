@@ -32,6 +32,7 @@ async def run():
 
 
 async def land_judge(drone):
+    global is_landed
     logger_info.info("####### Land judge start #######")
     start_time = time.time()
     while True:
