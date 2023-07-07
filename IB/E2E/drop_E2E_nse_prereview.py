@@ -32,7 +32,7 @@ async def land_judge(drone):
     start_time = time.time()
     while True:
         time_now = time.time()
-        asyncio.sleep(0)
+        await asyncio.sleep(0)
         if time_now-start_time < 30:
             try :
                 alt_now = await(asyncio.wait_for(get_distance_alt(drone), timeout = 0.8))
