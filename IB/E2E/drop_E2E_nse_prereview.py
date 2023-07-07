@@ -147,13 +147,11 @@ async def print_alt(drone):
         try:
             position = await asyncio.wait_for(get_position_alt(drone), timeout = 0.8)
             logger_info.info("altitude:{}".format(position))
-            break
         except asyncio.TimeoutError:
             logger_info.info("Pixhawk might have some error")
-            break
-    if is_landed:
-        return
-    await asyncio.sleep(0)
+        if is_landed:
+            return
+        await asyncio.sleep(0)
         
 
 async def get_distance_alt(drone):
