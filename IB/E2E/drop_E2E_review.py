@@ -90,11 +90,15 @@ async def alt_list(drone):
         
 
 def IQR_removal(data):
-    data.sort()
-    quartile_25 = data[7]
-    quartile_75 = data[23]
-    IQR = quartile_75-quartile_25
-    true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
+    try:
+        data.sort()
+        quartile_25 = data[7]
+        quartile_75 = data[23]
+        IQR = quartile_75-quartile_25
+        true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
+    except IndexError as e:
+        logger_info.info(e)
+        true_data= []
     return true_data
 
 
