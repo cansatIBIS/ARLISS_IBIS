@@ -75,7 +75,7 @@ async def alt_list(drone):
     iter = 0
     while True:
         try:
-            distance = await asyncio.wait_for(distance_alt(drone), timeout = 0.8)
+            distance = await asyncio.wait_for(get_distance_alt(drone), timeout = 0.8)
         except asyncio.TimeoutError:
             logger_info.info("Too high or lidar error")
             distance_list = []
@@ -116,12 +116,12 @@ def IQR_removal(data):
 #         await asyncio.sleep(0)
 
 
-async def distance_alt(drone):
+async def get_distance_alt(drone):
     async for distance in drone.telemetry.distance_sensor():
         return distance.current_distance_m
 
 
-# async def position_alt(drone):
+# async def get_position_alt(drone):
 #     async for position in drone.telemetry.position():
 #         return position.absolute_altitude
     
