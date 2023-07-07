@@ -130,7 +130,6 @@ async def get_distance_alt(drone):
 def fusing():
     try:
         logger_info.info("-- Fuse start")
-        time.sleep(3)
         GPIO.setmode(GPIO.BCM)
 
         GPIO.setup(PIN, GPIO.OUT)
