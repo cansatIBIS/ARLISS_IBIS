@@ -22,6 +22,9 @@ async def run():
     
     await print_alt_task
     await land_judge_task
+    
+    wait()
+    fusing()
 
 
 async def land_judge(drone):
@@ -29,6 +32,7 @@ async def land_judge(drone):
     start_time = time.time()
     while True:
         time_now = time.time()
+        asyncio.sleep(0)
         if time_now-start_time < 30:
             try :
                 alt_now = await(asyncio.wait_for(get_distance_alt(drone), timeout = 0.8))
@@ -194,6 +198,4 @@ def fusing():
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
-    wait()
-    fusing()
 
