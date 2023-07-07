@@ -79,7 +79,7 @@ async def alt_list(drone):
         except asyncio.TimeoutError:
             logger_info.info("Too high or lidar error")
             distance_list = []
-            continue
+            return distance_list
         iter += 1
         logger_info.info("altitude:{}".format(distance))
         distance_list.append(distance)
