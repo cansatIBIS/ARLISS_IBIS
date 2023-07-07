@@ -27,7 +27,7 @@ async def run():
     # await alt_task
     # await land_judge_task
     await land_judge(drone)
-    wait()
+    
     fusing()
 
 
@@ -125,16 +125,6 @@ async def get_distance_alt(drone):
 # async def get_position_alt(drone):
 #     async for position in drone.telemetry.position():
 #         return position.absolute_altitude
-    
-    
-def wait():
-    logger_info.info("-- Waiting")
-    time.sleep(5)
-    logger_info.info("5秒経過")
-    time.sleep(5)
-    logger_info.info("10秒経過")
-    time.sleep(5)
-    logger_info.info("15秒経過")
 
 
 def fusing():
