@@ -25,6 +25,7 @@ async def run():
 
 
 async def land_judge(drone):
+    global is_landed
     start_time = time.time()
     while True:
         time_now = time.time()
@@ -70,6 +71,7 @@ async def land_judge(drone):
                         break
                 else:
                     logger_info.info("-- Over 1m")
+                    
         else:
             is_landed = True
             if is_landed:
@@ -144,8 +146,10 @@ async def print_alt(drone):
             break
         except asyncio.TimeoutError:
             logger_info.info("Pixhawk might have some error")
-            pass
-        await asyncio.sleep(0)
+            break
+    if is_landed:
+        return
+    await asyncio.sleep(0)
         
 
 async def get_distance_alt(drone):
