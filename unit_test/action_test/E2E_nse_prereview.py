@@ -13,6 +13,7 @@ mode = None
 goal = [35.797379299999996, 139.8922272]
 
 async def run():
+    global is_fused
     drone = System()
     logger_info.info("-- Waiting for drone to be connected...")
     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
@@ -27,6 +28,9 @@ async def run():
     
     await print_alt_task
     await land_judge_task
+
+    wait()
+    fusing()
 
     if is_fused:
         get_log_task = asyncio.create_task(get_log(drone))
@@ -73,9 +77,11 @@ async def run():
 
 
 async def land_judge(drone):
+    global is_landed
     start_time = time.time()
     while True:
         time_now = time.time()
+        await asyncio.sleep(0)
         if time_now-start_time < 30:
             try :
                 alt_now = await(asyncio.wait_for(get_distance_alt(drone), timeout = 0.8))
@@ -118,6 +124,7 @@ async def land_judge(drone):
                         break
                 else:
                     logger_info.info("-- Over 1m")
+                    
         else:
             is_landed = True
             if is_landed:
@@ -172,11 +179,15 @@ async def get_alt_list(drone, priority):
         
 
 def IQR_removal(data):
-    data.sort()
-    quartile_25 = (data[7]+data[8])/2
-    quartile_75 = (data[22]+data[23])/2
-    IQR = quartile_75-quartile_25
-    true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
+    try:
+        data.sort()
+        quartile_25 = (data[7]+data[8])/2
+        quartile_75 = (data[22]+data[23])/2
+        IQR = quartile_75-quartile_25
+        true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
+    except IndexError as e:
+        logger_info.info(e)
+        true_data = []
     return true_data
 
 
@@ -185,10 +196,10 @@ async def print_alt(drone):
         try:
             position = await asyncio.wait_for(get_position_alt(drone), timeout = 0.8)
             logger_info.info("altitude:{}".format(position))
-            break
         except asyncio.TimeoutError:
             logger_info.info("Pixhawk might have some error")
-            pass
+        if is_landed:
+            return
         await asyncio.sleep(0)
         
 
@@ -205,11 +216,11 @@ async def get_position_alt(drone):
 def wait():
     logger_info.info("-- Waiting")
     time.sleep(5)
-    logger_info.info("5秒経過")
+    logger_info.info("5s passed")
     time.sleep(5)
-    logger_info.info("10秒経過")
+    logger_info.info("10s passed")
     time.sleep(5)
-    logger_info.info("15秒経過")
+    logger_info.info("15s passed")
 
 
 def fusing():
@@ -229,6 +240,7 @@ def fusing():
 
         GPIO.output(PIN, 1)
         is_fused = True
+        print("Waiting 5s...")
         time.sleep(5.0)
     
     except:
@@ -277,5 +289,3 @@ async def get_log(drone):
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())
-    wait()
-    fusing()
