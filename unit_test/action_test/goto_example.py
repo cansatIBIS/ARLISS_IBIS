@@ -35,7 +35,7 @@ async def run():
     # To fly drone  3m above the ground plane
     flying_alt = absolute_altitude + 3.0
     # goto_location() takes Absolute MSL altitude
-    await drone.action.goto_location(35.71673,139.764431, flying_alt, 0)
+    await drone.action.goto_location(35.7927147,139.8908122, flying_alt, 0)
 
     while True:
         print("Staying connected, press Ctrl-C to exit")
