@@ -2,7 +2,7 @@ import asyncio
 from mavsdk import System
 import time
 import RPi.GPIO as GPIO
-from logger_E2E import logger_info
+from logger import logger_info
 
 is_landed = False
 PIN = 5
