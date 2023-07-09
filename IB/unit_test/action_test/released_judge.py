@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 from logger import logger_info
                      
 PIN = 5
-light_threshold = 400
+light_threshold = 250
 # 連続して値を読み込む
 def get_light_val():
     resp = spi.xfer2([0x68, 0x00])                 
@@ -37,7 +37,7 @@ def released_judge():
             # 光の継続時間
             duration_time = time.perf_counter() - duration_start_time
 
-            if duration_time > 30:
+            if duration_time > 10:
                 print("released judge case 1")
                 break
         
