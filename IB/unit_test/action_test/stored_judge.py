@@ -1,6 +1,8 @@
 import spidev               
 import time                         
-import sys                          
+import sys    
+
+light_threshold = 400
 
 # 連続して値を読み込む
 def get_light_val():
@@ -16,7 +18,6 @@ def stored_judge():
     # 光の継続時間
     duration_start_time = time.perf_counter()
     is_continue = False
-    light_threshold = 400
 
     while True:
 

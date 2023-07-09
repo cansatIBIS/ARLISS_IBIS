@@ -2,6 +2,7 @@ import spidev
 import time                         
 import sys                          
 
+light_threshold = 400
 # 連続して値を読み込む
 def get_light_val():
     resp = spi.xfer2([0x68, 0x00])                 
@@ -16,7 +17,7 @@ def released_judge():
     # 光の継続時間
     duration_start_time = time.perf_counter()
     is_continue = False
-    light_threshold = 400
+
 
     while True:
 
