@@ -66,8 +66,8 @@ async def run():
     
 
     
-    waypoint1 = [center[0] + lat_deg_per_m * north_m, center[1]]
-    waypoint2 = [center[0] + lat_deg_per_m * south_m, center[1]]
+    waypoint1 = [35.7927147,139.8908122]
+    # waypoint2 = [center[0] + lat_deg_per_m * south_m, center[1]]
     mission_items = []
     mission_items.append(MissionItem(waypoint1[0],
                                      waypoint1[1],
@@ -82,19 +82,19 @@ async def run():
                                      float('nan'),
                                      float('nan'),
                                      float('nan')))
-    mission_items.append(MissionItem(waypoint2[0],
-                                     waypoint2[1],
-                                     3,
-                                     5,
-                                     True,
-                                     float('nan'),
-                                     float('nan'),
-                                     MissionItem.CameraAction.NONE,
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan')))
+    # mission_items.append(MissionItem(waypoint2[0],
+    #                                  waypoint2[1],
+    #                                  3,
+    #                                  5,
+    #                                  True,
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  MissionItem.CameraAction.NONE,
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan')))
 
     mission_plan = MissionPlan(mission_items)
 
