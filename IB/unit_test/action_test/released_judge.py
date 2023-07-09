@@ -8,8 +8,8 @@ def get_light_val():
     value = ((resp[0] << 8) + resp[1]) & 0x3FF    
     return value
 
-def stored_judge():
-    print("######################\n# stored judge start #\n######################")
+def released_judge():
+    print("########################\n# released judge start #\n########################")
 
     # 関数の開始時間
     start_time = time.perf_counter()
@@ -20,14 +20,13 @@ def stored_judge():
 
     while True:
 
-
         light_val = get_light_val()
         time_stamp = time.perf_counter() - duration_start_time
         print("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
 
         if is_continue:
             # 光が途切れていた場合、やり直し
-            if light_val >= light_threshold:
+            if light_val <= light_threshold:
                 is_continue = False
                 continue
 
@@ -35,20 +34,20 @@ def stored_judge():
             duration_time = time.perf_counter() - duration_start_time
 
             if duration_time > 30:
-                print("stored judge case 1")
+                print("released judge case 1")
                 break
         
-        elif light_val < light_threshold:
+        elif light_val > light_threshold:
             is_continue = True
             duration_start_time = time.perf_counter()
         
         elapsed_time = time.perf_counter() - start_time
 
         if elapsed_time > 120:
-            print("stored judge case 2")
+            print("released judge case 2")
             break
 
-    print("#######################\n# stored judge finish #\n#######################")
+    print("#########################\n# released judge finish #\n#########################")
         
 
 if __name__ == "__main__":
@@ -57,7 +56,7 @@ if __name__ == "__main__":
     spi.open(0, 0)                    
     spi.max_speed_hz = 1000000 
 
-    stored_judge()
+    released_judge()
 
     spi.close()
     sys.exit()
