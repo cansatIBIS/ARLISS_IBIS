@@ -1,10 +1,9 @@
 import asyncio
 from mavsdk import System
-from logger import logger_info, logger_debug
+from logger import logger_info
 import picamera
 import cv2
 import numpy as np
-import time
 import datetime
 
 altitude = 2.5
