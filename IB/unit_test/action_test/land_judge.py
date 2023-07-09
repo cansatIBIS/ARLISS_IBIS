@@ -148,6 +148,8 @@ async def print_alt(drone):
         except asyncio.TimeoutError:
             print("Pixhawk might have some error")
             pass
+        if is_landed:
+            return
         await asyncio.sleep(0)
         
 
