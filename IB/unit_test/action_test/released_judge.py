@@ -61,16 +61,16 @@ def fusing():
 
         GPIO.setup(PIN, GPIO.OUT)
 
-        GPIO.output(PIN, 0)
+        GPIO.output(PIN, 1)
         logger_info.info("-- Fusing")
 
         time.sleep(2.0)
         logger_info.info("-- Fused! Please Fly")
 
-        GPIO.output(PIN, 1)
+        GPIO.output(PIN, 0)
     
     except:
-        GPIO.output(PIN, 1)
+        GPIO.output(PIN, 0)
 
         
 
