@@ -1,7 +1,10 @@
 import spidev               
 import time                         
-import sys                          
-
+import sys     
+import RPi.GPIO as GPIO
+from logger import logger_info
+                     
+PIN = 5
 light_threshold = 400
 # 連続して値を読み込む
 def get_light_val():
@@ -49,6 +52,26 @@ def released_judge():
             break
 
     print("#########################\n# released judge finish #\n#########################")
+    
+
+def fusing():
+    try:
+        logger_info.info("-- Fuse start")
+        GPIO.setmode(GPIO.BCM)
+
+        GPIO.setup(PIN, GPIO.OUT)
+
+        GPIO.output(PIN, 0)
+        logger_info.info("-- Fusing")
+
+        time.sleep(2.0)
+        logger_info.info("-- Fused! Please Fly")
+
+        GPIO.output(PIN, 1)
+    
+    except:
+        GPIO.output(PIN, 1)
+
         
 
 if __name__ == "__main__":
@@ -58,6 +81,9 @@ if __name__ == "__main__":
     spi.max_speed_hz = 1000000 
 
     released_judge()
+    fusing()
 
     spi.close()
     sys.exit()
+    
+    

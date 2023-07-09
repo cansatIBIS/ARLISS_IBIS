@@ -1,7 +1,10 @@
 import asyncio
 from mavsdk import System
 import time
+import RPi.GPIO as GPIO
+from logger import logger_info
 
+PIN = 5
 is_judge_alt = False
 is_low_alt = False
 is_landed = False
@@ -21,6 +24,8 @@ async def run():
     
     await print_alt_task
     await land_judge_task
+    
+    fusing()
 
 
 async def land_judge(drone):
@@ -154,6 +159,26 @@ async def get_distance_alt(drone):
 async def get_position_alt(drone):
     async for position in drone.telemetry.position():
         return position.absolute_altitude
+
+
+def fusing():
+    try:
+        logger_info.info("-- Fuse start")
+        GPIO.setmode(GPIO.BCM)
+
+        GPIO.setup(PIN, GPIO.OUT)
+
+        GPIO.output(PIN, 0)
+        logger_info.info("-- Fusing")
+
+        time.sleep(2.0)
+        logger_info.info("-- Fused! Please Fly")
+
+        GPIO.output(PIN, 1)
+    
+    except:
+        GPIO.output(PIN, 1)
+
 
 
 if __name__ == "__main__":
