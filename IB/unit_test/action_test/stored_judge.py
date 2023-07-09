@@ -20,7 +20,7 @@ def stored_judge():
 
 
         light_val = get_light_val()
-        time_stamp = time.perf_counter - duration_start_time
+        time_stamp = time.perf_counter() - duration_start_time
         print("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
 
         if is_continue:
