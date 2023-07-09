@@ -30,7 +30,7 @@ def stored_judge():
                 continue
 
             # 光の継続時間
-            duration_time = time.perf_counter - duration_start_time
+            duration_time = time.perf_counter() - duration_start_time
 
             if duration_time > 30:
                 print("stored judge case 1")
