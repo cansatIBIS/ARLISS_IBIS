@@ -9,7 +9,7 @@ def get_light_val():
     return value
 
 def stored_judge():
-    print("#############\n# stored judge start #\n#############")
+    print("######################\n# stored judge start #\n######################")
 
     # 関数の開始時間
     start_time = time.perf_counter()
@@ -48,7 +48,7 @@ def stored_judge():
             print("stored judge case 2")
             break
 
-    print("#############\n# stored judge finish #\n#############")
+    print("#######################\n# stored judge finish #\n#######################")
         
 
 if __name__ == "__main__":
@@ -60,4 +60,4 @@ if __name__ == "__main__":
     stored_judge()
 
     spi.close()
-    spi.exit()
+    sys.exit()
