@@ -8,7 +8,7 @@ import re
 import serial
 import time
 
-device='/dev/ttyAMA0'            # Raspberry Pi
+device='/dev/ttyS0'            # Raspberry Pi
 
 while True:
     try:
