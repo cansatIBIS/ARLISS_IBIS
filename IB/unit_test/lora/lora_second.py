@@ -4,7 +4,7 @@ import time
 
 while True:
     try:
-        ser = serial.Serial('/dev/ttyS0' ,19200,timeout=1)
+        ser = serial.Serial('/dev/ttyS0' ,115200,timeout=1)
     except:
         print ("Serial port error. Waiting.")
         time.sleep(5)
