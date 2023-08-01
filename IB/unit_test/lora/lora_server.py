@@ -40,12 +40,12 @@ print ("Serial port OK. Waiting for reset.")
 #         break
 # ser.write(b'z\r\n')
 
-# while True:
-#     buf = ser.readline()
-#     if buf == b'': break
-#     print (buf.decode().strip())
+while True:
+    buf = ser.readline()
+    if buf == b'': break
+    print (buf.decode().strip())
 
-# print("Ready.")
+print("Ready.")
 
 # while True:
     
