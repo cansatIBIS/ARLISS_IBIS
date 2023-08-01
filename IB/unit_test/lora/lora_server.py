@@ -12,7 +12,7 @@ device='/dev/ttyAMA0'            # Raspberry Pi
 
 while True:
     try:
-        ser = serial.Serial(device,115200,timeout=1)
+        ser = serial.Serial(device,19200,timeout=1)
     except:
         print ("Serial port error. Waiting.")
         time.sleep(5)
