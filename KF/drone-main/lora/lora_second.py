@@ -13,9 +13,9 @@ while True:
 print ("Serial port OK.")
 
 ser.write(b'1\r\n')
-time.sleep(10)
+time.sleep(1)
 ser.write(b'z\r\n')
-time.sleep(10)
+time.sleep(1)
 
 ser.write(("Let's GO\r\n").encode())
 
