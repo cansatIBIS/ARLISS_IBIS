@@ -21,9 +21,7 @@ async def run():
     drone = System()
     print('キャメラ初期化完了')
 
-    file_No = 0
-    file_path = '/home/pi/ARLISS_IBIS/IB/Images/image_test{}.jpg'.format(datetime.datetime.now())
-    file_No += 1
+    file_path = '/home/pi/ARLISS_IBIS/Images/image_test{}.jpg'.format(datetime.datetime.now())
 
     print("taking pic...: {}".format(file_path))
     camera.take_pic(file_path) # 写真を撮る
