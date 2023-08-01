@@ -47,7 +47,7 @@ while True:
     buf = ser.readline()
     if buf == b'': continue
     print (buf.decode('utf-8','replace').strip())
-    if buf == b'Select Mode [1.terminal or 2.processor]\r\n': break
+    if buf == b'霳elect Mode [1.terminal or 2.processor]\r\n': break
 ser.write(b'1\r\n')
 
 while True:
