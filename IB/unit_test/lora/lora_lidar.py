@@ -31,14 +31,14 @@ async def Write_distance(ser):
         bufw = dist
         ser.write((bufw+"\r\n").encode())
         time.sleep(2)
-        await asyncio.sleep(3)
+        await asyncio.sleep(1)
         
 async def Get_distance(drone):
     global dist
     async for distance in drone.telemetry.distance_sensor():
         print(distance.current_distance_m)
         dist = str(distance.current_distance_m)
-        await asyncio.sleep(3)
+        await asyncio.sleep(1)
         
 async def main():
     drone = System()

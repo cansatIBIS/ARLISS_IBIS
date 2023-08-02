@@ -35,7 +35,7 @@ async def main():
         break
     print("writing")
     ser.write(buf.encode())
-    time.sleep(5)
+    time.sleep(2)
     print("write")
 
 if __name__ == "__main__":
