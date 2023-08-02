@@ -61,14 +61,14 @@ class Pixhawk:
             time_now = time.time()
             if time_now-start_time < 30:
                 try :
-                    alt_now = await(asyncio.wait_for(self.get_distance_alt(self), timeout = 0.8))
+                    alt_now = await(asyncio.wait_for(self.get_distance_alt()), timeout = 0.8))
                 except asyncio.TimeoutError:
                     continue
                     
                 self.is_judge_alt(alt_now)
                     
                 if self.is_judge_alt:
-                    true_dist = self.IQR_removal(await self.get_alt_list(self, "LIDAR"))
+                    true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
                     if len(true_dist) == 0:
                         continue
                     try:
@@ -85,7 +85,7 @@ class Pixhawk:
                                 print("-- Moving")
                                 break
                         else:
-                            true_posi = self.IQR_removal(await self.get_alt_list(self, "POSITION"))
+                            true_posi = self.IQR_removal(await self.get_alt_list("POSITION"))
                             if len(true_posi) == 0:
                                 continue
                             try:
@@ -138,7 +138,7 @@ class Pixhawk:
         while True:
             if priority == "LIDAR":
                 try :
-                    distance = await asyncio.wait_for(self.get_distance_alt(self), timeout = 0.8)
+                    distance = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
                 except asyncio.TimeoutError:
                     print("Distance sensor might have some error")
                     altitude_list =[]
@@ -147,7 +147,7 @@ class Pixhawk:
                 
             elif priority == "POSITION":
                 try:
-                    position = await asyncio.wait_for(self.get_position_alt(self), timeout = 0.8)
+                    position = await asyncio.wait_for(self.get_position_alt(), timeout = 0.8)
                 except asyncio.TimeoutError:
                     print("Pixhawk might have some error")
                     altitude_list =[]
@@ -174,7 +174,7 @@ class Pixhawk:
         
         while True:
             try:
-                position = await asyncio.wait_for(self.get_position_alt(self), timeout = 0.8)
+                position = await asyncio.wait_for(self.get_position_alt(), timeout = 0.8)
                 print("altitude:{}".format(position))
                 break
             except asyncio.TimeoutError:
