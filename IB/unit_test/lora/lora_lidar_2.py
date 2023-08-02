@@ -28,9 +28,10 @@ async def main():
     time.sleep(1)
     ser.write(("Let's GO\r\n").encode())
     print("READY")
-    while True:
-        buf = input()
-        ser.write((buf+"\r\n").encode())
+    async for distance in drone.telemetry.distance_sensor():
+        buf = distance
+        break
+    ser.write((buf+"\r\n").encode())
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())
