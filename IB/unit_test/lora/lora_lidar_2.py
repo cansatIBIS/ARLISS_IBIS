@@ -29,11 +29,11 @@ async def main():
     ser.write(("Let's GO\r\n").encode())
     print("READY")
     async for distance in drone.telemetry.distance_sensor():
-        buf = str(distance.current_distance_m)
+        buf = str(distance.current_distance_m)+"\r\n"
         print(buf)
         break
     print("writing")
-    ser.write((buf+"\r\n").encode())
+    ser.write(buf.encode())
     print("write")
 
 if __name__ == "__main__":
