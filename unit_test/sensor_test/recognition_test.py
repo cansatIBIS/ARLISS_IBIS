@@ -39,8 +39,8 @@ async def run():
 
     a = pixel_number_x*pixel_size/1000 # 画像(ピクセル単位)の横の長さ[mm]
     b = pixel_number_y*pixel_size/1000 # 画像(ピクセル単位)の縦の長さ[mm]
-    image_x = distance*a*0.001/f # 画像の横の距離[m]
-    image_y = distance*b*0.001/f # 画像の縦の距離[m]
+    image_x = distance*a/f # 画像の横の距離[m]
+    image_y = distance*b/f # 画像の縦の距離[m]
     res = detect_center(file_path)
     x_m = res['center'][0]*image_x
     y_m = res['center'][1]*image_y
