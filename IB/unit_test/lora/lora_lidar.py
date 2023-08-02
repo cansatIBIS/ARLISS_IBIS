@@ -24,13 +24,13 @@ def Serial_connect():
     print("READY")
     return ser
 
-def Write_distance(ser):
+async def Write_distance(ser):
     while True:
         bufw = dist
         ser.write((bufw+"\r\n").encode())
         await asyncio.sleep(3)
         
-def Connect_pix ():
+async def Connect_pix ():
     drone = System()
     print("Waiting for drone to connect...")
     await drone.connect(system_address)
@@ -40,13 +40,13 @@ def Connect_pix ():
             break
     return drone
         
-def Get_distance(drone):
+async def Get_distance(drone):
     global dist
     async for distance in drone.telemetry.distance_sensor():
         dist = distance
         await asyncio.sleep(3)
         
-def main():
+async def main():
     drone = Connect_pix()
     serial = Serial_connect()
     get_dist_task = asyncio.create_task(Get_distance(drone))
