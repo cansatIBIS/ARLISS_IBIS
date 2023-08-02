@@ -75,7 +75,7 @@ async def run():
 
         now = time.time()
         print(now-start)
-        if now-start>30:
+        if now-start>15:
             break
 
 

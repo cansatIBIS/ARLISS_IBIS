@@ -37,9 +37,6 @@ async def run():
     #     break
     time.sleep(1)
 
-    x_distance_m = 2000 * 1.12
-    y_distance_m = 1500 * 1.12
-
 
     a = pixel_number_x*pixel_size/1000 # 画像(ピクセル単位)の横の長さ[mm]
     b = pixel_number_y*pixel_size/1000 # 画像(ピクセル単位)の縦の長さ[mm]
