@@ -17,7 +17,6 @@ f = 3.04 #[mm]
 
     
 async def run():
-    time.sleep(20)
     camera = picamera.PiCamera()
     drone = System()
     print('キャメラ初期化完了')
@@ -31,7 +30,7 @@ async def run():
     # ログの出力
     print('percent={}, center={}'.format(res['percent'], res['center']))
 
-    distance = 1.5 # [m]
+    distance = 2 # [m]
     # async for d in drone.telemetry.distance_sensor():
     #     distance = d.current_distance_m
     #     break
