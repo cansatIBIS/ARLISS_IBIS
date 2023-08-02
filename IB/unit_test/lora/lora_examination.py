@@ -29,9 +29,9 @@ def Serial_connect():
 
 async def Write_GPS(ser):
     while True:
-        latitude = "lat" + lat
-        longitude = "lng" + lng
-        altitude = "alt" + alt
+        latitude = "lat:" + lat
+        longitude = "lng:" + lng
+        altitude = "alt:" + alt
         await ser.write(latitude)
         await ser.write(longitude)
         await ser.write(altitude)
