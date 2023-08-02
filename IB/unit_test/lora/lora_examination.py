@@ -64,7 +64,7 @@ async def main():
     await drone.connect(system_address)
     async for state in drone.core.connection_state():
         if state.is_connected:
-            print(f"-- Connected to drone!")
+            print("-- Connected to drone!")
             break
     serial = Serial_connect()
     get_GPS_task = asyncio.ensure_future(Get_GPS(drone))
