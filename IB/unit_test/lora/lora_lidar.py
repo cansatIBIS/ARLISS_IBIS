@@ -36,8 +36,8 @@ async def Write_distance(ser):
 async def Get_distance(drone):
     global dist
     async for distance in drone.telemetry.distance_sensor():
-        print(distance)
-        dist = distance
+        print(distance.current_distance_m)
+        dist = str(distance.current_distance_m)
         await asyncio.sleep(3)
         
 async def main():
