@@ -30,6 +30,7 @@ async def main():
     print("READY")
     async for distance in drone.telemetry.distance_sensor():
         buf = str(distance.current_distance_m)
+        print(buf)
         break
     ser.write((buf+"\r\n").encode())
 
