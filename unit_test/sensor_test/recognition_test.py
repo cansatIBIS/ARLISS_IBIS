@@ -24,7 +24,7 @@ async def run():
     file_path = '/home/pi/ARLISS_IBIS/Images/image_test{}.jpg'.format(datetime.datetime.now())
 
     print("taking pic...: {}".format(file_path))
-    take_pic(file_path) # 写真を撮る
+    take_pic(camera,file_path) # 写真を撮る
     res = detect_center(file_path) # 赤の最大領域の占有率と重心を求める
 
     # ログの出力
