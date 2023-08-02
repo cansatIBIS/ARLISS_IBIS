@@ -28,7 +28,7 @@ async def run():
     res = detect_center(file_path) # 赤の最大領域の占有率と重心を求める
 
     # ログの出力
-    print('percent={}, center={}, dif_arg={}'.format(res['percent'], res['center']))
+    print('percent={}, center={}'.format(res['percent'], res['center']))
 
     distance = 2 # [m]
     # async for d in drone.telemetry.distance_sensor():
