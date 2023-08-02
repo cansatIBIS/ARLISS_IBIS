@@ -30,12 +30,12 @@ def Serial_connect():
 async def Write_GPS(ser):
     while True:
         print("writing")
-        latitude = "lat:" + lat
-        longitude = "lng:" + lng
-        altitude = "alt:" + alt
-        ser.write(latitude)
-        ser.write(longitude)
-        ser.write(altitude)
+        latitude = "lat:" + lat + "\r\n"
+        longitude = "lng:" + lng + "\r\n"
+        altitude = "alt:" + alt + "\r\n"
+        ser.write(latitude.encode())
+        ser.write(longitude.encode())
+        ser.write(altitude.encode())
         await asyncio.sleep(6)
         
 async def Get_GPS(drone):
@@ -48,7 +48,7 @@ async def Get_GPS(drone):
             lat = "error"
             lng = "error"
             alt = "error"
-        await asyncio.sleep(1)
+        await asyncio.sleep(0)
         
 async def GPS(drone):
     global lat, lng, alt
