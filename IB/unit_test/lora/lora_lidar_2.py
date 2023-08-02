@@ -29,3 +29,6 @@ async def main():
     ser.write(("Let's GO\r\n").encode())
     print("READY")
     return ser
+
+if __name__ == "__main__":
+    asyncio.get_event_loop().run_until_complete(main())
