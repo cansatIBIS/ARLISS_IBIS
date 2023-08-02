@@ -47,8 +47,8 @@ async def main():
             print(f"-- Connected to drone!")
             break
     serial = Serial_connect()
-    get_dist_task = asyncio.create_task(Get_distance(drone))
-    write_task = asyncio.create_task(Write_distance(serial))
+    get_dist_task = asyncio.ensure_future(Get_distance(drone))
+    write_task = asyncio.ensure_future(Write_distance(serial))
     await get_dist_task
     await write_task
     
