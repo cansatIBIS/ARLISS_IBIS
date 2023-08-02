@@ -40,12 +40,22 @@ async def Write_GPS(ser):
 async def Get_GPS(drone):
     global lat, lng, alt
     while True:
-        async for position in drone.telemetry.position():
+        try:
+            await asyncio.wait_for(GPS(drone), timeout=0.8)
+        except asyncio.TimeoutError:
+            print("Can't catch GPS")
+            lat = "error"
+            lng = "error"
+            alt = "error"
+        await asyncio.sleep(0)
+        
+async def GPS(drone):
+    global lat, lng, alt
+    async for position in drone.telemetry.position():
             print(position)
             lat = str(position.latitude)
             lng = str(position.longitude)
             alt = str(position.absolute_altitude_m)
-            await asyncio.sleep(0)
             break
         
 async def main():
@@ -57,9 +67,9 @@ async def main():
             print(f"-- Connected to drone!")
             break
     serial = Serial_connect()
-    get_dist_task = asyncio.ensure_future(Get_GPS(drone))
+    get_GPS_task = asyncio.ensure_future(Get_GPS(drone))
     write_task = asyncio.ensure_future(Write_GPS(serial))
-    await get_dist_task
+    await get_GPS_task
     await write_task
     
 if __name__ == "__main__":
