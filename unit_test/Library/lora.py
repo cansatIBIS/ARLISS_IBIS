@@ -79,6 +79,7 @@ class Lora:
             self.msg_received = line[3].decode("ascii")
             await asyncio.sleep(1)
         except struct.error:
+            await asyncio.sleep(1)
 
     async def close(self) -> None:
         """close serial connection"""
