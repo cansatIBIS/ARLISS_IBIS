@@ -157,20 +157,15 @@ async def offboard(drone):
         await asyncio.sleep(1)
         mission_finished = await drone.mission.is_mission_finished()
         if mission_finished:
-            logger_info.info(mission_finished)
+            logger_info.info("mission finished")
             break
     logger_info.info("-- Setting initial setpoint")
     await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0, 0.0))
 
     logger_info.info("-- Starting offboard")
-    try:
-        await drone.offboard.start()
-    except OffboardError as error:
-        logger_info.info(f"Starting offboard mode failed \
-                with error code: {error._result.result}")
-        logger_info.info("-- Disarming")
-        await drone.action.disarm()
-        return
+
+    await drone.offboard.start()
+
 
     logger_info.info("-- Go 0m North, 0m East, -2m Down \
             within local coordinate system")
@@ -202,6 +197,8 @@ async def offboard(drone):
     except OffboardError as error:
         logger_info.info(f"Stopping offboard mode failed \
                 with error code: {error._result.result}")
+    logger_info.info("landing...") 
+    await drone.action.land()
 
 if __name__ == "__main__":
     # Run the asyncio loop
