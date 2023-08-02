@@ -27,7 +27,7 @@ async def main():
     ser.write(b'z\r\n')
     time.sleep(1)
     ser.write(("Let's GO\r\n").encode())
-    time.sleep(1)
+    time.sleep(2)
     print("READY")
     async for distance in drone.telemetry.distance_sensor():
         buf = str(distance.current_distance_m)+"\r\n"
