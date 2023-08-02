@@ -8,6 +8,7 @@ from mavsdk.mission import (MissionItem, MissionPlan)
 from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger import logger_info, logger_debug
 
+goal = [35.7927147,139.8908122]
 north_m = 5
 south_m = -10
 lat_deg_per_m = 0.000008983148616
@@ -39,11 +40,11 @@ async def run():
     get_log_task = asyncio.ensure_future(get_log(drone))
     offboard_task = asyncio.ensure_future(offboard(drone))
     
-    waypoint1 = [35.7927147,139.8908122]
+   
 
     mission_items = []
-    mission_items.append(MissionItem(waypoint1[0],
-                                     waypoint1[1],
+    mission_items.append(MissionItem(goal[0],
+                                     goal[1],
                                      3,
                                      5,
                                      True, #止まらない

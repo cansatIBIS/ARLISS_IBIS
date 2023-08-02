@@ -44,7 +44,7 @@ async def run():
     mission_items = []
     mission_items.append(MissionItem(goal[0],
                                      goal[1],
-                                     3, # rel_alt
+                                     recognition_height, # rel_alt
                                      5, # speed
                                      True, #止まらない
                                      float('nan'),
@@ -162,6 +162,7 @@ async def img_navigation(drone):
 
     async for d in drone.telemetry.distance_sensor(): #? 測れなかったらどうしよう
         lidar_height = d.current_distance_m
+        logger_info.info(f"理想:{recognition_height}m,実際:{lidar_height}m")
         break
     async for heading in drone.telemetry.heading():
         logger_info.info(f"方位: {heading}") # 0であって欲しい
