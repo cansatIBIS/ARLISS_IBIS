@@ -198,7 +198,7 @@ async def img_navigation(drone):
         y_m = res['center'][1]*image_y/2
 
         if res['center'][0] or res['center'][1] is None:
-            if recognition_height-non_rec_count<3.1: #　地面に近すぎたらland
+            if recognition_height-non_rec_count<3: #　地面に近すぎたらland
                 logger_info.info("-- Stopping offboard")
                 try:
                     await drone.offboard.stop()
