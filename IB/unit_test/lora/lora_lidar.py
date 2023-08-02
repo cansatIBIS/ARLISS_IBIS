@@ -21,6 +21,7 @@ def Serial_connect():
     ser.write(b'z\r\n')
     time.sleep(1)
     ser.write(("Let's GO\r\n").encode())
+    time.sleep(1)
     print("READY")
     return ser
 
@@ -29,6 +30,7 @@ async def Write_distance(ser):
         print("writing")
         bufw = dist
         ser.write((bufw+"\r\n").encode())
+        time.sleep(2)
         await asyncio.sleep(3)
         
 async def Get_distance(drone):
