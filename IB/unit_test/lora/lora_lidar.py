@@ -4,7 +4,7 @@ from mavsdk import System
 import asyncio
 
 system_address = "serial:///dev/ttyACM0:115200"
-dist = 0
+dist = ""
 
 def Serial_connect():
     while True:
