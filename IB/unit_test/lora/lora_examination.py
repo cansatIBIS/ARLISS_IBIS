@@ -18,7 +18,7 @@ def Serial_connect():
         else:
             break
     print ("Serial port OK.")
-    ser.write(b'1\r\n')
+    ser.write(b'2\r\n')
     time.sleep(1)
     ser.write(b'z\r\n')
     time.sleep(1)
