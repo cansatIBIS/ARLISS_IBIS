@@ -32,7 +32,9 @@ async def main():
         buf = str(distance.current_distance_m)
         print(buf)
         break
+    print("writing")
     ser.write((buf+"\r\n").encode())
+    print("write")
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())
