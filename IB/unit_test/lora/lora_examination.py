@@ -33,9 +33,9 @@ async def Write_GPS(ser):
         latitude = "lat:" + lat
         longitude = "lng:" + lng
         altitude = "alt:" + alt
-        await ser.write(latitude)
-        await ser.write(longitude)
-        await ser.write(altitude)
+        ser.write(latitude)
+        ser.write(longitude)
+        ser.write(altitude)
         await asyncio.sleep(6)
         
 async def Get_GPS(drone):
