@@ -69,10 +69,7 @@ async def run():
             forward_a.append(a.forward_m_s2)
             right_a.append(a.right_m_s2)
             down_a.append(a.down_m_s2)
-            print(forward_a)
-            print(right_a)
-            print(down_a)
-            acc.append(m.sqrt(forward_a**2+right_a**2+down_a**2))
+            acc.append(m.sqrt(a.forward_m_s2**2+a.right_m_s2**2+a.down_m_s2**2))
             break
 
 
