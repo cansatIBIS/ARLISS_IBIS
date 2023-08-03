@@ -23,5 +23,5 @@ print("READY")
 
 while True:
     
-    bufw=input()
+    bufw="ok"
     ser.write((bufw+"\r\n").encode())
