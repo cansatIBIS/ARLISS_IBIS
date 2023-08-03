@@ -48,13 +48,13 @@ async def run():
                                      5, # speed
                                      True, #止まらない
                                      float('nan'),
-                                     0, #gimbal_yaw_deg
+                                     45, #gimbal_yaw_deg
                                      MissionItem.CameraAction.NONE,
                                      float('nan'),
                                      float('nan'),
                                      float('nan'),
                                      float('nan'),
-                                     float('nan'))) #Absolute_yaw_deg, 0にするのこっちかも
+                                     float('nan'))) #Absolute_yaw_deg, 45にするのこっちかも
 
     mission_plan = MissionPlan(mission_items)
 
@@ -165,10 +165,10 @@ async def img_navigation(drone):
         logger_info.info(f"理想:{recognition_height}m,実際:{lidar_height}m")
         break
     async for heading in drone.telemetry.heading():
-        logger_info.info(f"方位: {heading}") # 0であって欲しい
+        logger_info.info(f"方位: {heading} 45であって欲しい") 
         break
     logger_info.info("-- Setting initial setpoint")
-    await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, recognition_height-lidar_height, 0.0)) #　方位は北を向いているはず
+    await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, recognition_height-lidar_height, 0.0)) #　方位は北東を向いているはず
     await drone.offboard.start()
     logger_info.info(f"高度{recognition_height}mの地点に向かいます")
     await drone.offboard.set_position_ned(
@@ -219,7 +219,7 @@ async def img_navigation(drone):
     logger_info.info(f"go to the red position:北に{y_m}m,東に{-x_m}")
 
     await drone.offboard.set_position_ned(
-            PositionNedYaw(y_m, -x_m, non_rec_count, 0.0))
+            PositionNedYaw(y_m, -x_m, non_rec_count, 0.0)) #? 方位が違うかも
     await asyncio.sleep(10)
 
     logger_info.info("-- Stopping offboard")
