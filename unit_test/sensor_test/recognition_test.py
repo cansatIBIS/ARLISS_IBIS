@@ -72,7 +72,7 @@ def detect_center(file_path):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) # 色基準で2値化する
 
     # 色の範囲を指定する
-    hsv_min = np.array([0,145,0])
+    hsv_min = np.array([150,145,0])
     hsv_max = np.array([5,255,255])
     mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
