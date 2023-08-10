@@ -1,12 +1,9 @@
-import os
-import sys
-import mavsdk
+# import os
+# import sys
 import RPi.GPIO as GPIO
 import serial
-sys.path.append(os.getcwd())
+# sys.path.append(os.getcwd())
 import asyncio
-import struct
-import time
 
 class Lora:
     def __init__(self):
@@ -19,7 +16,7 @@ class Lora:
         GPIO.setup(self.rst, GPIO.OUT)
         GPIO.setup(self.power, GPIO.OUT)
         
-    def Serial_Connect(self):
+    async def Serial_Connect(self):
         while True:
             try:
                 self.serial = serial.Serial("/dev/ttyS0", 115200, timeout=1)
@@ -28,14 +25,14 @@ class Lora:
                 self.connect_counter += 1
                 if self.connect_counter == 100:
                     break
-                time.sleep(3)
+                await asyncio.sleep(3)
             else:
                 break
         print ("Serial port OK.")
         self.write(b'2'+self.CRLF)
-        time.sleep(1)
+        await asyncio.sleep(1)
         self.write(b'z'+self.CRLF)
-        time.sleep(1)
+        await asyncio.sleep(1)
         self.write(("Lora start"+self.CRLF).encode())
         print("Lora READY")
        
@@ -53,9 +50,25 @@ class Lora:
 
         self.is_power_on = True
         
-    async def start_communication(self):
+    async def start_communication(self, light):
+        while True:
+            if light.is_released:
+                await self.power_on()
+                return
+            await self.power_off()
     
     async def write(self, message: str):
         msg_send = str(message) + self.CRLF
         self.serial.write(msg_send.encode("ascii"))
         await asyncio.sleep(4)
+        
+    async def send_GPS(self, pix):
+        while True:
+            if self.is_power_on:
+                lat = "lat:" + str(pix.latitude_deg)
+                lng = "lng:" + str(pix.longitude_deg)
+                alt = "alt:" + str(pix.absolute_altitude_m)
+                await self.write(lat)
+                await self.write(lng)
+                await self.write(alt)
+            await asyncio.sleep(10)
