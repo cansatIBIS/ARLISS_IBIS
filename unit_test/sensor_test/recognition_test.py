@@ -76,7 +76,7 @@ def detect_center(file_path):
     mask1 = cv2.inRange(hsv, hsv_min, hsv_max)
 
     # 赤色のHSVの値域2
-    hsv_min = np.array([150,110,0]) #カメラ故障のため，0→150へ変更
+    hsv_min = np.array([0,110,0]) #カメラ故障のため，0→150へ変更
     hsv_max = np.array([179,255,255])
     mask2 = cv2.inRange(hsv, hsv_min, hsv_max)
 
