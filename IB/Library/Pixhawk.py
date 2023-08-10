@@ -61,7 +61,7 @@ class Pixhawk:
             time_now = time.time()
             if time_now-start_time < 30:
                 try :
-                    alt_now = await(asyncio.wait_for(self.get_distance_alt()), timeout = 0.8))
+                    alt_now = await(asyncio.wait_for(self.get_distance_alt()), timeout = 0.8)
                 except asyncio.TimeoutError:
                     continue
                     
