@@ -27,17 +27,16 @@ def Serial_connect():
 
 async def Write_distance(ser):
     while True:
-        print("writing")
+        print("sending : {}".dist)
         bufw = dist
         ser.write((bufw+"\r\n").encode())
         time.sleep(3)
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.5)
         
 async def Get_distance(drone):
     global dist
     while True:
         async for distance in drone.telemetry.distance_sensor():
-            print(distance.current_distance_m)
             dist = str(distance.current_distance_m)
             await asyncio.sleep(0)
             break
