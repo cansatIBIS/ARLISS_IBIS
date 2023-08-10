@@ -4,7 +4,7 @@ from mavsdk import System
 import asyncio
 
 system_address = "serial:///dev/ttyACM0:115200"
-dist = ""
+dist = "start"
 
 def Serial_connect():
     while True:
@@ -26,6 +26,7 @@ def Serial_connect():
     return ser
 
 async def Write_distance(ser):
+    global dist
     while True:
         print("sending : {}".format(dist))
         bufw = dist
