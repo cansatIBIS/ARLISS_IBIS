@@ -34,11 +34,11 @@ async def Write_GPS(ser):
         longitude = "lng:" + lng + "\r\n"
         altitude = "alt:" + alt + "\r\n"
         ser.write(latitude.encode())
-        time.sleep(2)
+        time.sleep(3)
         ser.write(longitude.encode())
-        time.sleep(2)
+        time.sleep(3)
         ser.write(altitude.encode())
-        time.sleep(2)
+        time.sleep(3)
         await asyncio.sleep(1)
         
 async def Get_GPS(drone):
