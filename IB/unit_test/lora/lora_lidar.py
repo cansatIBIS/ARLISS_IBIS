@@ -27,7 +27,7 @@ def Serial_connect():
 
 async def Write_distance(ser):
     while True:
-        print("sending : {}".dist)
+        print("sending : {}".format(dist))
         bufw = dist
         ser.write((bufw+"\r\n").encode())
         time.sleep(3)
