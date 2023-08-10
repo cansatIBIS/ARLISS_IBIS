@@ -31,7 +31,7 @@ async def run():
     # ログの出力
     print('percent={}, center={}'.format(res['percent'], res['center']))
 
-    distance = 1 # [m]
+    distance = 2.65 # [m]
     # async for d in drone.telemetry.distance_sensor():
     #     distance = d.current_distance_m
     #     break
