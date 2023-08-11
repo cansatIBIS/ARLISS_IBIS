@@ -107,23 +107,24 @@ async def run():
 #             return
         
 async def get_log(drone):
-    async for flight_mode in drone.telemetry.flight_mode():
-        mode = flight_mode
-        break
-    async for distance in drone.telemetry.distance_sensor():
-        lidar = distance.current_distance_m
-        break
-    async for position in drone.telemetry.position():
-        abs_alt = position.absolute_altitude_m
-        rel_alt = position.relative_altitude_m
-        break
-    async for speed in drone.action.get_maxium_speed():
-        max_speed = speed
-        break
-    async for mission_progress in drone.mission.mission_progress():
-        mp_current = mission_progress.current
-        mp_total = mission_progress.total
     while True:
+        async for flight_mode in drone.telemetry.flight_mode():
+            mode = flight_mode
+            break
+        async for distance in drone.telemetry.distance_sensor():
+            lidar = distance.current_distance_m
+            break
+        async for position in drone.telemetry.position():
+            abs_alt = position.absolute_altitude_m
+            rel_alt = position.relative_altitude_m
+            break
+        async for speed in drone.action.get_maxium_speed():
+            max_speed = speed
+            break
+        async for mission_progress in drone.mission.mission_progress():
+            mp_current = mission_progress.current
+            mp_total = mission_progress.total
+            break
         log_txt = (
             + " mode:"
             + str(mode)
@@ -145,7 +146,7 @@ async def get_log(drone):
             + "m/s"
             )
         logger_info.info(str(log_txt))
-        await asyncio.sleep(0.3)
+        await asyncio.sleep(0.5)
 
 async def img_navigation(drone):
     while True:
