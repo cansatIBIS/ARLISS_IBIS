@@ -14,17 +14,17 @@ class Pixhawk:
         self.pix = System()
         
         self.PIN = 6
+
         self.altitude = 3.0
-        self.north_m = 10
-        self.south_m = -15
-        self.lat_deg_per_m = 0.000008983148616
-        self.lng_deg_per_m = 0.000008983668124
-        self.center_lat_deg = 0
-        self.center_lng_deg = 0
-        self.center_abs_alt=-2.55400013923645
+        
+        self.flight_mode = None
         
         self.is_judge_alt = False
         self.is_low_alt = False
+
+    async def get_flight_mode(self):
+        async for flight_mode in self.pix.telemetry.flight_mode():
+            self.flight_mode = flight_mode
     
     async def connect(self):
         
@@ -52,7 +52,11 @@ class Pixhawk:
         
         logger_info.info("Landing")
         await self.pix.land()
-        logger_info.info("Landed!")
+        while True:
+            asyncio.sleep(1)
+            if str(self.flight_mode) == "LAND":
+                logger_info.info("Landed!")
+                break
         
     async def land_judge(self):
         
@@ -227,37 +231,68 @@ class Pixhawk:
                 logger_info.info("-- Global position estimate OK")
                 break
             
-    async def mission(self, waypoints):
-        
-        print_mission_progress_task = asyncio.ensure_future(self.print_mission_progress())
-        running_tasks = [print_mission_progress_task]
-        termination_task = asyncio.ensure_future(self.observe_is_in_air(running_tasks))
-        land_task = asyncio.ensurefuture(self.misssion_land())
+    async def mission(self, waypoint):
         mission_items = []
-        for i in range(len(waypoints)):
-            mission_items.append(MissionItem(waypoints[i][0],
-                                     waypoints[i][1],
-                                     waypoints[i][2],
-                                     5,
-                                     True, #止まらない
-                                     float('nan'),
-                                     float('nan'),
-                                     MissionItem.CameraAction.NONE,
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan')))
+        mission_items.append(MissionItem(waypoint[0],
+                                        waypoint[1],
+                                        self.altitude, # rel_alt
+                                        5, # speed
+                                        True, #止まらない
+                                        float('nan'),
+                                        45, #gimbal_yaw_deg
+                                        MissionItem.CameraAction.NONE,
+                                        float('nan'),
+                                        float('nan'),
+                                        float('nan'),
+                                        float('nan'),
+                                        float('nan'))) #Absolute_yaw_deg, 45にするのこっちかも
+
         mission_plan = MissionPlan(mission_items)
-        await self.mission.set_return_to_launch_after_mission(False)
+
+        await self.pix.mission.set_return_to_launch_after_mission(False)
+
         logger_info.info("-- Uploading mission")
-        await self.mission.upload_mission(mission_plan)
+
+        await self.pix.mission.upload_mission(mission_plan)
+
+        logger_info.info("Waiting for drone to have a global position estimate...")
+        
         self.health_check()
+
         self.arm()
+
         logger_info.info("-- Starting mission")
-        await self.mission.start_mission()
-        await termination_task
-        await land_task
+        await self.pix.mission.start_mission()
+        
+        # print_mission_progress_task = asyncio.ensure_future(self.print_mission_progress())
+        # running_tasks = [print_mission_progress_task]
+        # termination_task = asyncio.ensure_future(self.observe_is_in_air(running_tasks))
+        # land_task = asyncio.ensurefuture(self.misssion_land())
+        # mission_items = []
+        # for i in range(len(waypoints)):
+        #     mission_items.append(MissionItem(waypoints[i][0],
+        #                              waypoints[i][1],
+        #                              waypoints[i][2],
+        #                              5,
+        #                              True, #止まらない
+        #                              float('nan'),
+        #                              float('nan'),
+        #                              MissionItem.CameraAction.NONE,
+        #                              float('nan'),
+        #                              float('nan'),
+        #                              float('nan'),
+        #                              float('nan'),
+        #                              float('nan')))
+        # mission_plan = MissionPlan(mission_items)
+        # await self.mission.set_return_to_launch_after_mission(False)
+        # logger_info.info("-- Uploading mission")
+        # await self.mission.upload_mission(mission_plan)
+        # self.health_check()
+        # self.arm()
+        # logger_info.info("-- Starting mission")
+        # await self.mission.start_mission()
+        # await termination_task
+        # await land_task
         
     async def print_mission_progress(self):
         
