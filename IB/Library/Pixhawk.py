@@ -264,36 +264,6 @@ class Pixhawk:
         logger_info.info("-- Starting mission")
         await self.pix.mission.start_mission()
         
-        # print_mission_progress_task = asyncio.ensure_future(self.print_mission_progress())
-        # running_tasks = [print_mission_progress_task]
-        # termination_task = asyncio.ensure_future(self.observe_is_in_air(running_tasks))
-        # land_task = asyncio.ensurefuture(self.misssion_land())
-        # mission_items = []
-        # for i in range(len(waypoints)):
-        #     mission_items.append(MissionItem(waypoints[i][0],
-        #                              waypoints[i][1],
-        #                              waypoints[i][2],
-        #                              5,
-        #                              True, #止まらない
-        #                              float('nan'),
-        #                              float('nan'),
-        #                              MissionItem.CameraAction.NONE,
-        #                              float('nan'),
-        #                              float('nan'),
-        #                              float('nan'),
-        #                              float('nan'),
-        #                              float('nan')))
-        # mission_plan = MissionPlan(mission_items)
-        # await self.mission.set_return_to_launch_after_mission(False)
-        # logger_info.info("-- Uploading mission")
-        # await self.mission.upload_mission(mission_plan)
-        # self.health_check()
-        # self.arm()
-        # logger_info.info("-- Starting mission")
-        # await self.mission.start_mission()
-        # await termination_task
-        # await land_task
-        
     async def print_mission_progress(self):
         
         async for mission_progress in self.mission.mission_progress():
