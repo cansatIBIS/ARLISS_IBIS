@@ -2,13 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 # df = pd.read_csv('/Users/fukudakazuya/ARLISS_IBIS/log/log_csv/velocity_check_ver2 2023-08-03 23:13:35.451566.csv',header=None).T
-df = pd.read_csv('/Users/matsushimakouta/Documents/ARLISS/ARLISS_IBIS/log/log_csv/velocity_check_ver2 2023-06-29 20:18:06.166439.csv',header=None).T
+df = pd.read_csv('/Users/fukudakazuya/Downloads/velocity_check_ver2 2023-08-10 18_27_15.712277.csv',header=None).T
 v_x_lst=[]
 v_y_lst=[]
 v_z_lst=[]
 v_lst=[]
-t = np.arange(0, 2.4, 0.12)
-for i in range(85,105):
+t = np.arange(0, 9, 0.1)
+for i in range(40,130):
     v_x_lst.append(df.loc[i,0])
     v_y_lst.append(df.loc[i,1])
     v_z_lst.append(df.loc[i,2])

@@ -32,12 +32,12 @@ async def run():
         if state.is_connected:
             break
 
-    print_mission_progress_task = asyncio.ensure_future(
-        print_mission_progress(drone))
+    # print_mission_progress_task = asyncio.ensure_future(
+    #     print_mission_progress(drone))
 
-    running_tasks = [print_mission_progress_task]
-    termination_task = asyncio.ensure_future(
-        observe_is_in_air(drone, running_tasks))
+    # running_tasks = [print_mission_progress_task]
+    # termination_task = asyncio.ensure_future(
+    #     observe_is_in_air(drone, running_tasks))
     get_log_task = asyncio.ensure_future(get_log(drone))
     img_navigation_task = asyncio.ensure_future(img_navigation(drone))
 
@@ -77,34 +77,34 @@ async def run():
     logger_info.info("-- Starting mission")
     await drone.mission.start_mission()
 
-    await termination_task
+    # await termination_task
     await get_log_task
     await img_navigation_task
 
 
-async def print_mission_progress(drone):
-    async for mission_progress in drone.mission.mission_progress():
-        logger_info.info(f"Mission progress: "
-              f"{mission_progress.current}/"
-              f"{mission_progress.total}")
+# async def print_mission_progress(drone):
+#     async for mission_progress in drone.mission.mission_progress():
+#         logger_info.info(f"Mission progress: "
+#               f"{mission_progress.current}/"
+#               f"{mission_progress.total}")
 
 
-async def observe_is_in_air(drone, running_tasks):
-    was_in_air = False
-    async for is_in_air in drone.telemetry.in_air():
-        if is_in_air:
-            was_in_air = is_in_air
+# async def observe_is_in_air(drone, running_tasks):
+#     was_in_air = False
+#     async for is_in_air in drone.telemetry.in_air():
+#         if is_in_air:
+#             was_in_air = is_in_air
 
-        if was_in_air and not is_in_air:
-            for task in running_tasks:
-                task.cancel()
-                try:
-                    await task
-                except asyncio.CancelledError:
-                    pass
-            await asyncio.get_event_loop().shutdown_asyncgens()
+#         if was_in_air and not is_in_air:
+#             for task in running_tasks:
+#                 task.cancel()
+#                 try:
+#                     await task
+#                 except asyncio.CancelledError:
+#                     pass
+#             await asyncio.get_event_loop().shutdown_asyncgens()
 
-            return
+#             return
         
 async def get_log(drone):
     async for flight_mode in drone.telemetry.flight_mode():

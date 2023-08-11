@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-df = pd.read_csv('/Users/kawasakiayumu/ARLISS_IBIS/log/log_csv/velocity_check_ver2 2023-06-29 20:18:06.166439.csv',header=None).T
+df = pd.read_csv('/Users/fukudakazuya/Downloads/velocity_check_ver2 2023-08-10 18_27_15.712277.csv',header=None).T
 df.columns = ["v_x","v_y","v_z","v","x","y","z","roll","pitch","yaw","forward_a","right_a","down_a","acc"]
 # df.columns = ["v_x","v_y","v_z","v"]
 df[["v_x","v_y","v_z","v"]].plot()
