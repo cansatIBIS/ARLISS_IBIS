@@ -18,6 +18,13 @@ class Pixhawk:
         self.altitude = 3.0
         
         self.flight_mode = None
+        self.latitude_deg = 0
+        self.longitude_deg = 0
+        self.mp_current = None
+        self.mp_total = None
+        self.max_speed = 0
+
+        self.lidar = 0
         
         self.is_judge_alt = False
         self.is_low_alt = False
@@ -25,9 +32,30 @@ class Pixhawk:
     async def get_flight_mode(self):
         async for flight_mode in self.pix.telemetry.flight_mode():
             self.flight_mode = flight_mode
+
+    async def get_max_speed(self):
+        async for speed in self.pix.action.get_maxium_speed():
+            self.max_speed = speed
+
+    async def get_distance_alt(self):
+        async for distance in self.telemetry.distance_sensor():
+            self.lidar = distance.current_distance_m
+            return distance.current_distance_m
+        
+
+    async def get_position_alt(self):
+        async for position in self.telemetry.position():
+            return position.absolute_altitude
+        
+    async def get_position_lat_lng(self):
+        async for position in self.pix.telemetry.position():
+            self.latitude_deg = position.latitude_deg
+            self.longitude_deg = position.longitude_deg
+
+    as
+
     
     async def connect(self):
-        
         logger_info.info("-- Waiting for drone to connect...")
         await self.pix.connect(system_address="serial:///dev/ttyACM0:115200")
         async for state in self.pix.core.connection_state():
@@ -35,8 +63,7 @@ class Pixhawk:
                 logger_info.info("-- Drone connected!")
                 break
         
-    async def arm(self):
-        
+    async def arm(self):    
         logger_info.info("-- Arming")
         await self.pix.action.arm()
         logger_info.info("-- Armed!")
@@ -187,16 +214,7 @@ class Pixhawk:
             await asyncio.sleep(0)
             
 
-    async def get_distance_alt(self):
-        
-        async for distance in self.telemetry.distance_sensor():
-            return distance.current_distance_m
-        
-
-    async def get_position_alt(self):
-        
-        async for position in self.telemetry.position():
-            return position.absolute_altitude
+    
 
     def fusing(self):
         
@@ -257,9 +275,9 @@ class Pixhawk:
 
         logger_info.info("Waiting for drone to have a global position estimate...")
         
-        self.health_check()
+        await self.health_check()
 
-        self.arm()
+        await self.arm()
 
         logger_info.info("-- Starting mission")
         await self.pix.mission.start_mission()
