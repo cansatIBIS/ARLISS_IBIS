@@ -8,7 +8,7 @@ from mavsdk.mission import (MissionItem, MissionPlan)
 from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger import logger_info, logger_debug
 
-goal = [35.7927147,139.8908122]
+goal = [35.7923608, 139.8909684]
 north_m = 5
 south_m = -10
 lat_deg_per_m = 0.000008983148616
