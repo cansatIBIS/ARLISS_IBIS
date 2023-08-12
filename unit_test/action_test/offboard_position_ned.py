@@ -61,24 +61,17 @@ async def run():
             PositionNedYaw(5.0, 0.0, -5.0, 90.0))
     await asyncio.sleep(10)
 
-    print("-- Go 5m North, 5m East, -5m Down \
-            within local coordinate system")
-    await drone.offboard.set_position_ned(
-            PositionNedYaw(5.0, 5.0, -5.0, 90.0))
-    await asyncio.sleep(15)
-
-    print("-- Go 0m North, 5m East, 0m Down \
-            within local coordinate system, turn to face South")
-    await drone.offboard.set_position_ned(
-            PositionNedYaw(0.0, 5.0, 0.0, 180.0))
-    await asyncio.sleep(10)
-
     print("-- Stopping offboard")
     try:
         await drone.offboard.stop()
     except OffboardError as error:
         print(f"Stopping offboard mode failed \
                 with error code: {error._result.result}")
+
+    await drone.action.land()
+
+
+
 
 
 if __name__ == "__main__":
