@@ -66,7 +66,7 @@ async def run():
     
 
     
-    waypoint1 = [35.7927147,139.8908122]
+    waypoint1 = [35.7923608,139.8909684]
     # waypoint2 = [center[0] + lat_deg_per_m * south_m, center[1]]
     mission_items = []
     mission_items.append(MissionItem(waypoint1[0],
