@@ -11,7 +11,7 @@ from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger import logger_info, logger_debug
 
 # パラメータ--------------------------------
-goal = [335.7923768, 139.8909942]
+goal = [35.7923768, 139.8909942]
 recognition_height = 5 # 画像認識開始時の高度
 #-----------------------------------------
 
