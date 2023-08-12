@@ -164,7 +164,7 @@ async def img_navigation(drone):
         file_No += 1
 
         logger_info.info("taking pic...: {}".format(file_path))
-        logger_info.info(camera,file_path) # 写真を撮る
+        take_pic(camera,file_path) # 写真を撮る
         res = detect_center(file_path) # 赤の最大領域の占有率と重心を求める
 
         logger_info.info('percent={}, center={}'.format(res['percent'], res['center']))
