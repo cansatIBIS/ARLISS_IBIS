@@ -12,7 +12,7 @@ from logger import logger_info, logger_debug
 
 # パラメータ--------------------------------
 goal = [35.7923768, 139.8909942]
-recognition_height = 5 # 画像認識開始時の高度
+recognition_height = 6 # 画像認識開始時の高度
 #-----------------------------------------
 
 #　picameraの仕様--------------------------
