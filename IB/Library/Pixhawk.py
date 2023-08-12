@@ -12,20 +12,15 @@ class Pixhawk:
     def __init__(self):
         
         self.pix = System()
-        
-        self.PIN = 6
-
+        self.fuse_PIN = 6
         self.altitude = 3.0
-        
         self.flight_mode = None
         self.latitude_deg = 0
         self.longitude_deg = 0
         self.mp_current = None
         self.mp_total = None
         self.max_speed = 0
-
         self.lidar = 0
-        
         self.is_judge_alt = False
         self.is_low_alt = False
 
@@ -38,22 +33,19 @@ class Pixhawk:
             self.max_speed = speed
 
     async def get_distance_alt(self):
-        async for distance in self.telemetry.distance_sensor():
+        async for distance in self.pix.telemetry.distance_sensor():
             self.lidar = distance.current_distance_m
             return distance.current_distance_m
         
 
     async def get_position_alt(self):
-        async for position in self.telemetry.position():
+        async for position in self.pix.telemetry.position():
             return position.absolute_altitude
         
     async def get_position_lat_lng(self):
         async for position in self.pix.telemetry.position():
             self.latitude_deg = position.latitude_deg
             self.longitude_deg = position.longitude_deg
-
-    as
-
     
     async def connect(self):
         logger_info.info("-- Waiting for drone to connect...")
@@ -92,7 +84,7 @@ class Pixhawk:
             time_now = time.time()
             if time_now-start_time < 30:
                 try :
-                    alt_now = await(asyncio.wait_for(self.get_distance_alt()), timeout = 0.8)
+                    alt_now = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
                 except asyncio.TimeoutError:
                     continue
                     
@@ -223,15 +215,15 @@ class Pixhawk:
             GPIO.cleanup()
             GPIO.setmode(GPIO.BCM)
 
-            GPIO.setup(self.PIN, GPIO.OUT)
+            GPIO.setup(self.fuse_PIN, GPIO.OUT)
 
-            GPIO.output(self.PIN, 0)
+            GPIO.output(self.fuse_PIN, 0)
             print("-- Fusing")
 
             time.sleep(1.0)
             print("-- Fused! Ready to Fly")
 
-            GPIO.output(self.PIN, 0)
+            GPIO.output(self.fuse_PIN, 0)
             
             GPIO.cleanup()
             
@@ -284,7 +276,7 @@ class Pixhawk:
         
     async def print_mission_progress(self):
         
-        async for mission_progress in self.mission.mission_progress():
+        async for mission_progress in self.pix.mission.mission_progress():
             print(f"Mission progress: "
                 f"{mission_progress.current}/"
                 f"{mission_progress.total}")
@@ -292,7 +284,7 @@ class Pixhawk:
     async def observe_is_in_air(self, tasks):
         
         was_in_air = False
-        async for is_in_air in self.telemetry.in_air():
+        async for is_in_air in self.pix.telemetry.in_air():
             if is_in_air:
                 was_in_air = is_in_air
 
@@ -311,7 +303,7 @@ class Pixhawk:
         
         while True:
             await asyncio.sleep(1)
-            mission_finished = await self.mission.is_mission_finished()
+            mission_finished = await self.pix.mission.is_mission_finished()
             print(mission_finished)
             if mission_finished:
                 self.land()
