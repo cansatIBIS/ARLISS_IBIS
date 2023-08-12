@@ -48,13 +48,13 @@ async def run():
                                      5, # speed
                                      True, #止まらない
                                      float('nan'),
-                                     45, #gimbal_yaw_deg
+                                     float('nan'), #gimbal_yaw_deg
                                      MissionItem.CameraAction.NONE,
                                      float('nan'),
                                      float('nan'),
                                      float('nan'),
                                      float('nan'),
-                                     float('nan'))) #Absolute_yaw_deg, 45にするのこっちかも
+                                     45)) #Absolute_yaw_deg, 45にするのこっちかも
 
     mission_plan = MissionPlan(mission_items)
 
@@ -137,7 +137,8 @@ async def img_navigation(drone):
             logger_info.info("mission finished")
             break
 
-    asyncio.sleep(5)
+    await asyncio.sleep(10)
+
 
     camera = picamera.PiCamera()
     logger_info.info('キャメラ初期化完了')
