@@ -160,45 +160,45 @@ async def img_navigation(drone):
 
     file_No = 0
     non_rec_count = 0
-    while True:
-        file_path = '/home/pi/ARLISS_IBIS/Images/image_test{}_{}.jpg'.format(datetime.datetime.now(),file_No)
-        file_No += 1
+    
+    file_path = '/home/pi/ARLISS_IBIS/Images/image_test{}_{}.jpg'.format(datetime.datetime.now(),file_No)
+    file_No += 1
 
-        logger_info.info("taking pic...: {}".format(file_path))
-        take_pic(camera,file_path) # 写真を撮る
-        res = detect_center(file_path) # 赤の最大領域の占有率と重心を求める
+    logger_info.info("taking pic...: {}".format(file_path))
+    take_pic(camera,file_path) # 写真を撮る
+    res = detect_center(file_path) # 赤の最大領域の占有率と重心を求める
 
-        logger_info.info('percent={}, center={}'.format(res['percent'], res['center']))
+    logger_info.info('percent={}, center={}'.format(res['percent'], res['center']))
 
-        asyncio.sleep(1)
+    asyncio.sleep(1)
 
-        distance = recognition_height
-        a = pixel_number_x*pixel_size/1000 # 画像(ピクセル単位)の横の長さ[mm]
-        b = pixel_number_y*pixel_size/1000 # 画像(ピクセル単位)の縦の長さ[mm]
-        image_x = distance*a/f # 画像の横の距離[m]
-        image_y = distance*b/f # 画像の縦の距離[m]
-        x_m = res['center'][0]*image_x/2
-        y_m = res['center'][1]*image_y/2
+    distance = recognition_height
+    a = pixel_number_x*pixel_size/1000 # 画像(ピクセル単位)の横の長さ[mm]
+    b = pixel_number_y*pixel_size/1000 # 画像(ピクセル単位)の縦の長さ[mm]
+    image_x = distance*a/f # 画像の横の距離[m]
+    image_y = distance*b/f # 画像の縦の距離[m]
+    x_m = res['center'][0]*image_x/2
+    y_m = res['center'][1]*image_y/2
 
-        if res['center'][0] or res['center'][1] is None:
-            if recognition_height-non_rec_count<3: #　地面に近すぎたらland
-                logger_info.info("-- Stopping offboard")
-                try:
-                    await drone.offboard.stop()
-                except OffboardError as error:
-                    logger_info.info(f"Stopping offboard mode failed \
-                            with error code: {error._result.result}")
-                logger_info.info("画像認識失敗、着陸します") 
-                await drone.action.land()
-            else:
-                non_rec_count += 1
-                logger_info.info(f"高度を{recognition_height-non_rec_count}mにします")
-                await drone.offboard.set_position_ned(
-                PositionNedYaw(0.0, 0.0, non_rec_count, 0.0))
-                await asyncio.sleep(5)
-        else:
-            logger_info.info("画像認識完了")
-            break
+        # if res['center'][0] or res['center'][1] is None:
+        #     if recognition_height-non_rec_count<3: #　地面に近すぎたらland
+        #         logger_info.info("-- Stopping offboard")
+        #         try:
+        #             await drone.offboard.stop()
+        #         except OffboardError as error:
+        #             logger_info.info(f"Stopping offboard mode failed \
+        #                     with error code: {error._result.result}")
+        #         logger_info.info("画像認識失敗、着陸します") 
+        #         await drone.action.land()
+        #     else:
+        #         non_rec_count += 1
+        #         logger_info.info(f"高度を{recognition_height-non_rec_count}mにします")
+        #         await drone.offboard.set_position_ned(
+        #         PositionNedYaw(0.0, 0.0, non_rec_count, 0.0))
+        #         await asyncio.sleep(5)
+        # else:
+        #     logger_info.info("画像認識完了")
+        #     break
     logger_info.info(f"go to the red position:北に{y_m}m,東に{-x_m}")
 
     await drone.offboard.set_position_ned(
