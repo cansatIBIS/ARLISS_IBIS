@@ -35,6 +35,9 @@ async def run():
 
     print("-- Arming")
     await drone.action.arm()
+    await asyncio.sleep(10)
+    print("armed")
+
 
     print("-- Setting initial setpoint")
     await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0, 0.0))
