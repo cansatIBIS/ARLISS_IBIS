@@ -122,9 +122,9 @@ async def get_log(drone):
             abs_alt = position.absolute_altitude_m
             rel_alt = position.relative_altitude_m
             break
-        async for speed in drone.action.get_maxium_speed():
-            max_speed = speed
-            break
+        # async for speed in drone.action.get_maxium_speed():
+        #     max_speed = speed
+        #     break
         async for mission_progress in drone.mission.mission_progress():
             mp_current = mission_progress.current
             mp_total = mission_progress.total
@@ -145,9 +145,9 @@ async def get_log(drone):
             + " rel_alt:"
             + str(rel_alt)
             + "m"
-            + " max_speed:"
-            +str(max_speed)
-            + "m/s"
+            # + " max_speed:"
+            # +str(max_speed)
+            # + "m/s"
             )
         logger_info.info(str(log_txt))
         await asyncio.sleep(0.5)
