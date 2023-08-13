@@ -8,19 +8,20 @@ from mavsdk import System
 import time
 from logger_E2E import logger_info
  
+ 
 light_threshold = 250
 is_landed = False
 PIN = 5
-
-stored_timelimit = 10
-released_timelimit = 10
+store_timelimit = 10
+release_timelimit = 10
 land_timelimit = 10
 
-# 連続して値を読み込む
+
 def get_light_val():
     resp = spi.xfer2([0x68, 0x00])                 
     value = ((resp[0] << 8) + resp[1]) & 0x3FF    
     return value
+
 
 def stored_judge():
     print("######################\n# stored judge start #\n######################")
@@ -57,11 +58,12 @@ def stored_judge():
         
         elapsed_time = time.perf_counter() - start_time
 
-        if elapsed_time > stored_timelimit:
+        if elapsed_time > store_timelimit:
             print("stored judge case 2")
             break
 
     print("#######################\n# stored judge finish #\n#######################")
+
 
 def released_judge():
     print("########################\n# released judge start #\n########################")
@@ -98,13 +100,13 @@ def released_judge():
         
         elapsed_time = time.perf_counter() - start_time
 
-        if elapsed_time > released_timelimit:
+        if elapsed_time > release_timelimit:
             print("released judge case 2")
             break
 
     print("#########################\n# released judge finish #\n#########################")
 
-# 審査会でGPS取れるなら
+
 async def connect_pixhawk():
     drone = System()
     logger_info.info("-- Waiting for drone to be connected...")
@@ -155,7 +157,7 @@ async def land_judge(drone):
             break
     
     logger_info.info("#########################\n# land judge finish #\n#########################")
-
+        
         
 async def is_low_alt(alt):
     return alt < 1
@@ -178,7 +180,7 @@ async def alt_list(drone):
         if iter >= 30:
             break
     return distance_list
-        
+
 
 def IQR_removal(data):
     try:
@@ -192,9 +194,11 @@ def IQR_removal(data):
         true_data= []
     return true_data
 
+
 async def get_distance_alt(drone):
     async for distance in drone.telemetry.distance_sensor():
         return distance.current_distance_m
+
 
 def fusing():
     try:
@@ -214,6 +218,7 @@ def fusing():
     except:
         GPIO.output(PIN, 1)
 
+
 def run():
     # SPI
     spi = spidev.SpiDev()     
@@ -229,6 +234,7 @@ def run():
 
     spi.close()
     sys.exit()
+    
     
 if __name__ == "__main__":
     run()
