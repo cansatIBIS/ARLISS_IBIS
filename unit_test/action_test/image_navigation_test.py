@@ -160,7 +160,7 @@ async def img_navigation(drone):
 
     file_No = 0
     non_rec_count = 0
-    
+
     file_path = '/home/pi/ARLISS_IBIS/Images/image_test{}_{}.jpg'.format(datetime.datetime.now(),file_No)
     file_No += 1
 
@@ -170,7 +170,7 @@ async def img_navigation(drone):
 
     logger_info.info('percent={}, center={}'.format(res['percent'], res['center']))
 
-    asyncio.sleep(1)
+    await asyncio.sleep(1)
 
     distance = recognition_height
     a = pixel_number_x*pixel_size/1000 # 画像(ピクセル単位)の横の長さ[mm]
