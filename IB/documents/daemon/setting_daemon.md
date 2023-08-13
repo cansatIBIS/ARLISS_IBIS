@@ -14,7 +14,6 @@
 	
 	[Service]
 	Type = simple
-	Restart = no
 	WorkingDirectory = {本番用コードのあるディレクトリ}
 	ExecStart = {実行}
 	StandardOutput = {標準出力先ファイル}
@@ -54,3 +53,10 @@ sudo systemctl start cansat
 sudo systemctl stop cansat
 ```
 が便利。  
+
+自動保存の切り替えは、
+```bash
+systemctl enable cansat
+systemctl disable cansat
+```
+でしてください。
