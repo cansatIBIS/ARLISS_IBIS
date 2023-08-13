@@ -19,7 +19,7 @@ async def run():
 
 async def print_heading(drone):
     async for heading in drone.telemetry.heading():
-        heading_deg = heading.heading.heading_deg
+        heading_deg = heading.heading_deg
         print(f"heading_deg:{heading_deg}")
 
 
