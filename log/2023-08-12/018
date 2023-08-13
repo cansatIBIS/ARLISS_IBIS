@@ -1,0 +1,19 @@
+2023-08-12 19:09:05.216 [INFO]: Waiting for drone to connect...
+2023-08-12 19:09:05.244 [INFO]: -- Uploading mission
+2023-08-12 19:09:06.275 [INFO]: Waiting for drone to have a global position estimate...
+2023-08-12 19:09:06.431 [INFO]: (' mode:', 'LAND', ' Mission progress:', '0', '/', '1', ' lidar: ', '0.0', 'm', ' abs_alt:', '1.590000033378601', 'm', ' rel_alt:', '0.015000000596046448', 'm')
+2023-08-12 19:09:07.187 [INFO]: -- Global position estimate OK
+2023-08-12 19:09:07.188 [INFO]: -- Arming
+2023-08-12 19:09:07.206 [INFO]: -- Starting mission
+2023-08-12 19:09:23.114 [INFO]: (' mode:', 'LAND', ' Mission progress:', '1', '/', '1', ' lidar: ', '0.0', 'm', ' abs_alt:', '1.593000054359436', 'm', ' rel_alt:', '0.0', 'm')
+2023-08-12 19:09:23.322 [INFO]: mission finished
+2023-08-12 19:09:33.451 [INFO]: キャメラ初期化完了
+2023-08-12 19:09:33.493 [INFO]: 理想:6m,実際:5.039999961853027m
+2023-08-12 19:09:33.592 [INFO]: 方位: Heading: [heading_deg: 169.86] 45であって欲しい
+2023-08-12 19:09:33.593 [INFO]: -- Setting initial setpoint
+2023-08-12 19:09:33.615 [INFO]: 高度6mの地点に向かいます
+2023-08-12 19:09:38.625 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_test2023-08-12 19:09:38.625507_0.jpg
+2023-08-12 19:09:39.45  [INFO]: percent=3.18287037037037e-05, center=[-0.92575758  0.85606061]
+2023-08-12 19:09:39.51  [INFO]: go to the red position:北に2.3853002392344496m,東に3.372486124401914
+2023-08-12 19:09:49.58  [INFO]: -- Stopping offboard
+2023-08-12 19:09:49.73  [INFO]: 画像認識成功、着陸します
