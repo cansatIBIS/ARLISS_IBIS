@@ -6,7 +6,7 @@ import time
 import asyncio
 from mavsdk import System
 import time
-from logger_E2E import logger_info
+from logger import logger_info
  
  
 light_threshold = 250
@@ -15,6 +15,9 @@ PIN = 5
 store_timelimit = 10
 release_timelimit = 10
 land_timelimit = 10
+set_altitude = 2.5
+mode = None
+land_alt = 0.5
 
 
 def get_light_val():
@@ -115,11 +118,8 @@ async def connect_pixhawk():
     async for state in drone.core.connection_state():
         if state.is_connected:
             logger_info.info("-- Connected to drone!")
-            break
-    
-    logger_info.info("-- Throw the viecle")
-    time.sleep(5)
-    
+            break    
+        
     return drone
 
 
@@ -219,7 +219,7 @@ def fusing():
         GPIO.output(PIN, 1)
 
 
-def run():
+def judge():
     # SPI
     spi = spidev.SpiDev()     
     spi.open(0, 0)                    
@@ -234,6 +234,74 @@ def run():
     spi.close()
     sys.exit()
     
+
+async def run(drone):
     
+    print("Waiting for drone to have a global position estimate...")
+    async for health in drone.telemetry.health():
+        print(health.is_global_position_ok)
+        print(health.is_home_position_ok)
+        if health.is_global_position_ok and health.is_home_position_ok:
+            print("-- Global position estimate OK")
+            break
+        
+    print("#########################\n# takeoff and land #\n#########################")
+        
+    print_altitude_task = asyncio.create_task(print_altitude(drone))
+    print_flight_mode_task = asyncio.create_task(print_flight_mode(drone))
+    arm_takeoff_task = asyncio.create_task(arm_takeoff(drone))
+    
+    await print_altitude_task
+    await print_flight_mode_task
+    await arm_takeoff_task
+    
+    print("#########################\n# land judge finish #\n#########################")
+    
+
+async def arm_takeoff(drone):
+    print("-- Arming")
+    logger_info.info("-- Arming")
+    await drone.action.arm()
+    print("-- Armed")
+    logger_info.info("-- Armed")
+    print("-- Taking off")
+    logger_info.info("-- Taking off")
+    await drone.action.set_takeoff_altitude(set_altitude)
+    await drone.action.takeoff()
+
+    await asyncio.sleep(20)
+
+    print("-- Landing")
+    logger_info.info("-- Landing")
+    await drone.action.land()
+
+
+async def print_altitude(drone):
+
+    previous_altitude = 0.0
+    
+    async for distance in drone.telemetry.distance_sensor():
+        # mode = drone.telemetry.flight_mode()
+        altitude_now = distance.current_distance_m
+        print("difference : {}".format(altitude_now - previous_altitude))
+        if abs(previous_altitude - altitude_now) >= 0.1:
+            previous_altitude = altitude_now
+            print(f"Altitude: {altitude_now}")
+
+            logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
+       
+        if altitude_now > land_alt:
+            print("over {}".format(land_alt))
+            await drone.action.land()
+
+
+async def print_flight_mode(drone):
+    
+    global mode
+    async for flight_mode in drone.telemetry.flight_mode():
+        mode = flight_mode
+
+
 if __name__ == "__main__":
-    run()
+    judge()
+    asyncio.get_event_loop().run_until_complete(run())
