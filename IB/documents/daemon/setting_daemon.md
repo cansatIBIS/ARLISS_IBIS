@@ -40,23 +40,23 @@
 
 デーモンの状態は、
 ```bash
-sudo systemctl status cansat
+sudo systemctl status cansat.service
 ```
 で確認できる。  
 
 また，いちいち電源切ったりしなくても，動作確認の際には，
 ```bash
-sudo systemctl start cansat
+sudo systemctl start cansat.service
 ```
 と
 ```bash
-sudo systemctl stop cansat
+sudo systemctl stop cansat.service
 ```
 が便利。  
 
 自動保存の切り替えは、
 ```bash
-systemctl enable cansat
-systemctl disable cansat
+systemctl enable cansat.service
+systemctl disable cansat.service
 ```
 でしてください。
