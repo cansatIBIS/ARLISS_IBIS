@@ -31,13 +31,7 @@ async def run():
     async for state in drone.core.connection_state():
         if state.is_connected:
             break
-
-    # print_mission_progress_task = asyncio.ensure_future(
-    #     print_mission_progress(drone))
-
-    # running_tasks = [print_mission_progress_task]
-    # termination_task = asyncio.ensure_future(
-    #     observe_is_in_air(drone, running_tasks))
+        
     get_log_task = asyncio.ensure_future(get_log(drone))
     img_navigation_task = asyncio.ensure_future(img_navigation(drone))
 
@@ -77,35 +71,9 @@ async def run():
     logger_info.info("-- Starting mission")
     await drone.mission.start_mission()
 
-    # await termination_task
     await get_log_task
     await img_navigation_task
-
-
-# async def print_mission_progress(drone):
-#     async for mission_progress in drone.mission.mission_progress():
-#         logger_info.info(f"Mission progress: "
-#               f"{mission_progress.current}/"
-#               f"{mission_progress.total}")
-
-
-# async def observe_is_in_air(drone, running_tasks):
-#     was_in_air = False
-#     async for is_in_air in drone.telemetry.in_air():
-#         if is_in_air:
-#             was_in_air = is_in_air
-
-#         if was_in_air and not is_in_air:
-#             for task in running_tasks:
-#                 task.cancel()
-#                 try:
-#                     await task
-#                 except asyncio.CancelledError:
-#                     pass
-#             await asyncio.get_event_loop().shutdown_asyncgens()
-
-#             return
-        
+  
 async def get_log(drone):
     while True:
         async for flight_mode in drone.telemetry.flight_mode():
@@ -118,14 +86,11 @@ async def get_log(drone):
             abs_alt = position.absolute_altitude_m
             rel_alt = position.relative_altitude_m
             break
-        # async for speed in drone.action.get_maxium_speed():
-        #     max_speed = speed
-        #     break
         async for mission_progress in drone.mission.mission_progress():
             mp_current = mission_progress.current
             mp_total = mission_progress.total
             break
-        log_txt = (" mode:",str(mode)," Mission progress:",str(mp_current),"/",str(mp_total)," lidar: ",str(lidar),"m"," abs_alt:",str(abs_alt),"m"," rel_alt:",str(rel_alt),"m")
+        log_txt = (" mode:",mode," Mission progress:",mp_current,"/",mp_total," lidar: ",lidar,"m"," abs_alt:",abs_alt,"m"," rel_alt:",rel_alt,"m")
         logger_info.info(str(log_txt))
         await asyncio.sleep(0.5)
 
@@ -180,25 +145,6 @@ async def img_navigation(drone):
     x_m = res['center'][0]*image_x/2
     y_m = res['center'][1]*image_y/2
 
-        # if res['center'][0] or res['center'][1] is None:
-        #     if recognition_height-non_rec_count<3: #　地面に近すぎたらland
-        #         logger_info.info("-- Stopping offboard")
-        #         try:
-        #             await drone.offboard.stop()
-        #         except OffboardError as error:
-        #             logger_info.info(f"Stopping offboard mode failed \
-        #                     with error code: {error._result.result}")
-        #         logger_info.info("画像認識失敗、着陸します") 
-        #         await drone.action.land()
-        #     else:
-        #         non_rec_count += 1
-        #         logger_info.info(f"高度を{recognition_height-non_rec_count}mにします")
-        #         await drone.offboard.set_position_ned(
-        #         PositionNedYaw(0.0, 0.0, non_rec_count, 0.0))
-        #         await asyncio.sleep(5)
-        # else:
-        #     logger_info.info("画像認識完了")
-        #     break
     logger_info.info(f"go to the red position:北に{y_m}m,東に{-x_m}")
 
     await drone.offboard.set_position_ned(
