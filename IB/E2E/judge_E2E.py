@@ -8,9 +8,13 @@ from mavsdk import System
 import time
 from logger_E2E import logger_info
  
+light_threshold = 250
 is_landed = False
 PIN = 5
-light_threshold = 250
+
+stored_timelimit = 10
+released_timelimit = 10
+land_timelimit = 10
 
 # 連続して値を読み込む
 def get_light_val():
@@ -53,7 +57,7 @@ def stored_judge():
         
         elapsed_time = time.perf_counter() - start_time
 
-        if elapsed_time > 120:
+        if elapsed_time > stored_timelimit:
             print("stored judge case 2")
             break
 
@@ -94,7 +98,7 @@ def released_judge():
         
         elapsed_time = time.perf_counter() - start_time
 
-        if elapsed_time > 120:
+        if elapsed_time > released_timelimit:
             print("released judge case 2")
             break
 
