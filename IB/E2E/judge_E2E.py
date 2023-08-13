@@ -9,7 +9,7 @@ from logger_E2E import logger_info
  
 light_threshold = 250
 is_landed = False
-PIN = 5
+fuse_Pin = 26
 store_timelimit = 10
 release_timelimit = 10
 land_timelimit = 10
@@ -203,18 +203,18 @@ def fusing():
         logger_info.info("-- Fuse start")
         GPIO.setmode(GPIO.BCM)
 
-        GPIO.setup(PIN, GPIO.OUT)
+        GPIO.setup(fuse_Pin, GPIO.OUT)
 
-        GPIO.output(PIN, 0)
+        GPIO.output(fuse_Pin, 0)
         logger_info.info("-- Fusing")
 
         time.sleep(5.0)
         logger_info.info("-- Fused! Please Fly")
 
-        GPIO.output(PIN, 1)
+        GPIO.output(fuse_Pin, 1)
     
     except:
-        GPIO.output(PIN, 1)
+        GPIO.output(fuse_Pin, 1)
 
 
 def run():
