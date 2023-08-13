@@ -4,7 +4,7 @@ import sys
 import RPi.GPIO as GPIO
 from logger import logger_info
 
-PIN = 5
+PIN = 8
 light_threshold = 250
 
 # 連続して値を読み込む
