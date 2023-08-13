@@ -2,10 +2,8 @@ import spidev
 import time                         
 import sys    
 import RPi.GPIO as GPIO
-import time                         
 import asyncio
 from mavsdk import System
-import time
 from logger_E2E import logger_info
  
  
