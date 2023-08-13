@@ -1,0 +1,15 @@
+2023-08-12 18:24:09.314 [INFO]: Waiting for drone to connect...
+2023-08-12 18:24:09.353 [INFO]: -- Uploading mission
+2023-08-12 18:24:10.378 [INFO]: Waiting for drone to have a global position estimate...
+2023-08-12 18:24:10.483 [INFO]: (' mode:', 'MISSION', ' Mission progress:', '0', '/', '1', ' lidar: ', '0.0', 'm', ' abs_alt:', '0.7360000610351562', 'm', ' rel_alt:', '0.0', 'm')
+2023-08-12 18:24:11.276 [INFO]: -- Global position estimate OK
+2023-08-12 18:24:11.278 [INFO]: -- Arming
+2023-08-12 18:24:11.315 [INFO]: -- Starting mission
+2023-08-12 18:24:24.426 [INFO]: (' mode:', 'MISSION', ' Mission progress:', '1', '/', '1', ' lidar: ', '0.0', 'm', ' abs_alt:', '0.7360000610351562', 'm', ' rel_alt:', '0.0', 'm')
+2023-08-12 18:24:25.429 [INFO]: mission finished
+2023-08-12 18:24:25.430 [INFO]: -- Setting initial setpoint
+2023-08-12 18:24:25.434 [INFO]: -- Starting offboard
+2023-08-12 18:24:25.453 [INFO]: -- Go 0m North, 0m East, -2m Down             within local coordinate system
+2023-08-12 18:24:35.458 [INFO]: -- Go 5m North, 0m East, -2m Down             within local coordinate system, turn to face East
+2023-08-12 18:24:45.464 [INFO]: -- Stopping offboard
+2023-08-12 18:24:45.482 [INFO]: landing...

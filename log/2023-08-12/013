@@ -1,0 +1,6 @@
+2023-08-12 18:46:16.121 [INFO]: Waiting for drone to connect...
+2023-08-12 18:46:16.149 [INFO]: -- Uploading mission
+2023-08-12 18:46:17.181 [INFO]: Waiting for drone to have a global position estimate...
+2023-08-12 18:46:17.341 [INFO]: (' mode:', 'UNKNOWN', ' Mission progress:', '0', '/', '1', ' lidar: ', '0.0', 'm', ' abs_alt:', '0.6100000143051147', 'm', ' rel_alt:', '-0.039000000804662704', 'm')
+2023-08-12 18:46:18.91  [INFO]: -- Global position estimate OK
+2023-08-12 18:46:18.92  [INFO]: -- Arming

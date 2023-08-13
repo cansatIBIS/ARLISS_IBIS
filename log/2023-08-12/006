@@ -1,0 +1,11 @@
+2023-08-12 17:56:25.576 [INFO]: Waiting for drone to connect...
+2023-08-12 17:56:25.598 [INFO]: -- Uploading mission
+2023-08-12 17:56:26.628 [INFO]: Waiting for drone to have a global position estimate...
+2023-08-12 17:56:27.548 [INFO]: -- Global position estimate OK
+2023-08-12 17:56:27.548 [INFO]: -- Arming
+2023-08-12 17:56:27.571 [INFO]: -- Starting mission
+2023-08-12 17:56:42.674 [INFO]: mission finished
+2023-08-12 17:56:42.675 [INFO]: -- Setting initial setpoint
+2023-08-12 17:56:42.689 [INFO]: -- Starting offboard
+2023-08-12 17:56:42.711 [INFO]: -- Go 0m North, 0m East, -2m Down             within local coordinate system
+2023-08-12 17:56:52.718 [INFO]: -- Go 5m North, 0m East, -2m Down             within local coordinate system, turn to face East
