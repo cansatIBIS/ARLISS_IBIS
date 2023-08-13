@@ -406,8 +406,8 @@ async def img_navigation(drone):
     x_m = res['center'][0]*image_x/2
     y_m = res['center'][1]*image_y/2
 
-    north_m = 1/np.sqrt(2)*(y_m-x_m)*np.cos(heading*np.pi/180)-1/np.sqrt(2)*(y_m+x_m)*np.sin(heading*np.pi/180)
-    east_m = 1/np.sqrt(2)*(y_m-x_m)*np.sin(heading*np.pi/180)+1/np.sqrt(2)*(y_m+x_m)*np.cos(heading*np.pi/180)
+    east_m = 1/np.sqrt(2)*(y_m-x_m)*np.cos(heading*np.pi/180)-1/np.sqrt(2)*(y_m+x_m)*np.sin(heading*np.pi/180)
+    north_m = 1/np.sqrt(2)*(y_m-x_m)*np.sin(heading*np.pi/180)+1/np.sqrt(2)*(y_m+x_m)*np.cos(heading*np.pi/180)
 
     logger_info.info(f"go to the red position:北に{north_m}m,東に{east_m}")
 
