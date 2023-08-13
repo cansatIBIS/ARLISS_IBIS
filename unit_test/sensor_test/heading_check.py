@@ -20,14 +20,14 @@ async def run():
 async def print_heading(drone):
     async for heading in drone.telemetry.heading():
         heading_deg = heading.heading.heading_deg
-        print(heading_deg)
+        print(f"heading_deg:{heading_deg}")
 
 
 
 async def print_yaw(drone):
     async for attitude in drone.telemetry.attitude_euler():
         yaw_deg = attitude.yaw_deg
-        print(yaw_deg)
+        print(f"yaw_deg:{yaw_deg}")
 
 
 if __name__ == "__main__":
