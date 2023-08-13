@@ -21,8 +21,8 @@
 	StandardError = {エラー出力先ファイル}
 
     # 去年は以下のような感じ
-    # WorkingDirectory = /home/pi/utat/cansat2022/main 去年はこんな感じ
-	# ExecStart = /usr/bin/python /home/pi/utat/cansat2022/main/main.py 去年はこんな感じ
+    # WorkingDirectory = /home/pi/utat/cansat2022/main
+	# ExecStart = /usr/bin/python /home/pi/utat/cansat2022/main/main.py
     # StandardOutput = file:/home/pi/utat/log/log.txt
     # StandardError = file:/home/pi/utat/log/error.txt
 	
