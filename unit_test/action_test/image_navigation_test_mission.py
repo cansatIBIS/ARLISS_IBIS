@@ -7,7 +7,6 @@ import numpy as np
 import datetime
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
-from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger import logger_info, logger_debug
 
 # パラメータ--------------------------------
@@ -21,6 +20,9 @@ pixel_number_y = 2521
 pixel_size = 1.12 #[um]
 f = 3.04 #[mm]
 # ----------------------------------------
+
+lat_deg_per_m = 0.000008983148616
+lng_deg_per_m = 0.000008983668124
 
 async def run():
     
@@ -118,7 +120,7 @@ async def img_navigation(drone):
         break
 
 
-    file_path = '/home/pi/ARLISS_IBIS/Images/image_navigation_test_ver2_{}.jpg'.format(datetime.datetime.now())
+    file_path = '/home/pi/ARLISS_IBIS/Images/image_navigation_test_mission_{}.jpg'.format(datetime.datetime.now())
 
     logger_info.info("taking pic...: {}".format(file_path))
     take_pic(camera,file_path) # 写真を撮る
@@ -141,22 +143,48 @@ async def img_navigation(drone):
 
     logger_info.info(f"go to the red position:北に{north_m}m,東に{east_m}")
 
-    logger_info.info("-- Setting initial setpoint")
-    await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0 , 0.0))
-    await drone.offboard.start()
+    async for position in drone.telemetry.position():
+        lat_now = position.latitude_deg
+        lng_now = position.longitude_deg
+        print("lat_deg:{} lng_deg:{}".format(lat_now, lng_now))
 
-    await drone.offboard.set_position_ned(
-            PositionNedYaw(north_m, east_m, 0.0, 0.0)) #? 方位が違うかも
-    await asyncio.sleep(10)
+    await drone.mission.clear_mission()
 
-    logger_info.info("-- Stopping offboard")
-    try:
-        await drone.offboard.stop()
-    except OffboardError as error:
-        logger_info.info(f"Stopping offboard mode failed \
-                with error code: {error._result.result}")
-    logger_info.info("画像認識成功、着陸します") 
+    red_posi = [lat_now+north_m*lat_deg_per_m, lng_now+east_m*lng_deg_per_m]
+
+    mission_items = []
+    mission_items.append(MissionItem(red_posi[0],
+                                     red_posi[1],
+                                     3, # rel_alt
+                                     5, # speed
+                                     True, #止まらない
+                                     float('nan'),
+                                     float('nan'), #gimbal_yaw_deg
+                                     MissionItem.CameraAction.NONE,
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'))) #Absolute_yaw_deg
+    mission_plan = MissionPlan(mission_items)
+
+    await drone.mission.set_return_to_launch_after_mission(False)
+
+    logger_info.info("-- Uploading mission")
+
+    await drone.mission.upload_mission(mission_plan)
+
+    logger_info.info("-- Starting mission")
+    await drone.mission.start_mission()
+
+    while True:
+        await asyncio.sleep(1)
+        is_mission_finished = await drone.mission.is_mission_finished()
+        if is_mission_finished:
+            break
+    logger_info.info("-- Landing")
     await drone.action.land()
+    logger_info.info("-- Mission Complete")
 
 def take_pic(camera,file_path):
     camera.capture(file_path)
