@@ -291,53 +291,58 @@ async def run():
 
     await drone.mission.upload_mission(mission_plan)
 
-    logger_info.info("waiting for pixhawk to hold")
-    flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
-    while True:
-       if flag==True:
-           break
-       async for flight_mode in drone.telemetry.flight_mode():
-           if str(flight_mode) == "HOLD":
-               logger_info.info("hold確認")
-               flag=True
-               break
-           else:
-               try:
-                   await drone.action.hold() #holdじゃない状態からholdしようてしても無理だからもう一回exceptで繋ぎなおす
-               except Exception as e:
-                   logger_info.info(e)
-                   drone = System()
-                   await drone.connect(system_address="serial:///dev/ttyACM0:115200")
-                   logger_info.info("Waiting for drone to connect...")
-                   async for state in drone.core.connection_state():
+    # logger_info.info("waiting for pixhawk to hold")
+    # flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
+    async for health in drone.telemetry.health():
+        if health.is_global_position_ok and health.is_home_position_ok:
+            print("-- Global position estimate OK")
+            # logger_info.info("-- Global position estimate OK")
+            break
+    # while True:
+    #    if flag==True:
+    #        break
+    #    async for flight_mode in drone.telemetry.flight_mode():
+    #        if str(flight_mode) == "HOLD":
+    #            logger_info.info("hold確認")
+    #            flag=True
+    #            break
+    #        else:
+    #            try:
+    #                await drone.action.hold() #holdじゃない状態からholdしようてしても無理だからもう一回exceptで繋ぎなおす
+    #            except Exception as e:
+    #                logger_info.info(e)
+    #                drone = System()
+    #                await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    #                logger_info.info("Waiting for drone to connect...")
+    #                async for state in drone.core.connection_state():
 
-                        if state.is_connected:
+    #                     if state.is_connected:
                             
-                            logger_info.info(f"-- Connected to drone!")
-                            break
-                   mission_items = []
-                   mission_items.append(MissionItem(goal[0],
-                                     goal[1],
-                                     height, # rel_alt
-                                     5, # speed
-                                     True, #止まらない
-                                     float('nan'),
-                                     float('nan'), #gimbal_yaw_deg
-                                     MissionItem.CameraAction.NONE,
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan')))
+    #                         logger_info.info(f"-- Connected to drone!")
+    #                         break
+    #                mission_items = []
+    #                mission_items.append(MissionItem(goal[0],
+    #                                  goal[1],
+    #                                  height, # rel_alt
+    #                                  5, # speed
+    #                                  True, #止まらない
+    #                                  float('nan'),
+    #                                  float('nan'), #gimbal_yaw_deg
+    #                                  MissionItem.CameraAction.NONE,
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan')))
 
-                   mission_plan = MissionPlan(mission_items)
+    #                mission_plan = MissionPlan(mission_items)
 
-                   await drone.mission.set_return_to_launch_after_mission(False)
+    #                await drone.mission.set_return_to_launch_after_mission(False)
 
-                   logger_info.info("-- Uploading mission")
-                   await drone.mission.upload_mission(mission_plan)
-                   #await asyncio.sleep(0.5)(KF)
-                   break 
+    #                logger_info.info("-- Uploading mission")
+    #                await drone.mission.upload_mission(mission_plan)
+    #                #await asyncio.sleep(0.5)(KF)
+    #                break 
 
     logger_info.info("-- Arming")
     await drone.action.arm()
