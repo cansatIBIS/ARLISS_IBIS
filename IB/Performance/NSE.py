@@ -118,8 +118,7 @@ async def get_gps(drone):
             lat = "error"
             lng = "error"
             alt = "error"
-        yield lat, lng, alt
-        await asyncio.sleep(1)
+        return lat, lng, alt
         
         
 async def gps(drone):
