@@ -62,11 +62,11 @@ async def serial_connect():
         else:
             break
     print("Serial port OK.")
-    write(lora, b'2\r\n')
+    await write(lora, b'2\r\n')
     await asyncio.sleep(1)
-    write(lora, b'z\r\n')
+    await write(lora, b'z\r\n')
     await asyncio.sleep(1)
-    write(lora, ("Lora start\r\n").encode())
+    await write(lora, ("Lora start\r\n").encode())
     print("Lora READY")
     return lora
     
@@ -97,7 +97,7 @@ async def write(lora, message: str):
     
 async def send_gps(lora, drone):
     
-    lat_deg, lng_deg, alt_deg = get_gps(drone)
+    lat_deg, lng_deg, alt_deg = await get_gps(drone)
     if is_lora_power_on:
         lat = "lat:" + str(lat_deg)
         lng = "lng:" + str(lng_deg)
@@ -134,10 +134,10 @@ async def gps(drone):
     
 async def lora_gps(drone):
     
-    lora_power_on()
-    lora = serial_connect()
-    send_gps(lora, drone)
-    lora_power_off()
+    await lora_power_on()
+    lora = await serial_connect()
+    await send_gps(lora, drone)
+    await lora_power_off()
     
 
 def get_light_val():
