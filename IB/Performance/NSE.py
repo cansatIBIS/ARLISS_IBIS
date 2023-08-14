@@ -103,12 +103,16 @@ async def send_gps(lora, drone):
         lng = "lng:" + str(lng_deg)
         alt = "alt:" + str(alt_deg)
         await write(lora, lat.encode())
+        print(lat)
         await write(lora, lng.encode())
+        print(lng)
         await write(lora, alt.encode())
+        print(alt)
     await asyncio.sleep(5)
     
     
 async def get_gps(drone):
+    
     lat, lng, alt = 0, 0, 0
     while True:
         try:
@@ -122,6 +126,7 @@ async def get_gps(drone):
         
         
 async def gps(drone):
+    
     global lat, lng, alt
     async for position in drone.telemetry.position():
             print(position)
