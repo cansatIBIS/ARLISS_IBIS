@@ -43,7 +43,7 @@ def get_light_val():
 
 
 def stored_judge():
-    print("######################\n# stored judge start #\n######################")
+    logger_info.info("######################\n# stored judge start #\n######################")
 
     # 関数の開始時間
     start_time = time.perf_counter()
@@ -68,7 +68,7 @@ def stored_judge():
             duration_time = time.perf_counter() - duration_start_time
 
             if duration_time > stored_judge_time:
-                print("stored judge case 1")
+                logger_info.info("stored judge case 1")
                 break
         
         elif light_val < light_threshold:
@@ -78,14 +78,14 @@ def stored_judge():
         elapsed_time = time.perf_counter() - start_time
 
         if elapsed_time > stored_timelimit:
-            print("stored judge case 2")
+            logger_info.info("stored judge case 2")
             break
 
-    print("#######################\n# stored judge finish #\n#######################")
+    logger_info.info("#######################\n# stored judge finish #\n#######################")
 
 
 def released_judge():
-    print("########################\n# released judge start #\n########################")
+    logger_info.info("########################\n# released judge start #\n########################")
 
     # 関数の開始時間
     start_time = time.perf_counter()
@@ -110,7 +110,7 @@ def released_judge():
             duration_time = time.perf_counter() - duration_start_time
 
             if duration_time > released_judge_time:
-                print("released judge case 1")
+                logger_info.info("released judge case 1")
                 break
         
         elif light_val > light_threshold:
@@ -120,10 +120,10 @@ def released_judge():
         elapsed_time = time.perf_counter() - start_time
 
         if elapsed_time > released_timelimit:
-            print("released judge case 2")
+            logger_info.info("released judge case 2")
             break
 
-    print("#########################\n# released judge finish #\n#########################")
+    logger_info.info("#########################\n# released judge finish #\n#########################")
 
 
 # async def connect_pixhawk():
