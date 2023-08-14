@@ -102,9 +102,9 @@ async def send_gps(lora, drone):
         lat = "lat:" + str(lat_deg)
         lng = "lng:" + str(lng_deg)
         alt = "alt:" + str(alt_deg)
-        await lora.write(lat)
-        await lora.write(lng)
-        await lora.write(alt)
+        await lora.write(lat.encode())
+        await lora.write(lng.encode())
+        await lora.write(alt.encode())
     await asyncio.sleep(5)
     
     
