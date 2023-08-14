@@ -39,7 +39,7 @@ async def run():
     running_tasks = [print_mission_progress_task]
     termination_task = asyncio.ensure_future(
         observe_is_in_air(drone, running_tasks))
-    get_log_task = asyncio.ensure_future(get_log(drone))
+    # get_log_task = asyncio.ensure_future(get_log(drone))
     get_gps_list_task = asyncio.ensure_future(get_csv_list(drone))
     take_csv_and_land_task = asyncio.ensure_future(take_csv_and_land(drone))
 
@@ -62,7 +62,7 @@ async def run():
     # center_lng_deg_ave = sum(center_lng_deg_list)/1
     
     # center = [center_lat_deg_ave, center_lng_deg_ave]
-    center = [35.797379299999996, 139.8922272]
+    # center = [35.797379299999996, 139.8922272]
     
 
     
@@ -123,7 +123,7 @@ async def run():
     await drone.mission.start_mission()
 
     await termination_task
-    await get_log_task
+    # await get_log_task
     await get_gps_list_task
     await take_csv_and_land_task
 async def take_csv_and_land(drone):
