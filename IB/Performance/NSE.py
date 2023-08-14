@@ -91,7 +91,7 @@ async def lora_power_on():
 async def write(lora, message: str):
     
     msg_send = str(message) + "\r\n"
-    lora.serial.write(msg_send.encode("ascii"))
+    lora.write(msg_send.encode("ascii"))
     await asyncio.sleep(4)
     
     

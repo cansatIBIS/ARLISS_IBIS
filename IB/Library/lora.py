@@ -59,7 +59,7 @@ class Lora:
     
     async def write(self, message: str):
         msg_send = str(message) + self.CRLF
-        self.serial.write(msg_send.encode("ascii"))
+        self.write(msg_send.encode("ascii"))
         await asyncio.sleep(4)
         
     async def send_GPS(self, pix):
