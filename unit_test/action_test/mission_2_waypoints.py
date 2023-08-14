@@ -169,48 +169,48 @@ async def observe_is_in_air(drone, running_tasks):
 
             return
         
-async def get_log(drone):
-    async for flight_mode in drone.telemetry.flight_mode():
-        mode = flight_mode
-        break
-    async for distance in drone.telemetry.distance_sensor():
-        lidar = distance.current_distance_m
-        break
-    async for position in drone.telemetry.position():
-        lat = position.latitude_deg
-        lng = position.longitude_deg
-        abs_alt = position.absolute_altitude_m
-        rel_alt = position.relative_altitude_m
-        break
-    async for speed in drone.action.get_maxium_speed():
-        max_speed = speed
-        break
-    async for mission_progress in drone.mission.mission_progress():
-        mp_current = mission_progress.current
-        mp_total = mission_progress.total
-    while True:
-        log_txt = (
-            + " mode:"
-            + str(mode)
-            + " Mission progress:"
-            + str(mp_current)
-            + "/"
-            + str(mp_total)
-            + " lidar: "
-            + str(lidar)
-            + "m"
-            + " abs_alt:"
-            + str(abs_alt)
-            + "m"
-            + " rel_alt:"
-            + str(rel_alt)
-            + "m"
-            + " max_speed:"
-            +str(max_speed)
-            + "m/s"
-            )
-        # logger_info.info(str(log_txt))
-        await asyncio.sleep(0.3)
+# async def get_log(drone):
+#     async for flight_mode in drone.telemetry.flight_mode():
+#         mode = flight_mode
+#         break
+#     async for distance in drone.telemetry.distance_sensor():
+#         lidar = distance.current_distance_m
+#         break
+#     async for position in drone.telemetry.position():
+#         lat = position.latitude_deg
+#         lng = position.longitude_deg
+#         abs_alt = position.absolute_altitude_m
+#         rel_alt = position.relative_altitude_m
+#         break
+#     async for speed in drone.action.get_maxium_speed():
+#         max_speed = speed
+#         break
+#     async for mission_progress in drone.mission.mission_progress():
+#         mp_current = mission_progress.current
+#         mp_total = mission_progress.total
+#     # while True:
+#     #     log_txt = (
+#     #         + " mode:"
+#     #         + str(mode)
+#     #         + " Mission progress:"
+#     #         + str(mp_current)
+#     #         + "/"
+#     #         + str(mp_total)
+#     #         + " lidar: "
+#     #         + str(lidar)
+#     #         + "m"
+#     #         + " abs_alt:"
+#     #         + str(abs_alt)
+#     #         + "m"
+#     #         + " rel_alt:"
+#     #         + str(rel_alt)
+#     #         + "m"
+#     #         + " max_speed:"
+    #         +str(max_speed)
+    #         + "m/s"
+    #         )
+    #     # logger_info.info(str(log_txt))
+    #     await asyncio.sleep(0.3)
 
 async def get_csv_list(drone):
      global center_abs_alt
