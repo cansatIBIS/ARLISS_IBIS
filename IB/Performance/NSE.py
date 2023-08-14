@@ -37,7 +37,8 @@ pixel_number_y = 2521
 pixel_size = 1.12 #[um]
 f = 3.04 #[mm]
 # ----------------------------------------
-
+        
+        
 def set_gpio():
     
     GPIO.setmode(GPIO.BCM)
@@ -94,16 +95,41 @@ async def write(lora, message: str):
     await asyncio.sleep(4)
     
     
-async def send_gps(lora, pix):
+async def send_gps(lora, drone):
     
+    lat_deg, lng_deg, alt_deg = get_gps(drone)
     if is_lora_power_on:
-        lat = "lat:" + str(pix.latitude_deg)
-        lng = "lng:" + str(pix.longitude_deg)
-        alt = "alt:" + str(pix.absolute_altitude_m)
+        lat = "lat:" + str(lat_deg)
+        lng = "lng:" + str(lng_deg)
+        alt = "alt:" + str(alt_deg)
         await lora.write(lat)
         await lora.write(lng)
         await lora.write(alt)
     await asyncio.sleep(5)
+    
+    
+async def get_gps(drone):
+    lat, lng, alt = 0, 0, 0
+    while True:
+        try:
+            await asyncio.wait_for(gps(drone), timeout=0.8)
+        except asyncio.TimeoutError:
+            print("Can't catch GPS")
+            lat = "error"
+            lng = "error"
+            alt = "error"
+        yield lat, lng, alt
+        await asyncio.sleep(1)
+        
+        
+async def gps(drone):
+    global lat, lng, alt
+    async for position in drone.telemetry.position():
+            print(position)
+            lat = str(position.latitude)
+            lng = str(position.longitude)
+            alt = str(position.absolute_altitude_m)
+            break
     
     
 async def lora_gps(drone):
