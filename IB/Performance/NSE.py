@@ -92,7 +92,7 @@ async def write(lora, message: str):
     
     msg_send = str(message) + "\r\n"
     lora.write(msg_send.encode("ascii"))
-    await asyncio.sleep(4)
+    time.sleep(4)
     
     
 async def send_gps(lora, drone):
@@ -108,7 +108,6 @@ async def send_gps(lora, drone):
         print(lng)
         await write(lora, alt.encode())
         print(alt)
-    await asyncio.sleep(5)
     
     
 async def get_gps(drone):
