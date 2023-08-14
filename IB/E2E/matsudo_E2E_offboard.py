@@ -16,7 +16,7 @@ from logger_E2E import logger_info
 light_threshold = 250
 is_landed = False
 fuse_Pin = 3
-fuse_time = 7.0
+fuse_time = 5.0
 store_timelimit = 100
 release_timelimit = 100
 land_timelimit = 100
