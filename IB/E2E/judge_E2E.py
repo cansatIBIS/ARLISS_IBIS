@@ -10,9 +10,9 @@ from logger_E2E import logger_info
 light_threshold = 250
 is_landed = False
 fuse_Pin = 26
-store_timelimit = 10
-release_timelimit = 10
-land_timelimit = 10
+store_timelimit = 100
+release_timelimit = 100
+land_timelimit = 100
 
 
 def get_light_val():
