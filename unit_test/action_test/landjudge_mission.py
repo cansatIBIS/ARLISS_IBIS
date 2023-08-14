@@ -29,8 +29,10 @@ async def run():
     await print_alt_task
     await land_judge_task
 
-    wait()
-    fusing()
+    
+    is_fused = True
+    logger_info.info("fused")
+
 
     if is_fused:
         get_log_task = asyncio.create_task(get_log(drone))
@@ -261,32 +263,46 @@ async def land(drone):
 
 async def get_log(drone):
     global mode
-    async for flight_mode in drone.telemetry.flight_mode():
-        mode = flight_mode
-    async for distance in drone.telemetry.distance_sensor():
-        lidar = distance.current_distance_m
-    async for position in drone.telemetry.position():
-        lat = position.latitude_deg
-        lng = position.longitude_deg
     while True:
+        async for flight_mode in drone.telemetry.flight_mode():
+            mode = flight_mode
+            break
+        async for distance in drone.telemetry.distance_sensor():
+            lidar = distance.current_distance_m
+            break
+        async for position in drone.telemetry.position():
+            abs_alt = position.absolute_altitude_m
+            rel_alt = position.relative_altitude_m
+            break
+        async for speed in drone.action.get_maxium_speed():
+            max_speed = speed
+            break
+        async for mission_progress in drone.mission.mission_progress():
+            mp_current = mission_progress.current
+            mp_total = mission_progress.total
+            break
         log_txt = (
-            " mode:"
+            + " mode:"
             + str(mode)
+            + " Mission progress:"
+            + str(mp_current)
+            + "/"
+            + str(mp_total)
             + " lidar: "
             + str(lidar)
             + "m"
-            + "latitude:"
-            + str(lat)
-            + "deg"
-            + "longitude"
-            + str(lng)
-            + "deg"
+            + " abs_alt:"
+            + str(abs_alt)
+            + "m"
+            + " rel_alt:"
+            + str(rel_alt)
+            + "m"
+            + " max_speed:"
+            +str(max_speed)
+            + "m/s"
             )
         logger_info.info(str(log_txt))
         await asyncio.sleep(0.5)
-
-        if is_mission_finished:
-            break
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(run())

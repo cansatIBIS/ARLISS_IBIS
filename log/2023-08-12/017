@@ -1,0 +1,36 @@
+2023-08-12 19:00:29.302 [INFO]: Waiting for drone to connect...
+2023-08-12 19:00:29.332 [INFO]: -- Uploading mission
+2023-08-12 19:00:30.359 [INFO]: Waiting for drone to have a global position estimate...
+2023-08-12 19:00:30.515 [INFO]: (' mode:', 'HOLD', ' Mission progress:', '0', '/', '1', ' lidar: ', '0.0', 'm', ' abs_alt:', '-0.38200002908706665', 'm', ' rel_alt:', '0.007000000216066837', 'm')
+2023-08-12 19:00:31.274 [INFO]: -- Global position estimate OK
+2023-08-12 19:00:31.275 [INFO]: -- Arming
+2023-08-12 19:00:31.304 [INFO]: -- Starting mission
+2023-08-12 19:00:50.351 [INFO]: (' mode:', 'HOLD', ' Mission progress:', '1', '/', '1', ' lidar: ', '0.009999999776482582', 'm', ' abs_alt:', '-0.3800000250339508', 'm', ' rel_alt:', '0.0', 'm')
+2023-08-12 19:00:50.428 [INFO]: mission finished
+2023-08-12 19:01:00.557 [INFO]: キャメラ初期化完了
+2023-08-12 19:01:00.640 [INFO]: 理想:6m,実際:3.3899998664855957m
+2023-08-12 19:01:00.739 [INFO]: 方位: Heading: [heading_deg: 170.66] 45であって欲しい
+2023-08-12 19:01:00.740 [INFO]: -- Setting initial setpoint
+2023-08-12 19:01:00.756 [INFO]: 高度6mの地点に向かいます
+2023-08-12 19:01:05.765 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_test2023-08-12 19:01:05.765309_0.jpg
+2023-08-12 19:01:06.188 [INFO]: percent=0.06451678240740741, center=[-0.91644055  0.00474429]
+2023-08-12 19:01:06.195 [INFO]: 高度を5mにします
+2023-08-12 19:01:11.206 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_test2023-08-12 19:01:11.206726_1.jpg
+2023-08-12 19:01:11.636 [INFO]: percent=0.08012152777777778, center=[-0.87716956 -0.09561635]
+2023-08-12 19:01:11.637 [INFO]: 高度を4mにします
+2023-08-12 19:01:16.646 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_test2023-08-12 19:01:16.646723_2.jpg
+2023-08-12 19:01:17.23  [INFO]: percent=0.010144675925925927, center=[-0.89091399 -0.74214442]
+2023-08-12 19:01:17.23  [INFO]: 高度を3mにします
+2023-08-12 19:01:22.34  [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_test2023-08-12 19:01:22.034684_3.jpg
+2023-08-12 19:01:22.440 [INFO]: percent=0.1791550925925926, center=[-0.80763638 -0.07172096]
+2023-08-12 19:01:22.440 [INFO]: 高度を2mにします
+2023-08-12 19:01:27.450 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_test2023-08-12 19:01:27.450770_4.jpg
+2023-08-12 19:01:27.830 [INFO]: percent=0.10230902777777778, center=[-0.84954261 -0.04551257]
+2023-08-12 19:01:27.831 [INFO]: -- Stopping offboard
+2023-08-12 19:01:27.855 [INFO]: 画像認識失敗、着陸します
+2023-08-12 19:01:27.871 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_test2023-08-12 19:01:27.871720_5.jpg
+2023-08-12 19:01:28.272 [INFO]: percent=0.12048900462962962, center=[-0.83080698  0.0238568 ]
+2023-08-12 19:01:28.272 [INFO]: -- Stopping offboard
+2023-08-12 19:01:28.294 [INFO]: 画像認識失敗、着陸します
+2023-08-12 19:01:28.319 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_test2023-08-12 19:01:28.318831_6.jpg
+2023-08-12 19:01:28.683 [INFO]: percent=0, center=None

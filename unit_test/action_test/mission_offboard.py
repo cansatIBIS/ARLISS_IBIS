@@ -8,7 +8,7 @@ from mavsdk.mission import (MissionItem, MissionPlan)
 from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger import logger_info, logger_debug
 
-goal = [35.7927147,139.8908122]
+goal = [35.7923608, 139.8909684]
 north_m = 5
 south_m = -10
 lat_deg_per_m = 0.000008983148616
@@ -111,47 +111,27 @@ async def observe_is_in_air(drone, running_tasks):
             return
         
 async def get_log(drone):
-    async for flight_mode in drone.telemetry.flight_mode():
-        mode = flight_mode
-        break
-    async for distance in drone.telemetry.distance_sensor():
-        lidar = distance.current_distance_m
-        break
-    async for position in drone.telemetry.position():
-        lat = position.latitude_deg
-        lng = position.longitude_deg
-        abs_alt = position.absolute_altitude_m
-        rel_alt = position.relative_altitude_m
-        break
-    async for speed in drone.action.get_maxium_speed():
-        max_speed = speed
-        break
-    async for mission_progress in drone.mission.mission_progress():
-        mp_current = mission_progress.current
-        mp_total = mission_progress.total
     while True:
-        log_txt = (
-            + " mode:"
-            + str(mode)
-            + " Mission progress:"
-            + str(mp_current)
-            + "/"
-            + str(mp_total)
-            + " lidar: "
-            + str(lidar)
-            + "m"
-            + " abs_alt:"
-            + str(abs_alt)
-            + "m"
-            + " rel_alt:"
-            + str(rel_alt)
-            + "m"
-            + " max_speed:"
-            +str(max_speed)
-            + "m/s"
-            )
+        async for flight_mode in drone.telemetry.flight_mode():
+            mode = flight_mode
+            break
+        async for distance in drone.telemetry.distance_sensor():
+            lidar = distance.current_distance_m
+            break
+        async for position in drone.telemetry.position():
+            abs_alt = position.absolute_altitude_m
+            rel_alt = position.relative_altitude_m
+            break
+        # async for speed in drone.action.get_maxium_speed():
+        #     max_speed = speed
+        #     break
+        async for mission_progress in drone.mission.mission_progress():
+            mp_current = mission_progress.current
+            mp_total = mission_progress.total
+            break
+        log_txt = (" mode:",str(mode)," Mission progress:",str(mp_current),"/",str(mp_total)," lidar: ",str(lidar),"m"," abs_alt:",str(abs_alt),"m"," rel_alt:",str(rel_alt),"m")
         logger_info.info(str(log_txt))
-        await asyncio.sleep(0.3)
+        await asyncio.sleep(0.5)
 
 async def offboard(drone):
     while True:
@@ -180,17 +160,17 @@ async def offboard(drone):
             PositionNedYaw(5.0, 0.0, -2.0, 90.0))
     await asyncio.sleep(10)
 
-    logger_info.info("-- Go 5m North, 5m East, -2m Down \
-            within local coordinate system")
-    await drone.offboard.set_position_ned(
-            PositionNedYaw(5.0, 5.0, -2.0, 90.0))
-    await asyncio.sleep(15)
+    # logger_info.info("-- Go 5m North, 5m East, -2m Down \
+    #         within local coordinate system")
+    # await drone.offboard.set_position_ned(
+    #         PositionNedYaw(5.0, 5.0, -2.0, 90.0))
+    # await asyncio.sleep(15)
 
-    logger_info.info("-- Go 0m North, 5m East, 0m Down \
-            within local coordinate system, turn to face South")
-    await drone.offboard.set_position_ned(
-            PositionNedYaw(0.0, 5.0, 0.0, 180.0))
-    await asyncio.sleep(10)
+    # logger_info.info("-- Go 0m North, 5m East, 0m Down \
+    #         within local coordinate system, turn to face South")
+    # await drone.offboard.set_position_ned(
+    #         PositionNedYaw(0.0, 5.0, 0.0, 180.0))
+    # await asyncio.sleep(10)
 
     logger_info.info("-- Stopping offboard")
     try:
