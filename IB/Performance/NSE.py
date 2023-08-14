@@ -507,7 +507,7 @@ async def run():
     await land_judge(drone)
     
     fuse_task = asyncio.ensure_future(fusing())
-    lora_task = asyncio.ensure_future(lora_gps())
+    lora_task = asyncio.ensure_future(lora_gps(drone))
     await fuse_task
     await lora_task
     return
