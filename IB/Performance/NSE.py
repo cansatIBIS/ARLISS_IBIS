@@ -476,14 +476,15 @@ async def run():
     
     set_gpio()
     
-    stored_judge()
-    released_judge()
+    # stored_judge()
+    # released_judge()
     await land_judge(drone)
     
     fuse_task = asyncio.ensure_future(fusing())
     lora_task = asyncio.ensure_future(lora_gps())
     await fuse_task
     await lora_task
+    return
 
     # await asyncio.sleep(1)
     # logger_info.info("waiting 1s")
