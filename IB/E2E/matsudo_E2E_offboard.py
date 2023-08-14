@@ -16,12 +16,12 @@ from logger_E2E import logger_info
 light_threshold = 250
 is_landed = False
 fuse_Pin = 26
-store_timelimit = 10
-release_timelimit = 10
-land_timelimit = 10
+store_timelimit = 100
+release_timelimit = 100
+land_timelimit = 100
 
 # パラメータ--------------------------------
-goal = [35.7923768, 139.8909942]
+goal = [35.7974392, 139.8924199]
 height = 6 # goalの高度
 #-----------------------------------------
 
@@ -123,20 +123,20 @@ def released_judge():
     print("#########################\n# released judge finish #\n#########################")
 
 
-async def connect_pixhawk():
-    drone = System()
-    logger_info.info("-- Waiting for drone to be connected...")
-    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+# async def connect_pixhawk():
+#     drone = System()
+#     logger_info.info("-- Waiting for drone to be connected...")
+#     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
-    async for state in drone.core.connection_state():
-        if state.is_connected:
-            logger_info.info("-- Connected to drone!")
-            break
+#     async for state in drone.core.connection_state():
+#         if state.is_connected:
+#             logger_info.info("-- Connected to drone!")
+#             break
     
-    logger_info.info("-- Throw the viecle")
-    time.sleep(5)
+#     logger_info.info("-- Throw the viecle")
+#     time.sleep(5)
     
-    return drone
+#     return drone
 
 
 async def land_judge(drone):
@@ -235,26 +235,30 @@ def fusing():
         GPIO.output(fuse_Pin, 1)
 
 
-def run():
-    # SPI
-    spi = spidev.SpiDev()     
-    spi.open(0, 0)                    
-    spi.max_speed_hz = 1000000 
+async def run():
 
-    drone = asyncio.get_event_loop().run_until_complete(connect_pixhawk())
+    drone = System()
+    logger_info.info("-- Waiting for drone to be connected...")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            logger_info.info("-- Connected to drone!")
+            break
+    
+    logger_info.info("-- Throw the viecle")
+    time.sleep(5)
     stored_judge()
     released_judge()
-    asyncio.get_event_loop().run_until_complete(land_judge(drone))
+    await land_judge(drone)
     fusing()
 
-    spi.close()
-    sys.exit()
 
     await asyncio.sleep(10)
     logger_info.info("waiting 10s")
 
-    drone = System()
-    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    # drone = System()
+    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     logger_info.info("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
@@ -287,13 +291,12 @@ def run():
 
     await drone.mission.upload_mission(mission_plan)
 
-    logger_info.info("waiting for pixhawk to hold")
-    flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
-    logger_info.info("Waiting for drone to have a global position estimate...")
-    
+    # logger_info.info("waiting for pixhawk to hold")
+    # flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
     async for health in drone.telemetry.health():
         if health.is_global_position_ok and health.is_home_position_ok:
-            logger_info.info("-- Global position estimate OK")
+            print("-- Global position estimate OK")
+            # logger_info.info("-- Global position estimate OK")
             break
     # while True:
     #    if flag==True:
@@ -492,4 +495,12 @@ def detect_center(file_path):
     
     
 if __name__ == "__main__":
-    run()
+    # SPI
+    spi = spidev.SpiDev()     
+    spi.open(0, 0)                    
+    spi.max_speed_hz = 1000000 
+    
+    asyncio.run(run())
+    
+    spi.close()
+    sys.exit()
