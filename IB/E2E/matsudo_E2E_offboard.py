@@ -250,7 +250,7 @@ async def run():
     time.sleep(5)
     stored_judge()
     released_judge()
-    asyncio.get_event_loop().run_until_complete(land_judge(drone))
+    await land_judge(drone)
     fusing()
 
 
