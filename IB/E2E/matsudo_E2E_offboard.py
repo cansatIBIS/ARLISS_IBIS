@@ -247,8 +247,8 @@ async def run():
     await asyncio.sleep(10)
     logger_info.info("waiting 10s")
 
-    drone = System()
-    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    # drone = System()
+    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     logger_info.info("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
