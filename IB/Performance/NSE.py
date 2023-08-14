@@ -77,7 +77,6 @@ async def lora_power_off():
     logger_info.info("Lora power off")
     GPIO.output(lora_power_pin, GPIO.LOW)
     is_lora_power_on = False
-    await asyncio.sleep(1)
 
 
 async def lora_power_on():
