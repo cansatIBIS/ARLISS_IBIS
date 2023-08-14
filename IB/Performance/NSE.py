@@ -37,6 +37,8 @@ pixel_number_y = 2521
 pixel_size = 1.12 #[um]
 f = 3.04 #[mm]
 # ----------------------------------------
+
+deamon_log = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
         
         
 def set_gpio():
@@ -151,88 +153,97 @@ def get_light_val():
 
 def stored_judge():
     
-    logger_info.info("######################\n# stored judge start #\n######################")
+    if "stored judge finish" in deamon_log:
+        return
+    
+    else:
+        logger_info.info("######################\n# stored judge start #\n######################")
 
-    # 関数の開始時間
-    start_time = time.perf_counter()
-    # 光の継続時間
-    duration_start_time = time.perf_counter()
-    is_continue = False
+        # 関数の開始時間
+        start_time = time.perf_counter()
+        # 光の継続時間
+        duration_start_time = time.perf_counter()
+        is_continue = False
 
-    while True:
+        while True:
 
 
-        light_val = get_light_val()
-        time_stamp = time.perf_counter() - duration_start_time
-        print("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
+            light_val = get_light_val()
+            time_stamp = time.perf_counter() - duration_start_time
+            print("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
 
-        if is_continue:
-            # 光が途切れていた場合、やり直し
-            if light_val >= light_threshold:
-                is_continue = False
-                continue
+            if is_continue:
+                # 光が途切れていた場合、やり直し
+                if light_val >= light_threshold:
+                    is_continue = False
+                    continue
 
-            # 光の継続時間
-            duration_time = time.perf_counter() - duration_start_time
+                # 光の継続時間
+                duration_time = time.perf_counter() - duration_start_time
 
-            if duration_time > stored_judge_time:
-                logger_info.info("stored judge case 1")
+                if duration_time > stored_judge_time:
+                    logger_info.info("stored judge case 1")
+                    break
+            
+            elif light_val < light_threshold:
+                is_continue = True
+                duration_start_time = time.perf_counter()
+            
+            elapsed_time = time.perf_counter() - start_time
+
+            if elapsed_time > stored_timelimit:
+                logger_info.info("stored judge case 2")
                 break
-        
-        elif light_val < light_threshold:
-            is_continue = True
-            duration_start_time = time.perf_counter()
-        
-        elapsed_time = time.perf_counter() - start_time
 
-        if elapsed_time > stored_timelimit:
-            logger_info.info("stored judge case 2")
-            break
-
-    logger_info.info("#######################\n# stored judge finish #\n#######################")
+        logger_info.info("#######################\n# stored judge finish #\n#######################")
 
 
 def released_judge():
     
-    logger_info.info("########################\n# released judge start #\n########################")
+    if "released judge finish" in deamon_log:
+        return
+    
+    else:
+    
+        logger_info.info("########################\n# released judge start #\n########################")
 
-    # 関数の開始時間
-    start_time = time.perf_counter()
-    # 光の継続時間
-    duration_start_time = time.perf_counter()
-    is_continue = False
+        # 関数の開始時間
+        start_time = time.perf_counter()
+        # 光の継続時間
+        duration_start_time = time.perf_counter()
+        is_continue = False
 
 
-    while True:
+        while True:
 
-        light_val = get_light_val()
-        time_stamp = time.perf_counter() - duration_start_time
-        print("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
+            light_val = get_light_val()
+            time_stamp = time.perf_counter() - duration_start_time
+            print("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
 
-        if is_continue:
-            # 光が途切れていた場合、やり直し
-            if light_val <= light_threshold:
-                is_continue = False
-                continue
+            if is_continue:
+                # 光が途切れていた場合、やり直し
+                if light_val <= light_threshold:
+                    is_continue = False
+                    continue
 
-            # 光の継続時間
-            duration_time = time.perf_counter() - duration_start_time
+                # 光の継続時間
+                duration_time = time.perf_counter() - duration_start_time
 
-            if duration_time > released_judge_time:
-                logger_info.info("released judge case 1")
+                if duration_time > released_judge_time:
+                    logger_info.info("released judge case 1")
+                    break
+            
+            elif light_val > light_threshold:
+                is_continue = True
+                duration_start_time = time.perf_counter()
+            
+            elapsed_time = time.perf_counter() - start_time
+
+            if elapsed_time > released_timelimit:
+                logger_info.info("released judge case 2")
                 break
-        
-        elif light_val > light_threshold:
-            is_continue = True
-            duration_start_time = time.perf_counter()
-        
-        elapsed_time = time.perf_counter() - start_time
 
-        if elapsed_time > released_timelimit:
-            logger_info.info("released judge case 2")
-            break
-
-    logger_info.info("#########################\n# released judge finish #\n#########################")
+        logger_info.info("#########################\n# released judge finish #\n#########################")
 
 
 # async def connect_pixhawk():
@@ -253,39 +264,43 @@ def released_judge():
 
 async def land_judge(drone):
     
-    global is_landed
-    logger_info.info("#########################\n# land judge start #\n#########################")
-    start_time = time.time()
-    while True:
-        time_now = time.time()
-        if time_now-start_time < 30:
-            true_dist = IQR_removal(await alt_list(drone))
-            try:
-                ave = sum(true_dist)/len(true_dist)
-            except ZeroDivisionError as e:
-                logger_info.info(e)
-                continue
-            
-            if await is_low_alt(ave):
-                for distance in true_dist:
-                    if abs(ave-distance) > 0.01:
-                        logger_info.info("-- Moving")
-                        break
-                else:
-                    is_landed = True
-                    logger_info.info("-- Lidar Judge")
-            else:
-                logger_info.info("-- Over 1m")
-                
-        else:
-            is_landed = True
-            logger_info.info("-- Timer Judge")
-            
-        if is_landed:
-            logger_info.info("-- Landed")
-            break
+    if "land judge finish" in deamon_log:
+        return
     
-    logger_info.info("#########################\n# land judge finish #\n#########################")
+    else:
+        global is_landed
+        logger_info.info("#########################\n# land judge start #\n#########################")
+        start_time = time.time()
+        while True:
+            time_now = time.time()
+            if time_now-start_time < 30:
+                true_dist = IQR_removal(await alt_list(drone))
+                try:
+                    ave = sum(true_dist)/len(true_dist)
+                except ZeroDivisionError as e:
+                    logger_info.info(e)
+                    continue
+                
+                if await is_low_alt(ave):
+                    for distance in true_dist:
+                        if abs(ave-distance) > 0.01:
+                            logger_info.info("-- Moving")
+                            break
+                    else:
+                        is_landed = True
+                        logger_info.info("-- Lidar Judge")
+                else:
+                    logger_info.info("-- Over 1m")
+                    
+            else:
+                is_landed = True
+                logger_info.info("-- Timer Judge")
+                
+            if is_landed:
+                logger_info.info("-- Landed")
+                break
+        
+        logger_info.info("#########################\n# land judge finish #\n#########################")
         
         
 async def is_low_alt(alt):
