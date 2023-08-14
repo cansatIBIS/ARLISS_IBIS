@@ -10,13 +10,13 @@ from logger_E2E import logger_info
 light_threshold = 250
 is_landed = False
 fuse_Pin = 26
-store_timelimit = 10
-release_timelimit = 10
-land_timelimit = 10
+store_timelimit = 100
+release_timelimit = 100
+land_timelimit = 100
 
 
 def get_light_val():
-    resp = spi.xfer2([0x68, 0x00])                 
+    resp = spi.xfer2([0x68, 0x00])                  
     value = ((resp[0] << 8) + resp[1]) & 0x3FF    
     return value
 
@@ -218,10 +218,6 @@ def fusing():
 
 
 def run():
-    # SPI
-    spi = spidev.SpiDev()     
-    spi.open(0, 0)                    
-    spi.max_speed_hz = 1000000 
 
     drone = asyncio.get_event_loop().run_until_complete(connect_pixhawk())
     stored_judge()
@@ -229,9 +225,13 @@ def run():
     asyncio.get_event_loop().run_until_complete(land_judge(drone))
     fusing()
 
-    spi.close()
-    sys.exit()
     
     
 if __name__ == "__main__":
+    # SPI
+    spi = spidev.SpiDev()     
+    spi.open(0, 0)                    
+    spi.max_speed_hz = 1000000 
     run()
+    spi.close()
+    sys.exit()
