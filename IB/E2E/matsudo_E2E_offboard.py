@@ -13,12 +13,14 @@ from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger_E2E import logger_info
  
  
-light_threshold = 250
+light_threshold = 400
 is_landed = False
 fuse_Pin = 3
 fuse_time = 5.0
-store_timelimit = 100
-release_timelimit = 100
+stored_timelimit = 100
+stored_judge_time = 15
+released_timelimit = 100
+released_judge_time = 10
 land_timelimit = 100
 
 # パラメータ--------------------------------
@@ -65,7 +67,7 @@ def stored_judge():
             # 光の継続時間
             duration_time = time.perf_counter() - duration_start_time
 
-            if duration_time > 10:
+            if duration_time > stored_judge_time:
                 print("stored judge case 1")
                 break
         
@@ -75,7 +77,7 @@ def stored_judge():
         
         elapsed_time = time.perf_counter() - start_time
 
-        if elapsed_time > store_timelimit:
+        if elapsed_time > stored_timelimit:
             print("stored judge case 2")
             break
 
@@ -107,7 +109,7 @@ def released_judge():
             # 光の継続時間
             duration_time = time.perf_counter() - duration_start_time
 
-            if duration_time > 10:
+            if duration_time > released_judge_time:
                 print("released judge case 1")
                 break
         
@@ -117,7 +119,7 @@ def released_judge():
         
         elapsed_time = time.perf_counter() - start_time
 
-        if elapsed_time > release_timelimit:
+        if elapsed_time > released_timelimit:
             print("released judge case 2")
             break
 
