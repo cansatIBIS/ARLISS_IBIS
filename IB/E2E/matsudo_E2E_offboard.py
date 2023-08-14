@@ -350,6 +350,8 @@ async def run():
     logger_info.info("-- Arming")
     await drone.action.arm()
 
+    await asyncio.sleep(100)
+
     logger_info.info("-- Starting mission")
     await drone.mission.start_mission()
 
