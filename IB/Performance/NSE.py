@@ -38,7 +38,8 @@ pixel_size = 1.12 #[um]
 f = 3.04 #[mm]
 # ----------------------------------------
 
-deamon_log = open("/home/pi/ARLISS_IBIS/log/Performance_log.txt")
+deamon_file = open("/home/pi/ARLISS_IBIS/log/Performance_log.txt")
+deamon_log = deamon_file.read()
         
         
 def set_gpio():
