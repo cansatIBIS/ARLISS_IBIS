@@ -123,20 +123,20 @@ def released_judge():
     print("#########################\n# released judge finish #\n#########################")
 
 
-async def connect_pixhawk():
-    drone = System()
-    logger_info.info("-- Waiting for drone to be connected...")
-    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+# async def connect_pixhawk():
+#     drone = System()
+#     logger_info.info("-- Waiting for drone to be connected...")
+#     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
-    async for state in drone.core.connection_state():
-        if state.is_connected:
-            logger_info.info("-- Connected to drone!")
-            break
+#     async for state in drone.core.connection_state():
+#         if state.is_connected:
+#             logger_info.info("-- Connected to drone!")
+#             break
     
-    logger_info.info("-- Throw the viecle")
-    time.sleep(5)
+#     logger_info.info("-- Throw the viecle")
+#     time.sleep(5)
     
-    return drone
+#     return drone
 
 
 async def land_judge(drone):
@@ -237,7 +237,17 @@ def fusing():
 
 async def run():
 
-    drone = asyncio.get_event_loop().run_until_complete(connect_pixhawk())
+    drone = System()
+    logger_info.info("-- Waiting for drone to be connected...")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            logger_info.info("-- Connected to drone!")
+            break
+    
+    logger_info.info("-- Throw the viecle")
+    time.sleep(5)
     stored_judge()
     released_judge()
     asyncio.get_event_loop().run_until_complete(land_judge(drone))
