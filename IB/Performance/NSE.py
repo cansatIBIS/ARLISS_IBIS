@@ -4,24 +4,27 @@ import sys
 import RPi.GPIO as GPIO
 import asyncio
 import picamera
-import cv2
+# import cv2
 import numpy as np
 import datetime
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from mavsdk.offboard import (OffboardError, PositionNedYaw)
-from logger_E2E import logger_info
+from logger_performace import logger_info
+import serial
  
  
 light_threshold = 500
 is_landed = False
 fuse_Pin = 3
 fuse_time = 5.0
+lora_power_pin = 4
 stored_timelimit = 100
 stored_judge_time = 15
 released_timelimit = 100
 released_judge_time = 10
 land_timelimit = 100
+is_lora_power_on = False
 
 # パラメータ--------------------------------
 goal = [35.7961963, 139.8918611]
@@ -34,15 +37,121 @@ pixel_number_y = 2521
 pixel_size = 1.12 #[um]
 f = 3.04 #[mm]
 # ----------------------------------------
+        
+        
+def set_gpio():
+    
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(fuse_Pin, GPIO.OUT)
+    GPIO.setup(lora_power_pin, GPIO.OUT)
+    
+    
+async def serial_connect():
+    
+    connect_counter = 0
+    while True:
+        try:
+            lora = serial.Serial('/dev/ttyS0', 115200, timeout=1)
+        except:
+            print ("Serial port error. Waiting.")
+            connect_counter += 1
+            if connect_counter >= 100:
+                break
+            await asyncio.sleep(3)
+        else:
+            break
+    print("Serial port OK.")
+    await write(lora, b'2\r\n')
+    await asyncio.sleep(1)
+    await write(lora, b'z\r\n')
+    await asyncio.sleep(1)
+    await write(lora, ("Lora start\r\n").encode())
+    print("Lora READY")
+    return lora
+    
+    
+async def lora_power_off():
+    
+    global is_lora_power_on
+    logger_info.info("Lora power off")
+    GPIO.output(lora_power_pin, GPIO.LOW)
+    is_lora_power_on = False
+    await asyncio.sleep(1)
 
+
+async def lora_power_on():
+    
+    global is_lora_power_on
+    GPIO.output(lora_power_pin, GPIO.HIGH)
+    logger_info.info("Lora power on")
+    is_lora_power_on = True
+
+
+async def write(lora, message: str):
+    
+    msg_send = str(message) + "\r\n"
+    lora.write(msg_send.encode("ascii"))
+    time.sleep(4)
+    
+    
+async def send_gps(lora, drone):
+    
+    lat_deg, lng_deg, alt_deg = await get_gps(drone)
+    if is_lora_power_on:
+        lat = "lat:" + str(lat_deg)
+        lng = "lng:" + str(lng_deg)
+        alt = "alt:" + str(alt_deg)
+        await write(lora, lat.encode())
+        print(lat)
+        await write(lora, lng.encode())
+        print(lng)
+        await write(lora, alt.encode())
+        print(alt)
+    
+    
+async def get_gps(drone):
+    
+    lat, lng, alt = 0, 0, 0
+    while True:
+        try:
+            await asyncio.wait_for(gps(drone), timeout=0.8)
+        except asyncio.TimeoutError:
+            print("Can't catch GPS")
+            lat = "error"
+            lng = "error"
+            alt = "error"
+        return lat, lng, alt
+        
+        
+async def gps(drone):
+    
+    global lat, lng, alt
+    async for position in drone.telemetry.position():
+            print(position)
+            lat = str(position.latitude)
+            lng = str(position.longitude)
+            alt = str(position.absolute_altitude_m)
+            break
+    
+    
+async def lora_gps(drone):
+    
+    await lora_power_on()
+    lora = await serial_connect()
+    await send_gps(lora, drone)
+    await lora_power_off()
+    
 
 def get_light_val():
+    
     resp = spi.xfer2([0x68, 0x00])                 
     value = ((resp[0] << 8) + resp[1]) & 0x3FF    
     return value
 
 
 def stored_judge():
+    
     logger_info.info("######################\n# stored judge start #\n######################")
 
     # 関数の開始時間
@@ -85,6 +194,7 @@ def stored_judge():
 
 
 def released_judge():
+    
     logger_info.info("########################\n# released judge start #\n########################")
 
     # 関数の開始時間
@@ -143,6 +253,7 @@ def released_judge():
 
 
 async def land_judge(drone):
+    
     global is_landed
     logger_info.info("#########################\n# land judge start #\n#########################")
     start_time = time.time()
@@ -179,10 +290,12 @@ async def land_judge(drone):
         
         
 async def is_low_alt(alt):
+    
     return alt < 1
         
         
 async def alt_list(drone):
+    
     distance_list = []
     iter = 0
     while True:
@@ -202,6 +315,7 @@ async def alt_list(drone):
 
 
 def IQR_removal(data):
+    
     try:
         data.sort()
         quartile_25 = data[7]
@@ -215,21 +329,20 @@ def IQR_removal(data):
 
 
 async def get_distance_alt(drone):
+    
     async for distance in drone.telemetry.distance_sensor():
         return distance.current_distance_m
 
 
-def fusing():
+async def fusing():
+    
     try:
         logger_info.info("-- Fuse start")
-        GPIO.setmode(GPIO.BCM)
-
-        GPIO.setup(fuse_Pin, GPIO.OUT)
 
         GPIO.output(fuse_Pin, 0)
         logger_info.info("-- Fusing")
 
-        time.sleep(fuse_time)
+        await asyncio.sleep(fuse_time)
         logger_info.info("-- Fused! Please Fly")
 
         GPIO.output(fuse_Pin, 1)
@@ -237,133 +350,8 @@ def fusing():
     except:
         GPIO.output(fuse_Pin, 1)
 
-
-async def run():
-
-    drone = System()
-    logger_info.info("-- Waiting for drone to be connected...")
-    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
-    
-    async for state in drone.core.connection_state():
-        if state.is_connected:
-            logger_info.info("-- Connected to drone!")
-            break
-    
-    logger_info.info("-- Throw the viecle")
-    time.sleep(5)
-    stored_judge()
-    released_judge()
-    await land_judge(drone)
-    fusing()
-
-
-    await asyncio.sleep(1)
-    logger_info.info("waiting 1s")
-
-    # drone = System()
-    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
-
-    logger_info.info("Waiting for drone to connect...")
-    async for state in drone.core.connection_state():
-        if state.is_connected:
-            break
-        
-    get_log_task = asyncio.ensure_future(get_log(drone))
-    # img_navigation_task = asyncio.ensure_future(img_navigation(drone))
-
-    mission_items = []
-    mission_items.append(MissionItem(goal[0],
-                                     goal[1],
-                                     height, # rel_alt
-                                     5, # speed
-                                     True, #止まらない
-                                     float('nan'),
-                                     float('nan'), #gimbal_yaw_deg
-                                     MissionItem.CameraAction.NONE,
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'),
-                                     float('nan'))) #Absolute_yaw_deg, 45にするのこっちかも
-
-    mission_plan = MissionPlan(mission_items)
-
-    await drone.mission.set_return_to_launch_after_mission(False)
-
-    logger_info.info("-- Uploading mission")
-
-    await drone.mission.upload_mission(mission_plan)
-
-    # logger_info.info("waiting for pixhawk to hold")
-    # flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
-    async for health in drone.telemetry.health():
-        if health.is_global_position_ok and health.is_home_position_ok:
-            print("-- Global position estimate OK")
-            # logger_info.info("-- Global position estimate OK")
-            break
-    # while True:
-    #    if flag==True:
-    #        break
-    #    async for flight_mode in drone.telemetry.flight_mode():
-    #        if str(flight_mode) == "HOLD":
-    #            logger_info.info("hold確認")
-    #            flag=True
-    #            break
-    #        else:
-    #            try:
-    #                await drone.action.hold() #holdじゃない状態からholdしようてしても無理だからもう一回exceptで繋ぎなおす
-    #            except Exception as e:
-    #                logger_info.info(e)
-    #                drone = System()
-    #                await drone.connect(system_address="serial:///dev/ttyACM0:115200")
-    #                logger_info.info("Waiting for drone to connect...")
-    #                async for state in drone.core.connection_state():
-
-    #                     if state.is_connected:
-                            
-    #                         logger_info.info(f"-- Connected to drone!")
-    #                         break
-    #                mission_items = []
-    #                mission_items.append(MissionItem(goal[0],
-    #                                  goal[1],
-    #                                  height, # rel_alt
-    #                                  5, # speed
-    #                                  True, #止まらない
-    #                                  float('nan'),
-    #                                  float('nan'), #gimbal_yaw_deg
-    #                                  MissionItem.CameraAction.NONE,
-    #                                  float('nan'),
-    #                                  float('nan'),
-    #                                  float('nan'),
-    #                                  float('nan'),
-    #                                  float('nan')))
-
-    #                mission_plan = MissionPlan(mission_items)
-
-    #                await drone.mission.set_return_to_launch_after_mission(False)
-
-    #                logger_info.info("-- Uploading mission")
-    #                await drone.mission.upload_mission(mission_plan)
-    #                #await asyncio.sleep(0.5)(KF)
-    #                break 
-
-    logger_info.info("-- Arming")
-    await drone.action.arm()
-
-    logger_info.info("-- Starting mission")
-    await drone.mission.start_mission()
-
-    await get_log_task
-    # await img_navigation_task
-    while True:
-        await asyncio.sleep(1)
-        mission_finished = await drone.mission.is_mission_finished()
-        if mission_finished:
-            break
-        
-    await drone.action.land()
-  
 async def get_log(drone):
+    
     while True:
         async for flight_mode in drone.telemetry.flight_mode():
             mode = flight_mode
@@ -502,6 +490,137 @@ async def get_log(drone):
 #         save_detected_img(file_path, img, ((1-res['center'][0])*width/2, (1-res['center'][1])*height/2))
     
 #     return res
+
+
+async def run():
+
+    drone = System()
+    logger_info.info("-- Waiting for drone to be connected...")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            logger_info.info("-- Connected to drone!")
+            break
+    
+    set_gpio()
+    
+    # stored_judge()
+    # released_judge()
+    await land_judge(drone)
+    
+    fuse_task = asyncio.ensure_future(fusing())
+    lora_task = asyncio.ensure_future(lora_gps(drone))
+    await fuse_task
+    await lora_task
+    return
+
+    # await asyncio.sleep(1)
+    # logger_info.info("waiting 1s")
+
+    # drone = System()
+    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+
+    logger_info.info("Waiting for drone to connect...")
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            break
+        
+    get_log_task = asyncio.ensure_future(get_log(drone))
+    # img_navigation_task = asyncio.ensure_future(img_navigation(drone))
+
+    mission_items = []
+    mission_items.append(MissionItem(goal[0],
+                                     goal[1],
+                                     height, # rel_alt
+                                     5, # speed
+                                     True, #止まらない
+                                     float('nan'),
+                                     float('nan'), #gimbal_yaw_deg
+                                     MissionItem.CameraAction.NONE,
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'),
+                                     float('nan'))) #Absolute_yaw_deg, 45にするのこっちかも
+
+    mission_plan = MissionPlan(mission_items)
+
+    await drone.mission.set_return_to_launch_after_mission(False)
+
+    logger_info.info("-- Uploading mission")
+
+    await drone.mission.upload_mission(mission_plan)
+
+    # logger_info.info("waiting for pixhawk to hold")
+    # flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
+    async for health in drone.telemetry.health():
+        if health.is_global_position_ok and health.is_home_position_ok:
+            print("-- Global position estimate OK")
+            # logger_info.info("-- Global position estimate OK")
+            break
+    # while True:
+    #    if flag==True:
+    #        break
+    #    async for flight_mode in drone.telemetry.flight_mode():
+    #        if str(flight_mode) == "HOLD":
+    #            logger_info.info("hold確認")
+    #            flag=True
+    #            break
+    #        else:
+    #            try:
+    #                await drone.action.hold() #holdじゃない状態からholdしようてしても無理だからもう一回exceptで繋ぎなおす
+    #            except Exception as e:
+    #                logger_info.info(e)
+    #                drone = System()
+    #                await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    #                logger_info.info("Waiting for drone to connect...")
+    #                async for state in drone.core.connection_state():
+
+    #                     if state.is_connected:
+                            
+    #                         logger_info.info(f"-- Connected to drone!")
+    #                         break
+    #                mission_items = []
+    #                mission_items.append(MissionItem(goal[0],
+    #                                  goal[1],
+    #                                  height, # rel_alt
+    #                                  5, # speed
+    #                                  True, #止まらない
+    #                                  float('nan'),
+    #                                  float('nan'), #gimbal_yaw_deg
+    #                                  MissionItem.CameraAction.NONE,
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan'),
+    #                                  float('nan')))
+
+    #                mission_plan = MissionPlan(mission_items)
+
+    #                await drone.mission.set_return_to_launch_after_mission(False)
+
+    #                logger_info.info("-- Uploading mission")
+    #                await drone.mission.upload_mission(mission_plan)
+    #                #await asyncio.sleep(0.5)(KF)
+    #                break 
+
+    logger_info.info("-- Arming")
+    await drone.action.arm()
+
+    logger_info.info("-- Starting mission")
+    await drone.mission.start_mission()
+
+    await get_log_task
+    # await img_navigation_task
+    while True:
+        await asyncio.sleep(1)
+        mission_finished = await drone.mission.is_mission_finished()
+        if mission_finished:
+            break
+        
+    await drone.action.land()
+  
     
     
 if __name__ == "__main__":
