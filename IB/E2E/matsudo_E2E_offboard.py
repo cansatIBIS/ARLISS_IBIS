@@ -257,8 +257,8 @@ async def run():
     fusing()
 
 
-    await asyncio.sleep(10)
-    logger_info.info("waiting 10s")
+    await asyncio.sleep(1)
+    logger_info.info("waiting 1s")
 
     # drone = System()
     # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
