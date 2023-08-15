@@ -8,6 +8,8 @@ lorapin = 4
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(lorapin, GPIO.OUT)
+
+GPIO.output(lorapin, 1)
         
 while True:
     try:
