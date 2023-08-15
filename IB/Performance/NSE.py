@@ -77,9 +77,9 @@ async def serial_connect():
         else:
             break
     logger_info.info("Serial port OK.")
-    await write(lora, b'2\r\n')
-    await write(lora, b'z\r\n')
-    await write(lora, ("Lora start\r\n").encode())
+    await write(lora, '2')
+    await write(lora, 'z')
+    await write(lora, ("Lora start").encode())
     logger_info.info("Lora READY")
     return lora
 
