@@ -495,14 +495,14 @@ async def get_log(drone):
 
 async def run():
 
-    # drone = System()
-    # logger_info.info("-- Waiting for drone to be connected...")
-    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    drone = System()
+    logger_info.info("-- Waiting for drone to be connected...")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
-    # async for state in drone.core.connection_state():
-    #     if state.is_connected:
-    #         logger_info.info("-- Connected to drone!")
-    #         break
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            logger_info.info("-- Connected to drone!")
+            break
     
     lora = await serial_connect()
     
@@ -510,7 +510,6 @@ async def run():
     
     await stored_judge(lora)
     await released_judge(lora)
-    return
     await land_judge(lora, drone)
     
     fuse_task = asyncio.ensure_future(fusing())
