@@ -69,18 +69,18 @@ async def serial_connect():
         try:
             lora = serial.Serial('/dev/ttyS0', 115200, timeout=1)
         except:
-            print ("Serial port error. Waiting.")
+            logger_info.info ("Serial port error. Waiting.")
             connect_counter += 1
             if connect_counter >= 100:
                 break
             await asyncio.sleep(3)
         else:
             break
-    print("Serial port OK.")
+    logger_info.info("Serial port OK.")
     await write(lora, b'2\r\n')
     await write(lora, b'z\r\n')
     await write(lora, ("Lora start\r\n").encode())
-    print("Lora READY")
+    logger_info.info("Lora READY")
     return lora
 
 
@@ -99,11 +99,11 @@ async def send_gps(lora, drone):
         lng = "lng:" + str(lng_deg)
         alt = "alt:" + str(alt_deg)
         await write(lora, lat.encode())
-        print(lat)
+        logger_info.info(lat)
         await write(lora, lng.encode())
-        print(lng)
+        logger_info.info(lng)
         await write(lora, alt.encode())
-        print(alt)
+        logger_info.info(alt)
     
     
 async def get_gps(drone):
@@ -113,7 +113,7 @@ async def get_gps(drone):
         try:
             await asyncio.wait_for(gps(drone), timeout=0.8)
         except asyncio.TimeoutError:
-            print("Can't catch GPS")
+            logger_info.info("Can't catch GPS")
             lat = "error"
             lng = "error"
             alt = "error"
@@ -124,7 +124,7 @@ async def gps(drone):
     
     global lat, lng, alt
     async for position in drone.telemetry.position():
-            print(position)
+            logger_info.info(position)
             lat = str(position.latitude)
             lng = str(position.longitude)
             alt = str(position.absolute_altitude_m)
@@ -166,7 +166,7 @@ async def stored_judge(lora):
 
             light_val = get_light_val()
             time_stamp = time.perf_counter() - duration_start_time
-            print("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
+            logger_info.info("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
 
             if is_continue:
                 # 光が途切れていた場合、やり直し
@@ -216,7 +216,7 @@ async def released_judge(lora):
 
             light_val = get_light_val()
             time_stamp = time.perf_counter() - duration_start_time
-            print("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
+            logger_info.info("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
 
             if is_continue:
                 # 光が途切れていた場合、やり直し
@@ -551,7 +551,7 @@ async def run():
     # flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
     async for health in drone.telemetry.health():
         if health.is_global_position_ok and health.is_home_position_ok:
-            print("-- Global position estimate OK")
+            logger_info.info("-- Global position estimate OK")
             # logger_info.info("-- Global position estimate OK")
             break
     # while True:
@@ -612,9 +612,13 @@ async def run():
         await asyncio.sleep(1)
         mission_finished = await drone.mission.is_mission_finished()
         if mission_finished:
+            logger_info.info("Mission complete!")
             break
-        
+    
+    logger_info.info("-- Landing")
     await drone.action.land()
+    asyncio.sleep(10)
+    logger_info.info("-- Landed")
   
     
     
