@@ -620,7 +620,7 @@ async def run():
     
     logger_info.info("-- Landing")
     await drone.action.land()
-    await asyncio.sleep(10)
+    asyncio.sleep(10)
     logger_info.info("-- Landed")
   
     
