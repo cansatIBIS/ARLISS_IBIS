@@ -14,12 +14,13 @@ from logger_performace import logger_info
 import serial
 
 
-#　PIN設定--------------------------
+#　GPI0 PIN settings--------------------------
 fuse_Pin = 3
 lora_power_pin = 4
 # ----------------------------------------
 
-#　Timer--------------------------
+#　Time settings--------------------------
+lora_sleep_time = 3
 fuse_time = 5.0
 stored_timelimit = 100
 stored_judge_time = 15
@@ -28,25 +29,25 @@ released_judge_time = 10
 land_timelimit = 100
 # ----------------------------------------
 
-#　フラグの初期化--------------------------
+#　flags--------------------------
 is_landed = Falsepixel_number_y = 2521
 is_lora_power_on = False
 # ----------------------------------------
 
-# パラメータ--------------------------------
+# parameters--------------------------------
 light_threshold = 250
 goal = [35.7961963, 139.8918611]
 height = 6 # goalの高度
 #-----------------------------------------
 
-#　picameraの仕様--------------------------
+#　picamera settings--------------------------
 pixel_number_x = 3296 #[mm]
 pixel_number_y = 2521
 pixel_size = 1.12 #[um]
 f = 3.04 #[mm]
 # ----------------------------------------
 
-#　deamonファイルの読み込み--------------------------
+#　deamon file--------------------------
 deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
 deamon_log = deamon_file.read()
 # ----------------------------------------
@@ -88,7 +89,7 @@ async def write(lora, message: str):
     
     msg_send = str(message) + "\r\n"
     lora.write(msg_send.encode("ascii"))
-    time.sleep(2)
+    time.sleep(lora_sleep_time)
     
     
 async def send_gps(lora, drone):
