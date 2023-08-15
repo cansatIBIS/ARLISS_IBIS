@@ -154,6 +154,7 @@ def get_light_val():
 async def stored_judge(lora):
     
     if "stored judge finish" in deamon_log:
+        await write(lora, "skipped stored judge")
         return
     
     else:
@@ -203,6 +204,7 @@ async def stored_judge(lora):
 async def released_judge(lora):
     
     if "released judge finish" in deamon_log:
+        await write(lora, "skipped released judge")
         return
     
     else:
@@ -268,6 +270,7 @@ async def released_judge(lora):
 async def land_judge(lora, drone):
     
     if "land judge finish" in deamon_log:
+        await write(lora, "skipped land judge")
         return
     
     else:
