@@ -529,8 +529,8 @@ async def run():
     
     set_gpio()
     
-    # await stored_judge(lora)
-    # await released_judge(lora)
+    await stored_judge(lora)
+    await released_judge(lora)
     await land_judge(lora, drone)
     
     fuse_task = asyncio.ensure_future(fusing())
