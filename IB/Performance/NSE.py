@@ -626,7 +626,7 @@ async def run():
     
     
 if __name__ == "__main__":
-    # SPI
+    
     spi = spidev.SpiDev()     
     spi.open(0, 0)                    
     spi.max_speed_hz = 1000000 
