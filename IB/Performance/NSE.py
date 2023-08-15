@@ -131,13 +131,6 @@ async def gps(drone):
             alt = str(position.absolute_altitude_m)
             break
     
-    
-async def lora_gps(lora, drone):
-    
-    # await lora_power_on()
-    await send_gps(lora, drone)
-    # await lora_power_off()
-    
 
 def get_light_val():
     
@@ -351,6 +344,7 @@ async def fusing():
     except:
         GPIO.output(fuse_Pin, 1)
 
+
 async def get_log(drone):
     
     while True:
@@ -374,6 +368,7 @@ async def get_log(drone):
 
 
 # async def img_navigation(drone):
+
 #     while True:
 #         await asyncio.sleep(1)
 #         mission_finished = await drone.mission.is_mission_finished()
@@ -437,16 +432,19 @@ async def get_log(drone):
 
 
 # def take_pic(camera,file_path):
+
 #     camera.capture(file_path)
 
 
 # def save_detected_img(file_path, img, center_px):
+
 #     cv2.circle(img, (int(center_px[0]), int(center_px[1])), 30, (0, 200, 0),
 #             thickness=3, lineType=cv2.LINE_AA)
 #     cv2.imwrite(file_path, img)
 
 
 # def detect_center(file_path):
+
 #     img = cv2.imread(file_path) # 画像を読み込む
     
 #     height, width = img.shape[:2] # 画像のサイズを取得する
@@ -515,7 +513,7 @@ async def run():
     await land_judge(lora, drone)
     
     fuse_task = asyncio.ensure_future(fusing())
-    lora_task = asyncio.ensure_future(lora_gps(lora, drone))
+    lora_task = asyncio.ensure_future(send_gps(lora, drone))
     await fuse_task
     await lora_task
 
