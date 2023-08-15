@@ -12,8 +12,8 @@ from mavsdk.mission import (MissionItem, MissionPlan)
 from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger_performace import logger_info
 import serial
- 
- 
+
+
 light_threshold = 250
 is_landed = False
 fuse_Pin = 3
