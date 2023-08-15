@@ -1,7 +1,14 @@
 import re
 import serial
 import time
+import RPi.GPIO as GPIO
 
+lorapin = 4
+
+GPIO.setmode(GPIO.BCM)
+
+GPIO.setup(lorapin, GPIO.OUT)
+        
 while True:
     try:
         ser = serial.Serial('/dev/ttyS0', 115200, timeout=3)
