@@ -14,7 +14,7 @@ from logger_performace import logger_info
 import serial
  
  
-light_threshold = 350
+light_threshold = 250
 is_landed = False
 fuse_Pin = 3
 fuse_time = 5.0
