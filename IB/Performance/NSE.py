@@ -259,7 +259,7 @@ async def land_judge(lora, drone):
         start_time = time.time()
         while True:
             time_now = time.time()
-            if time_now-start_time < 30:
+            if time_now-start_time < land_timelimit:
                 true_dist = IQR_removal(await alt_list(drone))
                 try:
                     ave = sum(true_dist)/len(true_dist)
@@ -370,7 +370,8 @@ async def get_log(drone):
             break
         log_txt = (" mode:",mode," Mission progress:",mp_current,"/",mp_total," lidar: ",lidar,"m"," abs_alt:",abs_alt,"m"," rel_alt:",rel_alt,"m")
         logger_info.info(str(log_txt))
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0)
+
 
 # async def img_navigation(drone):
 #     while True:
@@ -381,7 +382,6 @@ async def get_log(drone):
 #             break
 
 #     await asyncio.sleep(10)
-
 
 #     camera = picamera.PiCamera()
 #     logger_info.info('キャメラ初期化完了')
@@ -394,7 +394,6 @@ async def get_log(drone):
 #         heading_deg = heading.heading_deg
 #         logger_info.info(f"current heading: {heading_deg}") 
 #         break
-
 
 #     file_path = '/home/pi/ARLISS_IBIS/Images/image_navigation_test_ver2_{}.jpg'.format(datetime.datetime.now())
 
@@ -436,13 +435,16 @@ async def get_log(drone):
 #     logger_info.info("画像認識成功、着陸します") 
 #     await drone.action.land()
 
+
 # def take_pic(camera,file_path):
 #     camera.capture(file_path)
+
 
 # def save_detected_img(file_path, img, center_px):
 #     cv2.circle(img, (int(center_px[0]), int(center_px[1])), 30, (0, 200, 0),
 #             thickness=3, lineType=cv2.LINE_AA)
 #     cv2.imwrite(file_path, img)
+
 
 # def detect_center(file_path):
 #     img = cv2.imread(file_path) # 画像を読み込む
