@@ -74,20 +74,20 @@ async def serial_connect():
     return lora
     
     
-async def lora_power_off():
+# async def lora_power_off():
     
-    global is_lora_power_on
-    logger_info.info("Lora power off")
-    GPIO.output(lora_power_pin, GPIO.LOW)
-    is_lora_power_on = False
+#     global is_lora_power_on
+#     logger_info.info("Lora power off")
+#     GPIO.output(lora_power_pin, GPIO.LOW)
+#     is_lora_power_on = False
 
 
-async def lora_power_on():
+# async def lora_power_on():
     
-    global is_lora_power_on
-    GPIO.output(lora_power_pin, GPIO.HIGH)
-    logger_info.info("Lora power on")
-    is_lora_power_on = True
+#     global is_lora_power_on
+#     GPIO.output(lora_power_pin, GPIO.HIGH)
+#     logger_info.info("Lora power on")
+#     is_lora_power_on = True
 
 
 async def write(lora, message: str):
@@ -137,12 +137,11 @@ async def gps(drone):
             break
     
     
-async def lora_gps(drone):
+async def lora_gps(lora, drone):
     
-    await lora_power_on()
-    lora = await serial_connect()
+    # await lora_power_on()
     await send_gps(lora, drone)
-    await lora_power_off()
+    # await lora_power_off()
     
 
 def get_light_val():
@@ -152,12 +151,13 @@ def get_light_val():
     return value
 
 
-def stored_judge():
+async def stored_judge(lora):
     
     if "stored judge finish" in deamon_log:
         return
     
     else:
+        await write(lora, "stored judge start")
         logger_info.info("######################\n# stored judge start #\n######################")
 
         # 関数の開始時間
@@ -196,16 +196,17 @@ def stored_judge():
                 logger_info.info("stored judge case 2")
                 break
 
+        await write(lora, "stored judge finish")
         logger_info.info("#######################\n# stored judge finish #\n#######################")
 
 
-def released_judge():
+async def released_judge(lora):
     
     if "released judge finish" in deamon_log:
         return
     
     else:
-    
+        await write(lora, "released judge start")
         logger_info.info("########################\n# released judge start #\n########################")
 
         # 関数の開始時間
@@ -244,6 +245,7 @@ def released_judge():
                 logger_info.info("released judge case 2")
                 break
 
+        await write(lora, "released judge finish")
         logger_info.info("#########################\n# released judge finish #\n#########################")
 
 
@@ -263,12 +265,13 @@ def released_judge():
 #     return drone
 
 
-async def land_judge(drone):
+async def land_judge(lora, drone):
     
     if "land judge finish" in deamon_log:
         return
     
     else:
+        write(lora, "land judge start")
         global is_landed
         logger_info.info("#########################\n# land judge start #\n#########################")
         start_time = time.time()
@@ -301,6 +304,7 @@ async def land_judge(drone):
                 logger_info.info("-- Landed")
                 break
         
+        await write(lora, "land judge finish")
         logger_info.info("#########################\n# land judge finish #\n#########################")
         
         
@@ -518,17 +522,18 @@ async def run():
             logger_info.info("-- Connected to drone!")
             break
     
+    lora = await serial_connect()
+    
     set_gpio()
     
-    # stored_judge()
-    # released_judge()
-    await land_judge(drone)
+    # await stored_judge(lora)
+    # await released_judge(lora)
+    await land_judge(lora, drone)
     
     fuse_task = asyncio.ensure_future(fusing())
-    lora_task = asyncio.ensure_future(lora_gps(drone))
+    lora_task = asyncio.ensure_future(lora_gps(lora, drone))
     await fuse_task
     await lora_task
-    return
 
     # await asyncio.sleep(1)
     # logger_info.info("waiting 1s")
