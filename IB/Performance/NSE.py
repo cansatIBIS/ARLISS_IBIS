@@ -14,19 +14,27 @@ from logger_performace import logger_info
 import serial
 
 
-light_threshold = 250
-is_landed = False
+#　PIN設定--------------------------
 fuse_Pin = 3
-fuse_time = 5.0
 lora_power_pin = 4
+# ----------------------------------------
+
+#　Timer--------------------------
+fuse_time = 5.0
 stored_timelimit = 100
 stored_judge_time = 15
 released_timelimit = 100
 released_judge_time = 10
 land_timelimit = 100
+# ----------------------------------------
+
+#　フラグの初期化--------------------------
+is_landed = Falsepixel_number_y = 2521
 is_lora_power_on = False
+# ----------------------------------------
 
 # パラメータ--------------------------------
+light_threshold = 250
 goal = [35.7961963, 139.8918611]
 height = 6 # goalの高度
 #-----------------------------------------
@@ -38,16 +46,20 @@ pixel_size = 1.12 #[um]
 f = 3.04 #[mm]
 # ----------------------------------------
 
+#　deamonファイルの読み込み--------------------------
 deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
 deamon_log = deamon_file.read()
+# ----------------------------------------
         
         
 def set_gpio():
     
     GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(fuse_Pin, GPIO.OUT)
     GPIO.setup(lora_power_pin, GPIO.OUT)
+    GPIO.output(lora_power_pin, 1)
     
     
 async def serial_connect():
@@ -70,22 +82,6 @@ async def serial_connect():
     await write(lora, ("Lora start\r\n").encode())
     print("Lora READY")
     return lora
-    
-    
-# async def lora_power_off():
-    
-#     global is_lora_power_on
-#     logger_info.info("Lora power off")
-#     GPIO.output(lora_power_pin, GPIO.LOW)
-#     is_lora_power_on = False
-
-
-# async def lora_power_on():
-    
-#     global is_lora_power_on
-#     GPIO.output(lora_power_pin, GPIO.HIGH)
-#     logger_info.info("Lora power on")
-#     is_lora_power_on = True
 
 
 async def write(lora, message: str):
@@ -247,22 +243,6 @@ async def released_judge(lora):
 
         await write(lora, "released judge finish")
         logger_info.info("#########################\n# released judge finish #\n#########################")
-
-
-# async def connect_pixhawk():
-#     drone = System()
-#     logger_info.info("-- Waiting for drone to be connected...")
-#     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
-    
-#     async for state in drone.core.connection_state():
-#         if state.is_connected:
-#             logger_info.info("-- Connected to drone!")
-#             break
-    
-#     logger_info.info("-- Throw the viecle")
-#     time.sleep(5)
-    
-#     return drone
 
 
 async def land_judge(lora, drone):
@@ -514,14 +494,14 @@ async def get_log(drone):
 
 async def run():
 
-    # drone = System()
-    # logger_info.info("-- Waiting for drone to be connected...")
-    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    drone = System()
+    logger_info.info("-- Waiting for drone to be connected...")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
-    # async for state in drone.core.connection_state():
-    #     if state.is_connected:
-    #         logger_info.info("-- Connected to drone!")
-    #         break
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            logger_info.info("-- Connected to drone!")
+            break
     
     lora = await serial_connect()
     
@@ -529,7 +509,6 @@ async def run():
     
     await stored_judge(lora)
     await released_judge(lora)
-    return
     await land_judge(lora, drone)
     
     fuse_task = asyncio.ensure_future(fusing())
@@ -537,13 +516,7 @@ async def run():
     await fuse_task
     await lora_task
 
-    # await asyncio.sleep(1)
-    # logger_info.info("waiting 1s")
-
-    # drone = System()
-    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
-
-    logger_info.info("Waiting for drone to connect...")
+    logger_info.info("Checking drone to be connected...")
     async for state in drone.core.connection_state():
         if state.is_connected:
             break
