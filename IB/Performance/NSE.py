@@ -66,9 +66,7 @@ async def serial_connect():
             break
     print("Serial port OK.")
     await write(lora, b'2\r\n')
-    await asyncio.sleep(1)
     await write(lora, b'z\r\n')
-    await asyncio.sleep(1)
     await write(lora, ("Lora start\r\n").encode())
     print("Lora READY")
     return lora
