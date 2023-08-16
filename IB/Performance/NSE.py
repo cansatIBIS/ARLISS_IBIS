@@ -39,6 +39,7 @@ is_lora_power_on = False
 light_threshold = 250
 goal = [35.7961963, 139.8918611]
 height = 6 # goalの高度
+fling_speed = 5
 #-----------------------------------------
 
 #　picamera settings--------------------------
@@ -541,7 +542,7 @@ async def run():
     mission_items.append(MissionItem(goal[0],
                                      goal[1],
                                      height, # rel_alt
-                                     5, # speed
+                                     fling_speed, # speed
                                      True, #止まらない
                                      float('nan'),
                                      float('nan'), #gimbal_yaw_deg
