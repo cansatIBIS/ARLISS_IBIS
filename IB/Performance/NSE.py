@@ -56,7 +56,6 @@ deamon_log = deamon_file.read()
 def set_gpio():
     
     GPIO.setmode(GPIO.BCM)
-    GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(fuse_Pin, GPIO.OUT)
     GPIO.setup(lora_power_pin, GPIO.OUT)
