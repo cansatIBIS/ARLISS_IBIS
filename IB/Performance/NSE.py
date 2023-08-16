@@ -20,6 +20,7 @@ lora_power_pin = 4
 # ----------------------------------------
 
 #　Time settings--------------------------
+wait_time = 180
 lora_sleep_time = 3
 fuse_time = 5.0
 stored_timelimit = 100
@@ -136,6 +137,10 @@ async def gps(drone):
             lng = str(position.longitude)
             alt = str(position.absolute_altitude_m)
             break
+
+
+def wait_store():
+    time.sleep(wait_time)
     
 
 def get_light_val():
@@ -514,6 +519,7 @@ async def run():
     
     set_gpio()
     
+    wait_store()
     await stored_judge(lora)
     await released_judge(lora)
     await land_judge(lora, drone)
