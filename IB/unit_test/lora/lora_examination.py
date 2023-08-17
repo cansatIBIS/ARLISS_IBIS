@@ -57,8 +57,8 @@ async def GPS(drone):
     global lat, lng, alt
     async for position in drone.telemetry.position():
             print(position)
-            lat = str(position.latitude)
-            lng = str(position.longitude)
+            lat = str(position.latitude_deg)
+            lng = str(position.longitude_deg)
             alt = str(position.absolute_altitude_m)
             break
         
