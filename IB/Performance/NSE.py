@@ -31,7 +31,7 @@ land_timelimit = 20
 # ----------------------------------------
 
 #　flags--------------------------
-is_landed = Falsepixel_number_y = 2521
+is_landed = False 
 is_lora_power_on = False
 # ----------------------------------------
 
