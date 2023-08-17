@@ -25,12 +25,20 @@ f = 3.04 #[mm]
 async def run():
     
     drone = System()
-    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     logger_info.info("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
         if state.is_connected:
             break
+        else:
+            await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+            logger_info.info("Waiting for drone to connect...")
+            async for state in drone.core.connection_state():
+                if state.is_connected:
+                    print("2回目connect成功")
+                    break
+
         
     get_log_task = asyncio.ensure_future(get_log(drone))
     img_navigation_task = asyncio.ensure_future(img_navigation(drone))
@@ -90,7 +98,7 @@ async def get_log(drone):
             mp_current = mission_progress.current
             mp_total = mission_progress.total
             break
-        log_txt = (" mode:",mode," Mission progress:",mp_current,"/",mp_total," lidar: ",lidar,"m"," abs_alt:",abs_alt,"m"," rel_alt:",rel_alt,"m")
+        log_txt = (f"mode:{mode},Mission progress:{mp_current}/{mp_total},mp_total,lidar:{lidar}[m],abs_alt:{abs_alt}[m],rel_alt:{rel_alt}[m]")
         logger_info.info(str(log_txt))
         await asyncio.sleep(0.5)
 
