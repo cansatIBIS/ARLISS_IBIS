@@ -184,7 +184,7 @@ async def stored_judge(lora):
                 duration_time = time.perf_counter() - duration_start_time
 
                 if duration_time > stored_judge_time:
-                    logger_info.info("stored judge case 1")
+                    logger_info.info("-- Light Judge")
                     break
             
             elif light_val < light_threshold:
@@ -194,7 +194,7 @@ async def stored_judge(lora):
             elapsed_time = time.perf_counter() - start_time
 
             if elapsed_time > stored_timelimit:
-                logger_info.info("stored judge case 2")
+                logger_info.info("-- Timer Judge")
                 break
 
         await write(lora, "stored judge finish")
@@ -234,7 +234,7 @@ async def released_judge(lora):
                 duration_time = time.perf_counter() - duration_start_time
 
                 if duration_time > released_judge_time:
-                    logger_info.info("released judge case 1")
+                    logger_info.info("-- Light Judge")
                     break
             
             elif light_val > light_threshold:
@@ -244,7 +244,7 @@ async def released_judge(lora):
             elapsed_time = time.perf_counter() - start_time
 
             if elapsed_time > released_timelimit:
-                logger_info.info("released judge case 2")
+                logger_info.info("-- Timer Judge")
                 break
 
         await write(lora, "released judge finish")
