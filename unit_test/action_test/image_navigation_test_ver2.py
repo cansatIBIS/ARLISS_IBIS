@@ -25,19 +25,19 @@ f = 3.04 #[mm]
 async def run():
     
     drone = System()
-    # await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
 
     logger_info.info("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
         if state.is_connected:
             break
-        else:
-            await drone.connect(system_address="serial:///dev/ttyACM0:115200")
-            logger_info.info("Waiting for drone to connect...")
-            async for state in drone.core.connection_state():
-                if state.is_connected:
-                    print("2回目connect成功")
-                    break
+        # else:
+        #     await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+        #     logger_info.info("Waiting for drone to connect...")
+        #     async for state in drone.core.connection_state():
+        #         if state.is_connected:
+        #             print("2回目connect成功")
+        #             break
 
         
     get_log_task = asyncio.ensure_future(get_log(drone))
