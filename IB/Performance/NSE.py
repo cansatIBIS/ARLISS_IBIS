@@ -5,11 +5,11 @@ import RPi.GPIO as GPIO
 import asyncio
 import picamera
 # import cv2
-import numpy as np
-import datetime
+# import numpy as np
+# import datetime
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
-from mavsdk.offboard import (OffboardError, PositionNedYaw)
+# from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger_performace import logger_info
 import serial
 
