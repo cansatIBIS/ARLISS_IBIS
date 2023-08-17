@@ -11,7 +11,7 @@ from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger import logger_info, logger_debug
 
 # パラメータ--------------------------------
-goal = [40.19410570000001, 140.05967619999998]
+goal = [40.19404418,140.05968388000002]
 height = 6 # goalの高度
 #-----------------------------------------
 
