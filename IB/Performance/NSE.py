@@ -163,6 +163,7 @@ async def stored_judge(lora):
     
     if "stored judge finish" in deamon_log:
         await write(lora, "skipped stored judge")
+        logger_info.info("skipped stored judge")
         return
     
     else:
@@ -213,6 +214,7 @@ async def released_judge(lora):
     
     if "released judge finish" in deamon_log:
         await write(lora, "skipped released judge")
+        logger_info.info("skipped released judge")
         return
     
     else:
@@ -263,6 +265,7 @@ async def land_judge(lora, drone):
     
     if "land judge finish" in deamon_log:
         await write(lora, "skipped land judge")
+        logger_info.info("skipped land judge")
         return
     
     else:
