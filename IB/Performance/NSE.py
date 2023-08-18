@@ -524,13 +524,12 @@ async def run():
 
     drone = System()
     logger_info.info("-- Waiting for drone to be connected...")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
     async for state in drone.core.connection_state():
         if state.is_connected:
             logger_info.info("-- Connected to drone!")
             break
-        else:
-            await drone.connect(system_address="serial:///dev/ttyACM0:115200")
     
     # set_gpio()
     
