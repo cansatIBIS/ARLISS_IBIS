@@ -55,13 +55,13 @@ deamon_log = deamon_file.read()
 # ----------------------------------------
         
         
-def set_gpio():
+# def set_gpio():
     
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
-    GPIO.setup(fuse_Pin, GPIO.OUT)
-    GPIO.setup(lora_power_pin, GPIO.OUT)
-    GPIO.output(lora_power_pin, 1)
+    # GPIO.setmode(GPIO.BCM)
+    # GPIO.setwarnings(False)
+    # GPIO.setup(fuse_Pin, GPIO.OUT)
+    # GPIO.setup(lora_power_pin, GPIO.OUT)
+    # GPIO.output(lora_power_pin, 1)
     
     
 async def serial_connect():
@@ -355,6 +355,9 @@ async def get_distance_alt(drone):
 async def fusing():
     
     try:
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(fuse_Pin, GPIO.OUT)
         logger_info.info("-- Fuse start")
 
         GPIO.output(fuse_Pin, 0)
@@ -528,9 +531,9 @@ async def run():
             logger_info.info("-- Connected to drone!")
             break
     
-    lora = await serial_connect()
+    # set_gpio()
     
-    set_gpio()
+    lora = await serial_connect()
     
     await wait_store(lora)
     await stored_judge(lora)
