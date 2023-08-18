@@ -144,6 +144,7 @@ async def wait_store(lora):
     
     if "Three minutes passed" in deamon_log:
         await write(lora, "skipped store wait")
+        logger_info.info("skipped store wait")
         return
     
     else:
