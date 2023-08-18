@@ -140,11 +140,16 @@ async def gps(drone):
             break
 
 
-def wait_store():
+async def wait_store(lora):
     
-    logger_info.info("Waiting for store")
-    time.sleep(wait_time)
-    logger_info.info("Three minutes passed")
+    if "Three minutes passed" in deamon_log:
+        await write(lora, "skipped store wait")
+        return
+    
+    else:
+        logger_info.info("Waiting for store")
+        time.sleep(wait_time)
+        logger_info.info("Three minutes passed")
     
 
 def get_light_val():
@@ -523,7 +528,7 @@ async def run():
     
     set_gpio()
     
-    wait_store()
+    await wait_store(lora)
     await stored_judge(lora)
     await released_judge(lora)
     await land_judge(lora, drone)
