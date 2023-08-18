@@ -25,7 +25,7 @@ lora_sleep_time = 3
 fuse_time = 5.0
 stored_timelimit = 100
 stored_judge_time = 15
-released_timelimit = 6 * 60
+released_timelimit = 3 * 60
 released_judge_time = 5
 land_timelimit = 20
 # ----------------------------------------
@@ -37,7 +37,7 @@ is_lora_power_on = False
 
 # parameters--------------------------------
 light_threshold = 250
-goal = [35.7961963, 139.8918611]
+goal = [40.142561189999995, 139.98723576999998]
 height = 6 # goalの高度
 fling_speed = 5
 #-----------------------------------------
@@ -141,7 +141,10 @@ async def gps(drone):
 
 
 def wait_store():
+    
+    logger_info.info("Waiting for store")
     time.sleep(wait_time)
+    logger_info.info("Three minutes passed")
     
 
 def get_light_val():
@@ -561,7 +564,7 @@ async def run():
 
     await drone.mission.upload_mission(mission_plan)
 
-    # logger_info.info("waiting for pixhawk to hold")
+    logger_info.info("waiting for pixhawk to hold")
     # flag = False #MAVSDKではTrueって出るけどFalseが出ない場合もあるから最初からFalseにしてる
     async for health in drone.telemetry.health():
         if health.is_global_position_ok and health.is_home_position_ok:
