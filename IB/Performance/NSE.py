@@ -538,9 +538,9 @@ async def run():
     await land_judge(lora, drone)
     
     fuse_task = asyncio.ensure_future(fusing())
-    lora_task = asyncio.ensure_future(send_gps(lora, drone))
+    # lora_task = asyncio.ensure_future(send_gps(lora, drone))
     await fuse_task
-    await lora_task
+    # await lora_task
 
     logger_info.info("Checking drone to be connected...")
     async for state in drone.core.connection_state():
