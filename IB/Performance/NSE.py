@@ -456,6 +456,8 @@ async def img_navigation(drone):
                 with error code: {error._result.result}")
     logger_info.info("画像認識成功、着陸します") 
     await drone.action.land()
+    await asyncio.sleep(10)
+    logger_info.info("-- Landed")
 
 
 def take_pic(camera,file_path):
@@ -649,17 +651,17 @@ async def run():
 
     await get_log_task
     await img_navigation_task
-    while True:
-        await asyncio.sleep(1)
-        mission_finished = await drone.mission.is_mission_finished()
-        if mission_finished:
-            logger_info.info("Mission complete!")
-            break
+    # while True:
+    #     await asyncio.sleep(1)
+    #     mission_finished = await drone.mission.is_mission_finished()
+    #     if mission_finished:
+    #         logger_info.info("Mission complete!")
+    #         break
     
-    logger_info.info("-- Landing")
-    await drone.action.land()
-    await asyncio.sleep(10)
-    logger_info.info("-- Landed")
+    # logger_info.info("-- Landing")
+    # await drone.action.land()
+    # await asyncio.sleep(10)
+    # logger_info.info("-- Landed")
   
     
     
