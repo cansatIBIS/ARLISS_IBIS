@@ -583,6 +583,18 @@ async def run():
             logger_info.info("-- Global position estimate OK")
             # logger_info.info("-- Global position estimate OK")
             break
+        
+    async for health in drone.telemetry.health():
+        if health.is_global_position_ok and health.is_home_position_ok:
+            logger_info.info("-- Global position estimate OK")
+            # logger_info.info("-- Global position estimate OK")
+            break
+        
+    async for health in drone.telemetry.health():
+        if health.is_global_position_ok and health.is_home_position_ok:
+            logger_info.info("-- Global position estimate OK")
+            # logger_info.info("-- Global position estimate OK")
+            break
     # while True:
     #    if flag==True:
     #        break
