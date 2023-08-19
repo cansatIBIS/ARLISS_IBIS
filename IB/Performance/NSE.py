@@ -38,7 +38,7 @@ is_lora_power_on = False
 # parameters--------------------------------
 light_threshold = 400
 goal = [40.1425536, 139.9872313]
-height = 6 # goalの高度
+height = 7 # goalの高度
 fling_speed = 5
 #-----------------------------------------
 
