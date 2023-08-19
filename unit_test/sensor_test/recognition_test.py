@@ -18,7 +18,7 @@ f = 3.04 #[mm]
     
 async def run():
     print("waiting...")
-    time.sleep(10)
+    time.sleep(1)
     camera = picamera.PiCamera()
     drone = System()
     print('キャメラ初期化完了')
