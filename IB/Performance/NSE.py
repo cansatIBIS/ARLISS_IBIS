@@ -20,14 +20,14 @@ lora_power_pin = 4
 # ----------------------------------------
 
 #　Time settings--------------------------
-wait_time = 1
+wait_time = 60
 lora_sleep_time = 3
-fuse_time = 3.0
-stored_timelimit = 15
-stored_judge_time = 5
-released_timelimit = 15
+fuse_time = 7.0
+stored_timelimit = 60
+stored_judge_time = 15
+released_timelimit = 3 * 60
 released_judge_time = 5
-land_timelimit = 10
+land_timelimit = 20
 # ----------------------------------------
 
 #　flags--------------------------
