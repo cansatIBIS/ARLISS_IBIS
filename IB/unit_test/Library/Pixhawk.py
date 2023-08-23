@@ -87,12 +87,9 @@ class Pixhawk:
     async def land(self):
         
         logger_info.info("Landing")
-        await self.pix.land()
-        while True:
-            asyncio.sleep(1)
-            if str(self.flight_mode) == "LAND":
-                logger_info.info("Landed!")
-                break
+        await self.pix.action.land()
+        await asyncio.sleep(10)
+        logger_info.info("Landed")
             
     
     async def wait_store(self):
@@ -267,20 +264,20 @@ class Pixhawk:
     async def health_check(self):
         
         logger_info.info("Waiting for drone to have a global position estimate...")
-        
-        async for health in self.pix.telemetry.health():
-            if health.is_global_position_ok and health.is_home_position_ok:
-                logger_info.info("-- Global position estimate OK")
-                logger_info.info("-- Global position estimate OK")
-                break
+        for _ in range(10): 
+            async for health in self.pix.telemetry.health():
+                if health.is_global_position_ok and health.is_home_position_ok:
+                    break
+        logger_info.info("-- Global position estimate OK")
             
     async def mission(self, waypoint):
+        
         mission_items = []
         mission_items.append(MissionItem(waypoint[0],
                                         waypoint[1],
                                         self.altitude, # rel_alt
                                         5, # speed
-                                        True, #止まらない
+                                        False, # is_fly_through
                                         float('nan'),
                                         45, #gimbal_yaw_deg
                                         MissionItem.CameraAction.NONE,
@@ -288,22 +285,14 @@ class Pixhawk:
                                         float('nan'),
                                         float('nan'),
                                         float('nan'),
-                                        float('nan'))) #Absolute_yaw_deg, 45にするのこっちかも
+                                        float('nan'))) #Absolute_yaw_deg
 
         mission_plan = MissionPlan(mission_items)
-
         await self.pix.mission.set_return_to_launch_after_mission(False)
-
         logger_info.info("-- Uploading mission")
-
         await self.pix.mission.upload_mission(mission_plan)
-
-        logger_info.info("Waiting for drone to have a global position estimate...")
-        
         await self.health_check()
-
         await self.arm()
-
         logger_info.info("-- Starting mission")
         await self.pix.mission.start_mission()
         
