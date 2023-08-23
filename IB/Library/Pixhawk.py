@@ -2,6 +2,7 @@ import asyncio
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger_lib import logger_info, logger_debug
+import lora
 import time
 import datetime
 import RPi.GPIO as GPIO
@@ -12,7 +13,12 @@ class Pixhawk:
     def __init__(self):
         
         self.pix = System()
-        self.fuse_PIN = 6
+        self.lora = lora()
+        self.fuse_PIN = 3
+        self.wait_time = 60
+        self.lora_sleep_time = 3
+        self.fuse_time = 7.0
+        self.land_timelimit = 20
         self.altitude = 3.0
         self.flight_mode = None
         self.latitude_deg = 0
@@ -21,31 +27,39 @@ class Pixhawk:
         self.mp_total = None
         self.max_speed = 0
         self.lidar = 0
+        self.deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
+        self.deamon_log = self.deamon_file.read()
+        self.is_landed = False 
         self.is_judge_alt = False
         self.is_low_alt = False
+        
 
     async def get_flight_mode(self):
         async for flight_mode in self.pix.telemetry.flight_mode():
             self.flight_mode = flight_mode
+            
 
     async def get_max_speed(self):
         async for speed in self.pix.action.get_maxium_speed():
             self.max_speed = speed
+            
 
     async def get_distance_alt(self):
         async for distance in self.pix.telemetry.distance_sensor():
             self.lidar = distance.current_distance_m
             return distance.current_distance_m
         
-
+        
     async def get_position_alt(self):
         async for position in self.pix.telemetry.position():
             return position.absolute_altitude
+        
         
     async def get_position_lat_lng(self):
         async for position in self.pix.telemetry.position():
             self.latitude_deg = position.latitude_deg
             self.longitude_deg = position.longitude_deg
+            
     
     async def connect(self):
         logger_info.info("-- Waiting for drone to connect...")
@@ -54,11 +68,13 @@ class Pixhawk:
             if state.is_connected:
                 logger_info.info("-- Drone connected!")
                 break
+            
         
     async def arm(self):    
         logger_info.info("-- Arming")
         await self.pix.action.arm()
         logger_info.info("-- Armed!")
+        
         
     async def takeoff(self):
         
@@ -66,6 +82,7 @@ class Pixhawk:
         await self.pix.set_takeoff_altitude(self.altitude)
         await self.pix.takeoff()
         logger_info.info("Took off!")
+        
         
     async def land(self):
         
@@ -76,65 +93,86 @@ class Pixhawk:
             if str(self.flight_mode) == "LAND":
                 logger_info.info("Landed!")
                 break
+            
+    
+    async def wait_store(self):
         
+        if "Three minutes passed" in self.deamon_log:
+            await self.lora.write(lora, "skipped store wait")
+            logger_info.info("skipped store wait")
+            return
+        
+        else:
+            logger_info.info("Waiting for store")
+            time.sleep(self.wait_time)
+            logger_info.info("Three minutes passed")
+            
+            
     async def land_judge(self):
         
-        start_time = time.time()
-        while True:
-            time_now = time.time()
-            if time_now-start_time < 30:
-                try :
-                    alt_now = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
-                except asyncio.TimeoutError:
-                    continue
-                    
-                self.is_judge_alt(alt_now)
-                    
-                if self.is_judge_alt:
-                    true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
-                    if len(true_dist) == 0:
-                        continue
-                    try:
-                        ave = sum(true_dist)/len(true_dist)
-                    except ZeroDivisionError as e:
-                        print(e)
+        if "land judge finish" in self.deamon_log:
+            await self.lora.write("skipped land judge")
+            logger_info.info("skipped land judge")
+            return
+        
+        else:
+            self.lora.write("land judge start")
+            start_time = time.time()
+            while True:
+                time_now = time.time()
+                if time_now-start_time < self.land_timelimit:
+                    try :
+                        alt_now = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
+                    except asyncio.TimeoutError:
                         continue
                         
-                    self.is_low_alt(ave)
-                    
-                    if self.is_low_alt:
-                        for distance in true_dist:
-                            if abs(ave-distance) > 0.01:
-                                print("-- Moving")
-                                break
-                        else:
-                            true_posi = self.IQR_removal(await self.get_alt_list("POSITION"))
-                            if len(true_posi) == 0:
-                                continue
-                            try:
-                                ave = sum(true_posi)/len(true_posi)
-                            except ZeroDivisionError as e:
-                                print(e)
-                                continue
-                            for position in true_posi:
-                                if abs(ave-position) > 0.01:
-                                    print("-- Moving. Lidar might have some error")
+                    self.is_judge_alt(alt_now)
+                        
+                    if self.is_judge_alt:
+                        true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
+                        if len(true_dist) == 0:
+                            continue
+                        try:
+                            ave = sum(true_dist)/len(true_dist)
+                        except ZeroDivisionError as e:
+                            logger_info.info(e)
+                            continue
+                            
+                        self.is_low_alt(ave)
+                        
+                        if self.is_low_alt:
+                            for distance in true_dist:
+                                if abs(ave-distance) > 0.01:
+                                    logger_info.info("-- Moving")
                                     break
                             else:
-                                is_landed = True
-                            
-                        if is_landed:
-                            print("-- Lidar & Position Judge")
-                            break
-                    else:
-                        print("-- Over 1m")
-            else:
-                is_landed = True
-                print("-- Timer Judge")
-                break
-                    
-        
-        print("####### Land judge finish #######")
+                                true_posi = self.IQR_removal(await self.get_alt_list("POSITION"))
+                                if len(true_posi) == 0:
+                                    continue
+                                try:
+                                    ave = sum(true_posi)/len(true_posi)
+                                except ZeroDivisionError as e:
+                                    logger_info.info(e)
+                                    continue
+                                for position in true_posi:
+                                    if abs(ave-position) > 0.01:
+                                        logger_info.info("-- Moving. Lidar might have some error")
+                                        break
+                                else:
+                                    is_landed = True
+                                
+                            if is_landed:
+                                logger_info.info("-- Lidar & Position Judge")
+                                break
+                        else:
+                            logger_info.info("-- Over 1m")
+                else:
+                    is_landed = True
+                    logger_info.info("-- Timer Judge")
+                    break
+                        
+            await self.lora.write("land judge finish")
+            logger_info.info("####### Land judge finish #######")
 
             
     def is_low_alt(self, alt):
@@ -148,7 +186,7 @@ class Pixhawk:
     def is_judge_alt(self, alt):
         
         if alt < 15:
-            print("####### Land judge start #######")
+            logger_info.info("####### Land judge start #######")
             self.is_judge_alt = True
         else:
             self.is_judge_alt = False
@@ -163,7 +201,7 @@ class Pixhawk:
                 try :
                     distance = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
                 except asyncio.TimeoutError:
-                    print("Distance sensor might have some error")
+                    logger_info.info("Distance sensor might have some error")
                     altitude_list =[]
                     return altitude_list
                 altitude_list.append(distance)
@@ -172,7 +210,7 @@ class Pixhawk:
                 try:
                     position = await asyncio.wait_for(self.get_position_alt(), timeout = 0.8)
                 except asyncio.TimeoutError:
-                    print("Pixhawk might have some error")
+                    logger_info.info("Pixhawk might have some error")
                     altitude_list =[]
                     return altitude_list
                 altitude_list.append(position)
@@ -198,38 +236,33 @@ class Pixhawk:
         while True:
             try:
                 position = await asyncio.wait_for(self.get_position_alt(), timeout = 0.8)
-                print("altitude:{}".format(position))
+                logger_info.info("altitude:{}".format(position))
                 break
             except asyncio.TimeoutError:
-                print("Pixhawk might have some error")
+                logger_info.info("Pixhawk might have some error")
                 pass
             await asyncio.sleep(0)
-            
 
-    
 
-    def fusing(self):
+    async def fusing(self):
         
         try:
-            print("-- Start")
-            GPIO.cleanup()
             GPIO.setmode(GPIO.BCM)
+            GPIO.setwarnings(False)
+            GPIO.setup(self.fuse_Pin, GPIO.OUT, initial=GPIO.HIGH)
+            logger_info.info("-- Fuse start")
 
-            GPIO.setup(self.fuse_PIN, GPIO.OUT)
+            GPIO.output(self.fuse_Pin, 0)
+            logger_info.info("-- Fusing")
 
-            GPIO.output(self.fuse_PIN, 0)
-            print("-- Fusing")
+            await asyncio.sleep(self.fuse_time)
+            logger_info.info("-- Fused! Please Fly")
 
-            time.sleep(1.0)
-            print("-- Fused! Ready to Fly")
-
-            GPIO.output(self.fuse_PIN, 0)
-            
-            GPIO.cleanup()
-            
+            GPIO.output(self.fuse_Pin, 1)
         
-        except KeyboardInterrupt:
-            GPIO.cleanup()
+        except:
+            GPIO.output(self.fuse_Pin, 1)
+            
             
     async def health_check(self):
         
@@ -237,7 +270,7 @@ class Pixhawk:
         
         async for health in self.pix.telemetry.health():
             if health.is_global_position_ok and health.is_home_position_ok:
-                print("-- Global position estimate OK")
+                logger_info.info("-- Global position estimate OK")
                 logger_info.info("-- Global position estimate OK")
                 break
             
@@ -277,7 +310,7 @@ class Pixhawk:
     async def print_mission_progress(self):
         
         async for mission_progress in self.pix.mission.mission_progress():
-            print(f"Mission progress: "
+            logger_info.info(f"Mission progress: "
                 f"{mission_progress.current}/"
                 f"{mission_progress.total}")
     
@@ -304,6 +337,6 @@ class Pixhawk:
         while True:
             await asyncio.sleep(1)
             mission_finished = await self.pix.mission.is_mission_finished()
-            print(mission_finished)
+            logger_info.info(mission_finished)
             if mission_finished:
                 self.land()
