@@ -1,6 +1,7 @@
 from pixhawk import Pixhawk
 from lora import Lora
 from light import Light
+import asyncio
 
 class Ibis:
     
@@ -41,3 +42,9 @@ class Ibis:
                       released_judge_time)
         
         self.lora = Lora(lora_power_Pin)
+        
+    async def MATSUDO():
+        return
+        
+    async def ARLISS():
+        return
