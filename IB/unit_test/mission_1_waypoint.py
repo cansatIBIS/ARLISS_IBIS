@@ -23,14 +23,13 @@ async def run():
 
     await pixhawk.upload_mission(waypoint, altitude, speed)
 
-    await pixhawk.health_check()
-
-    await asyncio.gather(*main_coroutines)
+    # await pixhawk.health_check()
 
     await pixhawk.arm()
 
     await pixhawk.start_mission()
 
+    await asyncio.gather(*main_coroutines)
 
 if __name__ == "__main__":
 
