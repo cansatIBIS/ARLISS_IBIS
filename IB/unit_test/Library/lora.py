@@ -9,15 +9,14 @@ class Lora:
     
     def __init__(self):
         
-        self.power_Pin = 4
+        self.power_pin = 4
         self.pix = System()
         self.CRLF = "\r\n"
         self.is_power_on = False
         self.connect_counter = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        GPIO.setup(self.rst, GPIO.OUT)
-        GPIO.setup(self.power, GPIO.OUT)
+        GPIO.setup(self.power_pin, GPIO.OUT)
         
         
     async def serial_connect(self):
