@@ -2,7 +2,7 @@ import asyncio
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from Library.logger_lib import logger_info, logger_debug
-from lora import Lora
+from Library.lora import Lora
 import time
 import datetime
 import RPi.GPIO as GPIO
