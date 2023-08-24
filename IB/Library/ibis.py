@@ -51,8 +51,5 @@ class Ibis:
         self.deamon_file = deamon_file
         self.deamon_log = self.deamon_file.read()
         
-    async def MATSUDO():
-        return
-        
-    async def ARLISS():
+    async def run():
         return
