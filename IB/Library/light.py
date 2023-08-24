@@ -7,15 +7,21 @@ import time
 
 class Light:
     
-    def __init__(self):
+    def __init__(self,     
+                 light_threshold,
+                 stored_timelimit,
+                 stored_judge_time,
+                 released_timelimit,
+                 released_judge_time,
+                 deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")):
         
         self.lora = lora()
-        self.light_threshold = 400
-        self.stored_timelimit = 60
-        self.stored_judge_time = 15
-        self.released_timelimit = 3 * 60
-        self.released_judge_time = 5
-        self.deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
+        self.light_threshold = light_threshold
+        self.stored_timelimit = stored_timelimit
+        self.stored_judge_time = stored_judge_time
+        self.released_timelimit = released_timelimit
+        self.released_judge_time = released_judge_time
+        self.deamon_file = deamon_file
         self.deamon_log = self.deamon_file.read()
         
     

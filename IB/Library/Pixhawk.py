@@ -10,24 +10,35 @@ import RPi.GPIO as GPIO
 
 class Pixhawk:
     
-    def __init__(self):
+    def __init__(self,
+                 fuse_PIN,
+                 wait_time,
+                 lora_sleep_time, 
+                 fuse_time,
+                 land_timelimit,
+                 altitude,
+                 latitude_deg,
+                 longitude_deg,
+                 max_speed,
+                 lidar,
+                 deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")):
         
         self.pix = System()
         self.lora = lora()
-        self.fuse_PIN = 3
-        self.wait_time = 60
-        self.lora_sleep_time = 3
-        self.fuse_time = 7.0
-        self.land_timelimit = 20
-        self.altitude = 3.0
+        self.fuse_PIN = fuse_PIN
+        self.wait_time = wait_time
+        self.lora_sleep_time = lora_sleep_time
+        self.fuse_time = fuse_time
+        self.land_timelimit = land_timelimit
+        self.altitude = altitude
         self.flight_mode = None
-        self.latitude_deg = 0
-        self.longitude_deg = 0
+        self.latitude_deg = latitude_deg
+        self.longitude_deg = longitude_deg
         self.mp_current = None
         self.mp_total = None
-        self.max_speed = 0
-        self.lidar = 0
-        self.deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
+        self.max_speed = max_speed
+        self.lidar = lidar
+        self.deamon_file = deamon_file
         self.deamon_log = self.deamon_file.read()
         self.is_landed = False 
         self.is_judge_alt = False

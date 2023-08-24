@@ -7,12 +7,13 @@ from mavsdk import System
 
 class Lora:
     
-    def __init__(self):
+    def __init__(self,
+                 lora_power_Pin):
         
-        self.power_Pin = 4
+        self.lora_power_Pin = lora_power_Pin
         self.pix = System()
         self.CRLF = "\r\n"
-        self.is_power_on = False
+        self.is_lora_power_on = False
         self.connect_counter = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -49,19 +50,19 @@ class Lora:
         
        
     async def power_off(self):
-        GPIO.output(self.power_Pin, GPIO.LOW)
-        self.is_power_on = False
+        GPIO.output(self.lora_power_Pin, GPIO.LOW)
+        self.is_lora_power_on = False
         print("Lora power off")
         await asyncio.sleep(1)
         
 
     async def power_on(self):
-        GPIO.output(self.power_Pin, GPIO.HIGH)
+        GPIO.output(self.lora_power_Pin, GPIO.HIGH)
         print("Lora power on")
         await self.write("processor")
         await self.write("start")
 
-        self.is_power_on = True
+        self.is_lora_power_on = True
         
         
     async def start_communication(self, light):
