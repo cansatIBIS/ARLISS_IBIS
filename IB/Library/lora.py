@@ -17,7 +17,6 @@ class Lora:
         self.connect_counter = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        GPIO.setup(self.rst, GPIO.OUT)
         GPIO.setup(self.power, GPIO.OUT)
         
         
