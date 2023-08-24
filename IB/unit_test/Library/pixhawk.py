@@ -27,7 +27,7 @@ class Pixhawk:
         self.mp_total = None
         self.max_speed = 0
         self.lidar = 0
-        self.mission_plan
+        self.mission_plan = None
         self.deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
         self.deamon_log = self.deamon_file.read()
         self.is_landed = False 
