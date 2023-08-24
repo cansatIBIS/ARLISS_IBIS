@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import serial
 import asyncio
-from logger_lib import logger_info, logger_debug
+from Library.logger_lib import logger_info, logger_debug
 import time
 from mavsdk import System
 
