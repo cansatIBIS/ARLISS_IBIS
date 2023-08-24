@@ -27,6 +27,7 @@ class Pixhawk:
         self.mp_total = None
         self.max_speed = 0
         self.lidar = 0
+        self.mission_plan
         self.deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
         self.deamon_log = self.deamon_file.read()
         self.is_landed = False 
@@ -35,32 +36,81 @@ class Pixhawk:
         
 
     async def get_flight_mode(self):
+
         async for flight_mode in self.pix.telemetry.flight_mode():
             self.flight_mode = flight_mode
             
 
     async def get_max_speed(self):
+            
         async for speed in self.pix.action.get_maxium_speed():
             self.max_speed = speed
             
 
     async def get_distance_alt(self):
+            
+        async for distance in self.pix.telemetry.distance_sensor():
+            return distance.current_distance_m
+        
+    
+    async def get_lidar(self):
+            
         async for distance in self.pix.telemetry.distance_sensor():
             self.lidar = distance.current_distance_m
-            return distance.current_distance_m
         
         
     async def get_position_alt(self):
+
         async for position in self.pix.telemetry.position():
             return position.absolute_altitude
         
         
     async def get_position_lat_lng(self):
+            
         async for position in self.pix.telemetry.position():
             self.latitude_deg = position.latitude_deg
             self.longitude_deg = position.longitude_deg
-            
     
+
+    async def cycle_flight_mode(self):
+
+        while True:
+            await self.get_flight_mode()
+            await asyncio.sleep(0.1)
+    
+
+    async def cycle_position_lat_lng(self):
+
+        while True:
+            await self.get_position_lat_lng()
+            await asyncio.sleep(0.1)
+    
+    
+    async def cycle_lidar(self):
+
+        while True:
+            await self.get_lidar()
+            await asyncio.sleep(0.1)
+    
+
+    async def cycle_show(self):
+
+        while True:
+            log_txt = (
+                " mode:"
+                + str(self.flight_mode)
+                + " lat:"
+                + str(self.latitude_deg)
+                + " lng:"
+                + str(self.longitude_deg)
+                + " lidar: "
+                + str(self.lidar)
+                + "m"
+            )
+            logger_info.info(str(log_txt))
+            await asyncio.sleep(0.3)
+    
+            
     async def connect(self):
         logger_info.info("-- Waiting for drone to connect...")
         await self.pix.connect(system_address="serial:///dev/ttyACM0:115200")
@@ -270,16 +320,16 @@ class Pixhawk:
                     break
         logger_info.info("-- Global position estimate OK")
             
-    async def mission(self, waypoint):
-        
+    async def upload_mission(self, waypoint, altitude, speed):
+
         mission_items = []
         mission_items.append(MissionItem(waypoint[0],
                                         waypoint[1],
-                                        self.altitude, # rel_alt
-                                        5, # speed
+                                        altitude, # rel_alt
+                                        speed, # speed
                                         False, # is_fly_through
                                         float('nan'),
-                                        45, #gimbal_yaw_deg
+                                        float('nan'), #gimbal_yaw_deg
                                         MissionItem.CameraAction.NONE,
                                         float('nan'),
                                         float('nan'),
@@ -287,12 +337,12 @@ class Pixhawk:
                                         float('nan'),
                                         float('nan'))) #Absolute_yaw_deg
 
-        mission_plan = MissionPlan(mission_items)
+        self.mission_plan = MissionPlan(mission_items)
         await self.pix.mission.set_return_to_launch_after_mission(False)
         logger_info.info("-- Uploading mission")
-        await self.pix.mission.upload_mission(mission_plan)
-        await self.health_check()
-        await self.arm()
+        await self.pix.mission.upload_mission(self.mission_plan)
+        
+    async def start_misssion(self):
         logger_info.info("-- Starting mission")
         await self.pix.mission.start_mission()
         
