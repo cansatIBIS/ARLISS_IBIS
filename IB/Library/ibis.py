@@ -1,7 +1,6 @@
 from pixhawk import Pixhawk
 from lora import Lora
 from light import Light
-import asyncio
 
 
 class Ibis:
