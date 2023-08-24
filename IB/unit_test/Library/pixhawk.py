@@ -342,7 +342,7 @@ class Pixhawk:
         logger_info.info("-- Uploading mission")
         await self.pix.mission.upload_mission(self.mission_plan)
         
-    async def start_misssion(self):
+    async def start_mission(self):
         logger_info.info("-- Starting mission")
         await self.pix.mission.start_mission()
         
