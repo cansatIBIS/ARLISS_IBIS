@@ -20,15 +20,15 @@ async def run():
         ]
     
     await pixhawk.connect()
-
+    await drone.mission.clear_mission()
+    logger_info.info("Mission cleared")
     await pixhawk.upload_mission(waypoint, altitude, speed)
 
     # await pixhawk.health_check()
 
     await pixhawk.arm()
 
-    await drone.mission.clear_mission()
-    logger_info.info("Mission cleared")
+    
 
     await pixhawk.start_mission()
 
