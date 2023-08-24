@@ -1,7 +1,7 @@
 import asyncio
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
-from logger_lib import logger_info, logger_debug
+from Library.logger_lib import logger_info, logger_debug
 from lora import Lora
 import time
 import datetime
