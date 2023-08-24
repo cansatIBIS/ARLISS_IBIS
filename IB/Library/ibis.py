@@ -1,6 +1,6 @@
-import pixhawk
-import lora
-import light
+from pixhawk import Pixhawk
+from lora import Lora
+from light import Light
 
 class Ibis:
     
@@ -23,7 +23,7 @@ class Ibis:
                  lora_power_Pin,
                  deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")):
         
-        pixhawk = pixhawk(fuse_PIN,
+        self.pixhawk = Pixhawk(fuse_PIN,
                           wait_time,
                           lora_sleep_time, 
                           fuse_time,
@@ -34,10 +34,10 @@ class Ibis:
                           max_speed,
                           lidar)
         
-        light = light(light_threshold,
+        self.light = Light(light_threshold,
                       stored_timelimit,
                       stored_judge_time,
                       released_timelimit,
                       released_judge_time)
         
-        lora = lora(lora_power_Pin)
+        self.lora = Lora(lora_power_Pin)
