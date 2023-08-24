@@ -1,7 +1,5 @@
 import asyncio
-
-from Library.Pixhawk import Pixhawk
-from Library.logger_lib import logger_info
+from Library.pixhawk import Pixhawk
 
 # parameters---------------------
 waypoint = [40.19373, 140.05923]
@@ -11,27 +9,29 @@ speed = 5
 
 async def run():
 
+    pixhawk = Pixhawk()
+
     main_coroutines = [
-        Pixhawk.cycle_flight_mode(),
-        Pixhawk.cycle_position_lat_lng(), 
-        Pixhawk.cycle_lidar(),
-        Pixhawk.cycle_show(),
-        Pixhawk.mission_land()
+        pixhawk.cycle_flight_mode(),
+        pixhawk.cycle_position_lat_lng(), 
+        pixhawk.cycle_lidar(),
+        pixhawk.cycle_show(),
+        pixhawk.mission_land()
         ]
     
-    await Pixhawk.connect()
+    await pixhawk.connect()
 
-    await Pixhawk.upload_mission(waypoint, altitude, speed)
+    await pixhawk.upload_mission(waypoint, altitude, speed)
 
-    await Pixhawk.health_check()
+    await pixhawk.health_check()
 
     await asyncio.gather(*main_coroutines)
 
-    await Pixhawk.arm()
+    await pixhawk.arm()
 
-    await Pixhawk.start_mission()
+    await pixhawk.start_mission()
 
 
-    if __name__ == "__main__":
-        Pixhawk = Pixhawk()
-        asyncio.run(run())
+if __name__ == "__main__":
+
+    asyncio.run(run())

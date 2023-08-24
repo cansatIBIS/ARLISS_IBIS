@@ -2,7 +2,7 @@ import asyncio
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger_lib import logger_info, logger_debug
-import lora
+from lora import Lora
 import time
 import datetime
 import RPi.GPIO as GPIO
@@ -13,7 +13,7 @@ class Pixhawk:
     def __init__(self):
         
         self.pix = System()
-        self.lora = lora()
+        self.lora = Lora()
         self.fuse_PIN = 3
         self.wait_time = 60
         self.lora_sleep_time = 3
