@@ -52,5 +52,24 @@ class Ibis:
         self.deamon_file = deamon_file
         self.deamon_log = self.deamon_file.read()
         
-    async def run():
+        
+    async def wait_phase(self):
+        await self.pixhawk.wait_store()
+        
+        
+    async def judge_phase(self):
+        await self.pixhawk.connect()
+        await self.light.stored_judge()
+        await self.light.released_judge()
+        await self.pixhawk.land_judge()
+        await self.pixhawk.fusing()
+        
+        
+    async def fling_phase():
         return
+    
+    
+    async def run(self):
+        await self.wait_phase()
+        await self.judge_phase()
+        await self.fling_phase()
