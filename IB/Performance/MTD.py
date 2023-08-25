@@ -22,7 +22,7 @@ stored_judge_time = 10
 released_timelimit = 8
 released_judge_time = 5
 lora_power_Pin = 4
-deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
 is_destruct_deamon = True
 
 
