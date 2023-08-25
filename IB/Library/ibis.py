@@ -73,7 +73,7 @@ class Ibis:
         await self.pixhawk.fusing()
         
         
-    async def fling_phase():
+    async def flying_phase():
         
         return
     
@@ -91,7 +91,7 @@ class Ibis:
         
         await self.judge_phase()
         
-        await self.fling_phase()
+        await self.flying_phase()
         
         await self.destruct_deamon()
         
