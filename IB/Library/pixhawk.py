@@ -431,7 +431,7 @@ class Pixhawk:
 
     async def clear_mission(self):
 
-        logger_info.info("Clearing mission")
+        logger_info.info("Clearing mission...")
         await self.pix.mission.clear_mission()
         logger_info.info("Cleared mission")
 
@@ -443,3 +443,12 @@ class Pixhawk:
             if mission_finished:
                 logger_info.info("Mission finished")
                 break
+
+
+    async def goto_location(self):
+        
+        logger_info.info("Setting goto_location...")
+        abs_alt = await self.get_position_alt()
+        await self.pix.action.goto_location(self.waypoint_lat, self.waypoint_lng, abs_alt, 0)
+        logger_info.info("Going to location...")
+        await asyncio.sleep(20)
