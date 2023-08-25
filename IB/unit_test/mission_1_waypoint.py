@@ -6,7 +6,7 @@ sys.path.append(ibis_directory)
 from ibis import Ibis
 
 import asyncio
-from Library.pixhawk import Pixhawk
+from pixhawk import Pixhawk
 
 # parameters---------------------
 fuse_PIN = 0
