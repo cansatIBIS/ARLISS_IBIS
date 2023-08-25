@@ -51,9 +51,7 @@ async def run():
 
     await pixhawk.upload_mission()
 
-    # await pixhawk.health_check()
-    await pixhawk.clear_mission()
-    await pixhawk.upload_mission()
+    await pixhawk.health_check()
 
     await pixhawk.arm()
 
@@ -66,8 +64,6 @@ async def run():
     await pixhawk.mission.clear_mission()
 
     await pixhawk.upload_mission()
-
-    await pixhawk.arm()
 
     await pixhawk.start_mission()
 
