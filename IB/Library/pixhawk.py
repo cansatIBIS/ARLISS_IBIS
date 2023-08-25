@@ -442,7 +442,7 @@ class Pixhawk:
             self.cycle_flight_mode(),
             self.cycle_position_lat_lng(), 
             self.cycle_lidar(),
-            self.cycle_show()
+            self.cycle_show(),
             self.wait_until_mission_finished()
         ]
         await asyncio.gather(*self.main_coroutines)
