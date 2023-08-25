@@ -25,7 +25,6 @@ lora_power_Pin = 0
 
 async def run():
 
-    drone = System()
     pixhawk = Pixhawk(
                  fuse_PIN,
                  wait_time,
@@ -53,10 +52,10 @@ async def run():
     await pixhawk.upload_mission()
 
     # await pixhawk.health_check()
+    await pixhawk.clear_mission()
+    await pixhawk.upload_mission()
 
     await pixhawk.arm()
-
-    await pixhawk.clear_mission()
 
     await pixhawk.start_mission()
 
@@ -69,7 +68,7 @@ async def run():
             logger_info.info("mission_finished")
             break
     
-    await drone.mission.clear_mission()
+    await pixhawk.mission.clear_mission()
 
     await pixhawk.upload_mission()
 
