@@ -102,6 +102,8 @@ class Ibis:
     
     async def run(self):
         
+        logger_info.info("Mission Start")
+        
         await self.wait_storing_phase()
         
         await self.judge_phase()
