@@ -100,7 +100,7 @@ class Ibis:
                 logger_info.info("Destructed deamon")
             
     
-    async def run(self):
+    async def IBIS_MISSION(self):
         
         logger_info.info("IBIS MISSION START")
         
