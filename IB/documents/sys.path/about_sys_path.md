@@ -26,9 +26,9 @@ print(sys.path)
 
 実行結果
 
-`
+```python
 ['/Users/matsushimakouta/program/pystudy/test', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python311.zip', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python3.11', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/lib-dynload', '/Users/matsushimakouta/Library/Python/3.11/lib/python/site-packages', '/opt/homebrew/lib/python3.11/site-packages', '/opt/homebrew/Cellar/pybind11/2.10.4/libexec/lib/python3.11/site-packages']
-`
+```
 
 testというのがカレントディレクトリ。sys.pathに自動的にカレントディレクトリが入っていることから、同階層のモジュールは直で import できるということがわかる。
 
@@ -51,9 +51,9 @@ if test_lib.is_imported():
 
 実行結果
 
-`
+```python
 OK
-`
+```
 
 ### sys.path に 自作モジュールの path をappend して別ディレクトリで import する方法
 
@@ -78,11 +78,11 @@ import libtest
 
 実行結果
 
-``
+```python
 ['/Users/matsushimakouta/program/pystudy/test', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python311.zip', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python3.11', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/lib-dynload', '/Users/matsushimakouta/Library/Python/3.11/lib/python/site-packages', '/opt/homebrew/lib/python3.11/site-packages', '/opt/homebrew/Cellar/pybind11/2.10.4/libexec/lib/python3.11/site-packages']
 ['/Users/matsushimakouta/program/pystudy/test', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python311.zip', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python3.11', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/lib-dynload', '/Users/matsushimakouta/Library/Python/3.11/lib/python/site-packages', '/opt/homebrew/lib/python3.11/site-packages', '/opt/homebrew/Cellar/pybind11/2.10.4/libexec/lib/python3.11/site-packages', '/Users/matsushimakouta/program/pystudy/test_dir']
 import clear
-`
+```
 
 確かに test_dir への path が通り、import できた。
 
