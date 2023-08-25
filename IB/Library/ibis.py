@@ -1,3 +1,5 @@
+import asyncio
+
 from pixhawk import Pixhawk
 from lora import Lora
 from light import Light
@@ -13,11 +15,11 @@ class Ibis:
                  lora_sleep_time, 
                  fuse_time,
                  land_timelimit,
-                 altitude,
-                 latitude_deg,
-                 longitude_deg,
-                 max_speed,
-                 lidar,
+                 health_continuous_count,
+                 waypoint_lat,
+                 waypoint_lng,
+                 waypoint_alt,
+                 mission_speed,
                # light
                  light_threshold,
                  stored_timelimit,
@@ -36,11 +38,11 @@ class Ibis:
                                lora_sleep_time, 
                                fuse_time,
                                land_timelimit,
-                               altitude,
-                               latitude_deg,
-                               longitude_deg,
-                               max_speed,
-                               lidar,
+                               health_continuous_count,
+                               waypoint_lat,
+                               waypoint_lng,
+                               waypoint_alt,
+                               mission_speed,
                                deamon_pass)
         
         self.light = Light(light_threshold,
@@ -73,9 +75,22 @@ class Ibis:
         await self.pixhawk.fusing()
         
         
-    async def flying_phase():
+    async def flying_phase(self):
         
-        return
+        main_coroutines = [
+            self.pixhawk.cycle_flight_mode(),
+            self.pixhawk.cycle_mission_progress(),
+            self.pixhawk.cycle_position_lat_lng(),
+            self.pixhawk.cycle_lidar(),
+            self.pixhawk.cycle_show(),
+            self.pixhawk.mission_land()
+        ]
+
+        await self.pixhawk.upload_mission()
+        await self.pixhawk.health_check()
+        await self.pixhawk.arm()
+        await self.pixhawk.start_mission()
+        await asyncio.gather(*main_coroutines)
     
     
     async def destruct_deamon(self):
