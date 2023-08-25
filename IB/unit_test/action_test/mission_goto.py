@@ -44,18 +44,17 @@ async def run():
         pixhawk.cycle_position_lat_lng(), 
         pixhawk.cycle_lidar(),
         pixhawk.cycle_show(),
-        pixhawk.mission_land()
         ]
     
     await pixhawk.connect()
 
     await pixhawk.upload_mission()
 
-    # await pixhawk.health_check()
+    await pixhawk.health_check()
 
     await pixhawk.arm()
-    await pixhawk.goto_location()
-    # await pixhawk.start_mission()
+
+    await pixhawk.start_mission()
 
     await asyncio.gather(*main_coroutines)
 
