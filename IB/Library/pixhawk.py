@@ -44,6 +44,7 @@ class Pixhawk:
         self.max_speed = None
         self.latitude_deg = None
         self.longitude_deg = None
+        self.lidar = None
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
@@ -73,9 +74,14 @@ class Pixhawk:
     async def get_distance_alt(self):
 
         async for distance in self.pix.telemetry.distance_sensor():
-            self.lidar = distance.current_distance_m
             return distance.current_distance_m
         
+    
+    async def get_lidar(self):
+        
+        async for distance in self.pix.telemetry.distance_sensor():
+            self.lidar = distance.current_distance_m
+
         
     async def get_position_alt(self):
 
