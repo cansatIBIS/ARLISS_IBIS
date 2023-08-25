@@ -71,17 +71,9 @@ async def run():
 
     await pixhawk.start_mission()
 
-    while True:
-        await asyncio.sleep(1)
-        mission_finished = await drone.mission.is_mission_finished()
-        if mission_finished:
-            logger_info.info("mission_finished")
-            break
+    await pixhawk.wait_until_mission_finished()
 
-    logger_info.info("Landing")
-    await drone.action.land()
-    await asyncio.sleep(10)
-    logger_info.info("Landed")
+    await pixhawk.land()
 
     
 
