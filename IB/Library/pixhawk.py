@@ -438,14 +438,14 @@ class Pixhawk:
 
     async def gather_tasks(self):
 
-        self.main_coroutines = [
+        tasks = [
             self.cycle_flight_mode(),
             self.cycle_position_lat_lng(), 
             self.cycle_lidar(),
             self.cycle_show(),
             self.wait_until_mission_finished()
         ]
-        await asyncio.gather(*self.main_coroutines)
+        self.main_coroutines = asyncio.gather(*tasks)
 
 
     async def clear_mission(self):
