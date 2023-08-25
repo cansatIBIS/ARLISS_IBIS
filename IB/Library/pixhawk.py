@@ -140,17 +140,17 @@ class Pixhawk:
     
     async def connect(self):
 
-        logger_info.info("-- Waiting for drone to connect...")
+        logger_info.info("Waiting for drone to connect...")
         await self.pix.connect(system_address="serial:///dev/ttyACM0:115200")
         async for state in self.pix.core.connection_state():
             if state.is_connected:
-                logger_info.info("-- Drone connected!")
+                logger_info.info("Drone connected!")
                 break
             
         
     async def arm(self):
         
-        logger_info.info("-- Arming")
+        logger_info.info("Arming")
         while True:
             try:
                 await self.pix.action.arm()
@@ -158,7 +158,7 @@ class Pixhawk:
                 logger_info.info("Arm ActionError")
                 await asyncio.sleep(0.1)
             else:
-                logger_info.info("-- Armed!")
+                logger_info.info("Armed!")
                 break    
 
         
@@ -361,7 +361,7 @@ class Pixhawk:
 
             if health_true_count >= self.health_continuous_count:
                 break
-        logger_info.info("-- Global position estimate OK")
+        logger_info.info("Global position estimate OK")
 
             
     async def upload_mission(self):
@@ -382,13 +382,13 @@ class Pixhawk:
 
         self.mission_plan = MissionPlan(mission_items)
         await self.pix.mission.set_return_to_launch_after_mission(False)
-        logger_info.info("-- Uploading mission")
+        logger_info.info("Uploading mission")
         await self.pix.mission.upload_mission(self.mission_plan)
 
         
     async def start_mission(self):
 
-        logger_info.info("-- Starting mission")
+        logger_info.info("Starting mission")
         await self.pix.mission.start_mission()
 
         
@@ -427,3 +427,10 @@ class Pixhawk:
             logger_info.info(mission_finished)
             if mission_finished:
                 await self.land()
+
+
+    async def clear_mission(self):
+        
+        logger_info.info("Clearing mission")
+        await self.pix.mission.clear_mission()
+        logger_info.info("Cleared mission")
