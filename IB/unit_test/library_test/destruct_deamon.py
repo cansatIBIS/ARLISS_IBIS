@@ -51,4 +51,4 @@ if __name__ == "__main__":
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  is_destruct_deamon = True)
     
-    Ibis.judge_phase()
+    Ibis.destruct_deamon()
