@@ -2,7 +2,7 @@ import asyncio
 from mavsdk import System
 import time
 import RPi.GPIO as GPIO
-from logger import logger_info
+from logger_E2E import logger_info
 
 is_landed = False
 PIN = 5
@@ -134,16 +134,16 @@ def fusing():
 
         GPIO.setup(PIN, GPIO.OUT)
 
-        GPIO.output(PIN, 1)
+        GPIO.output(PIN, 0)
         logger_info.info("-- Fusing")
 
-        time.sleep(2.0)
+        time.sleep(5.0)
         logger_info.info("-- Fused! Please Fly")
 
-        GPIO.output(PIN, 0)
+        GPIO.output(PIN, 1)
     
     except:
-        GPIO.output(PIN, 0)
+        GPIO.output(PIN, 1)
 
 
 if __name__ == "__main__":

@@ -1,8 +1,88 @@
+import asyncio
+from mavsdk import System
+from logger import logger_info
 import picamera
 import cv2
 import numpy as np
-import time
 import datetime
+
+altitude = 2.5
+mode = None
+file_No = 0
+
+async def run():
+    
+    drone = System()
+    camera = Camera()
+
+    logger_info.info("Waiting for drone to connect...")
+    await drone.connect(system_address="serial:///dev/ttyACM0:115200")
+    logger_info.info("Waiting for drone to connect...")
+    
+    async for state in drone.core.connection_state():
+        
+        if state.is_connected:
+            
+            logger_info.info("-- Connected to drone!")
+            break
+
+    logger_info.info("waiting for pixhawk to hold")
+    
+    print_altitude_task = asyncio.create_task(print_altitude(drone, camera))
+    arm_takeoff_task = asyncio.create_task(arm_takeoff(drone))
+    
+    await print_altitude_task
+    await arm_takeoff_task
+
+
+async def arm_takeoff(drone):
+    
+    logger_info.info("-- Arming")
+    await drone.action.arm()
+    logger_info.info("-- Armed")
+    
+    logger_info.info("-- Taking off")
+    await drone.action.set_takeoff_altitude(altitude)
+    await drone.action.takeoff()
+
+    await asyncio.sleep(20)
+
+    logger_info.info("-- Landing")
+    await drone.action.land()
+
+
+async def print_altitude(drone, camera):
+    
+    previous_altitude = 0.0
+    
+    async for distance in drone.telemetry.distance_sensor():
+        
+        altitude_now = distance.current_distance_m
+        logger_info.info("difference : {}".format(altitude_now - previous_altitude))
+        
+        if abs(previous_altitude - altitude_now) >= 0.1:
+            
+            previous_altitude = altitude_now
+            logger_info.info(f"Altitude: {altitude_now}")
+            logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
+       
+        if altitude_now > 0.3:
+            
+            logger_info.info("over 0.3")
+            file_path = '/home/pi/ARLISS_IBIS/IB/Images/image{:>03d}{}.jpg'.format(file_No, datetime.datetime.now())
+
+            logger_info.info("taking pic...: {}".format(file_path))
+            camera.take_pic(file_path)
+            res = camera.detect_center(file_path)
+
+            dif_arg = res['center'][0] * np.pi/6
+
+            logger_info.info('percent={}, center={}, dif_arg={}'.format(res['percent'], res['center'], dif_arg))
+
+            cv2.destroyAllWindows()
+            await drone.action.land()
+            return
+            
 
 class Camera:
     
@@ -67,30 +147,4 @@ class Camera:
 
 
 if __name__ == "__main__":
-    camera = Camera()
-    
-    file_No = 0
-    while True:
-        file_path = '/home/pi/ARLISS_IBIS/IB/Images/image{:>03d}{}.jpg'.format(file_No, datetime.datetime.now())
-        file_No += 1
-
-        print("taking pic...: {}".format(file_path))
-        camera.take_pic(file_path) # 写真を撮る
-        res = camera.detect_center(file_path) # 赤の最大領域の占有率と重心を求める
-
-        if res['percent'] < 0.005: # 赤の領域が少ない場合は、旋回する
-            print('too little')
-            continue
-
-        if res['percent'] > 0.5: # 赤の領域が大きい場合は、終了する
-            print('enough')
-            break
-
-        dif_arg = res['center'][0] * np.pi/6
-
-        # ログの出力
-        print('percent={}, center={}, dif_arg={}'.format(res['percent'], res['center'], dif_arg))
-        
-        time.sleep(1)
-
-    cv2.destroyAllWindows()
+    asyncio.get_event_loop().run_until_complete(run())
