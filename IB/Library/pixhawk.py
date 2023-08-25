@@ -45,6 +45,7 @@ class Pixhawk:
         self.latitude_deg = None
         self.longitude_deg = None
         self.lidar = None
+        self.main_coroutines = None
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
@@ -435,6 +436,18 @@ class Pixhawk:
                 await self.land()
 
 
+    async def gather_tasks(self):
+
+        self.main_coroutines = [
+            self.cycle_flight_mode(),
+            self.cycle_position_lat_lng(), 
+            self.cycle_lidar(),
+            self.cycle_show()
+            self.wait_until_mission_finished()
+        ]
+        await asyncio.gather(*self.main_coroutines)
+
+
     async def clear_mission(self):
 
         logger_info.info("Clearing mission...")
@@ -443,13 +456,15 @@ class Pixhawk:
 
 
     async def wait_until_mission_finished(self):
-        while True:
-            await asyncio.sleep(1)
-            mission_finished = await self.pix.mission.is_mission_finished()
-            logger_info.info(mission_finished)
-            if mission_finished:
-                logger_info.info("Mission finished")
-                break
+        # while True:
+        #     await asyncio.sleep(1)
+        #     mission_finished = await self.pix.mission.is_mission_finished()
+        #     logger_info.info(mission_finished)
+        #     if mission_finished:
+        #         logger_info.info("Mission finished")
+        #         break
+        await asyncio.sleep(10)
+        self.main_coroutines.cancel()
 
 
     async def goto_location(self):

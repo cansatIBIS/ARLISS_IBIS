@@ -39,12 +39,12 @@ async def run():
                  lora_power_Pin
                  )
 
-    main_coroutines = [
-        pixhawk.cycle_flight_mode(),
-        pixhawk.cycle_position_lat_lng(), 
-        pixhawk.cycle_lidar(),
-        pixhawk.cycle_show(),
-        ]
+    # main_coroutines = [
+    #     pixhawk.cycle_flight_mode(),
+    #     pixhawk.cycle_position_lat_lng(), 
+    #     pixhawk.cycle_lidar(),
+    #     pixhawk.cycle_show(),
+    #     ]
     
     await pixhawk.connect()
 
@@ -56,7 +56,8 @@ async def run():
 
     # await pixhawk.start_mission()
 
-    await asyncio.gather(*main_coroutines)
+    # await asyncio.gather(*main_coroutines)
+    await pixhawk.gather_tasks()
 
     await pixhawk.wait_until_mission_finished()
     
