@@ -54,8 +54,8 @@ async def run():
     # await pixhawk.health_check()
 
     await pixhawk.arm()
-
-    await pixhawk.start_mission()
+    await pixhawk.goto_location()
+    # await pixhawk.start_mission()
 
     await asyncio.gather(*main_coroutines)
 
