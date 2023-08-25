@@ -52,7 +52,7 @@ class Ibis:
         self.deamon_log = self.deamon_file.read()
         
         
-    async def wait_phase(self):
+    async def wait_storing_phase(self):
         
         await self.pixhawk.wait_store()
         
@@ -73,7 +73,7 @@ class Ibis:
     
     async def run(self):
         
-        await self.wait_phase()
+        await self.wait_storing_phase()
         
         await self.judge_phase()
         
