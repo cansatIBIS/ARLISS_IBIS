@@ -102,7 +102,7 @@ class Ibis:
     
     async def run(self):
         
-        logger_info.info("Mission Start")
+        logger_info.info("IBIS MISSION START")
         
         await self.wait_storing_phase()
         
@@ -112,4 +112,4 @@ class Ibis:
         
         await self.destruct_deamon()
         
-        logger_info.info("Mission Complete")
+        logger_info.info("IBIS MISSION COMPLETE")
