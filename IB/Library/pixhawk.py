@@ -446,9 +446,10 @@ class Pixhawk:
 
 
     async def goto_location(self):
-        
+
         logger_info.info("Setting goto_location...")
         abs_alt = await self.get_position_alt()
+        print(abs_alt)
         await self.pix.action.goto_location(self.waypoint_lat, self.waypoint_lng, abs_alt, 0)
         logger_info.info("Going to location...")
         await asyncio.sleep(20)
