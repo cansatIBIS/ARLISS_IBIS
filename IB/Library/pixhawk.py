@@ -24,7 +24,7 @@ class Pixhawk:
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
         self.pix = System()
-        self.lora = Lora()
+        self.lora = Lora(0)
 
         self.fuse_PIN = fuse_PIN
         self.wait_time = wait_time
