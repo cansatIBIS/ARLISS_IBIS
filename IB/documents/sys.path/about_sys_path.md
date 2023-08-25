@@ -30,7 +30,7 @@ print(sys.path)
 ['/Users/matsushimakouta/program/pystudy/test', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python311.zip', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python3.11', '/opt/homebrew/Cellar/python@3.11/3.11.4/Frameworks/Python.framework/Versions/3.11/lib/python3.11/lib-dynload', '/Users/matsushimakouta/Library/Python/3.11/lib/python/site-packages', '/opt/homebrew/lib/python3.11/site-packages', '/opt/homebrew/Cellar/pybind11/2.10.4/libexec/lib/python3.11/site-packages']
 ```
 
-testというのがカレントディレクトリ。sys.pathに自動的にカレントディレクトリが入っていることから、同階層のモジュールは直で import できるということがわかる。
+`/Users/matsushimakouta/program/pystudy/test`というのがカレントディレクトリ。sys.pathに自動的にカレントディレクトリが入っていることから、同階層のモジュールは直で import できるということがわかる。
 
 pystudy/test/test_lib.py
 
