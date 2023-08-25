@@ -147,11 +147,19 @@ class Pixhawk:
                 break
             
         
-    async def arm(self):    
-        logger_info.info("-- Arming")
-        await self.pix.action.arm()
-        logger_info.info("-- Armed!")
+    async def arm(self):
         
+        logger_info.info("-- Arming")
+        while True:
+            try:
+                await self.pix.action.arm()
+            except mavsdk.action.ActionError:
+                logger_info.info("Arm ActionError")
+                await asyncio.sleep(0.1)
+            else:
+                logger_info.info("-- Armed!")
+                break    
+
         
     async def takeoff(self):
         
