@@ -5,9 +5,6 @@ sys.path.append(ibis_directory)
 
 import asyncio
 from pixhawk import Pixhawk
-from logger_lib import logger_info
-from mavsdk import System
-from mavsdk.mission import (MissionItem, MissionPlan)
 
 # parameters---------------------
 fuse_PIN = 0
@@ -25,7 +22,6 @@ lora_power_Pin = 0
 
 async def run():
 
-    drone = System()
     pixhawk = Pixhawk(
                  fuse_PIN,
                  wait_time,
@@ -56,41 +52,9 @@ async def run():
 
     await pixhawk.arm()
 
-    await drone.mission.clear_mission()
-
     await pixhawk.start_mission()
 
     await asyncio.gather(*main_coroutines)
-
-    while True:
-        await asyncio.sleep(1)
-        mission_finished = await drone.mission.is_mission_finished()
-        if mission_finished:
-            logger_info.info("mission_finished")
-            break
-    
-    await drone.mission.clear_mission()
-
-    await pixhawk.upload_mission()
-
-    await pixhawk.arm()
-
-    await pixhawk.start_mission()
-
-    while True:
-        await asyncio.sleep(1)
-        mission_finished = await drone.mission.is_mission_finished()
-        if mission_finished:
-            logger_info.info("mission_finished")
-            break
-
-    logger_info.info("Landing")
-    await drone.action.land()
-    await asyncio.sleep(10)
-    logger_info.info("Landed")
-
-    
-
 
 if __name__ == "__main__":
 
