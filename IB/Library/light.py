@@ -13,7 +13,7 @@ class Light:
                  stored_judge_time,
                  released_timelimit,
                  released_judge_time,
-                 deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")):
+                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
         self.lora = lora()
         self.light_threshold = light_threshold
@@ -21,7 +21,8 @@ class Light:
         self.stored_judge_time = stored_judge_time
         self.released_timelimit = released_timelimit
         self.released_judge_time = released_judge_time
-        self.deamon_file = deamon_file
+        self.deamon_pass = deamon_pass
+        self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
         
     

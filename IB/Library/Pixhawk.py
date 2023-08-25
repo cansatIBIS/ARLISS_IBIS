@@ -21,7 +21,7 @@ class Pixhawk:
                  longitude_deg,
                  max_speed,
                  lidar,
-                 deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")):
+                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
         self.pix = System()
         self.lora = lora()
@@ -38,7 +38,8 @@ class Pixhawk:
         self.mp_total = None
         self.max_speed = max_speed
         self.lidar = lidar
-        self.deamon_file = deamon_file
+        self.deamon_pass = deamon_pass
+        self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
         self.is_landed = False 
         self.is_judge_alt = False
