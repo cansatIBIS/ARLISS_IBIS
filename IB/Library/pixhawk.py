@@ -446,6 +446,7 @@ class Pixhawk:
         while True:
             await asyncio.sleep(1)
             mission_finished = await self.pix.mission.is_mission_finished()
+            logger_info.info(mission_finished)
             if mission_finished:
                 logger_info.info("Mission finished")
                 break
