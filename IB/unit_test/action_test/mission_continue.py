@@ -56,7 +56,7 @@ async def run():
 
     await pixhawk.arm()
 
-    await drone.mission.clear_mission()
+    await pixhawk.clear_mission()
 
     await pixhawk.start_mission()
 
