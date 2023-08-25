@@ -95,9 +95,10 @@ path を絶対パスで通した場合、人によって前半部分が異なる
 ```
 
 この場合、pystudy 以降が git ディレクトリだとして、その前のパスが通らなくなってしまうということ。相対パスを用いるとコード実行のディレクトリが限定されてしまうためよくない。  
-『Poetry なり requirements.txt を使って自作モジュールを読み込みましょう。』とのこと。
+『Poetry なり requirements.txt を使って自作モジュールを読み込みましょう。』とのこと。[参考文献(2)]  
+他にも簡易的なやり方が二つほど紹介されていた。[参考文献(1)]
 
 ### 参考サイト
 
-・[別ディレクトリの自作モジュールをimport](https://fuji-pocketbook.net/another-dir-module/)
-・[sys.path.appendを使わないでください](https://qiita.com/siida36/items/b171922546e65b868679)
+(1)[別ディレクトリの自作モジュールをimport](https://fuji-pocketbook.net/another-dir-module/)
+(2)[sys.path.appendを使わないでください](https://qiita.com/siida36/items/b171922546e65b868679)
