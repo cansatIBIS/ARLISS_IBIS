@@ -15,6 +15,7 @@ class Lora:
         self.CRLF = "\r\n"
         self.is_lora_power_on = False
         self.connect_counter = 0
+        self.power = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         GPIO.setup(self.power, GPIO.OUT)
