@@ -1,8 +1,8 @@
 import asyncio
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
-from Library.logger_lib import logger_info, logger_debug
-from Library.lora import Lora
+from logger_lib import logger_info, logger_debug
+from lora import Lora
 import time
 import datetime
 import RPi.GPIO as GPIO
@@ -10,25 +10,41 @@ import RPi.GPIO as GPIO
 
 class Pixhawk:
     
-    def __init__(self):
+    def __init__(self,
+                 fuse_PIN,
+                 wait_time,
+                 lora_sleep_time, 
+                 fuse_time,
+                 land_timelimit,
+                 health_continuous_count,
+                 waypoint_lat,
+                 waypoint_lng,
+                 waypoint_alt,
+                 mission_speed,
+                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
         self.pix = System()
         self.lora = Lora()
-        self.fuse_PIN = 3
-        self.wait_time = 60
-        self.lora_sleep_time = 3
-        self.fuse_time = 7.0
-        self.land_timelimit = 20
-        self.altitude = 3.0
+
+        self.fuse_PIN = fuse_PIN
+        self.wait_time = wait_time
+        self.lora_sleep_time = lora_sleep_time
+        self.fuse_time = fuse_time
+        self.land_timelimit = land_timelimit
+        self.health_continuous_count = health_continuous_count
+        self.waypoint_lat = waypoint_lat
+        self.waypoint_lng = waypoint_lng
+        self.waypoint_alt = waypoint_alt
+        self.mission_speed = mission_speed
+
         self.flight_mode = None
-        self.latitude_deg = 0
-        self.longitude_deg = 0
         self.mp_current = None
         self.mp_total = None
-        self.max_speed = 0
-        self.lidar = 0
-        self.mission_plan = None
-        self.deamon_file = open("/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt")
+        self.max_speed = None
+        self.latitude_deg = None
+        self.longitude_deg = None
+        self.deamon_pass = deamon_pass
+        self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
         self.is_landed = False 
         self.is_judge_alt = False
@@ -40,23 +56,24 @@ class Pixhawk:
         async for flight_mode in self.pix.telemetry.flight_mode():
             self.flight_mode = flight_mode
             
+    async def get_mission_progress(self):
+        
+        async for mission_progress in self.pix.mission.mission_progress():
+            self.mp_current = mission_progress.current
+            self.mp_total = mission_progress.total
+            
 
     async def get_max_speed(self):
-            
+
         async for speed in self.pix.action.get_maxium_speed():
             self.max_speed = speed
             
 
     async def get_distance_alt(self):
-            
-        async for distance in self.pix.telemetry.distance_sensor():
-            return distance.current_distance_m
-        
-    
-    async def get_lidar(self):
-            
+
         async for distance in self.pix.telemetry.distance_sensor():
             self.lidar = distance.current_distance_m
+            return distance.current_distance_m
         
         
     async def get_position_alt(self):
@@ -66,11 +83,11 @@ class Pixhawk:
         
         
     async def get_position_lat_lng(self):
-            
+
         async for position in self.pix.telemetry.position():
             self.latitude_deg = position.latitude_deg
             self.longitude_deg = position.longitude_deg
-    
+
 
     async def cycle_flight_mode(self):
 
@@ -78,6 +95,12 @@ class Pixhawk:
             await self.get_flight_mode()
             await asyncio.sleep(0.1)
     
+    async def cycle_mission_progress(self):
+
+        while True:
+            while True:
+                await self.get_mission_progress()
+                await asyncio.sleep(0.1)
 
     async def cycle_position_lat_lng(self):
 
@@ -91,7 +114,6 @@ class Pixhawk:
         while True:
             await self.get_lidar()
             await asyncio.sleep(0.1)
-    
 
     async def cycle_show(self):
 
@@ -99,6 +121,10 @@ class Pixhawk:
             log_txt = (
                 " mode:"
                 + str(self.flight_mode)
+                + " mission progress:"
+                + str(self.mp_current)
+                + "/"
+                + str(self.mp_total)
                 + " lat:"
                 + str(self.latitude_deg)
                 + " lng:"
@@ -109,9 +135,10 @@ class Pixhawk:
             )
             logger_info.info(str(log_txt))
             await asyncio.sleep(0.3)
-    
             
+    
     async def connect(self):
+
         logger_info.info("-- Waiting for drone to connect...")
         await self.pix.connect(system_address="serial:///dev/ttyACM0:115200")
         async for state in self.pix.core.connection_state():
@@ -120,11 +147,19 @@ class Pixhawk:
                 break
             
         
-    async def arm(self):    
-        logger_info.info("-- Arming")
-        await self.pix.action.arm()
-        logger_info.info("-- Armed!")
+    async def arm(self):
         
+        logger_info.info("-- Arming")
+        while True:
+            try:
+                await self.pix.action.arm()
+            except mavsdk.action.ActionError:
+                logger_info.info("Arm ActionError")
+                await asyncio.sleep(0.1)
+            else:
+                logger_info.info("-- Armed!")
+                break    
+
         
     async def takeoff(self):
         
@@ -139,13 +174,13 @@ class Pixhawk:
         logger_info.info("Landing")
         await self.pix.action.land()
         await asyncio.sleep(10)
-        logger_info.info("Landed")
+        logger_info.info("Landed!")
             
     
     async def wait_store(self):
         
         if "Three minutes passed" in self.deamon_log:
-            await self.lora.write(lora, "skipped store wait")
+            await self.lora.write("skipped store wait")
             logger_info.info("skipped store wait")
             return
         
@@ -314,37 +349,47 @@ class Pixhawk:
     async def health_check(self):
         
         logger_info.info("Waiting for drone to have a global position estimate...")
-        for _ in range(10): 
-            async for health in self.pix.telemetry.health():
-                if health.is_global_position_ok and health.is_home_position_ok:
-                    break
-        logger_info.info("-- Global position estimate OK")
-            
-    async def upload_mission(self, waypoint, altitude, speed):
+        
+        health_true_count = 0
 
+        async for health in self.pix.telemetry.health():
+            if health.is_global_position_ok and health.is_home_position_ok:
+                health_true_count += 1
+            else:
+                health_true_count = 0
+
+            if health_true_count >= self.health_continuous_count:
+                break
+        logger_info.info("-- Global position estimate OK")
+
+            
+    async def upload_mission(self):
         mission_items = []
-        mission_items.append(MissionItem(waypoint[0],
-                                        waypoint[1],
-                                        altitude, # rel_alt
-                                        speed, # speed
-                                        False, # is_fly_through
+        mission_items.append(MissionItem(self.waypoint_lat,
+                                        self.waypoint_lng,
+                                        self.waypoint_alt,
+                                        self.mission_speed,
+                                        False,
                                         float('nan'),
-                                        float('nan'), #gimbal_yaw_deg
+                                        float('nan'),
                                         MissionItem.CameraAction.NONE,
                                         float('nan'),
                                         float('nan'),
                                         float('nan'),
                                         float('nan'),
-                                        float('nan'))) #Absolute_yaw_deg
+                                        float('nan')))
 
         self.mission_plan = MissionPlan(mission_items)
         await self.pix.mission.set_return_to_launch_after_mission(False)
         logger_info.info("-- Uploading mission")
         await self.pix.mission.upload_mission(self.mission_plan)
+
         
     async def start_mission(self):
+
         logger_info.info("-- Starting mission")
         await self.pix.mission.start_mission()
+
         
     async def print_mission_progress(self):
         
@@ -352,6 +397,7 @@ class Pixhawk:
             logger_info.info(f"Mission progress: "
                 f"{mission_progress.current}/"
                 f"{mission_progress.total}")
+            
     
     async def observe_is_in_air(self, tasks):
         
@@ -370,6 +416,7 @@ class Pixhawk:
                 await asyncio.get_event_loop().shutdown_asyncgens()
 
                 return
+            
         
     async def mission_land(self):
         
@@ -378,4 +425,4 @@ class Pixhawk:
             mission_finished = await self.pix.mission.is_mission_finished()
             logger_info.info(mission_finished)
             if mission_finished:
-                self.land()
+                await self.land()
