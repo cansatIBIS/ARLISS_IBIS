@@ -172,7 +172,7 @@ class Pixhawk:
     async def wait_store(self):
         
         if "Three minutes passed" in self.deamon_log:
-            await self.lora.write(lora, "skipped store wait")
+            await self.lora.write("skipped store wait")
             logger_info.info("skipped store wait")
             return
         
