@@ -100,5 +100,5 @@ path を絶対パスで通した場合、人によって前半部分が異なる
 
 ### 参考サイト
 
-(1)[別ディレクトリの自作モジュールをimport](https://fuji-pocketbook.net/another-dir-module/)
+(1)[別ディレクトリの自作モジュールをimport](https://fuji-pocketbook.net/another-dir-module/)  
 (2)[sys.path.appendを使わないでください](https://qiita.com/siida36/items/b171922546e65b868679)
