@@ -430,7 +430,16 @@ class Pixhawk:
 
 
     async def clear_mission(self):
-        
+
         logger_info.info("Clearing mission")
         await self.pix.mission.clear_mission()
         logger_info.info("Cleared mission")
+
+
+    async def wait_until_mission_finished(self):
+        while True:
+            await asyncio.sleep(1)
+            mission_finished = await self.pix.mission.is_mission_finished()
+            if mission_finished:
+                logger_info.info("Mission finished")
+                break
