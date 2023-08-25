@@ -1,6 +1,6 @@
 import spidev
 import sys
-import lora
+from lora import Lora
 from logger_lib import logger_info, logger_debug
 import time
 
@@ -15,7 +15,7 @@ class Light:
                  released_judge_time,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
-        self.lora = lora()
+        self.lora = Lora()
         self.light_threshold = light_threshold
         self.stored_timelimit = stored_timelimit
         self.stored_judge_time = stored_judge_time

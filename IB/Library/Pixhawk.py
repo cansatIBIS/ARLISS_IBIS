@@ -2,7 +2,7 @@ import asyncio
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger_lib import logger_info, logger_debug
-import lora
+from lora import Lora
 import time
 import datetime
 import RPi.GPIO as GPIO
@@ -24,7 +24,7 @@ class Pixhawk:
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
         self.pix = System()
-        self.lora = lora()
+        self.lora = Lora()
         self.fuse_PIN = fuse_PIN
         self.wait_time = wait_time
         self.lora_sleep_time = lora_sleep_time
