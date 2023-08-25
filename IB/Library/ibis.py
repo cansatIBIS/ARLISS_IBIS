@@ -7,7 +7,7 @@ from logger_lib import logger_info
 class Ibis:
     
     def __init__(self,
-                 
+               # pixhawk
                  fuse_PIN,
                  wait_time,
                  lora_sleep_time, 
@@ -18,15 +18,15 @@ class Ibis:
                  longitude_deg,
                  max_speed,
                  lidar,
-                 
+               # light
                  light_threshold,
                  stored_timelimit,
                  stored_judge_time,
                  released_timelimit,
                  released_judge_time,
-                 
+               # lora
                  lora_power_Pin,
-                 
+               # deamon
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  is_destruct_deamon = True
                  ):
