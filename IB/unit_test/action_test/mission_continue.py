@@ -61,7 +61,7 @@ async def run():
 
     await pixhawk.wait_until_mission_finished()
     
-    await pixhawk.mission.clear_mission()
+    await pixhawk.clear_mission()
 
     await pixhawk.upload_mission()
 
