@@ -21,10 +21,11 @@ class Pixhawk:
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 lora_power_Pin,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
         self.pix = System()
-        self.lora = Lora(0)
+        self.lora = Lora(lora_power_Pin)
 
         self.fuse_PIN = fuse_PIN
         self.wait_time = wait_time
