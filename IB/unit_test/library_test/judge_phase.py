@@ -1,7 +1,6 @@
 import sys
 
 ibis_directory = "/home/pi/ARLISS_IBIS/IB/Library"
-ibis_directory = "/home/pi/ARLISS_IBIS/IB/Library"
 sys.path.append(ibis_directory)
 
 from ibis import Ibis
@@ -23,7 +22,6 @@ stored_judge_time = 10
 released_timelimit = 8
 released_judge_time = 5
 lora_power_Pin = 4
-deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
 is_destruct_deamon = True
 
