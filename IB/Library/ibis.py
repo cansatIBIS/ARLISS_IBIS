@@ -10,7 +10,6 @@ class Ibis:
                # pixhawk
                  fuse_pin,
                  wait_time,
-                 lora_sleep_time, 
                  fuse_time,
                  land_timelimit,
                  health_continuous_count,
@@ -26,15 +25,16 @@ class Ibis:
                  released_judge_time,
                # lora
                  lora_power_pin,
+                 lora_sleep_time,
                # deamon
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  is_destruct_deamon = True):
         
-        self.lora = Lora(lora_power_pin)
+        self.lora = Lora(lora_power_pin,
+                         lora_sleep_time)
         
         self.pixhawk = Pixhawk(fuse_pin,
                                wait_time,
-                               lora_sleep_time, 
                                fuse_time,
                                land_timelimit,
                                health_continuous_count,

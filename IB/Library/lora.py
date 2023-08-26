@@ -9,12 +9,14 @@ from mavsdk import System
 class Lora:
     
     def __init__(self,
-                 lora_power_pin):
+                 lora_power_pin,
+                 lora_sleep_time):
         
         self.lora_power_pin = lora_power_pin
         self.pix = System()
         self.CRLF = "\r\n"
         self.is_lora_power_on = False
+        self.lora_sleep_time = lora_sleep_time
         self.connect_counter = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -72,4 +74,4 @@ class Lora:
         
         msg_send = str(message) + self.CRLF
         self.serial.write(msg_send.encode("ascii"))
-        await asyncio.sleep(4)
+        await asyncio.sleep(self.lora_sleep_time)

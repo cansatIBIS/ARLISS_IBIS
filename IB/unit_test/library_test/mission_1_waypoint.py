@@ -28,7 +28,6 @@ async def run():
     pixhawk = Pixhawk(
                  fuse_PIN,
                  wait_time,
-                 lora_sleep_time, 
                  fuse_time,
                  land_timelimit,
                  health_continuous_count,

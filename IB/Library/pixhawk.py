@@ -13,7 +13,6 @@ class Pixhawk:
     def __init__(self,
                  fuse_pin,
                  wait_time,
-                 lora_sleep_time, 
                  fuse_time,
                  land_timelimit,
                  health_continuous_count,
@@ -29,7 +28,6 @@ class Pixhawk:
 
         self.fuse_pin = fuse_pin
         self.wait_time = wait_time
-        self.lora_sleep_time = lora_sleep_time
         self.fuse_time = fuse_time
         self.land_timelimit = land_timelimit
         self.health_continuous_count = health_continuous_count
@@ -313,31 +311,31 @@ class Pixhawk:
             if self.is_landed:
                 break
             else:
-                lat = "lat:" + str(lat_deg)
-                lng = "lng:" + str(lng_deg)
-                alt = "alt:" + str(alt)
-                await self.lora.write(lat.encode())
-                logger_info.info(lat)
+                self.lat = "lat:" + str(lat_deg)
+                self.lng = "lng:" + str(lng_deg)
+                self.alt = "alt:" + str(alt)
+                await self.lora.write(self.lat)
+                logger_info.info(self.lat)
                 await asyncio.sleep(0)
-                await self.lora.write(lng.encode())
-                logger_info.info(lng)
+                await self.lora.write(self.lng)
+                logger_info.info(self.lng)
                 await asyncio.sleep(0)
-                await self.lora.write(alt.encode())
+                await self.lora.write(alt)
                 logger_info.info(alt)
                 await asyncio.sleep(0)
             
             
     async def get_gps(self):
     
-        self.lat, self.lng, self.alt = "0", "0", "0"
+        lat, lng, alt = "0", "0", "0"
         try:
             await asyncio.wait_for(self.gps(), timeout=0.8)
         except asyncio.TimeoutError:
             logger_info.info("Can't catch GPS")
-            self.lat = "error"
-            self.lng = "error"
-            self.alt = "error"
-        return self.lat, self.lng, self.alt
+            lat = "error"
+            lng = "error"
+            alt = "error"
+        return lat, lng, alt
             
             
     async def gps(self):
