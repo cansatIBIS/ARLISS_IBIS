@@ -1,3 +1,4 @@
+from typing import Any
 import spidev
 import sys
 from lora import Lora
@@ -26,6 +27,7 @@ class Light:
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
+        self.spi_oopen()
         
         logger_info.info("Light initialized")
         
@@ -142,3 +144,7 @@ class Light:
 
             await self.lora.write("released judge finish")
             logger_info.info("#########################\n# released judge finish #\n#########################")
+
+    def __del__(self):
+        
+        self.spi_close()
