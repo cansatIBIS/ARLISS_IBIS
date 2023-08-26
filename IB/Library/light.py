@@ -145,6 +145,7 @@ class Light:
             await self.lora.write("released judge finish")
             logger_info.info("#########################\n# released judge finish #\n#########################")
 
+
     def __del__(self):
         
         self.spi_close()
