@@ -58,7 +58,7 @@ class Light:
         
         else:
             await self.lora.write("stored judge start")
-            logger_info.info("######################\n# stored judge start #\n######################")
+            logger_info.info("################## stored judge start ####################")
 
             start_time = time.perf_counter()
             duration_start_time = time.perf_counter()
@@ -96,7 +96,7 @@ class Light:
                     break
 
             await self.lora.write("stored judge finish")
-            logger_info.info("#######################\n# stored judge finish #\n#######################")
+            logger_info.info("#################### stored judge finish ###################")
 
 
     async def released_judge(self):
@@ -108,7 +108,7 @@ class Light:
         
         else:
             await self.lora.write("released judge start")
-            logger_info.info("########################\n# released judge start #\n########################")
+            logger_info.info("################### released judge start ###################")
 
             start_time = time.perf_counter()
             duration_start_time = time.perf_counter()
@@ -146,7 +146,7 @@ class Light:
                     break
 
             await self.lora.write("released judge finish")
-            logger_info.info("#########################\n# released judge finish #\n#########################")
+            logger_info.info("##################### released judge finish #####################")
 
 
     def __del__(self):

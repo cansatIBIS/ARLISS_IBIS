@@ -294,7 +294,7 @@ class Pixhawk:
                         break
                         
             
-            logger_info.info("####### Land judge finish #######")
+            logger_info.info("################ Land judge finish ###############")
 
             
     def is_low_alt(self, alt):
@@ -308,7 +308,7 @@ class Pixhawk:
     def is_judge_alt(self, alt):
         
         if alt < 15:
-            logger_info.info("####### Land judge start #######")
+            logger_info.info("################ Land judge start ################")
             self.is_judge_alt = True
         else:
             self.is_judge_alt = False
