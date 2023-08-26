@@ -72,6 +72,7 @@ class Ibis:
         await self.pixhawk.upload_mission()
         await self.light.stored_judge()
         await self.light.released_judge()
+        await self.lora.power_on()
         await self.pixhawk.land_judge()
         await self.pixhawk.fuse()
         
@@ -90,6 +91,7 @@ class Ibis:
             with open(self.deamon_pass, "w") as deamon:
                 deamon.write("")
                 logger_info.info("Destructed deamon")
+        await self.lora.power_off()
             
     
     async def IBIS_MISSION(self):

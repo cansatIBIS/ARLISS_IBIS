@@ -5,6 +5,7 @@ from logger_lib import logger_info
 import time
 from mavsdk import System
 
+
 class Lora:
     
     def __init__(self,
@@ -19,7 +20,6 @@ class Lora:
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         GPIO.setup(self.power, GPIO.OUT)
-        self.serial_connect()
         
         logger_info.info("Lora initialized")
         
@@ -56,27 +56,17 @@ class Lora:
         
         GPIO.output(self.lora_power_pin, GPIO.LOW)
         self.is_lora_power_on = False
-        print("Lora power off")
+        logger_info.info("Lora power off")
         await asyncio.sleep(1)
         
 
     async def power_on(self):
         
         GPIO.output(self.lora_power_pin, GPIO.HIGH)
-        print("Lora power on")
-        await self.write("processor")
-        await self.write("start")
+        logger_info.info("Lora power on")
+        self.serial_connect()
 
         self.is_lora_power_on = True
-        
-        
-    async def start_communication(self, light):
-        
-        while True:
-            if light.is_released:
-                await self.power_on()
-                return
-            await self.power_off()
             
     
     async def write(self, message: str):
@@ -120,7 +110,7 @@ class Lora:
         global lat, lng, alt
         async for position in self.pix.telemetry.position():
                 logger_info.info(position)
-                lat = str(position.latitude)
-                lng = str(position.longitude)
-                alt = str(position.absolute_altitude_m)
+                lat = str(position.latitude_deg)
+                lng = str(position.longitude_deg)
+                alt = str(position.relative_altitude_m)
                 break

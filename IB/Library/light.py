@@ -57,7 +57,6 @@ class Light:
             return
         
         else:
-            await self.lora.write("stored judge start")
             logger_info.info("################## stored judge start ####################")
 
             start_time = time.perf_counter()
@@ -95,7 +94,6 @@ class Light:
                     logger_info.info("-- Timer Judge")
                     break
 
-            await self.lora.write("stored judge finish")
             logger_info.info("#################### stored judge finish ###################")
 
 
@@ -107,7 +105,6 @@ class Light:
             return
         
         else:
-            await self.lora.write("released judge start")
             logger_info.info("################### released judge start ###################")
 
             start_time = time.perf_counter()
@@ -145,7 +142,6 @@ class Light:
                     logger_info.info("-- Timer Judge")
                     break
 
-            await self.lora.write("released judge finish")
             logger_info.info("##################### released judge finish #####################")
 
 
