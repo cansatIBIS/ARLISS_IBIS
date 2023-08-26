@@ -72,7 +72,7 @@ class Ibis:
         await self.light.stored_judge()
         await self.light.released_judge()
         await self.pixhawk.land_judge()
-        await self.pixhawk.fusing()
+        await self.pixhawk.fuse()
         
         
     async def flying_phase(self):
