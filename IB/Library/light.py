@@ -65,13 +65,16 @@ class Light:
             start_time = time.perf_counter()
             duration_start_time = time.perf_counter()
             is_continue = False
+            pre_time_stamp = 0
 
             while True:
 
 
                 light_val = self.get_light_val()
                 time_stamp = time.perf_counter() - duration_start_time
-                logger_info.info("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
+                if abs(pre_time_stamp - time_stamp) > 0.4:
+                    pre_time_stamp = time_stamp
+                    logger_info.info("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
 
                 if is_continue:
                     if light_val >= self.light_threshold:
