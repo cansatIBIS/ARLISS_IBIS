@@ -49,7 +49,7 @@ class Pixhawk:
         self.lidar = None
         self.tasks = None
         self.deamon_pass = deamon_pass
-        self.deamon_file = open(self.deamon_pass, encoding='utf-8')
+        self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
         self.is_landed = False 
         self.is_judge_alt = False
