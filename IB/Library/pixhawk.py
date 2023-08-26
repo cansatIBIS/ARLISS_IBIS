@@ -284,7 +284,7 @@ class Pixhawk:
                     logger_info.info("-- Timer Judge")
                     break
                         
-            await self.lora.write("land judge finish")
+            # await self.lora.write("land judge finish")
             logger_info.info("####### Land judge finish #######")
 
             
