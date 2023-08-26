@@ -1,7 +1,5 @@
 from typing import Any
 import spidev
-import sys
-from lora import Lora
 from logger_lib import logger_info, logger_debug
 import time
 
