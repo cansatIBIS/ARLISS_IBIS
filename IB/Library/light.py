@@ -27,7 +27,7 @@ class Light:
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
-        self.spi_oopen()
+        self.spi_open()
         
         logger_info.info("Light initialized")
         
