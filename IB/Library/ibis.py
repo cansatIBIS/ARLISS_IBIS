@@ -73,7 +73,7 @@ class Ibis:
         await self.light.stored_judge()
         await self.light.released_judge()
         await self.lora.power_on()
-        await self.pixhawk.land_judge()
+        await self.pixhawk.landjudge_and_sendgps()
         await self.pixhawk.fuse()
         
         
