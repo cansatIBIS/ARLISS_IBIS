@@ -14,10 +14,10 @@ class Light:
                  stored_judge_time,
                  released_timelimit,
                  released_judge_time,
-                 lora_power_Pin,
+                 lora_power_pin,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
-        self.lora = Lora(lora_power_Pin)
+        self.lora = Lora(lora_power_pin)
         
         self.light_threshold = light_threshold
         self.stored_timelimit = stored_timelimit

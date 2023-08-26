@@ -12,7 +12,7 @@ import RPi.GPIO as GPIO
 class Pixhawk:
     
     def __init__(self,
-                 fuse_PIN,
+                 fuse_pin,
                  wait_time,
                  lora_sleep_time, 
                  fuse_time,
@@ -28,7 +28,7 @@ class Pixhawk:
         self.pix = System()
         self.lora = Lora(lora_power_Pin)
 
-        self.fuse_PIN = fuse_PIN
+        self.fuse_pin = fuse_pin
         self.wait_time = wait_time
         self.lora_sleep_time = lora_sleep_time
         self.fuse_time = fuse_time
@@ -209,7 +209,7 @@ class Pixhawk:
             return
         
         else:
-            self.lora.write("land judge start")
+            await self.lora.write("land judge start")
             start_time = time.time()
             while True:
                 time_now = time.time()
@@ -342,19 +342,19 @@ class Pixhawk:
         try:
             GPIO.setmode(GPIO.BCM)
             GPIO.setwarnings(False)
-            GPIO.setup(self.fuse_Pin, GPIO.OUT, initial=GPIO.HIGH)
+            GPIO.setup(self.fuse_pin, GPIO.OUT, initial=GPIO.HIGH)
             logger_info.info("-- Fuse start")
 
-            GPIO.output(self.fuse_Pin, 0)
+            GPIO.output(self.fuse_pin, 0)
             logger_info.info("-- Fusing")
 
             await asyncio.sleep(self.fuse_time)
             logger_info.info("-- Fused! Please Fly")
 
-            GPIO.output(self.fuse_Pin, 1)
+            GPIO.output(self.fuse_pin, 1)
         
         except:
-            GPIO.output(self.fuse_Pin, 1)
+            GPIO.output(self.fuse_pin, 1)
             
             
     async def health_check(self):

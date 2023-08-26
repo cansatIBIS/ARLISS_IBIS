@@ -8,9 +8,9 @@ from mavsdk import System
 class Lora:
     
     def __init__(self,
-                 lora_power_Pin):
+                 lora_power_pin):
         
-        self.lora_power_Pin = lora_power_Pin
+        self.lora_power_pin = lora_power_pin
         self.pix = System()
         self.CRLF = "\r\n"
         self.is_lora_power_on = False
@@ -54,7 +54,7 @@ class Lora:
        
     async def power_off(self):
         
-        GPIO.output(self.lora_power_Pin, GPIO.LOW)
+        GPIO.output(self.lora_power_pin, GPIO.LOW)
         self.is_lora_power_on = False
         print("Lora power off")
         await asyncio.sleep(1)
@@ -62,7 +62,7 @@ class Lora:
 
     async def power_on(self):
         
-        GPIO.output(self.lora_power_Pin, GPIO.HIGH)
+        GPIO.output(self.lora_power_pin, GPIO.HIGH)
         print("Lora power on")
         await self.write("processor")
         await self.write("start")

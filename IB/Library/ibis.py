@@ -10,7 +10,7 @@ class Ibis:
     
     def __init__(self,
                # pixhawk
-                 fuse_PIN,
+                 fuse_pin,
                  wait_time,
                  lora_sleep_time, 
                  fuse_time,
@@ -27,13 +27,13 @@ class Ibis:
                  released_timelimit,
                  released_judge_time,
                # lora
-                 lora_power_Pin,
+                 lora_power_pin,
                # deamon
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  is_destruct_deamon = True
                  ):
         
-        self.pixhawk = Pixhawk(fuse_PIN,
+        self.pixhawk = Pixhawk(fuse_pin,
                                wait_time,
                                lora_sleep_time, 
                                fuse_time,
@@ -43,7 +43,7 @@ class Ibis:
                                waypoint_lng,
                                waypoint_alt,
                                mission_speed,
-                               lora_power_Pin,
+                               lora_power_pin,
                                deamon_pass)
         
         self.light = Light(light_threshold,
@@ -51,10 +51,10 @@ class Ibis:
                            stored_judge_time,
                            released_timelimit,
                            released_judge_time,
-                           lora_power_Pin,
+                           lora_power_pin,
                            deamon_pass)
         
-        self.lora = Lora(lora_power_Pin)
+        self.lora = Lora(lora_power_pin)
         
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
