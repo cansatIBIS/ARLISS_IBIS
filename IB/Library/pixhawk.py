@@ -307,10 +307,10 @@ class Pixhawk:
     async def send_gps(self):
         
         while True:
-            lat_deg, lng_deg, alt = await self.get_gps()
             if self.is_landed:
                 break
             else:
+                lat_deg, lng_deg, alt = await self.get_gps()
                 self.lat = "lat:" + str(lat_deg)
                 self.lng = "lng:" + str(lng_deg)
                 self.alt = "alt:" + str(alt)
