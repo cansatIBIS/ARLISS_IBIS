@@ -98,7 +98,7 @@ class Lora:
         lat, lng, alt = "0", "0", "0"
         while True:
             try:
-                await asyncio.wait_for(self.gps(self.pix), timeout=0.8)
+                await asyncio.wait_for(self.gps(), timeout=0.8)
             except asyncio.TimeoutError:
                 logger_info.info("Can't catch GPS")
                 lat = "error"
