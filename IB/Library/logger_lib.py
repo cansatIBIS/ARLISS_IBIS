@@ -3,13 +3,13 @@ import os
 import datetime
 
 def create_logger_log_file():
-    LOG_DIR = os.path.abspath("log")
+    LOG_DIR = "/home/pi/ARLISS_IBIS/IB/log"
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
     log_path = LOG_DIR + "/" + str(datetime.date.today())
     i = 0
     while True:
-        log_file = log_path + "/" + str(i).zfill(3)
+        log_file = log_path + "/" + str(__name__) + str(i).zfill(3)
         if os.path.exists(log_file):
             print(log_file + " already exists")
             i += 1
