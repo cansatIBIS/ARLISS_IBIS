@@ -280,7 +280,7 @@ class Pixhawk:
                     else:
                         try :
                             alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
-                            self.is_judge_alt(alt_now)
+                            self.change_judge_alt(alt_now)
                         except asyncio.TimeoutError:
                             logger_info.info("Too high or distance sensor might have some error")
                             continue
@@ -307,7 +307,7 @@ class Pixhawk:
     async def send_gps(self):
         
         while True:
-            if self.is_landed:
+            if self.is_judge_alt:
                 break
             else:
                 lat_deg, lng_deg, alt = await self.get_gps()
@@ -348,15 +348,15 @@ class Pixhawk:
                 break
 
             
-    def is_low_alt(self, alt):
+    def si_low_alt(self, alt):
         
         if alt < 1:
-            self.is_low_alt = True
+            return True
         else:
-            self.is_low_alt = False
+            return False
 
 
-    def is_judge_alt(self, alt):
+    def change_judge_alt(self, alt):
         
         if alt < 15:
             self.is_judge_alt = True
