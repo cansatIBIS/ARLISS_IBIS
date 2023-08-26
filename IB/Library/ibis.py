@@ -33,6 +33,8 @@ class Ibis:
                  is_destruct_deamon = True
                  ):
         
+        self.lora = Lora(lora_power_pin)
+        
         self.pixhawk = Pixhawk(fuse_pin,
                                wait_time,
                                lora_sleep_time, 
@@ -43,7 +45,7 @@ class Ibis:
                                waypoint_lng,
                                waypoint_alt,
                                mission_speed,
-                               lora_power_pin,
+                               self.lora,
                                deamon_pass)
         
         self.light = Light(light_threshold,
@@ -51,10 +53,8 @@ class Ibis:
                            stored_judge_time,
                            released_timelimit,
                            released_judge_time,
-                           lora_power_pin,
+                           self.lora,
                            deamon_pass)
-        
-        self.lora = Lora(lora_power_pin)
         
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
