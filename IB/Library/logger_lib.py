@@ -10,7 +10,7 @@ def create_logger_log_file():
     i = 0
     while True:
         log_file = log_path + "/" + str(i).zfill(3) + "_" + str(os.path.basename(sys.argv[0]))
-        if any(file.startswith(log_file[:len(log_path)+1+3]) for file in os.listdir(LOG_DIR)):
+        if any(file.startswith(log_file[:len(log_path)+1+3+1]) for file in os.listdir(LOG_DIR)):
             print(log_file + " already exists")
             i += 1
             continue
