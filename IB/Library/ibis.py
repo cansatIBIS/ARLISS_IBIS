@@ -61,6 +61,8 @@ class Ibis:
         self.deamon_log = self.deamon_file.read()
         self.is_destruct_deamon = is_destruct_deamon
         
+        logger_info.info("Ibis initialized")
+        
         
     async def wait_storing_phase(self):
         

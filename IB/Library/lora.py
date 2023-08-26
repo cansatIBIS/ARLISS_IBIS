@@ -21,6 +21,8 @@ class Lora:
         GPIO.setup(self.power, GPIO.OUT)
         self.serial_connect()
         
+        logger_info.info("Lora initialized")
+        
         
     async def serial_connect(self):
     

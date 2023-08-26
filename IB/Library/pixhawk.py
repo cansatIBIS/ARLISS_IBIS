@@ -54,6 +54,8 @@ class Pixhawk:
         self.is_judge_alt = False
         self.is_low_alt = False
         
+        logger_info.info("Pixhawk initialized")
+        
 
     async def get_flight_mode(self):
 
