@@ -29,7 +29,7 @@ is_destruct_deamon = True
 
 async def run():
     
-    Ibis = Ibis(# pixhawk
+    ibis = Ibis(# pixhawk
                  fuse_pin,
                  wait_time,
                  lora_sleep_time, 
@@ -52,7 +52,7 @@ async def run():
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  is_destruct_deamon = True)
     
-    Ibis.IBIS_MISSION()
+    ibis.IBIS_MISSION()
     
     
 if __name__ == "__main__":
