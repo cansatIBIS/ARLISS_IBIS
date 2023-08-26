@@ -35,7 +35,7 @@ class Lora:
                 connect_counter += 1
                 if connect_counter >= 10:
                     break
-                await asyncio.sleep(3)
+                time.sleep(3)
             else:
                 break
         logger_info.info("Serial port OK.")
