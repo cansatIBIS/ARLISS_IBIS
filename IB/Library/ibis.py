@@ -1,5 +1,3 @@
-import asyncio
-
 from pixhawk import Pixhawk
 from lora import Lora
 from light import Light
