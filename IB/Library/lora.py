@@ -40,7 +40,7 @@ class Lora:
                 break
         logger_info.info("Serial port OK.")
         self.operation_write()
-        self.serial.write("Lora start")
+        self.serial.write(b"Lora start\r\n")
         logger_info.info("Lora READY")
     
         
