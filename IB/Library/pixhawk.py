@@ -232,14 +232,31 @@ class Pixhawk:
             await self.lora.write("land judge start")
             start_time = time.time()
             while True:
+        
                 time_now = time.time()
-                if time_now-start_time < self.land_timelimit:
+                await asyncio.sleep(0)
+                
+                if time_now-start_time < 30:
                     try :
-                        alt_now = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
+                        alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
+                        self.is_judge_alt(alt_now)
                     except asyncio.TimeoutError:
-                        continue
-                        
-                    self.is_judge_alt(alt_now)
+                        logger_info.info("Too high or distance sensor might have some error")
+                        true_posi = self.IQR_removal(await self.get_alt_list("POSITION"))
+                        if len(true_posi) == 0:
+                            continue
+                        try:
+                            ave = sum(true_posi)/len(true_posi)
+                        except ZeroDivisionError as e:
+                            logger_info.info("GPS can't catch or pixhawk might have some error")
+                            continue
+                        for position in true_posi:
+                            if abs(ave-position) > 0.1:
+                                logger_info.info("-- Moving")
+                                continue
+                        else:
+                            is_landed = True
+                            
                         
                     if self.is_judge_alt:
                         true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
@@ -250,41 +267,24 @@ class Pixhawk:
                         except ZeroDivisionError as e:
                             logger_info.info(e)
                             continue
-                            
-                        self.is_low_alt(ave)
                         
-                        if self.is_low_alt:
+                        if self.is_low_alt(ave):
                             for distance in true_dist:
                                 if abs(ave-distance) > 0.01:
                                     logger_info.info("-- Moving")
                                     break
-                            else:
-                                true_posi = self.IQR_removal(await self.get_alt_list("POSITION"))
-                                if len(true_posi) == 0:
-                                    continue
-                                try:
-                                    ave = sum(true_posi)/len(true_posi)
-                                except ZeroDivisionError as e:
-                                    logger_info.info(e)
-                                    continue
-                                for position in true_posi:
-                                    if abs(ave-position) > 0.01:
-                                        logger_info.info("-- Moving. Lidar might have some error")
-                                        break
-                                else:
-                                    is_landed = True
-                                
                             if is_landed:
-                                logger_info.info("-- Lidar & Position Judge")
+                                logger_info.info("-- Lidar Judge")
                                 break
                         else:
                             logger_info.info("-- Over 1m")
                 else:
                     is_landed = True
-                    logger_info.info("-- Timer Judge")
-                    break
+                    if is_landed:
+                        logger_info.info("-- Timer Judge")
+                        break
                         
-            # await self.lora.write("land judge finish")
+            
             logger_info.info("####### Land judge finish #######")
 
             
