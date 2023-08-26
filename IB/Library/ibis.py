@@ -28,8 +28,7 @@ class Ibis:
                  lora_power_pin,
                # deamon
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
-                 is_destruct_deamon = True
-                 ):
+                 is_destruct_deamon = True):
         
         self.lora = Lora(lora_power_pin)
         
