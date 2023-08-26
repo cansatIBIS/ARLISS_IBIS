@@ -42,7 +42,6 @@ class Light:
     def spi_close(self):
         
         self.spi.close()
-        sys.exit()
         
         
     def get_light_val(self):
