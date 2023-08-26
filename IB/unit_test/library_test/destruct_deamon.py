@@ -28,7 +28,7 @@ is_destruct_deamon = True
 
 if __name__ == "__main__":
     
-    Ibis = Ibis(# pixhawk
+    ibis = Ibis(# pixhawk
                  fuse_PIN,
                  wait_time,
                  lora_sleep_time, 
@@ -51,4 +51,4 @@ if __name__ == "__main__":
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  is_destruct_deamon = True)
     
-    Ibis.destruct_deamon()
+    ibis.destruct_deamon()
