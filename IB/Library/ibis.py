@@ -97,6 +97,8 @@ class Ibis:
         
         logger_info.info("IBIS MISSION START")
         
+        self.lora.write("IBIS MISSION START")
+        
         await self.wait_storing_phase()
         
         await self.judge_phase()
@@ -106,3 +108,5 @@ class Ibis:
         await self.destruct_deamon()
         
         logger_info.info("IBIS MISSION COMPLETE")
+        
+        self.lora.write("IBIS MISSION COMPLETE")
