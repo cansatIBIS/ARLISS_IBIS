@@ -1,4 +1,5 @@
 import sys
+import asyncio
 
 ibis_directory = "/home/pi/ARLISS_IBIS/IB/Library"
 sys.path.append(ibis_directory)
@@ -26,7 +27,7 @@ deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
 is_destruct_deamon = True
 
 
-if __name__ == "__main__":
+async def run():
     
     Ibis = Ibis(# pixhawk
                  fuse_pin,
@@ -52,3 +53,8 @@ if __name__ == "__main__":
                  is_destruct_deamon = True)
     
     Ibis.IBIS_MISSION()
+    
+    
+if __name__ == "__main__":
+  
+  asyncio.run(run())
