@@ -234,7 +234,7 @@ class Pixhawk:
             while True:
         
                 time_now = time.time()
-                await asyncio.sleep(0)
+                await asyncio.sleep(0.1)
                 
                 if time_now-start_time < 30:
                     if self.is_judge_alt:
@@ -324,13 +324,13 @@ class Pixhawk:
             alt = "alt:" + str(alt)
             await self.lora.write(lat.encode())
             logger_info.info(lat)
-            await asyncio.sleep(0)
+            await asyncio.sleep(0.1)
             await self.lora.write(lng.encode())
             logger_info.info(lng)
-            await asyncio.sleep(0)
+            await asyncio.sleep(0.1)
             await self.lora.write(alt.encode())
             logger_info.info(alt)
-            await asyncio.sleep(0)
+            await asyncio.sleep(0.1)
             
             
     async def get_gps(self):
