@@ -217,7 +217,7 @@ class Pixhawk:
         
         else:
             logger_info.info("Waiting for store")
-            time.sleep(self.wait_time)
+            await asyncio.sleep(self.wait_time)
             logger_info.info("{} minutes passed".format(self.wait_time))
             
             
@@ -229,6 +229,7 @@ class Pixhawk:
             return
         
         else:
+            logger_info.info("################ Land judge start ################")
             await self.lora.write("land judge start")
             start_time = time.time()
             while True:
@@ -293,7 +294,6 @@ class Pixhawk:
                         logger_info.info("-- Timer Judge")
                         break
                         
-            
             logger_info.info("################ Land judge finish ###############")
 
             
@@ -308,7 +308,6 @@ class Pixhawk:
     def is_judge_alt(self, alt):
         
         if alt < 15:
-            logger_info.info("################ Land judge start ################")
             self.is_judge_alt = True
         else:
             self.is_judge_alt = False

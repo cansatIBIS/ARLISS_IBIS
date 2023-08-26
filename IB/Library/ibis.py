@@ -69,6 +69,7 @@ class Ibis:
     async def judge_phase(self):
         
         await self.pixhawk.connect()
+        await self.pixhawk.upload_mission()
         await self.light.stored_judge()
         await self.light.released_judge()
         await self.pixhawk.land_judge()
@@ -77,7 +78,6 @@ class Ibis:
         
     async def flying_phase(self):
         
-        await self.pixhawk.upload_mission()
         await self.pixhawk.health_check()
         await self.pixhawk.arm()
         await self.pixhawk.start_mission()
