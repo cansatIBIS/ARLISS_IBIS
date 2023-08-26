@@ -236,7 +236,7 @@ class Pixhawk:
                 time_now = time.time()
                 await asyncio.sleep(0)
                 
-                if time_now-start_time < 30:
+                if time_now-start_time < self.land_timelimit:
                     if self.is_judge_alt:
                         true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
                         if len(true_dist) == 0:
