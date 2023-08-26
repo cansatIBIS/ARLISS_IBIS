@@ -304,6 +304,7 @@ class Pixhawk:
             else:
                 await self.lora.send_gps()
     
+    
     async def landjudge_and_sendgps(self):
         
         coroutines = [
