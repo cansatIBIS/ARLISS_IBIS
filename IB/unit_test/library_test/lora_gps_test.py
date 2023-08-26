@@ -7,11 +7,11 @@ import asyncio
 from pixhawk import Pixhawk
 
 # parameters---------------------
-fuse_PIN = 0
+fuse_PIN = 3
 wait_time = 0
-lora_sleep_time = 0
-fuse_time = 0
-land_timelimit = 0
+lora_sleep_time = 3
+fuse_time = 3
+land_timelimit = 60
 health_continuous_count = 10
 waypoint_lat = 40.19373
 waypoint_lng = 140.05923
