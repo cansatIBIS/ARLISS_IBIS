@@ -99,7 +99,7 @@ class Ibis:
         
         logger_info.info("IBIS MISSION START")
         
-        self.lora.write("IBIS MISSION START")
+        await self.lora.write("IBIS MISSION START")
         
         await self.wait_storing_phase()
         
@@ -111,4 +111,4 @@ class Ibis:
         
         logger_info.info("IBIS MISSION COMPLETE")
         
-        self.lora.write("IBIS MISSION COMPLETE")
+        await self.lora.write("IBIS MISSION COMPLETE")
