@@ -44,6 +44,8 @@ class Pixhawk:
         self.max_speed = None
         self.latitude_deg = None
         self.longitude_deg = None
+        self.voltage_v = None
+        self.remaining_percent = None
         self.lidar = None
         self.tasks = None
         self.deamon_pass = deamon_pass
@@ -99,6 +101,13 @@ class Pixhawk:
             self.longitude_deg = position.longitude_deg
 
 
+    async def get_battery(self):
+
+        async for battery in self.pix.telemetry.battery():
+            self.voltage_v = battery.voltage_v
+            self.remaining_percent = battery.remaining_percent
+
+
     async def cycle_flight_mode(self):
 
         while True:
@@ -112,12 +121,19 @@ class Pixhawk:
                 await self.get_mission_progress()
                 await asyncio.sleep(0.1)
 
+
     async def cycle_position_lat_lng(self):
 
         while True:
             await self.get_position_lat_lng()
             await asyncio.sleep(0.1)
     
+
+    async def cycle_battery(self):
+
+        while True:
+            await self.get_battery()
+            await asyncio.sleep(0.1)
     
     async def cycle_lidar(self):
 
@@ -139,9 +155,14 @@ class Pixhawk:
                 + str(self.latitude_deg)
                 + " lng:"
                 + str(self.longitude_deg)
-                + " lidar: "
+                + " lidar:"
                 + str(self.lidar)
                 + "m"
+                + " battery:"
+                + str(self.voltage_v)
+                + "V, "
+                + str(self.remaining_percent)
+                + "%"
             )
             logger_info.info(str(log_txt))
             await asyncio.sleep(0.3)
@@ -444,6 +465,7 @@ class Pixhawk:
             self.cycle_flight_mode(),
             self.cycle_position_lat_lng(),
             self.cycle_lidar(),
+            self.cycle_battery(),
             self.cycle_show(),
             self.cycle_wait_mission_finished()
         ]
