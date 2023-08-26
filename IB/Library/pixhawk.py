@@ -294,15 +294,6 @@ class Pixhawk:
                         break
                         
             logger_info.info("################ Land judge finish ###############")
-            
-            
-    async def send_gps(self):
-        
-        while True:
-            if self.is_landed:
-                break
-            else:
-                await self.lora.send_gps()
     
     
     async def landjudge_and_sendgps(self):
@@ -317,20 +308,23 @@ class Pixhawk:
         
     async def send_gps(self):
         
-        lat_deg, lng_deg, alt = await self.get_gps()
-        if self.lora.is_lora_power_on:
-            lat = "lat:" + str(lat_deg)
-            lng = "lng:" + str(lng_deg)
-            alt = "alt:" + str(alt)
-            await self.lora.write(lat.encode())
-            logger_info.info(lat)
-            await asyncio.sleep(0)
-            await self.lora.write(lng.encode())
-            logger_info.info(lng)
-            await asyncio.sleep(0)
-            await self.lora.write(alt.encode())
-            logger_info.info(alt)
-            await asyncio.sleep(0)
+        while True:
+            lat_deg, lng_deg, alt = await self.get_gps()
+            if self.is_landed:
+                break
+            else:
+                lat = "lat:" + str(lat_deg)
+                lng = "lng:" + str(lng_deg)
+                alt = "alt:" + str(alt)
+                await self.lora.write(lat.encode())
+                logger_info.info(lat)
+                await asyncio.sleep(0)
+                await self.lora.write(lng.encode())
+                logger_info.info(lng)
+                await asyncio.sleep(0)
+                await self.lora.write(alt.encode())
+                logger_info.info(alt)
+                await asyncio.sleep(0)
             
             
     async def get_gps(self):
