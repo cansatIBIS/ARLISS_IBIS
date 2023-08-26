@@ -77,11 +77,11 @@ class Lora:
         
     async def send_gps(self):
         
-        lat_deg, lng_deg, alt_deg = await self.get_gps()
+        lat_deg, lng_deg, alt = await self.get_gps()
         if self.is_lora_power_on:
             lat = "lat:" + str(lat_deg)
             lng = "lng:" + str(lng_deg)
-            alt = "alt:" + str(alt_deg)
+            alt = "alt:" + str(alt)
             await self.write(lat.encode())
             logger_info.info(lat)
             await asyncio.sleep(0)
