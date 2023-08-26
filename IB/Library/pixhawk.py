@@ -313,6 +313,48 @@ class Pixhawk:
         ]
         self.judge_tasks = asyncio.gather(*coroutines)
         await self.judge_tasks
+        
+        
+    async def send_gps(self):
+        
+        lat_deg, lng_deg, alt = await self.get_gps()
+        if self.lora.is_lora_power_on:
+            lat = "lat:" + str(lat_deg)
+            lng = "lng:" + str(lng_deg)
+            alt = "alt:" + str(alt)
+            await self.lora.write(lat.encode())
+            logger_info.info(lat)
+            await asyncio.sleep(0)
+            await self.lora.write(lng.encode())
+            logger_info.info(lng)
+            await asyncio.sleep(0)
+            await self.lora.write(alt.encode())
+            logger_info.info(alt)
+            await asyncio.sleep(0)
+            
+            
+    async def get_gps(self):
+    
+        self.lat, self.lng, self.alt = "0", "0", "0"
+        while True:
+            try:
+                await asyncio.wait_for(self.gps(), timeout=0.8)
+            except asyncio.TimeoutError:
+                logger_info.info("Can't catch GPS")
+                self.lat = "error"
+                self.lng = "error"
+                self.alt = "error"
+            return self.lat, self.lng, self.alt
+            
+            
+    async def gps(self):
+        
+        async for position in self.pix.telemetry.position():
+                logger_info.info(position)
+                self.lat = str(position.latitude_deg)
+                self.lng = str(position.longitude_deg)
+                self.alt = str(position.relative_altitude_m)
+                break
 
             
     def is_low_alt(self, alt):
