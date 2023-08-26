@@ -190,7 +190,7 @@ class Pixhawk:
     
     async def wait_store(self):
         
-        if "Three minutes passed" in self.deamon_log:
+        if "{} minutes passed".format(self.wait_time) in self.deamon_log:
             await self.lora.write("skipped store wait")
             logger_info.info("skipped store wait")
             return
@@ -198,7 +198,7 @@ class Pixhawk:
         else:
             logger_info.info("Waiting for store")
             time.sleep(self.wait_time)
-            logger_info.info("Three minutes passed")
+            logger_info.info("{} minutes passed".format(self.wait_time))
             
             
     async def land_judge(self):
