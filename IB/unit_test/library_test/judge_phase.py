@@ -8,7 +8,7 @@ from ibis import Ibis
 
 
 fuse_PIN = 3
-wait_time = 60
+wait_time = 6
 lora_sleep_time = 3 
 fuse_time = 3
 land_timelimit = 8
@@ -19,7 +19,7 @@ waypoint_alt = 0
 mission_speed = 0
 light_threshold = 400
 stored_timelimit = 60
-stored_judge_time = 10
+stored_judge_time = 5
 released_timelimit = 8
 released_judge_time = 5
 lora_power_Pin = 4
