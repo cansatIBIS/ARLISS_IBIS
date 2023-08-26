@@ -52,7 +52,6 @@ class Light:
     async def stored_judge(self):
     
         if "stored judge finish" in self.deamon_log:
-            await self.lora.write("skipped stored judge")
             logger_info.info("skipped stored judge")
             return
         
@@ -100,7 +99,6 @@ class Light:
     async def released_judge(self):
         
         if "released judge finish" in self.deamon_log:
-            await self.lora.write("skipped released judge")
             logger_info.info("skipped released judge")
             return
         

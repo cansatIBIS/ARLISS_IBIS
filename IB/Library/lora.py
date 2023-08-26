@@ -85,10 +85,13 @@ class Lora:
             alt = "alt:" + str(alt_deg)
             await self.write(lat.encode())
             logger_info.info(lat)
+            await asyncio.sleep(0)
             await self.write(lng.encode())
             logger_info.info(lng)
+            await asyncio.sleep(0)
             await self.write(alt.encode())
             logger_info.info(alt)
+            await asyncio.sleep(0)
             
             
     async def get_gps(self):

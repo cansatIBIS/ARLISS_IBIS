@@ -224,7 +224,6 @@ class Pixhawk:
     async def land_judge(self):
         
         if "land judge finish" in self.deamon_log:
-            # await self.lora.write("skipped land judge")
             logger_info.info("skipped land judge")
             return
         
@@ -254,9 +253,9 @@ class Pixhawk:
                                     logger_info.info("-- Moving")
                                     continue
                             else:
-                                is_landed = True
+                                self.is_landed = True
                                 
-                            if is_landed:
+                            if self.is_landed:
                                 logger_info.info("-- Position Judge")
                                 break
                         else:
@@ -272,9 +271,9 @@ class Pixhawk:
                                     logger_info.info("-- Moving")
                                     break
                             else:
-                                is_landed = True
+                                self.is_landed = True
                                 
-                            if is_landed:
+                            if self.is_landed:
                                 logger_info.info("-- Lidar Judge")
                                 break
                         else:
@@ -289,12 +288,29 @@ class Pixhawk:
                             continue
                                 
                 else:
-                    is_landed = True
-                    if is_landed:
+                    self.is_landed = True
+                    if self.is_landed:
                         logger_info.info("-- Timer Judge")
                         break
                         
             logger_info.info("################ Land judge finish ###############")
+            
+            
+    async def send_gps(self):
+        
+        while True:
+            if self.is_landed:
+                break
+            else:
+                await self.lora.send_gps()
+    
+    async def landjudge_and_sendgps(self):
+        
+        coroutines = [
+            self.land_judge(),
+            self.send_gps()
+        ]
+        self.tasks = asyncio.gather(*coroutines)
 
             
     def is_low_alt(self, alt):
