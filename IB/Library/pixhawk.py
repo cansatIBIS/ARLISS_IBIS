@@ -337,7 +337,7 @@ class Pixhawk:
             await asyncio.sleep(0)
 
 
-    async def fusing(self):
+    async def fuse(self):
         
         try:
             GPIO.setmode(GPIO.BCM)
