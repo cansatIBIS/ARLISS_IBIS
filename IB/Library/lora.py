@@ -53,6 +53,7 @@ class Lora:
         
        
     async def power_off(self):
+        
         GPIO.output(self.lora_power_Pin, GPIO.LOW)
         self.is_lora_power_on = False
         print("Lora power off")
@@ -60,6 +61,7 @@ class Lora:
         
 
     async def power_on(self):
+        
         GPIO.output(self.lora_power_Pin, GPIO.HIGH)
         print("Lora power on")
         await self.write("processor")
@@ -69,6 +71,7 @@ class Lora:
         
         
     async def start_communication(self, light):
+        
         while True:
             if light.is_released:
                 await self.power_on()
@@ -77,6 +80,7 @@ class Lora:
             
     
     async def write(self, message: str):
+        
         msg_send = str(message) + self.CRLF
         self.serial.write(msg_send.encode("ascii"))
         await asyncio.sleep(4)
