@@ -5,6 +5,7 @@ sys.path.append(ibis_directory)
 
 import asyncio
 from pixhawk import Pixhawk
+from lora import Lora
 
 # parameters---------------------
 fuse_PIN = 0
@@ -17,10 +18,13 @@ waypoint_lat = 40.19373
 waypoint_lng = 140.05923
 waypoint_alt = 5
 mission_speed = 5
+lora_power_pin = 4
 #--------------------------------
 
 async def run():
 
+    lora = Lora(lora_power_pin)
+    
     pixhawk = Pixhawk(
                  fuse_PIN,
                  wait_time,
@@ -32,6 +36,7 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 lora
                  )
 
     main_coroutines = [

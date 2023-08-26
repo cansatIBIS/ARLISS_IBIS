@@ -8,6 +8,7 @@ from pixhawk import Pixhawk
 from logger_lib import logger_info
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
+from lora import Lora
 
 # parameters---------------------
 fuse_PIN = 0
@@ -20,10 +21,12 @@ waypoint_lat = 40.19373
 waypoint_lng = 140.05923
 waypoint_alt = 5
 mission_speed = 5
-lora_power_Pin = 0
+lora_power_Pin = 4
 #--------------------------------
 
 async def run():
+    
+    lora = Lora(lora_power_Pin)
 
     pixhawk = Pixhawk(
                  fuse_PIN,
@@ -36,7 +39,7 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
-                 lora_power_Pin
+                 lora
                  )
     
     await pixhawk.connect()
