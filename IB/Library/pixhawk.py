@@ -311,7 +311,8 @@ class Pixhawk:
             self.land_judge(),
             self.send_gps()
         ]
-        self.tasks = asyncio.gather(*coroutines)
+        self.judge_tasks = asyncio.gather(*coroutines)
+        await self.judge_tasks
 
             
     def is_low_alt(self, alt):
