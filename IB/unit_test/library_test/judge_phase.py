@@ -1,4 +1,5 @@
 import sys
+import asyncio
 
 ibis_directory = "/home/pi/ARLISS_IBIS/IB/Library"
 sys.path.append(ibis_directory)
@@ -26,29 +27,34 @@ deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
 is_destruct_deamon = True
 
 
+async def run():
+  
+  ibis = Ibis(# pixhawk
+              fuse_PIN,
+              wait_time,
+              lora_sleep_time, 
+              fuse_time,
+              land_timelimit,
+              health_continuous_count,
+              waypoint_lat,
+              waypoint_lng,
+              waypoint_alt,
+              mission_speed,
+              # light
+              light_threshold,
+              stored_timelimit,
+              stored_judge_time,
+              released_timelimit,
+              released_judge_time,
+              # lora
+              lora_power_Pin,
+              # deamon
+              deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+              is_destruct_deamon = True)
+    
+  await ibis.judge_phase()
+
+
 if __name__ == "__main__":
     
-    ibis = Ibis(# pixhawk
-                 fuse_PIN,
-                 wait_time,
-                 lora_sleep_time, 
-                 fuse_time,
-                 land_timelimit,
-                 health_continuous_count,
-                 waypoint_lat,
-                 waypoint_lng,
-                 waypoint_alt,
-                 mission_speed,
-               # light
-                 light_threshold,
-                 stored_timelimit,
-                 stored_judge_time,
-                 released_timelimit,
-                 released_judge_time,
-               # lora
-                 lora_power_Pin,
-               # deamon
-                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
-                 is_destruct_deamon = True)
-    
-    ibis.judge_phase()
+    asyncio.run(run())
