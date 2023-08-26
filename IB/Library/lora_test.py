@@ -1,3 +1,3 @@
 from lora import Lora
 
-lora = Lora()
+lora = Lora(4)
