@@ -224,7 +224,7 @@ class Pixhawk:
     async def land_judge(self):
         
         if "land judge finish" in self.deamon_log:
-            await self.lora.write("skipped land judge")
+            # await self.lora.write("skipped land judge")
             logger_info.info("skipped land judge")
             return
         
