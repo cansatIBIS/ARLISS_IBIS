@@ -1,6 +1,6 @@
 from typing import Any
 import spidev
-from logger_lib import logger_info, logger_debug
+from logger_lib import logger_info
 import time
 
 
