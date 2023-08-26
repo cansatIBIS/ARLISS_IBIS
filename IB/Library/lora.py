@@ -7,7 +7,7 @@ from mavsdk import System
 
 class Lora:
     
-    async def __init__(self,
+    def __init__(self,
                  lora_power_Pin):
         
         self.lora_power_Pin = lora_power_Pin
@@ -19,12 +19,12 @@ class Lora:
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         GPIO.setup(self.power, GPIO.OUT)
-        await self.serial_connect()
+        self.serial_connect()
         
         logger_info.info("Lora initialized")
         
         
-    async def serial_connect(self):
+    def serial_connect(self):
     
         connect_counter = 0
         while True:
@@ -40,7 +40,7 @@ class Lora:
                 break
         logger_info.info("Serial port OK.")
         self.operation_write()
-        await self.write(("Lora start").encode())
+        self.serial.write("Lora start")
         logger_info.info("Lora READY")
     
         
