@@ -321,7 +321,7 @@ class Pixhawk:
                 logger_info.info(self.lng)
                 await asyncio.sleep(0)
                 await self.lora.write(alt)
-                logger_info.info(alt)
+                logger_info.info(self.alt)
                 await asyncio.sleep(0)
             
             
