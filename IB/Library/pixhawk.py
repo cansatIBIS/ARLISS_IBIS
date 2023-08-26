@@ -1,4 +1,5 @@
 import asyncio
+import mavsdk
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger_lib import logger_info, logger_debug
