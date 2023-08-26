@@ -113,6 +113,7 @@ class Light:
             start_time = time.perf_counter()
             duration_start_time = time.perf_counter()
             is_continue = False
+            pre_time_stamp = 0
 
 
             while True:
