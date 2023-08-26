@@ -74,7 +74,7 @@ class Ibis:
         await self.light.released_judge()
         await self.lora.power_on()
         await self.pixhawk.landjudge_and_sendgps()
-        await self.pixhawk.fuse()
+        self.pixhawk.fuse()
         
         
     async def flying_phase(self):
