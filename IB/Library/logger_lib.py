@@ -9,7 +9,7 @@ def create_logger_log_file():
     log_path = LOG_DIR + "/" + str(datetime.date.today())
     i = 0
     while True:
-        log_file = log_path + "/" + str(os.path.basename(__file__)) + "_" + str(i).zfill(3)
+        log_file = log_path + "/" + str(sys.argv[0]) + "_" + str(i).zfill(3)
         if os.path.exists(log_file):
             print(log_file + " already exists")
             i += 1
