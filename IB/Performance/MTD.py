@@ -52,7 +52,7 @@ async def run():
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  is_destruct_deamon = True)
     
-    ibis.IBIS_MISSION()
+    await ibis.IBIS_MISSION()
     
     
 if __name__ == "__main__":
