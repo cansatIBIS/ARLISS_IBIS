@@ -234,7 +234,7 @@ class Pixhawk:
             while True:
         
                 time_now = time.time()
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(0)
                 
                 if time_now-start_time < 30:
                     if self.is_judge_alt:
@@ -336,15 +336,14 @@ class Pixhawk:
     async def get_gps(self):
     
         self.lat, self.lng, self.alt = "0", "0", "0"
-        while True:
-            try:
-                await asyncio.wait_for(self.gps(), timeout=0.8)
-            except asyncio.TimeoutError:
-                logger_info.info("Can't catch GPS")
-                self.lat = "error"
-                self.lng = "error"
-                self.alt = "error"
-            return self.lat, self.lng, self.alt
+        try:
+            await asyncio.wait_for(self.gps(), timeout=0.8)
+        except asyncio.TimeoutError:
+            logger_info.info("Can't catch GPS")
+            self.lat = "error"
+            self.lng = "error"
+            self.alt = "error"
+        return self.lat, self.lng, self.alt
             
             
     async def gps(self):
