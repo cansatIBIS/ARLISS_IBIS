@@ -19,6 +19,7 @@ class Lora:
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         GPIO.setup(self.power, GPIO.OUT)
+        self.serial_connect()
         
         
     async def serial_connect(self):
