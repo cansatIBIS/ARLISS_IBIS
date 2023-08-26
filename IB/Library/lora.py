@@ -75,7 +75,7 @@ class Lora:
     
     async def write(self, message: str):
         msg_send = str(message) + self.CRLF
-        self.write(msg_send.encode("ascii"))
+        self.serial.write(msg_send.encode("ascii"))
         await asyncio.sleep(4)
         
         

@@ -26,6 +26,7 @@ class Pixhawk:
         
         self.pix = System()
         self.lora = Lora(lora_power_Pin)
+        self.lora.serial_connect()
 
         self.fuse_PIN = fuse_PIN
         self.wait_time = wait_time

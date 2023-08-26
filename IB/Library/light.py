@@ -17,6 +17,8 @@ class Light:
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
         self.lora = Lora(lora_power_Pin)
+        self.lora.serial_connect()
+        
         self.light_threshold = light_threshold
         self.stored_timelimit = stored_timelimit
         self.stored_judge_time = stored_judge_time
