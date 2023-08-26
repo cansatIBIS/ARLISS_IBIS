@@ -40,6 +40,8 @@ async def run():
                  lora
                  )
     
+    
+    await pixhawk.connect()
     await pixhawk.landjudge_and_sendgps()
     
 
