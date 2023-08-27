@@ -497,7 +497,7 @@ class Pixhawk:
                 was_in_air = is_in_air
 
             if was_in_air and not is_in_air:
-                for task in tasks:
+()                for task in tasks:
                     task.cancel()
                     try:
                         await task
