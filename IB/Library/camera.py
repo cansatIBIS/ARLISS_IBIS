@@ -22,7 +22,7 @@ class Camera:
                  image_path = "/home/pi/ARLISS_IBIS/IB/Images/" 
                  + str(os.path.splitext(os.path.basename(sys.argv[0]))[0])
                  + "_"
-                 + datetime.datetime.now()
+                 + str(datetime.datetime.now())
                  + ".jpg"):
         
         self.camera = picamera.PiCamera()
