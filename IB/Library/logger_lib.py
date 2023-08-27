@@ -22,13 +22,8 @@ def create_logger_log_file():
             i += 1
             continue
         else:
-            try:
-                with open(log_file, mode="w"):
-                    pass
-            except FileNotFoundError:
-                os.mkdir(log_path)
-                with open(log_file, mode="w"):
-                    pass
+            with open(log_file, mode="w"):
+                pass
             return str(log_file)
 
 def set_logger():
