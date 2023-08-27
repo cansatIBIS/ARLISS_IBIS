@@ -112,6 +112,12 @@ class Pixhawk:
             self.voltage_v = battery.voltage_v
             self.remaining_percent = battery.remaining_percent
 
+    
+    async def get_in_air(self):
+
+        async for is_in_air in self.pix.telemetry.in_air():
+            return is_in_air
+
 
     async def cycle_flight_mode(self):
 
@@ -209,7 +215,12 @@ class Pixhawk:
         
         logger_info.info("Landing")
         await self.pix.action.land()
-        await asyncio.sleep(10)
+        while True:
+            await asyncio.sleep(1)
+            is_in_air = await self.get_in_air()
+            logger_info.info(f"is_in_air:{is_in_air}")
+            if not is_in_air:
+                break
         logger_info.info("Landed!")
             
     
