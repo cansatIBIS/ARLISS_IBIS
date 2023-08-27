@@ -15,11 +15,11 @@ class Camera:
                  pixel_number_x = 3296,
                  pixel_number_y = 2521,
                  pixel_size = 1.12,
-                 focal_length = 3.04
-                 image_path = "/home/pi/ARLISS_IBIS/IB/Images):
+                 focal_length = 3.04,
+                 image_path = "/home/pi/ARLISS_IBIS/IB/Images"):
         
         self.camera = picamera.PiCamera()
-        
+    
         self.pixel_number_x = pixel_number_x
         self.pixel_number_y = pixel_number_y
         self.pixel_size = pixel_size
@@ -30,3 +30,8 @@ class Camera:
 
     def take_pic(self):
         self.camera.capture(file_path)
+
+    def save_detected_img(file_path, img, center_px):
+        cv2.circle(img, (int(center_px[0]), int(center_px[1])), 30, (0, 200, 0),
+                thickness=3, lineType=cv2.LINE_AA)
+        cv2.imwrite(file_path, img)
