@@ -45,7 +45,9 @@ class Light:
     def get_light_val(self):
     
         resp = self.spi.xfer2([0x68, 0x00])                 
-        value = ((resp[0] << 8) + resp[1]) & 0x3FF    
+        value = ((resp[0] << 8) + resp[1]) & 0x3FF  
+        if value == 0:
+            value = float("nan")
         return value
     
     
