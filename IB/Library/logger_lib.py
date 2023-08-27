@@ -18,7 +18,7 @@ def create_logger_log_file():
             os.mkdir(log_path)
             pass
         if any(file.startswith(file_name[:3]) for file in os.listdir(log_path)):
-            print(log_file + " already exists")
+            print(str(i).zfill(3) + " already exists")
             i += 1
             continue
         else:
