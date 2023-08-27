@@ -73,11 +73,15 @@ class Light:
                 if abs(pre_time_stamp - time_stamp) > 0.4:
                     pre_time_stamp = time_stamp
                     logger_info.info("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
+                    
+                
+                if light_val < self.light_threshold:
+                    is_continue = True
+                
+                else:
+                    is_continue = False
 
                 if is_continue:
-                    if light_val >= self.light_threshold:
-                        is_continue = False
-                        continue
 
                     duration_time = time.perf_counter() - duration_start_time
 
@@ -120,11 +124,15 @@ class Light:
                 if abs(pre_time_stamp - time_stamp) > 0.4:
                     pre_time_stamp = time_stamp
                     logger_info.info("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
-
+                    
+                
+                if light_val > self.light_threshold:
+                    is_continue = False
+                
+                else:
+                    is_continue = True
+                    
                 if is_continue:
-                    if light_val <= self.light_threshold:
-                        is_continue = False
-                        continue
 
                     duration_time = time.perf_counter() - duration_start_time
 
