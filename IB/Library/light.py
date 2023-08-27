@@ -2,7 +2,6 @@ from typing import Any
 import spidev
 from logger_lib import logger_info
 import time
-import pandas as pd
 
 
 class Light:
@@ -48,7 +47,7 @@ class Light:
         resp = self.spi.xfer2([0x68, 0x00])                 
         value = ((resp[0] << 8) + resp[1]) & 0x3FF  
         if value == 0:
-            value = int(pd.NA)
+            value = float("nan")
         return value
     
     
@@ -73,7 +72,7 @@ class Light:
                 time_stamp = time.perf_counter() - duration_start_time
                 if abs(pre_time_stamp - time_stamp) > 0.4:
                     pre_time_stamp = time_stamp
-                    logger_info.info("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
+                    logger_info.info("{:5.1f}| 光センサ:{:>3}, 継続:{}".format(time_stamp, light_val, is_continue))
                     
                 
                 if light_val < self.light_threshold:
