@@ -21,14 +21,16 @@ waypoint_lat = 40.19373
 waypoint_lng = 140.05923
 waypoint_alt = 5
 mission_speed = 5
-lora_power_Pin = 4
+lora_power_pin = 4
 lora_sleep_time = 0
 #--------------------------------
 
 async def run():
     
-    lora = Lora(lora_power_Pin,
-                lora_sleep_time)
+    lora = Lora(
+        lora_power_pin,
+        lora_sleep_time
+        )
 
     pixhawk = Pixhawk(
                  fuse_PIN,
