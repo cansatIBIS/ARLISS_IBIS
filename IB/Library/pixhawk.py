@@ -611,3 +611,4 @@ class Pixhawk:
         except OffboardError as error:
             logger_info.info(f"Stopping offboard mode failed \
                     with error code: {error._result.result}")
+            await self.land()
