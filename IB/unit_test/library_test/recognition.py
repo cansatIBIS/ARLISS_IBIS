@@ -5,7 +5,7 @@ sys.path.append(ibis_directory)
 
 from camera import Camera
 
-async def run():
+def run():
     camera = Camera()
     camera.take_pic()
     res = camera.detect_center()
@@ -14,3 +14,5 @@ async def run():
     distance = 1
     x_m, y_m = camera.get_target_position(distance)
     print(f"x={x_m},y={y_m}")
+
+run()
