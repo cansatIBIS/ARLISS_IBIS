@@ -5,7 +5,7 @@ import picamera
 import cv2
 import numpy as np
 import datetime
-from logger import logger_info
+from logger_lib import logger_info
 
 
 class Camera:
