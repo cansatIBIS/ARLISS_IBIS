@@ -47,7 +47,7 @@ class Light:
         resp = self.spi.xfer2([0x68, 0x00])                 
         value = ((resp[0] << 8) + resp[1]) & 0x3FF  
         if value == 0:
-            value = float("nan")
+            value = int("nan")
         return value
     
     
