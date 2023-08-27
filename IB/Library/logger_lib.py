@@ -12,7 +12,7 @@ def create_logger_log_file():
         file_name = str(i).zfill(3) + "_" + str(os.path.splitext(os.path.basename(sys.argv[0]))[0])
         log_file = log_path + "/" + file_name
         try:
-            print(any(file.startswith(file_name[:3]) for file in os.listdir(log_path)))
+            print(any(file for file in os.listdir(log_path)))
             pass
         except FileNotFoundError:
             os.mkdir(log_path)
