@@ -1,7 +1,9 @@
 import asyncio
 import mavsdk
+import numpy as np
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
+from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger_lib import logger_info
 from camera import Camera
 import time
@@ -49,6 +51,8 @@ class Pixhawk:
         self.lidar = None
         self.tasks = None
         self.image_res = None
+        self.east_m = None
+        self.north_m = None
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
@@ -565,7 +569,7 @@ class Pixhawk:
         await asyncio.sleep(20)
 
 
-    async def img_navigation(self):
+    async def estimate_target_position(self, lidar_height, heading_deg):
 
         async for d in self.pix.telemetry.distance_sensor(): #? 測れなかったらどうしよう
             lidar_height = d.current_distance_m
@@ -580,10 +584,30 @@ class Pixhawk:
         self.camera.take_pic()
         self.image_res = self.detect_center()
         logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
-        distance = lidar_height
-        a = pixel_number_x*pixel_size/1000 # 画像(ピクセル単位)の横の長さ[mm]
-        b = pixel_number_y*pixel_size/1000 # 画像(ピクセル単位)の縦の長さ[mm]
-        image_x = distance*a/f # 画像の横の距離[m]
-        image_y = distance*b/f # 画像の縦の距離[m]
-        x_m = res['center'][0]*image_x/2
-        y_m = res['center'][1]*image_y/2
+        
+        x_m, y_m = self.camera.get_target_position(self, lidar_height)
+
+        self.east_m = 1/np.sqrt(2)*(y_m-x_m)*np.cos(heading_deg*np.pi/180)-1/np.sqrt(2)*(y_m+x_m)*np.sin(heading_deg*np.pi/180)
+        self.north_m = 1/np.sqrt(2)*(y_m-x_m)*np.sin(heading_deg*np.pi/180)+1/np.sqrt(2)*(y_m+x_m)*np.cos(heading_deg*np.pi/180)
+
+        logger_info.info(f"go to the red position:北に{self.north_m}m,東に{self.east_m}")
+        
+
+    async def start_offboard_ned(self):
+        logger_info.info("-- Setting initial setpoint")
+        await self.pix.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0 , 0.0))
+        await self.pix.offboard.start()
+
+    
+    async def image_navigation_offboard_ned(self):
+        await self.pix.offboard.set_position_ned(
+            PositionNedYaw(self.north_m, self.east_m, 0.0, 0.0))
+        
+
+    async def stop_offboard(self):
+        logger_info.info("-- Stopping offboard")
+        try:
+            await self.pix.offboard.stop()
+        except OffboardError as error:
+            logger_info.info(f"Stopping offboard mode failed \
+                    with error code: {error._result.result}")

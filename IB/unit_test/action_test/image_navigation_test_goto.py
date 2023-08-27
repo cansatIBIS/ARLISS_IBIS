@@ -156,6 +156,7 @@ async def img_navigation(drone):
 
 
     await drone.action.goto_location(red_posi[0],red_posi[1], absolute_altitude, 0)
+    logger_info.info("goto start")
     await asyncio.sleep(10)
     logger_info.info("-- Landing")
     await drone.action.land()

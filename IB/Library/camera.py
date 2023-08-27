@@ -1,3 +1,4 @@
+import asyncio
 import os
 import sys
 import picamera
@@ -38,6 +39,8 @@ class Camera:
 
         self.img  = None
         self.center_px = None
+        self.image_length = None
+        self.image_width = None
 
         logger_info.info("Camera initialized")
 
@@ -96,4 +99,19 @@ class Camera:
         
         return res
     
-    def get_image_info(self):
+
+    def get_target_position(self, distance):
+
+
+        image_length = self.pixel_number_x * self.pixel_size / 1000
+        image_width = self.pixel_number_y * self.pixel_size / 1000
+
+        image_x = distance * image_length / self.focal_length
+        image_y = distance * image_width / self.focal_length
+
+        x_m = self.res['center'][0]*image_x/2
+        y_m = self.res['center'][1]*image_y/2
+
+        return x_m, y_m
+
+

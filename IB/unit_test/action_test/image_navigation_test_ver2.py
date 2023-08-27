@@ -152,6 +152,7 @@ async def img_navigation(drone):
     logger_info.info("-- Setting initial setpoint")
     await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0 , 0.0))
     await drone.offboard.start()
+    logger_info.info("offboard start")
 
     await drone.offboard.set_position_ned(
             PositionNedYaw(north_m, east_m, 0.0, 0.0)) #? 方位が違うかも
