@@ -307,6 +307,9 @@ class Pixhawk:
     async def send_gps(self):
         
         while True:
+            
+            if self.is_landed:
+                break
             if self.is_judge_alt:
                 break
             else:
