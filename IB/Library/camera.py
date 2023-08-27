@@ -41,6 +41,7 @@ class Camera:
         self.center_px = None
         self.image_length = None
         self.image_width = None
+        self.res = None
 
         logger_info.info("Camera initialized")
 
@@ -82,22 +83,22 @@ class Camera:
         centroids[:,1] = (height/2 - centroids[:,1]) / height*2
         percent = stats[:,4] / (height*width)
         
-        res = {}
+        self.res = {}
 
         if nlabels == 0:
-            res['height'] = None
-            res['width'] = None
-            res['percent'] = 0
-            res['center'] = None
+            self.res['height'] = None
+            self.res['width'] = None
+            self.res['percent'] = 0
+            self.res['center'] = None
         else:
             max_index = np.argmax(percent)
-            res['height'] = height
-            res['width'] = width
-            res['percent'] = percent[max_index]
-            res['center'] = centroids[max_index]
+            self.res['height'] = height
+            self.res['width'] = width
+            self.res['percent'] = percent[max_index]
+            self.res['center'] = centroids[max_index]
             self.save_detected_img(self.image_path, self.img, ((1-res['center'][0])*width/2, (1-res['center'][1])*height/2))
         
-        return res
+        return self.res
     
 
     def get_target_position(self, distance):
