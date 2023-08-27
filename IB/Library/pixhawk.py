@@ -3,6 +3,7 @@ import mavsdk
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from logger_lib import logger_info
+from camera import Camera
 import time
 import datetime
 import RPi.GPIO as GPIO
@@ -24,6 +25,7 @@ class Pixhawk:
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
         
         self.pix = System()
+        self.camera = Camera()
         self.lora = lora
 
         self.fuse_pin = fuse_pin
@@ -46,6 +48,7 @@ class Pixhawk:
         self.remaining_percent = None
         self.lidar = None
         self.tasks = None
+        self.image_res = None
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
@@ -560,3 +563,27 @@ class Pixhawk:
         await self.pix.action.goto_location(self.waypoint_lat, self.waypoint_lng, abs_alt, 0)
         logger_info.info("Going to location...")
         await asyncio.sleep(20)
+
+
+    async def img_navigation(self):
+
+        async for d in self.pix.telemetry.distance_sensor(): #? 測れなかったらどうしよう
+            lidar_height = d.current_distance_m
+            logger_info.info(f"current height:{lidar_height}m")
+            break
+
+        async for heading in self.pix.telemetry.heading():
+            heading_deg = heading.heading_deg
+            logger_info.info(f"current heading: {heading_deg}") 
+            break
+        
+        self.camera.take_pic()
+        self.image_res = self.detect_center()
+        logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
+        distance = lidar_height
+        a = pixel_number_x*pixel_size/1000 # 画像(ピクセル単位)の横の長さ[mm]
+        b = pixel_number_y*pixel_size/1000 # 画像(ピクセル単位)の縦の長さ[mm]
+        image_x = distance*a/f # 画像の横の距離[m]
+        image_y = distance*b/f # 画像の縦の距離[m]
+        x_m = res['center'][0]*image_x/2
+        y_m = res['center'][1]*image_y/2
