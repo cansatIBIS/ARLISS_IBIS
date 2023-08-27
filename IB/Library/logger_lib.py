@@ -12,12 +12,11 @@ def create_logger_log_file():
         file_name = str(i).zfill(3) + "_" + str(os.path.splitext(os.path.basename(sys.argv[0]))[0])
         log_file = log_path + "/" + file_name
         try:
-            with open(log_file, mode="w"):
-                pass
+            print(any(file.startswith(file_name[:3]) for file in os.listdir(log_path)))
+            pass
         except FileNotFoundError:
             os.mkdir(log_path)
-            with open(log_file, mode="w"):
-                pass
+            pass
         if any(file.startswith(file_name[:3]) for file in os.listdir(log_path)):
             print(log_file + " already exists")
             i += 1
