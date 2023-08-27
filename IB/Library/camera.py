@@ -96,7 +96,7 @@ class Camera:
             self.res['width'] = width
             self.res['percent'] = percent[max_index]
             self.res['center'] = centroids[max_index]
-            self.save_detected_img(self.image_path, self.img, ((1-res['center'][0])*width/2, (1-res['center'][1])*height/2))
+            self.save_detected_img(self.image_path, self.img, ((1-self.res['center'][0])*width/2, (1-self.res['center'][1])*height/2))
         
         return self.res
     
