@@ -51,10 +51,10 @@ class Pixhawk:
         self.voltage_v = None
         self.remaining_percent = None
         self.lidar = None
-        self.tasks = None
         self.image_res = None
         self.east_m = None
         self.north_m = None
+        self.is_tasks_cancel_ok = False
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
@@ -123,64 +123,82 @@ class Pixhawk:
 
     async def cycle_flight_mode(self):
 
-        while True:
-            await self.get_flight_mode()
-            await asyncio.sleep(0.1)
+        try:
+            while True:
+                await self.get_flight_mode()
+                await asyncio.sleep(0.1)
+        except asyncio.CancelledError:
+            pass
     
     async def cycle_mission_progress(self):
 
-        while True:
+        try:
             while True:
                 await self.get_mission_progress()
                 await asyncio.sleep(0.1)
+        except asyncio.CancelledError:
+            pass
 
 
     async def cycle_position_lat_lng(self):
 
-        while True:
-            await self.get_position_lat_lng()
-            await asyncio.sleep(0.1)
+        try:
+            while True:
+                await self.get_position_lat_lng()
+                await asyncio.sleep(0.1)
+        except asyncio.CancelledError:
+            pass
     
 
     async def cycle_battery(self):
 
-        while True:
-            await self.get_battery()
-            await asyncio.sleep(0.1)
+        try:
+            while True:
+                await self.get_battery()
+                await asyncio.sleep(0.1)
+        except asyncio.CancelledError:
+            pass
+
     
     
     async def cycle_lidar(self):
 
-        while True:
-            await self.get_lidar()
-            await asyncio.sleep(0.1)
+        try:
+            while True:
+                await self.get_lidar()
+                await asyncio.sleep(0.1)
+        except asyncio.CancelledError:
+            pass
 
 
     async def cycle_show(self):
 
-        while True:
-            log_txt = (
-                " mode:"
-                + str(self.flight_mode)
-                + " mission progress:"
-                + str(self.mp_current)
-                + "/"
-                + str(self.mp_total)
-                + " lat:"
-                + str(self.latitude_deg)
-                + " lng:"
-                + str(self.longitude_deg)
-                + " lidar:"
-                + str(self.lidar)
-                + "m"
-                + " battery:"
-                + str(self.voltage_v)
-                + "V, "
-                + str(self.remaining_percent)
-                + "%"
-            )
-            logger_info.info(str(log_txt))
-            await asyncio.sleep(0.3)
+        try:
+            while True:
+                log_txt = (
+                    " mode:"
+                    + str(self.flight_mode)
+                    + " mission progress:"
+                    + str(self.mp_current)
+                    + "/"
+                    + str(self.mp_total)
+                    + " lat:"
+                    + str(self.latitude_deg)
+                    + " lng:"
+                    + str(self.longitude_deg)
+                    + " lidar:"
+                    + str(self.lidar)
+                    + "m"
+                    + " battery:"
+                    + str(self.voltage_v)
+                    + "V, "
+                    + str(self.remaining_percent)
+                    + "%"
+                )
+                logger_info.info(str(log_txt))
+                await asyncio.sleep(0.3)
+        except asyncio.CancelledError:
+            pass
             
     
     async def connect(self):
@@ -553,8 +571,9 @@ class Pixhawk:
             self.cycle_show(),
             self.cycle_wait_mission_finished()
         ]
-        self.tasks = asyncio.gather(*main_coroutines)
-        await self.tasks
+        tasks = asyncio.gather(*main_coroutines)
+        cancel_task = asyncio.create_task(self.tasks_cancel(tasks))
+        await asyncio.gather(tasks, cancel_task, return_exceptions=True)
 
 
     async def clear_mission(self):
@@ -571,7 +590,24 @@ class Pixhawk:
             if mission_finished:
                 logger_info.info("Mission finished")
                 break
-        self.tasks.cancel()
+        self.is_tasks_cancel_ok = True
+
+
+    async def tasks_cancel(self, tasks):
+        while True:
+            await asyncio.sleep(1)
+            if self.is_tasks_cancel_ok:
+                break
+        tasks.cancel()
+        await asyncio.gather(*tasks, return_exceptions=True)
+
+
+    def tasks_cancel_ng(self):
+        self.is_tasks_cancel_ok = False
+
+
+    def tasks_cancel_ok(self):
+        self.is_tasks_cancel_ok = True
 
 
     async def goto_location(self):
