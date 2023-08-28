@@ -51,7 +51,6 @@ class Pixhawk:
         self.voltage_v = None
         self.remaining_percent = None
         self.lidar = None
-        self.tasks = None
         self.image_res = None
         self.east_m = None
         self.north_m = None
