@@ -70,6 +70,7 @@ class Pixhawk:
         async for flight_mode in self.pix.telemetry.flight_mode():
             self.flight_mode = flight_mode
             
+            
     async def get_mission_progress(self):
         
         async for mission_progress in self.pix.mission.mission_progress():
@@ -129,6 +130,7 @@ class Pixhawk:
                 await asyncio.sleep(0.1)
         except asyncio.CancelledError:
             pass
+        
     
     async def cycle_mission_progress(self):
 
