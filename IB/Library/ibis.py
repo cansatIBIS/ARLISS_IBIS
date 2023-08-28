@@ -17,6 +17,7 @@ class Ibis:
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 use_camera,
                # light
                  light_threshold,
                  stored_timelimit,
@@ -43,7 +44,8 @@ class Ibis:
                                waypoint_alt,
                                mission_speed,
                                self.lora,
-                               deamon_pass)
+                               deamon_pass,
+                               use_camera)
         
         self.light = Light(light_threshold,
                            stored_timelimit,
