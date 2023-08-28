@@ -63,6 +63,8 @@ async def run():
 
     await pixhawk.start_mission()
 
+    pixhawk.tasks_cancel_ng()
+
     await pixhawk.gather_main_coroutines()
     
     await pixhawk.clear_mission()
