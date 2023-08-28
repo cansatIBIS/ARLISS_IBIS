@@ -24,10 +24,12 @@ class Pixhawk:
                  waypoint_alt,
                  mission_speed,
                  lora,
-                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
+                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+                 use_camera = False):
         
         self.pix = System()
-        self.camera = Camera()
+        if use_camera:
+            self.camera = Camera()
         self.lora = lora
 
         self.fuse_pin = fuse_pin
