@@ -13,6 +13,7 @@ wait_time = 0
 lora_sleep_time = 0
 fuse_time = 0
 land_timelimit = 30
+land_judge_len = 30
 health_continuous_count = 10
 waypoint_lat = 40.19373
 waypoint_lng = 140.05923
@@ -34,6 +35,7 @@ async def run():
                  wait_time,
                  fuse_time,
                  land_timelimit,
+                 land_judge_len,
                  health_continuous_count,
                  waypoint_lat,
                  waypoint_lng,

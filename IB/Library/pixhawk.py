@@ -18,6 +18,7 @@ class Pixhawk:
                  wait_time,
                  fuse_time,
                  land_timelimit,
+                 land_judge_len,
                  health_continuous_count,
                  waypoint_lat,
                  waypoint_lng,
@@ -36,6 +37,7 @@ class Pixhawk:
         self.wait_time = wait_time
         self.fuse_time = fuse_time
         self.land_timelimit = land_timelimit
+        self.land_judge_len = land_judge_len
         self.health_continuous_count = health_continuous_count
         self.waypoint_lat = waypoint_lat
         self.waypoint_lng = waypoint_lng
@@ -412,8 +414,7 @@ class Pixhawk:
     async def get_alt_list(self, priority):
         
         altitude_list = []
-        iter = 0
-        while True:
+        for _ in range(self.land_judge_len):
             if priority == "LIDAR":
                 try :
                     distance = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
@@ -431,18 +432,26 @@ class Pixhawk:
                     altitude_list =[]
                     return altitude_list
                 altitude_list.append(position)
-                
-            iter += 1
-            if iter >= 30:
-                break
         return altitude_list
             
 
-    def IQR_removal(self, data):
-        
+    def IQR_removal(data):
         data.sort()
-        quartile_25 = (data[7]+data[8])/2
-        quartile_75 = (data[22]+data[23])/2
+        l = len(data)
+        flag = l%4
+        value_25 = l//4
+        if flag == 0:
+            quartile_25 = (data[value_25]+data[value_25+1])/2
+            quartile_75 = (data[value_25*3]+data[value_25*3+1])/2
+        elif flag == 1:
+            quartile_25 = (data[value_25]+data[value_25+1])/2
+            quartile_75 = (data[value_25*3+1]+data[value_25*3+2])/2
+        elif flag == 2:
+            quartile_25 = data[value_25]
+            quartile_75 = data[value_25*3]
+        elif flag == 3:
+            quartile_25 = data[value_25]
+            quartile_75 = data[value_25*3+1]
         IQR = quartile_75-quartile_25
         true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
         return true_data
