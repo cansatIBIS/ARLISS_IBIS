@@ -8,10 +8,11 @@ from pixhawk import Pixhawk
 from lora import Lora
 
 # parameters---------------------
+lora_power_pin = 4
+lora_sleep_time = 3
 fuse_PIN = 3
-wait_time = 0
-lora_sleep_time = 0
-fuse_time = 0
+wait_time = 10
+fuse_time = 3
 land_timelimit = 30
 land_judge_len = 30
 health_continuous_count = 10
@@ -19,8 +20,6 @@ waypoint_lat = 40.19373
 waypoint_lng = 140.05923
 waypoint_alt = 5
 mission_speed = 5
-lora_power_pin = 4
-lora_sleep_time = 0
 #--------------------------------
 
 async def run():
@@ -44,7 +43,10 @@ async def run():
                  lora
                  )
     
-    await pixhawk.land_judge()
+    await pixhawk.connect()
+    await pixhawk.wait_storing()
+    await pixhawk.landjudge_and_sendgps()
+    await pixhawk.fuse()
 
 if __name__ == "__main__":
 
