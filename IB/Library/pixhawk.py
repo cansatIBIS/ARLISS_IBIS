@@ -148,11 +148,13 @@ class Pixhawk:
             await self.get_battery()
             await asyncio.sleep(0.1)
     
+    
     async def cycle_lidar(self):
 
         while True:
             await self.get_lidar()
             await asyncio.sleep(0.1)
+
 
     async def cycle_show(self):
 
