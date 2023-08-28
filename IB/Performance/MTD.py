@@ -25,6 +25,7 @@ released_judge_time = 5
 lora_power_pin = 4
 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
 is_destruct_deamon = True
+use_camera = True
 
 
 async def run():
@@ -39,6 +40,7 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 use_camera,
                # light
                  light_threshold,
                  stored_timelimit,
