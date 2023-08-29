@@ -212,6 +212,7 @@ def detect_center(file_path):
         res['width'] = None
         res['percent'] = 0
         res['center'] = None
+        save_detected_img(file_path, img, (0,0))
     else:
         max_index = np.argmax(percent)
         res['height'] = height
