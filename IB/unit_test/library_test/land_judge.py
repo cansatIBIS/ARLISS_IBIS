@@ -44,9 +44,10 @@ async def run():
                  )
     
     await pixhawk.connect()
-    await pixhawk.wait_storing()
+    lora.serial_connect()
+    await pixhawk.wait_store()
     await pixhawk.landjudge_and_sendgps()
-    await pixhawk.fuse()
+    pixhawk.fuse()
 
 if __name__ == "__main__":
 
