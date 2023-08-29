@@ -624,7 +624,9 @@ class Pixhawk:
     async def goto_location(self):
 
         logger_info.info("Setting goto_location...")
-        abs_alt = await self.get_position_alt()
+        async for terrain_info in self.pix.telemetry.home():
+            abs_alt = terrain_info.absolute_altitude_m
+            break
         logger_info.info(f"abs_alt:{abs_alt}")
         await self.pix.action.goto_location(self.waypoint_lat, self.waypoint_lng, abs_alt, 0)
         logger_info.info("Going to location...")
