@@ -447,7 +447,7 @@ class Pixhawk:
         return altitude_list
             
 
-    def IQR_removal(data):
+    def IQR_removal(self, data):
         data.sort()
         l = len(data)
         flag = l%4
