@@ -319,7 +319,9 @@ class Pixhawk:
                                 logger_info.info(e)
                                 continue
                         
-                        if self.is_low_alt(ave):
+                        self.change_low_alt(ave)
+                        
+                        if self.is_low_alt:
                             for distance in true_dist:
                                 if abs(ave-distance) > 0.01:
                                     logger_info.info("-- Moving")
@@ -407,12 +409,12 @@ class Pixhawk:
                 break
 
             
-    def is_low_alt(self, alt):
+    def change_low_alt(self, alt):
         
         if alt < 1:
-            return True
+            self.is_low_alt = True
         else:
-            return False
+            self.is_low_alt = False
 
 
     def change_judge_alt(self, alt):
