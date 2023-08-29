@@ -44,7 +44,7 @@ async def run():
                  )
     
     await pixhawk.connect()
-    await pixhawk.wait_storing()
+    await pixhawk.wait_store()
     await pixhawk.landjudge_and_sendgps()
     await pixhawk.fuse()
 
