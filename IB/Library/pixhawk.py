@@ -292,7 +292,7 @@ class Pixhawk:
                 
                 time_passed = time_now-start_time
                 logger_info.info("Time passed:{}".format(time_passed))
-                if time_passed >= self.land_timelimit:
+                if time_passed < self.land_timelimit:
                     if self.is_judge_alt:
                         true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
                         if len(true_dist) == 0:
