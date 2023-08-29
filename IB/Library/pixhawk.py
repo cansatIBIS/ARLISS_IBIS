@@ -436,6 +436,7 @@ class Pixhawk:
                     logger_info.info("Distance sensor might have some error")
                     altitude_list =[]
                     return altitude_list
+                logger_info.info("altitude of LIDAR:{}".format(distance))
                 altitude_list.append(distance)
                 
             elif priority == "POSITION":
@@ -445,6 +446,7 @@ class Pixhawk:
                     logger_info.info("Pixhawk might have some error")
                     altitude_list =[]
                     return altitude_list
+                logger_info.info("altitude of POSITION:{}".format(position))
                 altitude_list.append(position)
         return altitude_list
             
