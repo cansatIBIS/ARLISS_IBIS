@@ -290,7 +290,7 @@ class Pixhawk:
                 time_now = time.time()
                 await asyncio.sleep(0)
                 
-                time_passed = time_now-start_time
+                time_passed = (time_now-start_time)//1
                 logger_info.info("Time passed:{}".format(time_passed))
                 if time_passed < self.land_timelimit:
                     if self.is_judge_alt:
