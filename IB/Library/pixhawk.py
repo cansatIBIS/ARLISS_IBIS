@@ -291,7 +291,7 @@ class Pixhawk:
                 await asyncio.sleep(0)
                 
                 time_passed = time_now-start_time
-                logger_info.info(time_passed)
+                logger_info.info("Time passed:"+time_passed)
                 if time_passed >= self.land_timelimit:
                     if self.is_judge_alt:
                         true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
