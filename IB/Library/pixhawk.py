@@ -290,7 +290,9 @@ class Pixhawk:
                 time_now = time.time()
                 await asyncio.sleep(0)
                 
-                if time_now-start_time < self.land_timelimit:
+                time_passed = time_now-start_time
+                logger_info.info(time_passed)
+                if time_passed >= self.land_timelimit:
                     if self.is_judge_alt:
                         true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
                         if len(true_dist) == 0:
@@ -428,6 +430,7 @@ class Pixhawk:
     async def get_alt_list(self, priority):
         
         altitude_list = []
+        pre_time = 0
         for _ in range(self.land_judge_len):
             if priority == "LIDAR":
                 try :
@@ -436,7 +439,10 @@ class Pixhawk:
                     logger_info.info("Distance sensor might have some error")
                     altitude_list =[]
                     return altitude_list
-                logger_info.info("altitude of LIDAR:{}".format(distance))
+                print_time = time.time()
+                if print_time > pre_time+0.3:
+                    logger_info.info("altitude of LIDAR:{}".format(distance))
+                    pre_time = print_time
                 altitude_list.append(distance)
                 
             elif priority == "POSITION":
@@ -446,7 +452,10 @@ class Pixhawk:
                     logger_info.info("Pixhawk might have some error")
                     altitude_list =[]
                     return altitude_list
-                logger_info.info("altitude of POSITION:{}".format(position))
+                print_time = time.time()
+                if print_time > pre_time+0.3:
+                    logger_info.info("altitude of POSITION:{}".format(position))
+                    pre_time = print_time
                 altitude_list.append(position)
         return altitude_list
             
