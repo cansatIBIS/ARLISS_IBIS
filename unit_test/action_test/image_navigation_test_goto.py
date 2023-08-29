@@ -146,7 +146,8 @@ async def img_navigation(drone):
     async for position in drone.telemetry.position():
         lat_now = position.latitude_deg
         lng_now = position.longitude_deg
-        print("lat_deg:{} lng_deg:{}".format(lat_now, lng_now))
+        break
+    print("lat_deg:{} lng_deg:{}".format(lat_now, lng_now))
 
     await drone.mission.clear_mission()
 

@@ -649,12 +649,10 @@ class Pixhawk:
         self.is_tasks_cancel_ok = True
 
 
-    async def goto_location(self):
+    async def goto_location(self, lat, lng, abs_alt):
 
         logger_info.info("Setting goto_location...")
-        abs_alt = await self.get_position_alt()
-        logger_info.info(f"abs_alt:{abs_alt}")
-        await self.pix.action.goto_location(self.waypoint_lat, self.waypoint_lng, abs_alt, 0)
+        await self.pix.action.goto_location(lat, lng, abs_alt, 0)
         logger_info.info("Going to location...")
         await asyncio.sleep(20)
 
@@ -684,14 +682,32 @@ class Pixhawk:
         
 
     async def start_offboard_ned(self):
+
         logger_info.info("-- Setting initial setpoint")
         await self.pix.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, 0.0 , 0.0))
         await self.pix.offboard.start()
 
     
     async def image_navigation_offboard_ned(self):
+
         await self.pix.offboard.set_position_ned(
             PositionNedYaw(self.north_m, self.east_m, 0.0, 0.0))
+        
+
+    async def image_navigation_goto(self):
+
+        lat_deg_per_m = 0.000008983148616
+        lng_deg_per_m = 0.000008983668124
+
+        async for position in self.pix.telemetry.position():
+            lat_now = position.latitude_deg
+            lng_now = position.longitude_deg
+            break
+        red_posi = [
+            lat_now+self.north_m*lat_deg_per_m,
+            lng_now+self.east_m*lng_deg_per_m
+            ]
+        await self.pix.action.goto_location(red_posi[0], red_posi[1], abs_alt, 0)
         
 
     async def stop_offboard(self):
