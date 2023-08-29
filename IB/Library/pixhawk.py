@@ -578,6 +578,7 @@ class Pixhawk:
 
         main_coroutines = [
             self.cycle_flight_mode(),
+            self.cycle_mission_progress(),
             self.cycle_position_lat_lng(),
             self.cycle_lidar(),
             self.cycle_battery(),
