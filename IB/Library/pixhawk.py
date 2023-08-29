@@ -702,12 +702,14 @@ class Pixhawk:
         async for position in self.pix.telemetry.position():
             lat_now = position.latitude_deg
             lng_now = position.longitude_deg
+            abs_alt = position.absolute_altitude_m
             break
         red_posi = [
             lat_now+self.north_m*lat_deg_per_m,
             lng_now+self.east_m*lng_deg_per_m
             ]
         await self.pix.action.goto_location(red_posi[0], red_posi[1], abs_alt, 0)
+        await asyncio.sleep(10)
         
 
     async def stop_offboard(self):

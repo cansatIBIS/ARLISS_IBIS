@@ -146,6 +146,7 @@ async def img_navigation(drone):
     async for position in drone.telemetry.position():
         lat_now = position.latitude_deg
         lng_now = position.longitude_deg
+        abs_alt = position.absolute_altitude_m
         break
     print("lat_deg:{} lng_deg:{}".format(lat_now, lng_now))
 
@@ -153,7 +154,7 @@ async def img_navigation(drone):
 
     red_posi = [lat_now+north_m*lat_deg_per_m, lng_now+east_m*lng_deg_per_m]
 
-    await drone.action.goto_location(red_posi[0],red_posi[1], height, 0)
+    await drone.action.goto_location(red_posi[0],red_posi[1], abs_alt, 0)
     await asyncio.sleep(10)
     logger_info.info("-- Landing")
     await drone.action.land()
