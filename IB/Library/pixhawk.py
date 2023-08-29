@@ -498,8 +498,10 @@ class Pixhawk:
 
         async for health in self.pix.telemetry.health():
             if health.is_global_position_ok and health.is_home_position_ok:
+                logger_info.info("gps ok")
                 health_true_count += 1
             else:
+                logger_info.info("gps ng")
                 health_true_count = 0
 
             if health_true_count >= self.health_continuous_count:
