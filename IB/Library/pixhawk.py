@@ -657,7 +657,7 @@ class Pixhawk:
         await asyncio.sleep(20)
 
 
-    async def estimate_target_position(self, lidar_height, heading_deg):
+    async def estimate_target_position(self):
 
         async for d in self.pix.telemetry.distance_sensor(): #? 測れなかったらどうしよう
             lidar_height = d.current_distance_m
@@ -698,6 +698,8 @@ class Pixhawk:
 
         lat_deg_per_m = 0.000008983148616
         lng_deg_per_m = 0.000008983668124
+
+        await self.estimate_target_position()
 
         async for position in self.pix.telemetry.position():
             lat_now = position.latitude_deg
