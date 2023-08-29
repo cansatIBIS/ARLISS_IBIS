@@ -10,7 +10,7 @@ from mavsdk.mission import (MissionItem, MissionPlan)
 from logger import logger_info, logger_debug
 
 # パラメータ--------------------------------
-goal = [39.88556, 139.85566]
+goal = [35.79695235999999, 139.8920656]
 height = 8 # goalの高度
 #-----------------------------------------
 
