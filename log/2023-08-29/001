@@ -1,0 +1,19 @@
+2023-08-29 15:18:48.347 [INFO]: Waiting for drone to connect...
+2023-08-29 15:18:48.373 [INFO]: -- Uploading mission
+2023-08-29 15:18:49.452 [INFO]: Waiting for drone to have a global position estimate...
+2023-08-29 15:18:49.759 [INFO]: mode:HOLD,Mission progress:0/1,mp_total,lidar:0.0[m],abs_alt:7.654000282287598[m],rel_alt:0.027000000700354576[m]
+2023-08-29 15:18:50.315 [INFO]: -- Global position estimate OK
+2023-08-29 15:18:50.317 [INFO]: -- Arming
+2023-08-29 15:18:50.340 [INFO]: -- Starting mission
+2023-08-29 15:19:02.223 [INFO]: mode:HOLD,Mission progress:1/1,mp_total,lidar:0.0[m],abs_alt:7.653000354766846[m],rel_alt:0.0[m]
+2023-08-29 15:19:02.428 [INFO]: mission finished
+2023-08-29 15:19:12.557 [INFO]: キャメラ初期化完了
+2023-08-29 15:19:12.637 [INFO]: current height:6.21999979019165m
+2023-08-29 15:19:12.737 [INFO]: current heading: 35.06
+2023-08-29 15:19:12.738 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_navigation_test_ver2_2023-08-29 15:19:12.738193.jpg
+2023-08-29 15:19:13.285 [INFO]: percent=0.00032407407407407406, center=[ 0.44414683 -0.10807292]
+2023-08-29 15:19:14.288 [INFO]: go to the red position:北に-0.017951047396030373m,東に-1.706038141160331
+2023-08-29 15:19:14.289 [INFO]: -- Setting initial setpoint
+2023-08-29 15:19:24.329 [INFO]: -- Stopping offboard
+2023-08-29 15:19:24.349 [INFO]: Stopping offboard mode failed                 with error code: COMMAND_DENIED
+2023-08-29 15:19:24.350 [INFO]: 画像認識成功、着陸します

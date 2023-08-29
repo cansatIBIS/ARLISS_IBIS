@@ -1,0 +1,15 @@
+2023-08-29 15:52:40.6   [INFO]: Waiting for drone to connect...
+2023-08-29 15:52:40.22  [INFO]: -- Uploading mission
+2023-08-29 15:52:41.60  [INFO]: Waiting for drone to have a global position estimate...
+2023-08-29 15:52:41.292 [INFO]: (' mode:', <FlightMode.HOLD: 3>, ' Mission progress:', 0, '/', 1, ' lidar: ', 0.0, 'm', ' abs_alt:', 0.06200000271201134, 'm', ' rel_alt:', -0.0020000000949949026, 'm')
+2023-08-29 15:52:41.984 [INFO]: -- Global position estimate OK
+2023-08-29 15:52:41.985 [INFO]: -- Arming
+2023-08-29 15:52:42.12  [INFO]: -- Starting mission
+2023-08-29 15:52:56.439 [INFO]: (' mode:', <FlightMode.HOLD: 3>, ' Mission progress:', 1, '/', 1, ' lidar: ', 0.0, 'm', ' abs_alt:', 0.06599999964237213, 'm', ' rel_alt:', 0.0, 'm')
+2023-08-29 15:52:57.100 [INFO]: mission finished
+2023-08-29 15:53:07.509 [INFO]: キャメラ初期化完了
+2023-08-29 15:53:07.584 [INFO]: current height:8.09000015258789m
+2023-08-29 15:53:07.682 [INFO]: current heading: 53.67
+2023-08-29 15:53:07.781 [INFO]: lat:35.796946399999996, lng139.89207389999999
+2023-08-29 15:53:07.782 [INFO]: taking pic...: /home/pi/ARLISS_IBIS/Images/image_navigation_test_goto_2023-08-29 15:53:07.782329.jpg
+2023-08-29 15:53:09.721 [INFO]: percent=0, center=None
