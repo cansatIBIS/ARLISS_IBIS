@@ -407,7 +407,7 @@ class Pixhawk:
                 break
 
             
-    def si_low_alt(self, alt):
+    def is_low_alt(self, alt):
         
         if alt < 1:
             return True
