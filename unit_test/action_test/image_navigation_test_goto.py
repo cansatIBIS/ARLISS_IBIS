@@ -118,6 +118,11 @@ async def img_navigation(drone):
         heading_deg = heading.heading_deg
         logger_info.info(f"current heading: {heading_deg}") 
         break
+    async for position in drone.telemetry.position():
+        latitude_deg = position.latitude_deg
+        longitude_deg = position.longitude_deg
+        logger_info.info(f"lat:{latitude_deg}, lng{longitude_deg}")
+        break
 
 
     file_path = '/home/pi/ARLISS_IBIS/Images/image_navigation_test_goto_{}.jpg'.format(datetime.datetime.now())
@@ -202,6 +207,7 @@ def detect_center(file_path):
         res['width'] = None
         res['percent'] = 0
         res['center'] = None
+        save_detected_img(file_path, img, (0,0))
     else:
         max_index = np.argmax(percent)
         res['height'] = height
