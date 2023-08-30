@@ -24,9 +24,9 @@ mission_speed = 5
 lora_power_pin = 4
 lora_sleep_time = 0
 use_camera = True
-hsv_min_1 = np.array([0,127,127])
+hsv_min_1 = np.array([0,85,85])
 hsv_max_1 = np.array([5,255,255])
-hsv_min_2 = np.array([150,127,127])
+hsv_min_2 = np.array([150,85,85])
 hsv_max_2 = np.array([180,255,255])
 #--------------------------------
 
