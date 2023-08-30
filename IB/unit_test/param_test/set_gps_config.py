@@ -1,3 +1,4 @@
+#使い方: 変更したいconfigのパスをfile_pathに代入してコード実行．waypoint_lat, waypoint_lngが自動的に置き換わる．
 import asyncio
 from mavsdk import System
 import datetime
