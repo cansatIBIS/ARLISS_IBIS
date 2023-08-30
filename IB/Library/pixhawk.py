@@ -42,7 +42,7 @@ class Pixhawk:
         self.land_judge_len = land_judge_len
         self.health_continuous_count = health_continuous_count
         if gps_config:
-            JSON_PASS = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config.json"
+            JSON_PASS = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
             f = open(JSON_PASS , "r")
             waypoint = json.load(f)
             self.waypoint_lat = waypoint["waypoint_lat"]
