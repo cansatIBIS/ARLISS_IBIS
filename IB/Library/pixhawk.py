@@ -268,13 +268,13 @@ class Pixhawk:
     
     async def wait_store(self):
         
-        start_time = time.time()
         if "{} seconds passed".format(self.wait_time) in self.deamon_log:
             await self.lora.write("skipped store wait")
             logger_info.info("skipped store wait")
             return
         
         else:
+            start_time = time.time()
             logger_info.info("Waiting for store")
             while True:
                 time_now = time.time()
