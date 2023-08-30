@@ -20,7 +20,7 @@ async def run():
         waypoint_lng = position.longitude_deg
         break #async forのループから抜け出す
     
-    file_path = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config.json"
+    file_path = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_condig.json"
     try:
         with open(file_path, mode="r") as f:
             waypoint = json.load(f)
@@ -31,7 +31,7 @@ async def run():
         
         # set time
         dt_now = datetime.datetime.now()
-        waypoint["time"] = dt_now
+        waypoint["set time"] = dt_now
         
         with open(file_path, mode="w") as f:
             json.dump(waypoint, f, indent=4) 
