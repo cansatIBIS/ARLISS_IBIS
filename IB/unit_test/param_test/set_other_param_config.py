@@ -6,7 +6,7 @@ file_path = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_c
 
 with open(file_path, mode="r") as f:
     other_param = json.load(f)
-print(other_param)
+print(json.dumps(other_param, indent=2))
 
 #yesを押し続ければ複数パラメータ変更可能
 is_continue_setting = True
@@ -27,5 +27,6 @@ other_param["set time"] = dt_now
 
 with open(file_path, mode="w") as f:
     json.dump(other_param, f, indent=4)
+    print("these are parameters after the change"+"\n"+json.dumps(other_param, indent=2))
 
 print("all parameters have been updated")
