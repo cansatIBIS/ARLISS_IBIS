@@ -321,8 +321,6 @@ class Pixhawk:
                                 logger_info.info(e)
                                 continue
                         
-                        self.change_low_alt(ave)
-                        
                         if self.is_low_alt:
                             for distance in true_dist:
                                 if abs(ave-distance) > 0.01:
@@ -335,7 +333,9 @@ class Pixhawk:
                                 logger_info.info("-- Lidar Judge")
                                 break
                         else:
-                            logger_info.info("-- Over 1m")
+                            self.change_low_alt(ave)
+                            if ~self.is_low_alt:
+                                logger_info.info("-- Over 1m")
                             
                     else:
                         try :
