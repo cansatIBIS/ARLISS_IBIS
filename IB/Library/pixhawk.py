@@ -338,7 +338,6 @@ class Pixhawk:
                                 continue
                             else:
                                 logger_info.info("-- Over 1m")
-                            
                     else:
                         try :
                             alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
@@ -346,7 +345,6 @@ class Pixhawk:
                         except asyncio.TimeoutError:
                             logger_info.info("Too high or distance sensor might have some error")
                             continue
-                                
                 else:
                     self.is_landed = True
                     if self.is_landed:
