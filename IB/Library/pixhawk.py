@@ -302,7 +302,7 @@ class Pixhawk:
                             try:
                                 ave = sum(true_posi)/len(true_posi)
                             except ZeroDivisionError as e:
-                                logger_info.info("GPS can't catch or pixhawk might have some error")
+                                logger_info.info(e)
                                 continue
                             for position in true_posi:
                                 if abs(ave-position) > 0.1:
