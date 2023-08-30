@@ -87,7 +87,12 @@ class Ibis:
         await self.lora.power_on()
         await self.pixhawk.landjudge_and_sendgps()
         logger_info.info("#################### Judge phase finished ####################")
+    
+    async def fuse_phase(self):
+      
+        logger_info.info("#################### Fuse phase start ####################")
         self.pixhawk.fuse()
+        logger_info.info("#################### Fuse phase finished ####################")
         
         
     async def flying_phase(self):
@@ -118,6 +123,8 @@ class Ibis:
         await self.wait_storing_phase()
         
         await self.judge_phase()
+        
+        await self.fuse_phase()
         
         await self.flying_phase()
         
