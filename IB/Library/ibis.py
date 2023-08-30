@@ -109,9 +109,9 @@ class Ibis:
     async def destruct_deamon(self):
       
         if self.is_destruct_deamon:
+            logger_info.info("Destructing deamon")
             with open(self.deamon_pass, "w") as deamon:
                 deamon.write("")
-                logger_info.info("Destructed deamon")
             
     
     async def IBIS_MISSION(self):
@@ -128,8 +128,8 @@ class Ibis:
         
         await self.flying_phase()
         
-        await self.destruct_deamon()
-        
         logger_info.info("#################### IBIS MISSION COMPLETE ####################")
         
         await self.lora.write("IBIS MISSION COMPLETE")
+        
+        await self.destruct_deamon()
