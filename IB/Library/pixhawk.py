@@ -286,7 +286,7 @@ class Pixhawk:
             return
         
         else:
-            logger_info.info("################ Land judge start ################")
+            logger_info.info("#################### Land judge start ####################")
             await self.lora.write("land judge start")
             start_time = time.time()
             while True:
@@ -355,7 +355,7 @@ class Pixhawk:
                         logger_info.info("-- Timer Judge")
                         break
                         
-            logger_info.info("################ Land judge finish ###############")
+            logger_info.info("#################### Land judge finish ####################")
     
     
     async def landjudge_and_sendgps(self):
@@ -507,13 +507,13 @@ class Pixhawk:
             GPIO.setmode(GPIO.BCM)
             GPIO.setwarnings(False)
             GPIO.setup(self.fuse_pin, GPIO.OUT, initial=GPIO.HIGH)
-            logger_info.info("-- Fuse start")
+            logger_info.info("#################### Fuse start ####################")
 
             GPIO.output(self.fuse_pin, 0)
             logger_info.info("-- Fusing")
 
             time.sleep(self.fuse_time)
-            logger_info.info("-- Fused! Please Fly")
+            logger_info.info("#################### Fuse complete ####################")
 
             GPIO.output(self.fuse_pin, 1)
         

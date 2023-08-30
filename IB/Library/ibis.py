@@ -33,39 +33,41 @@ class Ibis:
                # other defaults
                  use_camera = False,
                  use_gps_config = False):
+      
+      logger_info.info("#################### Initializing Ibis ####################")
         
-        self.lora = Lora(lora_power_pin,
-                         lora_sleep_time)
-        
-        self.pixhawk = Pixhawk(fuse_pin,
-                               wait_time,
-                               fuse_time,
-                               land_timelimit,
-                               land_judge_len,
-                               health_continuous_count,
-                               waypoint_lat,
-                               waypoint_lng,
-                               waypoint_alt,
-                               mission_speed,
-                               self.lora,
-                               deamon_pass,
-                               use_camera,
-                               use_gps_config)
-        
-        self.light = Light(light_threshold,
-                           stored_timelimit,
-                           stored_judge_time,
-                           released_timelimit,
-                           released_judge_time,
-                           self.lora,
-                           deamon_pass)
-        
-        self.deamon_pass = deamon_pass
-        self.deamon_file = open(self.deamon_pass)
-        self.deamon_log = self.deamon_file.read()
-        self.is_destruct_deamon = is_destruct_deamon
-        
-        logger_info.info("Ibis initialized")
+      self.lora = Lora(lora_power_pin,
+                        lora_sleep_time)
+      
+      self.pixhawk = Pixhawk(fuse_pin,
+                              wait_time,
+                              fuse_time,
+                              land_timelimit,
+                              land_judge_len,
+                              health_continuous_count,
+                              waypoint_lat,
+                              waypoint_lng,
+                              waypoint_alt,
+                              mission_speed,
+                              self.lora,
+                              deamon_pass,
+                              use_camera,
+                              use_gps_config)
+      
+      self.light = Light(light_threshold,
+                          stored_timelimit,
+                          stored_judge_time,
+                          released_timelimit,
+                          released_judge_time,
+                          self.lora,
+                          deamon_pass)
+      
+      self.deamon_pass = deamon_pass
+      self.deamon_file = open(self.deamon_pass)
+      self.deamon_log = self.deamon_file.read()
+      self.is_destruct_deamon = is_destruct_deamon
+      
+      logger_info.info("#################### Ibis initialized ####################")
         
         
     async def wait_storing_phase(self):
@@ -103,7 +105,7 @@ class Ibis:
     
     async def IBIS_MISSION(self):
         
-        logger_info.info("IBIS MISSION START")
+        logger_info.info("#################### IBIS MISSION START ####################")
         
         await self.lora.write("IBIS MISSION START")
         
@@ -115,6 +117,6 @@ class Ibis:
         
         await self.destruct_deamon()
         
-        logger_info.info("IBIS MISSION COMPLETE")
+        logger_info.info("#################### IBIS MISSION COMPLETE ####################")
         
         await self.lora.write("IBIS MISSION COMPLETE")
