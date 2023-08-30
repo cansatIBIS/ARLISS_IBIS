@@ -334,7 +334,9 @@ class Pixhawk:
                                 break
                         else:
                             self.change_low_alt(ave)
-                            if ~self.is_low_alt:
+                            if self.is_low_alt:
+                                continue
+                            else:
                                 logger_info.info("-- Over 1m")
                             
                     else:
