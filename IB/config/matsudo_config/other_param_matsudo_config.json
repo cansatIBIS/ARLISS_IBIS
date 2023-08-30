@@ -15,5 +15,7 @@
     "released_judge_time" : "10",
 
     "lora_power_pin" : "None",
-    "lora_sleep_time" : "None"
+    "lora_sleep_time" : "None",
+
+    "set time" : "None"
 }
