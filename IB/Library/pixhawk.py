@@ -415,6 +415,7 @@ class Pixhawk:
         
         if alt < 1:
             self.is_low_alt = True
+            logger_info.info("-- Under 1m")
         else:
             self.is_low_alt = False
 
@@ -423,6 +424,7 @@ class Pixhawk:
         
         if alt < 15:
             self.is_judge_alt = True
+            logger_info.info("-- Under 15m")
         else:
             self.is_judge_alt = False
             
