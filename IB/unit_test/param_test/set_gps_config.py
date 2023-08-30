@@ -31,7 +31,7 @@ async def run():
         waypoint["waypoint_lng"] = waypoint_lng
         
         # set time
-        dt_now = datetime.datetime.now()
+        dt_now = datetime.datetime.now().isoformat()
         waypoint["set time"] = dt_now
         
         with open(file_path, mode="w") as f:
