@@ -730,6 +730,7 @@ class Pixhawk:
     async def image_navigation_goto(self):
 
         red_lat, red_lng, abs_alt= await self.calc_red_position()
+        logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, abs_alt:{abs_alt}")
         await self.pix.action.goto_location(red_lat, red_lng, abs_alt, 0)
         await asyncio.sleep(10)
         
