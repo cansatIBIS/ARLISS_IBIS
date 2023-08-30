@@ -724,7 +724,10 @@ class Pixhawk:
             break
         red_lat = lat_now+self.north_m*lat_deg_per_m
         red_lng = lng_now+self.east_m*lng_deg_per_m
-        return red_lat, red_lng, abs_alt
+        is_red_below = False
+        if abs(self.image_res['center'][0])<0.1 and abs(self.image_res['center'][1])<0.1:
+            is_red_below = True
+        return red_lat, red_lng, abs_alt, is_red_below
         
 
     async def image_navigation_goto(self):
