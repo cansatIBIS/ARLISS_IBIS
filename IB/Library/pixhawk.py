@@ -268,6 +268,7 @@ class Pixhawk:
     
     async def wait_store(self):
         
+        start_time = time.time()
         if "{} seconds passed".format(self.wait_time) in self.deamon_log:
             await self.lora.write("skipped store wait")
             logger_info.info("skipped store wait")
@@ -275,8 +276,14 @@ class Pixhawk:
         
         else:
             logger_info.info("Waiting for store")
-            await asyncio.sleep(self.wait_time)
-            logger_info.info("{} seconds passed".format(self.wait_time))
+            while True:
+                time_now = time.time()
+                time_passed = int(time_now-start_time)
+                if time_passed < self.wait_time:
+                    logger_info.info("{} seconds passed".format(time_passed)//1)
+                else:
+                    break
+            logger_info.info("{} seconds passed. Wait phase finished".format(self.wait_time))
             
             
     async def land_judge(self):
