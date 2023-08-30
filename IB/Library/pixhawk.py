@@ -707,8 +707,7 @@ class Pixhawk:
             PositionNedYaw(self.north_m, self.east_m, 0.0, 0.0))
         
 
-    async def image_navigation_goto(self):
-
+    async def calc_red_position(self):
         lat_deg_per_m = 0.000008983148616
         lng_deg_per_m = 0.000008983668124
 
@@ -719,11 +718,15 @@ class Pixhawk:
             lng_now = position.longitude_deg
             abs_alt = position.absolute_altitude_m
             break
-        red_posi = [
-            lat_now+self.north_m*lat_deg_per_m,
-            lng_now+self.east_m*lng_deg_per_m
-            ]
-        await self.pix.action.goto_location(red_posi[0], red_posi[1], abs_alt, 0)
+        red_lat = lat_now+self.north_m*lat_deg_per_m
+        red_lng = lng_now+self.east_m*lng_deg_per_m
+        return red_lat, red_lng, abs_alt
+        
+
+    async def image_navigation_goto(self):
+
+        red_lat, red_lng, abs_alt= await self.calc_red_position()
+        await self.pix.action.goto_location(red_lat, red_lng, abs_alt, 0)
         await asyncio.sleep(10)
         
 
