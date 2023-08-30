@@ -685,13 +685,16 @@ class Pixhawk:
         self.camera.take_pic()
         self.image_res = self.detect_center()
         logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
-        
-        x_m, y_m = self.camera.get_target_position(self, lidar_height)
+        if self.image_res['percent'] <= 0.001:
+            logger_info.info(f"Failed image navigation")
+            await self.land()
+        else:
+            x_m, y_m = self.camera.get_target_position(self, lidar_height)
 
-        self.east_m = 1/np.sqrt(2)*(y_m-x_m)*np.cos(heading_deg*np.pi/180)-1/np.sqrt(2)*(y_m+x_m)*np.sin(heading_deg*np.pi/180)
-        self.north_m = 1/np.sqrt(2)*(y_m-x_m)*np.sin(heading_deg*np.pi/180)+1/np.sqrt(2)*(y_m+x_m)*np.cos(heading_deg*np.pi/180)
+            self.east_m = 1/np.sqrt(2)*(y_m-x_m)*np.cos(heading_deg*np.pi/180)-1/np.sqrt(2)*(y_m+x_m)*np.sin(heading_deg*np.pi/180)
+            self.north_m = 1/np.sqrt(2)*(y_m-x_m)*np.sin(heading_deg*np.pi/180)+1/np.sqrt(2)*(y_m+x_m)*np.cos(heading_deg*np.pi/180)
 
-        logger_info.info(f"go to the red position:北に{self.north_m}m,東に{self.east_m}")
+            logger_info.info(f"go to the red position:北に{self.north_m}m,東に{self.east_m}")
         
 
     async def start_offboard_ned(self):
