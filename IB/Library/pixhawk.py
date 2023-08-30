@@ -689,6 +689,7 @@ class Pixhawk:
             logger_info.info(f"Failed image navigation")
             await self.land()
         else:
+            logger_info.info(f"Target detected!")
             x_m, y_m = self.camera.get_target_position(self, lidar_height)
 
             self.east_m = 1/np.sqrt(2)*(y_m-x_m)*np.cos(heading_deg*np.pi/180)-1/np.sqrt(2)*(y_m+x_m)*np.sin(heading_deg*np.pi/180)
