@@ -18,7 +18,6 @@ class Ibis:
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
-                 use_camera,
                # light
                  light_threshold,
                  stored_timelimit,
@@ -30,7 +29,10 @@ class Ibis:
                  lora_sleep_time,
                # deamon
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
-                 is_destruct_deamon = True):
+                 is_destruct_deamon = True,
+               # other defaults
+                 use_camera = False,
+                 use_gps_config = False):
         
         self.lora = Lora(lora_power_pin,
                          lora_sleep_time)
@@ -47,7 +49,8 @@ class Ibis:
                                mission_speed,
                                self.lora,
                                deamon_pass,
-                               use_camera)
+                               use_camera,
+                               use_gps_config)
         
         self.light = Light(light_threshold,
                            stored_timelimit,
