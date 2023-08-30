@@ -68,7 +68,7 @@ async def run():
     await pixhawk.start_mission()
 
     await pixhawk.gather_main_coroutines()
-    
+
     camera.take_pic()
     res = camera.detect_center()
     logger_info.info('percent={}, center={}'.format(res['percent'], res['center']))
@@ -80,7 +80,7 @@ async def run():
         logger_info.info(f"Target detected!")
         await pixhawk.image_navigation_goto()
         await pixhawk.land()
-
+    
 
 
     
