@@ -69,19 +69,9 @@ async def run():
 
     await pixhawk.gather_main_coroutines()
 
-    camera.take_pic()
-    res = camera.detect_center()
-    logger_info.info('percent={}, center={}'.format(res['percent'], res['center']))
+    await pixhawk.image_navigation_goto()
 
-    if res['percent'] <= 0.001:
-        logger_info.info(f"Failed image navigation")
-        await pixhawk.land()
-    else:
-        logger_info.info(f"Target detected!")
-        await pixhawk.image_navigation_goto()
-        await pixhawk.land()
-    
-
+    await pixhawk.land()
 
     
 
