@@ -8,7 +8,6 @@ import numpy as np
 from pixhawk import Pixhawk
 from logger_lib import logger_info
 from lora import Lora
-from camera import Camera
 
 # parameters---------------------
 fuse_PIN = 0
@@ -19,14 +18,14 @@ land_judge_len = 30
 health_continuous_count = 3
 waypoint_lat = 35.79695235999999
 waypoint_lng = 139.8920656
-waypoint_alt = 8
+waypoint_alt = 3
 mission_speed = 5
 lora_power_pin = 4
 lora_sleep_time = 0
 use_camera = True
-hsv_min_1 = np.array([0,85,85])
+hsv_min_1 = np.array([0,85,0])
 hsv_max_1 = np.array([5,255,255])
-hsv_min_2 = np.array([150,85,85])
+hsv_min_2 = np.array([150,85,0])
 hsv_max_2 = np.array([180,255,255])
 #--------------------------------
 
@@ -52,10 +51,6 @@ async def run():
                  use_camera
                  )
     
-    camera = Camera(hsv_min_1,
-                    hsv_max_1,
-                    hsv_min_2,
-                    hsv_max_2)
     
     await pixhawk.connect()
 
