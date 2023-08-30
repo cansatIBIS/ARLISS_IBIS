@@ -28,7 +28,7 @@ class Pixhawk:
                  lora,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  use_camera = False,
-                 gps_config = True):
+                 use_gps_config = True):
         
         self.pix = System()
         if use_camera:
@@ -41,7 +41,7 @@ class Pixhawk:
         self.land_timelimit = land_timelimit
         self.land_judge_len = land_judge_len
         self.health_continuous_count = health_continuous_count
-        if gps_config:
+        if use_gps_config:
             JSON_PASS = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
             f = open(JSON_PASS , "r")
             waypoint = json.load(f)
