@@ -28,23 +28,17 @@ class Pixhawk:
                  lora,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  use_camera = False,
-                 use_gps_config = False):
+                 use_gps_config = False,
+                 use_other_param_config = False):
         
         self.pix = System()
         if use_camera:
             self.camera = Camera()
         self.lora = lora
-
-        self.fuse_pin = fuse_pin
-        self.wait_time = wait_time
-        self.fuse_time = fuse_time
-        self.land_timelimit = land_timelimit
-        self.land_judge_len = land_judge_len
-        self.health_continuous_count = health_continuous_count
         
         if use_gps_config:
-            JSON_PASS = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
-            f = open(JSON_PASS , "r")
+            JSON_PASS_gps = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
+            f = open(JSON_PASS_gps , "r")
             waypoint = json.load(f)
             self.waypoint_lat = waypoint["waypoint_lat"]
             self.waypoint_lng = waypoint["waypoint_lng"]
@@ -53,10 +47,30 @@ class Pixhawk:
             self.waypoint_lat = waypoint_lat
             self.waypoint_lng = waypoint_lng
             
-        self.waypoint_lat = waypoint_lat
-        self.waypoint_lng = waypoint_lng
-        self.waypoint_alt = waypoint_alt
-        self.mission_speed = mission_speed
+    
+        if use_other_param_config:
+            JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
+            f = open(JSON_PASS_other_param , "r")
+            other_param = json.load(f)
+            self.fuse_pin = other_param["fuse_pin"]
+            self.wait_time = other_param["wait_time"]
+            self.fuse_time = other_param["fuse_time"]
+            self.land_timelimit = other_param["land_timelimit"]
+            self.land_judge_len = other_param["land_judge_len"]
+            self.health_continuous_count = other_param["health_continuous_count"]
+            self.mission_speed = other_param["mission_speed"]
+            self.waypoint_alt = other_param["waypoint_alt"]
+            f.close()
+        else:
+            self.fuse_pin = fuse_pin
+            self.wait_time = wait_time
+            self.fuse_time = fuse_time
+            self.land_timelimit = land_timelimit
+            self.land_judge_len = land_judge_len
+            self.health_continuous_count = health_continuous_count
+            self.mission_speed = mission_speed
+            self.waypoint_alt = waypoint_alt
+        
 
         self.flight_mode = None
         self.mp_current = None
