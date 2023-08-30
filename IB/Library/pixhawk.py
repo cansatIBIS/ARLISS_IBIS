@@ -440,7 +440,7 @@ class Pixhawk:
                 try :
                     distance = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
                 except asyncio.TimeoutError:
-                    logger_info.info("Distance sensor might have some error")
+                    logger_info.info("Too high or distance sensor might have some error")
                     altitude_list =[]
                     return altitude_list
                 print_time = time.time()
@@ -453,7 +453,7 @@ class Pixhawk:
                 try:
                     position = await asyncio.wait_for(self.get_position_alt(), timeout = 0.8)
                 except asyncio.TimeoutError:
-                    logger_info.info("Pixhawk might have some error")
+                    logger_info.info("GPS can't catch or pixhawk might have some error")
                     altitude_list =[]
                     return altitude_list
                 print_time = time.time()
