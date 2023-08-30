@@ -72,14 +72,18 @@ async def run():
 
     # 10mの高さで画像航法。赤が真下にあっても着陸はしない。
     red_lat, red_lng, abs_alt, is_red_right_below= await pixhawk.calc_red_position()
+    lidar_alt = await pixhawk.get_distance_alt()
+    logger_info.info(f"lidar:{lidar_alt}")
     logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 5}, abs_alt:{abs_alt}")
     await pixhawk.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 5)
     await asyncio.sleep(5)
 
     # 5mの高さで画像航法
     red_lat, red_lng, abs_alt, is_red_right_below= await pixhawk.calc_red_position()
+    lidar_alt = await pixhawk.get_distance_alt()
+    logger_info.info(f"lidar:{lidar_alt}")
     if is_red_right_below:
-        logger_info.info(f"success image navigation!")
+        logger_info.info(f"Success image navigation!")
         await pixhawk.land()
     else :
         logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 3}, abs_alt:{abs_alt}")
@@ -89,12 +93,14 @@ async def run():
     # 3mの高さで画像航法
     while True:
         red_lat, red_lng, abs_alt, is_red_right_below= await pixhawk.calc_red_position()
-        logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 5}, abs_alt:{abs_alt}")
+        lidar_alt = await pixhawk.get_distance_alt()
+        logger_info.info(f"lidar:{lidar_alt}")
+        logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, abs_alt:{abs_alt}")
         await pixhawk.goto_location(red_lat, red_lng, abs_alt)
         await asyncio.sleep(5)
         if is_red_right_below:
             break
-    logger_info.info(f"success image navigation!")
+    logger_info.info(f"Success image navigation!")
     await pixhawk.land()
 
     
