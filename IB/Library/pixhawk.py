@@ -41,6 +41,7 @@ class Pixhawk:
         self.land_timelimit = land_timelimit
         self.land_judge_len = land_judge_len
         self.health_continuous_count = health_continuous_count
+        
         if use_gps_config:
             JSON_PASS = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
             f = open(JSON_PASS , "r")
@@ -51,6 +52,7 @@ class Pixhawk:
         else:
             self.waypoint_lat = waypoint_lat
             self.waypoint_lng = waypoint_lng
+            
         self.waypoint_lat = waypoint_lat
         self.waypoint_lng = waypoint_lng
         self.waypoint_alt = waypoint_alt
@@ -68,10 +70,12 @@ class Pixhawk:
         self.image_res = None
         self.east_m = None
         self.north_m = None
-        self.is_tasks_cancel_ok = False
+        
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
+        
+        self.is_tasks_cancel_ok = False
         self.is_landed = False 
         self.is_judge_alt = False
         self.is_low_alt = False
