@@ -54,7 +54,7 @@ async def run():
                  lora_sleep_time, 
                # deamon
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
-                 is_destruct_deamon = True
+                 is_destruct_deamon = True,
                # other defaults
                  use_camera = False,
                  use_gps_config = False)
