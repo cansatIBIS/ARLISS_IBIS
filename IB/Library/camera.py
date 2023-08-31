@@ -47,7 +47,7 @@ class Camera:
 
     def take_pic(self):
 
-        self.camera.shutter_speed = -1
+        self.camera.shutter_speed = 100
         # self.camera.iso = 1600
         self.camera.exposure_mode = 'auto'
         time.sleep(2)
@@ -128,7 +128,7 @@ class Camera:
         else:
             x_m = None
             y_m = None
-            
+
         return x_m, y_m
 
     def change_iso(self, iso_value):
