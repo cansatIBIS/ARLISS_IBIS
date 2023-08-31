@@ -121,9 +121,14 @@ class Camera:
         image_x = distance * image_length / self.focal_length
         image_y = distance * image_width / self.focal_length
 
-        x_m = self.res['center'][0]*image_x/2
-        y_m = self.res['center'][1]*image_y/2
+        if not self.res['center'] == None:
+            x_m = self.res['center'][0]*image_x/2
+            y_m = self.res['center'][1]*image_y/2
 
+        else:
+            x_m = None
+            y_m = None
+            
         return x_m, y_m
 
     def change_iso(self, iso_value):
