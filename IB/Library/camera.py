@@ -47,7 +47,7 @@ class Camera:
 
     def take_pic(self):
 
-        # self.camera.exposure_mode = "off"
+        self.camera.exposure_mode = "off"
         self.camera.exposure_compensation = 25
         self.camera.iso = 100
         time.sleep(2)
