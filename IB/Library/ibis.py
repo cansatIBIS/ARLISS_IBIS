@@ -32,7 +32,8 @@ class Ibis:
                  is_destruct_deamon = True,
                # other defaults
                  use_camera = False,
-                 use_gps_config = False):
+                 use_gps_config = True,
+                 use_other_param_config = True):
       
         logger_info.info("#################### Initializing Ibis ####################")
           
@@ -52,7 +53,8 @@ class Ibis:
                                 self.lora,
                                 deamon_pass,
                                 use_camera,
-                                use_gps_config)
+                                use_gps_config,
+                                use_other_param_config)
         
         self.light = Light(light_threshold,
                             stored_timelimit,
