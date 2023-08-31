@@ -11,7 +11,6 @@ from logger_lib import logger_info
 class Camera:
 
     def __init__(self,
-                 iso = 100,
                  hsv_min_1 = np.array([0,127,127]),
                  hsv_max_1 = np.array([5,255,255]),
                  hsv_min_2 = np.array([150,127,127]),
@@ -25,9 +24,8 @@ class Camera:
                  + "_"
                  + str(datetime.datetime.now())
                  + ".jpg"):
-        
+
         self.camera = picamera.PiCamera()
-        self.camera.iso = iso
         self.hsv_min_1 = hsv_min_1
         self.hsv_max_1 = hsv_max_1
         self.hsv_min_2 = hsv_min_2
@@ -48,6 +46,7 @@ class Camera:
 
 
     def take_pic(self):
+
 
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
@@ -122,5 +121,8 @@ class Camera:
         y_m = self.res['center'][1]*image_y/2
 
         return x_m, y_m
+
+    def change_iso(self, iso_value):
+        self.camera.iso = iso_value
 
 
