@@ -41,7 +41,7 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
-                 lora
+                 lora,
                  use_gps_config = True,
                  )
 
