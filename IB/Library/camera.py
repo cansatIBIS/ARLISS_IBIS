@@ -48,6 +48,7 @@ class Camera:
     def take_pic(self):
 
         self.camera.start_preview()
+        self.camera.exposure_mode = "off"
         self.camera.exposure_compensation = 25
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
