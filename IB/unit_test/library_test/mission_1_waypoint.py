@@ -15,8 +15,8 @@ fuse_time = 0
 land_timelimit = 0
 land_judge_len = 30
 health_continuous_count = 10
-waypoint_lat = 40.19373
-waypoint_lng = 140.05923
+waypoint_lat = 35.79696
+waypoint_lng = 139.89208
 waypoint_alt = 5
 mission_speed = 5
 lora_power_pin = 4
@@ -42,7 +42,7 @@ async def run():
                  waypoint_alt,
                  mission_speed,
                  lora,
-                 use_gps_config = True,
+                 use_gps_config = False,
                  )
 
     main_coroutines = [
