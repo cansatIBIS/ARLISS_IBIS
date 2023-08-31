@@ -28,8 +28,8 @@ class Pixhawk:
                  lora,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  use_camera = False,
-                 use_gps_config = True,
-                 use_other_param_config = True):
+                 use_gps_config = False,
+                 use_other_param_config = False):
         
         self.pix = System()
         if use_camera:

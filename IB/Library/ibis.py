@@ -32,8 +32,8 @@ class Ibis:
                  is_destruct_deamon = True,
                # other defaults
                  use_camera = False,
-                 use_gps_config = True,
-                 use_other_param_config = True):
+                 use_gps_config = False,
+                 use_other_param_config = False):
       
         logger_info.info("#################### Initializing Ibis ####################")
           
