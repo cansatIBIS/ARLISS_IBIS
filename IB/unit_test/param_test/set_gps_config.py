@@ -35,9 +35,9 @@ async def run():
         waypoint["set time"] = dt_now
         
         with open(file_path, mode="w") as f:
-            json.dump(waypoint, f, indent=4) 
+            json.dump(waypoint, f, indent=4)
+            print("waypoint has been updated"+"\n"+json.dumps(waypoint, indent=2)) 
             
-        print("added new data to waypoint")
     except FileNotFoundError:
         print("file not found")
     except json.JSONDecodeError:

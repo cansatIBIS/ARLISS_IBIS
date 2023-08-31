@@ -4,19 +4,30 @@ import asyncio
 from logger_lib import logger_info
 import time
 from mavsdk import System
+import json
 
 
 class Lora:
     
     def __init__(self,
                  lora_power_pin,
-                 lora_sleep_time):
+                 lora_sleep_time,
+                 use_other_param_config = False):
         
-        self.lora_power_pin = lora_power_pin
+        if use_other_param_config:
+            JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
+            f = open(JSON_PASS_other_param , "r")
+            other_param = json.load(f)
+            self.lora_power_pin = other_param["lora_power_pin"]
+            self.lora_sleep_time = other_param["lora_sleep_time"]
+            f.close()
+        else:
+            self.lora_power_pin = lora_power_pin
+            self.lora_sleep_time = lora_sleep_time
+            
         self.pix = System()
         self.CRLF = "\r\n"
         self.is_lora_power_on = False
-        self.lora_sleep_time = lora_sleep_time
         self.connect_counter = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)

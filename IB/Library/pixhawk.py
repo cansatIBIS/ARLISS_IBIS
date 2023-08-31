@@ -28,23 +28,17 @@ class Pixhawk:
                  lora,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  use_camera = False,
-                 use_gps_config = False):
+                 use_gps_config = False,
+                 use_other_param_config = False):
         
         self.pix = System()
         if use_camera:
             self.camera = Camera()
         self.lora = lora
-
-        self.fuse_pin = fuse_pin
-        self.wait_time = wait_time
-        self.fuse_time = fuse_time
-        self.land_timelimit = land_timelimit
-        self.land_judge_len = land_judge_len
-        self.health_continuous_count = health_continuous_count
         
         if use_gps_config:
-            JSON_PASS = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
-            f = open(JSON_PASS , "r")
+            JSON_PASS_gps = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
+            f = open(JSON_PASS_gps , "r")
             waypoint = json.load(f)
             self.waypoint_lat = waypoint["waypoint_lat"]
             self.waypoint_lng = waypoint["waypoint_lng"]
@@ -53,10 +47,30 @@ class Pixhawk:
             self.waypoint_lat = waypoint_lat
             self.waypoint_lng = waypoint_lng
             
-        self.waypoint_lat = waypoint_lat
-        self.waypoint_lng = waypoint_lng
-        self.waypoint_alt = waypoint_alt
-        self.mission_speed = mission_speed
+    
+        if use_other_param_config:
+            JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
+            f = open(JSON_PASS_other_param , "r")
+            other_param = json.load(f)
+            self.fuse_pin = other_param["fuse_pin"]
+            self.wait_time = other_param["wait_time"]
+            self.fuse_time = other_param["fuse_time"]
+            self.land_timelimit = other_param["land_timelimit"]
+            self.land_judge_len = other_param["land_judge_len"]
+            self.health_continuous_count = other_param["health_continuous_count"]
+            self.mission_speed = other_param["mission_speed"]
+            self.waypoint_alt = other_param["waypoint_alt"]
+            f.close()
+        else:
+            self.fuse_pin = fuse_pin
+            self.wait_time = wait_time
+            self.fuse_time = fuse_time
+            self.land_timelimit = land_timelimit
+            self.land_judge_len = land_judge_len
+            self.health_continuous_count = health_continuous_count
+            self.mission_speed = mission_speed
+            self.waypoint_alt = waypoint_alt
+        
 
         self.flight_mode = None
         self.mp_current = None
@@ -685,13 +699,17 @@ class Pixhawk:
         self.camera.take_pic()
         self.image_res = self.detect_center()
         logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
-        
-        x_m, y_m = self.camera.get_target_position(self, lidar_height)
+        if self.image_res['percent'] <= 0.001:
+            logger_info.info(f"Failed image navigation")
+            await self.land()
+        else:
+            logger_info.info(f"Target detected!")
+            x_m, y_m = self.camera.get_target_position(self, lidar_height)
 
-        self.east_m = 1/np.sqrt(2)*(y_m-x_m)*np.cos(heading_deg*np.pi/180)-1/np.sqrt(2)*(y_m+x_m)*np.sin(heading_deg*np.pi/180)
-        self.north_m = 1/np.sqrt(2)*(y_m-x_m)*np.sin(heading_deg*np.pi/180)+1/np.sqrt(2)*(y_m+x_m)*np.cos(heading_deg*np.pi/180)
+            self.east_m = 1/np.sqrt(2)*(y_m-x_m)*np.cos(heading_deg*np.pi/180)-1/np.sqrt(2)*(y_m+x_m)*np.sin(heading_deg*np.pi/180)
+            self.north_m = 1/np.sqrt(2)*(y_m-x_m)*np.sin(heading_deg*np.pi/180)+1/np.sqrt(2)*(y_m+x_m)*np.cos(heading_deg*np.pi/180)
 
-        logger_info.info(f"go to the red position:北に{self.north_m}m,東に{self.east_m}")
+            logger_info.info(f"go to the red position:北に{self.north_m}m,東に{self.east_m}")
         
 
     async def start_offboard_ned(self):
@@ -707,8 +725,7 @@ class Pixhawk:
             PositionNedYaw(self.north_m, self.east_m, 0.0, 0.0))
         
 
-    async def image_navigation_goto(self):
-
+    async def calc_red_position(self):
         lat_deg_per_m = 0.000008983148616
         lng_deg_per_m = 0.000008983668124
 
@@ -719,11 +736,19 @@ class Pixhawk:
             lng_now = position.longitude_deg
             abs_alt = position.absolute_altitude_m
             break
-        red_posi = [
-            lat_now+self.north_m*lat_deg_per_m,
-            lng_now+self.east_m*lng_deg_per_m
-            ]
-        await self.pix.action.goto_location(red_posi[0], red_posi[1], abs_alt, 0)
+        red_lat = lat_now+self.north_m*lat_deg_per_m
+        red_lng = lng_now+self.east_m*lng_deg_per_m
+        is_red_right_below = False
+        if abs(self.image_res['center'][0])<0.1 and abs(self.image_res['center'][1])<0.2:
+            is_red_right_below = True
+        return red_lat, red_lng, abs_alt, is_red_right_below
+        
+
+    async def image_navigation_goto(self):
+
+        red_lat, red_lng, abs_alt= await self.calc_red_position()
+        logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, abs_alt:{abs_alt}")
+        await self.pix.action.goto_location(red_lat, red_lng, abs_alt, 0)
         await asyncio.sleep(10)
         
 

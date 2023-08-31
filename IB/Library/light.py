@@ -2,6 +2,7 @@ from typing import Any
 import spidev
 from logger_lib import logger_info
 import time
+import json
 
 
 class Light:
@@ -13,15 +14,28 @@ class Light:
                  released_timelimit,
                  released_judge_time,
                  lora,
-                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
+                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+                 use_other_param_config = False):
         
         self.lora = lora
         
-        self.light_threshold = light_threshold
-        self.stored_timelimit = stored_timelimit
-        self.stored_judge_time = stored_judge_time
-        self.released_timelimit = released_timelimit
-        self.released_judge_time = released_judge_time
+        if use_other_param_config:
+            JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
+            f = open(JSON_PASS_other_param , "r")
+            other_param = json.load(f)
+            self.light_threshold = other_param["light_threshold"]
+            self.stored_timelimit = other_param["stored_timelimit"]
+            self.stored_judge_time = other_param["stored_judge_time"]
+            self.released_timelimit = other_param["released_timelimit"]
+            self.released_judge_time = other_param["released_judge_time"]
+            f.close()
+        else:
+            self.light_threshold = light_threshold
+            self.stored_timelimit = stored_timelimit
+            self.stored_judge_time = stored_judge_time
+            self.released_timelimit = released_timelimit
+            self.released_judge_time = released_judge_time
+    
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
