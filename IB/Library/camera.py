@@ -47,8 +47,8 @@ class Camera:
 
     def take_pic(self):
 
-        self.camera.shutter_speed = 20000
-        self.camera.iso = 800
+        self.camera.shutter_speed = 5000
+        self.camera.iso = 400
         self.camera.exposure_mode = 'auto'
         time.sleep(2)
         logger_info.info("taking pic...: {}".format(self.image_path))
