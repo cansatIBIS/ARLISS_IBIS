@@ -46,10 +46,10 @@ class Camera:
 
 
     def take_pic(self):
-        
+
         self.camera.shutter_speed = 25000
         self.camera.iso = 1600
-        
+        self.camera.exposure_mode = 'sports'
         time.sleep(2)
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
