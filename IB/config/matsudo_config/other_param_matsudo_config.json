@@ -6,7 +6,7 @@
     "land_timelimit" : "100",
     "land_judge_len" : "None",
     "health_continuous_count" : "None",
-    "mission_speed" : "None",
+    "mission_speed" : "5",
     "waypoint_alt" : "3",
 
     "light_threshold" : "500",
