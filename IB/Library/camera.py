@@ -11,7 +11,7 @@ from logger_lib import logger_info
 class Camera:
 
     def __init__(self,
-                 iso = 100
+                 iso = 100,
                  hsv_min_1 = np.array([0,127,127]),
                  hsv_max_1 = np.array([5,255,255]),
                  hsv_min_2 = np.array([150,127,127]),
