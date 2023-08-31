@@ -18,7 +18,6 @@ class Ibis:
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
-                 use_camera,
                # light
                  light_threshold,
                  stored_timelimit,
@@ -30,77 +29,96 @@ class Ibis:
                  lora_sleep_time,
                # deamon
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
-                 is_destruct_deamon = True):
-        
+                 is_destruct_deamon = True,
+               # other defaults
+                 use_camera = False,
+                 use_gps_config = True,
+                 use_other_param_config = True):
+      
+        logger_info.info("#################### Initializing Ibis ####################")
+          
         self.lora = Lora(lora_power_pin,
-                         lora_sleep_time)
+                          lora_sleep_time)
         
         self.pixhawk = Pixhawk(fuse_pin,
-                               wait_time,
-                               fuse_time,
-                               land_timelimit,
-                               land_judge_len,
-                               health_continuous_count,
-                               waypoint_lat,
-                               waypoint_lng,
-                               waypoint_alt,
-                               mission_speed,
-                               self.lora,
-                               deamon_pass,
-                               use_camera)
+                                wait_time,
+                                fuse_time,
+                                land_timelimit,
+                                land_judge_len,
+                                health_continuous_count,
+                                waypoint_lat,
+                                waypoint_lng,
+                                waypoint_alt,
+                                mission_speed,
+                                self.lora,
+                                deamon_pass,
+                                use_camera,
+                                use_gps_config,
+                                use_other_param_config)
         
         self.light = Light(light_threshold,
-                           stored_timelimit,
-                           stored_judge_time,
-                           released_timelimit,
-                           released_judge_time,
-                           self.lora,
-                           deamon_pass)
+                            stored_timelimit,
+                            stored_judge_time,
+                            released_timelimit,
+                            released_judge_time,
+                            self.lora,
+                            deamon_pass)
         
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
         self.is_destruct_deamon = is_destruct_deamon
         
-        logger_info.info("Ibis initialized")
-        
-        
+        logger_info.info("#################### Ibis initialized ####################")
+          
+          
     async def wait_storing_phase(self):
         
+        logger_info.info("#################### Wait store phase start ####################")
         await self.pixhawk.wait_store()
+        logger_info.info("#################### Wait store phase finished ####################")
         
         
     async def judge_phase(self):
         
+        logger_info.info("#################### Judge phase start ####################")
         await self.pixhawk.connect()
         await self.pixhawk.upload_mission()
         await self.light.stored_judge()
         await self.light.released_judge()
         await self.lora.power_on()
         await self.pixhawk.landjudge_and_sendgps()
+        logger_info.info("#################### Judge phase finished ####################")
+    
+    async def fuse_phase(self):
+      
+        logger_info.info("#################### Fuse phase start ####################")
         self.pixhawk.fuse()
+        logger_info.info("#################### Fuse phase finished ####################")
         
         
     async def flying_phase(self):
         
+        logger_info.info("#################### Flying phase start ####################")
         await self.pixhawk.health_check()
         await self.pixhawk.arm()
         await self.pixhawk.start_mission()
         await self.pixhawk.gather_main_coroutines()
         await self.pixhawk.land()
+        logger_info.info("#################### Flying phase finished ####################")
     
     
     async def destruct_deamon(self):
+      
         if self.is_destruct_deamon:
+            logger_info.info("Destructing deamon")
             with open(self.deamon_pass, "w") as deamon:
                 deamon.write("")
-                logger_info.info("Destructed deamon")
-        await self.lora.power_off()
             
     
     async def IBIS_MISSION(self):
         
-        logger_info.info("IBIS MISSION START")
+        logger_info.info("#################### IBIS MISSION START ####################")
         
         await self.lora.write("IBIS MISSION START")
         
@@ -108,10 +126,12 @@ class Ibis:
         
         await self.judge_phase()
         
+        await self.fuse_phase()
+        
         await self.flying_phase()
         
-        await self.destruct_deamon()
-        
-        logger_info.info("IBIS MISSION COMPLETE")
+        logger_info.info("#################### IBIS MISSION COMPLETE ####################")
         
         await self.lora.write("IBIS MISSION COMPLETE")
+        
+        await self.destruct_deamon()

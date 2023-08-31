@@ -59,7 +59,9 @@ async def run():
 
     await pixhawk.gather_main_coroutines()
     
-    await pixhawk.goto_location()
+    abs_alt = await pixhawk.get_position_alt()
+
+    await pixhawk.goto_location(waypoint_lat, waypoint_lng, abs_alt)
 
     await pixhawk.land()
 

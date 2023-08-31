@@ -11,10 +11,10 @@ from logger_lib import logger_info
 class Camera:
 
     def __init__(self,
-                 hsv_min_1 = np.array([0,145,0]),
+                 hsv_min_1 = np.array([0,127,127]),
                  hsv_max_1 = np.array([5,255,255]),
-                 hsv_min_2 = np.array([0,110,0]),
-                 hsv_max_2 = np.array([179,255,255]),
+                 hsv_min_2 = np.array([150,127,127]),
+                 hsv_max_2 = np.array([180,255,255]),
                  pixel_number_x = 3296,
                  pixel_number_y = 2521,
                  pixel_size = 1.12,
@@ -47,19 +47,24 @@ class Camera:
 
 
     def take_pic(self):
+
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
 
+
     def save_detected_img(self):
-        cv2.circle(self.img, (int(self.center_px[0]), int(self.center_px[1])), 30, (0, 200, 0),
-                thickness=3, lineType=cv2.LINE_AA)
+
+        if self.res['percent'] > 0.001:
+            cv2.circle(self.img, (int(self.center_px[0]), int(self.center_px[1])), 30, (0, 200, 0),
+                    thickness=3, lineType=cv2.LINE_AA)
         cv2.imwrite(self.image_path, self.img)
 
+
     def detect_center(self):
+
         self.img = cv2.imread(self.image_path) # 画像を読み込む
         
         height, width = self.img.shape[:2] # 画像のサイズを取得する
-        print(f"height:{height}, width:{width}")
 
         hsv = cv2.cvtColor(self.img, cv2.COLOR_BGR2HSV) # 色基準で2値化する
 
@@ -90,6 +95,8 @@ class Camera:
             self.res['width'] = None
             self.res['percent'] = 0
             self.res['center'] = None
+            self.center_px = (0, 0)
+            self.save_detected_img()
         else:
             max_index = np.argmax(percent)
             self.res['height'] = height
@@ -103,7 +110,6 @@ class Camera:
     
 
     def get_target_position(self, distance):
-
 
         image_length = self.pixel_number_x * self.pixel_size / 1000
         image_width = self.pixel_number_y * self.pixel_size / 1000

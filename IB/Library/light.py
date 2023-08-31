@@ -2,6 +2,7 @@ from typing import Any
 import spidev
 from logger_lib import logger_info
 import time
+import json
 
 
 class Light:
@@ -13,15 +14,28 @@ class Light:
                  released_timelimit,
                  released_judge_time,
                  lora,
-                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"):
+                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+                 use_other_param_config = False):
         
         self.lora = lora
         
-        self.light_threshold = light_threshold
-        self.stored_timelimit = stored_timelimit
-        self.stored_judge_time = stored_judge_time
-        self.released_timelimit = released_timelimit
-        self.released_judge_time = released_judge_time
+        if use_other_param_config:
+            JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
+            f = open(JSON_PASS_other_param , "r")
+            other_param = json.load(f)
+            self.light_threshold = other_param["light_threshold"]
+            self.stored_timelimit = other_param["stored_timelimit"]
+            self.stored_judge_time = other_param["stored_judge_time"]
+            self.released_timelimit = other_param["released_timelimit"]
+            self.released_judge_time = other_param["released_judge_time"]
+            f.close()
+        else:
+            self.light_threshold = light_threshold
+            self.stored_timelimit = stored_timelimit
+            self.stored_judge_time = stored_judge_time
+            self.released_timelimit = released_timelimit
+            self.released_judge_time = released_judge_time
+    
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
@@ -58,7 +72,7 @@ class Light:
             return
         
         else:
-            logger_info.info("################## stored judge start ####################")
+            logger_info.info("-------------------- stored judge start --------------------")
 
             start_time = time.perf_counter()
             duration_start_time = time.perf_counter()
@@ -72,7 +86,7 @@ class Light:
                 time_stamp = time.perf_counter() - duration_start_time
                 if abs(pre_time_stamp - time_stamp) > 0.4:
                     pre_time_stamp = time_stamp
-                    logger_info.info("{:5.1f}| 光センサ:{:>3}, 継続:{}".format(time_stamp, light_val, is_continue))
+                    logger_info.info("{:5.1f}| Light Value:{:>3}, Continuation:{}".format(time_stamp, light_val, is_continue))
                     
                 
                 if light_val < self.light_threshold:
@@ -100,7 +114,7 @@ class Light:
                     logger_info.info("-- Timer Judge")
                     break
 
-            logger_info.info("#################### stored judge finish ###################")
+            logger_info.info("-------------------- stored judge finish --------------------")
 
 
     async def released_judge(self):
@@ -110,7 +124,7 @@ class Light:
             return
         
         else:
-            logger_info.info("################### released judge start ###################")
+            logger_info.info("-------------------- released judge start --------------------")
 
             start_time = time.perf_counter()
             duration_start_time = time.perf_counter()
@@ -124,7 +138,7 @@ class Light:
                 time_stamp = time.perf_counter() - duration_start_time
                 if abs(pre_time_stamp - time_stamp) > 0.4:
                     pre_time_stamp = time_stamp
-                    logger_info.info("{:5.1f}| 光センサ:{:>3d}, 継続:{}".format(time_stamp, light_val, is_continue))
+                    logger_info.info("{:5.1f}| Light Value:{:>3d}, Continuation:{}".format(time_stamp, light_val, is_continue))
                     
                 if is_continue:
                     
@@ -151,7 +165,7 @@ class Light:
                     logger_info.info("-- Timer Judge")
                     break
 
-            logger_info.info("##################### released judge finish #####################")
+            logger_info.info("-------------------- released judge finish --------------------")
 
 
     def __del__(self):
