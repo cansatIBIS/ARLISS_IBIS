@@ -121,7 +121,7 @@ class Camera:
         image_x = distance * image_length / self.focal_length
         image_y = distance * image_width / self.focal_length
 
-        if not self.res['center'] == None:
+        if not any(self.res['center'] == np.array([None, None])):
             x_m = self.res['center'][0]*image_x/2
             y_m = self.res['center'][1]*image_y/2
 
