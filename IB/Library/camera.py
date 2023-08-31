@@ -49,6 +49,7 @@ class Camera:
 
         # self.camera.exposure_mode = "off"
         self.camera.exposure_compensation = 25
+        self.camera.iso = 100
         time.sleep(2)
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
