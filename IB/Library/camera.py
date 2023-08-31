@@ -47,7 +47,7 @@ class Camera:
 
     def take_pic(self):
 
-        self.camera.exposure_compensation = -100
+        self.camera.exposure_compensation = -25
         # self.camera.iso = 100
         time.sleep(2)
         logger_info.info("taking pic...: {}".format(self.image_path))
