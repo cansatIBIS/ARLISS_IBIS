@@ -1,4 +1,4 @@
-import asyncio
+import time
 import os
 import sys
 import picamera
@@ -47,12 +47,12 @@ class Camera:
 
     def take_pic(self):
 
-        self.camera.start_preview()
         self.camera.exposure_mode = "off"
         self.camera.exposure_compensation = 25
+        time.sleep(2)
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
-        self.camera.stop_preview()
+
 
 
     def save_detected_img(self):
