@@ -111,7 +111,7 @@ class Ibis:
     async def destruct_deamon(self):
       
         if self.is_destruct_deamon:
-            logger_info.info("Destructing deamon")
+            logger_info.info("Destructing deamon log")
             with open(self.deamon_pass, "w") as deamon:
                 deamon.write("")
             
