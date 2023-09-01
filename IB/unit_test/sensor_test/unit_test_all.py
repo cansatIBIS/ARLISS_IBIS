@@ -268,6 +268,25 @@ async def fusing():
     except:
         GPIO.output(fuse_Pin, 1)
 
+    
+class Camera:
+    
+    def __init__(self):
+        self.camera = picamera.PiCamera()
+        print('キャメラ初期化完了')
+    
+    def take_pic(self, file_path):
+        self.camera.capture(file_path)
+        
+    
+async def camera_check():
+    camera = Camera()
+    
+    file_path = '/home/pi/ARLISS_IBIS/IB/Images/image_test{}.jpg'.format(datetime.datetime.now())
+
+    print("taking pic...: {}".format(file_path))
+    camera.take_pic(file_path) # 写真を撮る
+    
 
 async def unit_test():
     
@@ -278,6 +297,7 @@ async def unit_test():
     await released_judge(lora)
     await land_judge(lora, drone)
     await fusing()
+    await camera_check()
     
     
 if __name__ == "__main__":
