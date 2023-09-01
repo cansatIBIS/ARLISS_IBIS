@@ -81,7 +81,7 @@ async def run():
             if is_red_right_below:
                 break
         logger_info.info(f"Success image navigation!")
-        await pixhawk.land()
+        await pixhawk.gather_land_coroutines()
 
 
 if __name__ == "__main__":

@@ -702,12 +702,12 @@ class Pixhawk:
         land_coroutines = [
             self.cycle_pitch_roll(),
             self.cycle_is_in_air(),
-            self.
-
+            self.cycle_land()
         ]
         tasks = asyncio.gather(*land_coroutines)
         cancel_task = asyncio.create_task(self.tasks_cancel(tasks))
         await asyncio.gather(tasks, cancel_task, return_exceptions=True)
+
 
     async def clear_mission(self):
 
@@ -717,6 +717,7 @@ class Pixhawk:
 
 
     async def cycle_wait_mission_finished(self):
+
         while True:
             await asyncio.sleep(1)
             mission_finished = await self.pix.mission.is_mission_finished()
@@ -726,8 +727,19 @@ class Pixhawk:
         self.is_tasks_cancel_ok = True 
 
 
-    async def cycle_wait_land(self):
+    async def cycle_land(self):
 
+        await self.pix.action.land
+        while True:
+            if abs(float(self.roll_deg)) > 60 or abs(float(self.pitch_deg)) > 60:
+                logger_info.info("Hit the target!")
+                await self.kill_forever()
+            elif self.is_in_air == False:
+                logger_info.info("Landed!")
+                break
+            await asyncio.sleep(0.01)
+        self.is_tasks_cancel_ok = True 
+        
 
     async def tasks_cancel(self, tasks):
         while True:
@@ -736,14 +748,6 @@ class Pixhawk:
                 break
         tasks.cancel()
         await asyncio.gather(*tasks, return_exceptions=True)
-
-
-    def tasks_cancel_ng(self):
-        self.is_tasks_cancel_ok = False
-
-
-    def tasks_cancel_ok(self):
-        self.is_tasks_cancel_ok = True
 
 
     async def goto_location(self, lat, lng, abs_alt):
@@ -834,7 +838,7 @@ class Pixhawk:
             await self.land()
 
 
-    async def task_kill_forever(self):
+    async def kill_forever(self):
 
         while True:
             await self.pix.action.kill()
