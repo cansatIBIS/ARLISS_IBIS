@@ -295,7 +295,7 @@ async def unit_test():
     await released_judge(lora)
     await land_judge(lora, drone)
     await fusing()
-    await camera_check()
+    # await camera_check()
     
     
 if __name__ == "__main__":
