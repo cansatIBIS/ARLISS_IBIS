@@ -15,10 +15,10 @@ class Camera:
                  hsv_max_1 = np.array([5,255,255]),
                  hsv_min_2 = np.array([150,127,127]),
                  hsv_max_2 = np.array([180,255,255]),
-                 pixel_number_x = 3296,
-                 pixel_number_y = 2521,
-                 pixel_size = 1.12,
-                 focal_length = 3.04,
+                 pixel_number_x = 2592,
+                 pixel_number_y = 1944,
+                 pixel_size = 1.4,
+                 focal_length = 3.6,
                  image_path = "/home/pi/ARLISS_IBIS/IB/Images/" 
                  + str(os.path.splitext(os.path.basename(sys.argv[0]))[0])
                  + "_"
