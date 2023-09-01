@@ -1,4 +1,4 @@
-import asyncio
+import time
 import os
 import sys
 import picamera
@@ -11,6 +11,7 @@ from logger_lib import logger_info
 class Camera:
 
     def __init__(self,
+                 shutter_speed = 0,
                  hsv_min_1 = np.array([0,127,127]),
                  hsv_max_1 = np.array([5,255,255]),
                  hsv_min_2 = np.array([150,127,127]),
@@ -26,6 +27,7 @@ class Camera:
                  + ".jpg"):
 
         self.camera = picamera.PiCamera()
+        self.shutter_speed = shutter_speed
         self.hsv_min_1 = hsv_min_1
         self.hsv_max_1 = hsv_max_1
         self.hsv_min_2 = hsv_min_2
@@ -47,9 +49,10 @@ class Camera:
 
     def take_pic(self):
 
-
+        self.camera.shutter_speed = self.shutter_speed
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
+
 
 
     def save_detected_img(self):
@@ -117,8 +120,13 @@ class Camera:
         image_x = distance * image_length / self.focal_length
         image_y = distance * image_width / self.focal_length
 
-        x_m = self.res['center'][0]*image_x/2
-        y_m = self.res['center'][1]*image_y/2
+        if not any(self.res['center'] == np.array([None, None])):
+            x_m = self.res['center'][0]*image_x/2
+            y_m = self.res['center'][1]*image_y/2
+
+        else:
+            x_m = None
+            y_m = None
 
         return x_m, y_m
 
