@@ -288,7 +288,7 @@ async def camera_check():
 
 async def unit_test():
     
-    drone = drone_connect()
+    drone = await drone_connect()
     lora = await serial_connect()
     
     await stored_judge(lora)
