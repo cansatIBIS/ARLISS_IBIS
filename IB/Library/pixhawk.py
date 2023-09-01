@@ -84,6 +84,9 @@ class Pixhawk:
         self.image_res = None
         self.east_m = None
         self.north_m = None
+        self.is_in_air =  None
+        self.pitch_deg = None
+        self.roll_deg = None
         
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
@@ -151,6 +154,19 @@ class Pixhawk:
     async def get_in_air(self):
 
         async for is_in_air in self.pix.telemetry.in_air():
+            self.is_in_air = is_in_air
+
+
+    async def get_pitch_roll(self):
+        
+        async for angle in self.drone.telemetry.attitude_euler():
+            self.pitch_deg = angle.pitch_deg
+            self.roll_deg = angle.roll_deg
+
+
+    async def return_in_air(self):
+
+        async for is_in_air in self.pix.telemetry.in_air():
             return is_in_air
 
 
@@ -194,12 +210,31 @@ class Pixhawk:
             pass
 
     
-    
     async def cycle_lidar(self):
 
         try:
             while True:
                 await self.get_lidar()
+                await asyncio.sleep(0.1)
+        except asyncio.CancelledError:
+            pass
+
+
+    async def cycle_pitch_roll(self):
+
+        try:
+            while True:
+                await self.get_pitch_roll()
+                await asyncio.sleep(0.1)
+        except asyncio.CancelledError:
+            pass
+
+
+    async def cycle_is_in_air(self):
+
+        try:
+            while True:
+                await self.get_in_air()
                 await asyncio.sleep(0.1)
         except asyncio.CancelledError:
             pass
@@ -273,7 +308,7 @@ class Pixhawk:
         await self.pix.action.land()
         while True:
             await asyncio.sleep(1)
-            is_in_air = await self.get_in_air()
+            is_in_air = await self.return_in_air()
             logger_info.info(f"is_in_air:{is_in_air}")
             if not is_in_air:
                 break
@@ -542,26 +577,6 @@ class Pixhawk:
             GPIO.output(self.fuse_pin, 1)
             
             
-    def LED(self):
-        
-        try:
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setwarnings(False)
-            GPIO.setup(self.fuse_pin, GPIO.OUT, initial=GPIO.LOW)
-            logger_info.info("LED start")
-
-            GPIO.output(self.fuse_pin, 1)
-            logger_info.info("-- Lighting")
-
-            time.sleep(self.fuse_time)
-            logger_info.info("finish")
-
-            GPIO.output(self.fuse_pin, 0)
-        
-        except:
-            GPIO.output(self.fuse_pin, 0)
-            
-            
     async def health_check(self):
         
         logger_info.info("Waiting for drone to have a global position estimate...")
@@ -662,6 +677,18 @@ class Pixhawk:
         await asyncio.gather(tasks, cancel_task, return_exceptions=True)
 
 
+    async def gather_land_coroutines(self):
+
+        land_coroutines = [
+            self.cycle_pitch_roll(),
+            self.cycle_is_in_air(),
+            self.
+
+        ]
+        tasks = asyncio.gather(*land_coroutines)
+        cancel_task = asyncio.create_task(self.tasks_cancel(tasks))
+        await asyncio.gather(tasks, cancel_task, return_exceptions=True)
+
     async def clear_mission(self):
 
         logger_info.info("Clearing mission...")
@@ -676,7 +703,10 @@ class Pixhawk:
             if mission_finished:
                 logger_info.info("Mission finished")
                 break
-        self.is_tasks_cancel_ok = True
+        self.is_tasks_cancel_ok = True 
+
+
+    async def cycle_wait_land(self):
 
 
     async def tasks_cancel(self, tasks):
@@ -782,3 +812,10 @@ class Pixhawk:
             logger_info.info(f"Stopping offboard mode failed \
                     with error code: {error._result.result}")
             await self.land()
+
+
+    async def task_kill_forever(self):
+
+        while True:
+            await self.pix.action.kill()
+            await asyncio.sleep(0.1)
