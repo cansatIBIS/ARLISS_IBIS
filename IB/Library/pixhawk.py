@@ -576,6 +576,26 @@ class Pixhawk:
         except:
             GPIO.output(self.fuse_pin, 1)
             
+
+    def fuse(self):
+        
+        try:
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setwarnings(False)
+            GPIO.setup(self.fuse_pin, GPIO.OUT, initial=GPIO.LOW)
+            logger_info.info("Light start")
+
+            GPIO.output(self.fuse_pin, 1)
+            logger_info.info("-- Lighting")
+
+            time.sleep(self.fuse_time)
+            logger_info.info("Lighted")
+
+            GPIO.output(self.fuse_pin, 0)
+        
+        except:
+            GPIO.output(self.fuse_pin, 0)
+            
             
     async def health_check(self):
         
