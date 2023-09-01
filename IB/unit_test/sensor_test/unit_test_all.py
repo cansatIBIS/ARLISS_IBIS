@@ -165,7 +165,7 @@ async def released_judge(lora):
 
 async def land_judge(lora, drone):
     
-    write(lora, "land judge start")
+    await write(lora, "land judge start")
     global is_landed
     print("#########################\n# land judge start #\n#########################")
     start_time = time.time()
