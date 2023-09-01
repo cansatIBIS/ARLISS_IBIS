@@ -11,7 +11,6 @@ from logger_lib import logger_info
 class Camera:
 
     def __init__(self,
-                 shutter_speed = 0,
                  hsv_min_1 = np.array([0,127,127]),
                  hsv_max_1 = np.array([5,255,255]),
                  hsv_min_2 = np.array([150,127,127]),
@@ -27,7 +26,6 @@ class Camera:
                  + ".jpg"):
 
         self.camera = picamera.PiCamera()
-        self.shutter_speed = shutter_speed
         self.hsv_min_1 = hsv_min_1
         self.hsv_max_1 = hsv_max_1
         self.hsv_min_2 = hsv_min_2
@@ -48,8 +46,8 @@ class Camera:
 
 
     def take_pic(self):
+        self.camera.iso= 100
 
-        self.camera.shutter_speed = self.shutter_speed
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
 
