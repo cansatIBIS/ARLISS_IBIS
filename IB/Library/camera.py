@@ -46,6 +46,7 @@ class Camera:
 
 
     def take_pic(self):
+        self.camera.iso= 100
 
         logger_info.info("taking pic...: {}".format(self.image_path))
         self.camera.capture(self.image_path)
