@@ -6,17 +6,18 @@ sys.path.append(ibis_directory)
 
 from camera import Camera
 
+shutter_speed = 5000
 hsv_min_1 = np.array([0, 85, 0])
 hsv_max_1 = np.array([5,255,255])
 hsv_min_2 = np.array([150,85,0])
 hsv_max_2 = np.array([180,255,255])
 
 def run():
-    camera = Camera(hsv_min_1,
+    camera = Camera(shutter_speed,
+                    hsv_min_1,
                     hsv_max_1,
                     hsv_min_2,
                     hsv_max_2)
-    camera.change_iso(1)
     camera.take_pic()
     res = camera.detect_center()
     print('percent={}, center={}'.format(res['percent'], res['center']))
