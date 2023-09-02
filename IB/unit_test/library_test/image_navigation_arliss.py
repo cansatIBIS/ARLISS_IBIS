@@ -38,7 +38,7 @@ async def run():
     await pixhawk.start_mission()
     await pixhawk.gather_main_coroutines()
     try:
-        await asyncio.wait_for(img_navigation(), timeout = 5*60) 
+        await asyncio.wait_for(img_navigation(), timeout = 10) 
     except asyncio.TimeoutError:
         await pixhawk.land()
 
