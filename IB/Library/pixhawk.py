@@ -815,7 +815,7 @@ class Pixhawk:
         red_lat = lat_now+self.north_m*lat_deg_per_m
         red_lng = lng_now+self.east_m*lng_deg_per_m
         is_red_right_below = False
-        if abs(self.image_res['center'][0])<0.1 and abs(self.image_res['center'][1])<0.2:
+        if abs(self.image_res['center'][0])<0.2 and abs(self.image_res['center'][1])<0.2:
             is_red_right_below = True
         return red_lat, red_lng, abs_alt, is_red_right_below
         
