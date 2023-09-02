@@ -29,42 +29,8 @@ hsv_min_2 = np.array([150,85,0])
 hsv_max_2 = np.array([180,255,255])
 #--------------------------------
 
-async def run():
 
-    lora = Lora(
-        lora_power_pin,
-        lora_sleep_time
-    )
-    
-    pixhawk = Pixhawk(
-                 fuse_PIN,
-                 wait_time,
-                 fuse_time,
-                 land_timelimit,
-                 land_judge_len,
-                 health_continuous_count,
-                 waypoint_lat,
-                 waypoint_lng,
-                 waypoint_alt,
-                 mission_speed,
-                 lora,
-                 use_camera,
-                 use_gps_config = False,
-                 )
-      
-    await pixhawk.connect()
-    await pixhawk.upload_mission()
-    await pixhawk.health_check()
-    await pixhawk.arm()
-    await pixhawk.start_mission()
-    await pixhawk.gather_main_coroutines()
-    try:
-        await asyncio.wait_for(img_navigation(), timeout = 10) 
-    except asyncio.TimeoutError:
-        logger_info.info("TimeoutError")
-        await pixhawk.land()
-
-    async def img_navigation():
+async def img_navigation(pixhawk):
 
         # 高さをwaypoint_altぴったりに合わせる
         goal_abs_alt = await pixhawk.get_position_alt()
@@ -105,6 +71,43 @@ async def run():
                 break
         logger_info.info(f"Success image navigation!")
         await pixhawk.gather_land_coroutines()
+
+async def run():
+
+    lora = Lora(
+        lora_power_pin,
+        lora_sleep_time
+    )
+    
+    pixhawk = Pixhawk(
+                 fuse_PIN,
+                 wait_time,
+                 fuse_time,
+                 land_timelimit,
+                 land_judge_len,
+                 health_continuous_count,
+                 waypoint_lat,
+                 waypoint_lng,
+                 waypoint_alt,
+                 mission_speed,
+                 lora,
+                 use_camera,
+                 use_gps_config = False,
+                 )
+      
+    await pixhawk.connect()
+    await pixhawk.upload_mission()
+    await pixhawk.health_check()
+    await pixhawk.arm()
+    await pixhawk.start_mission()
+    await pixhawk.gather_main_coroutines()
+    try:
+        await asyncio.wait_for(img_navigation(pixhawk), timeout = 10) 
+    except asyncio.TimeoutError:
+        logger_info.info("TimeoutError")
+        await pixhawk.land()
+
+    
 
 
 if __name__ == "__main__":
