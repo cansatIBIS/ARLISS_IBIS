@@ -30,6 +30,26 @@ hsv_max_2 = np.array([180,255,255])
 #--------------------------------
 
 async def run():
+
+    lora = Lora(
+        lora_power_pin,
+        lora_sleep_time     
+        )
+
+    pixhawk = Pixhawk(
+                 fuse_PIN,
+                 wait_time,
+                 fuse_time,
+                 land_timelimit,
+                 land_judge_len,
+                 health_continuous_count,
+                 waypoint_lat,
+                 waypoint_lng,
+                 waypoint_alt,
+                 mission_speed,
+                 lora,
+                 use_camera
+                 )
       
     await pixhawk.connect()
     await pixhawk.upload_mission()
@@ -88,24 +108,6 @@ async def run():
 
 if __name__ == "__main__":
 
-    lora = Lora(
-        lora_power_pin,
-        lora_sleep_time     
-        )
-
-    pixhawk = Pixhawk(
-                 fuse_PIN,
-                 wait_time,
-                 fuse_time,
-                 land_timelimit,
-                 land_judge_len,
-                 health_continuous_count,
-                 waypoint_lat,
-                 waypoint_lng,
-                 waypoint_alt,
-                 mission_speed,
-                 lora,
-                 use_camera
-                 )
+    
 
     asyncio.run(run())
