@@ -771,7 +771,7 @@ class Pixhawk:
             break
         
         self.camera.take_pic()
-        self.image_res = self.detect_center()
+        self.image_res = self.camera.detect_center()
         logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
         if self.image_res['percent'] <= 0.001:
             logger_info.info(f"Failed image navigation")
