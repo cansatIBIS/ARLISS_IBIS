@@ -735,6 +735,7 @@ class Pixhawk:
         
 
     async def tasks_cancel(self, tasks):
+        
         while True:
             await asyncio.sleep(1)
             if self.is_tasks_cancel_ok:
