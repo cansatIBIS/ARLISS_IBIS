@@ -258,11 +258,6 @@ class Pixhawk:
                     + " lidar:"
                     + str(self.lidar)
                     + "m"
-                    + " battery:"
-                    + str(self.voltage_v)
-                    + "V, "
-                    + str(self.remaining_percent)
-                    + "%"
                 )
                 logger_info.info(str(log_txt))
                 await asyncio.sleep(0.3)
@@ -688,8 +683,6 @@ class Pixhawk:
             self.cycle_mission_progress(),
             self.cycle_position_lat_lng(),
             self.cycle_lidar(),
-            self.cycle_battery(),
-            self.cycle_show(),
             self.cycle_wait_mission_finished()
         ]
         tasks = asyncio.gather(*main_coroutines)
