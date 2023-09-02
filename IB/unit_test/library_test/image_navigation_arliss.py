@@ -32,6 +32,7 @@ hsv_max_2 = np.array([180,255,255])
 
 async def img_navigation(pixhawk):
 
+        logger_info.info("Start image navigation")
         # 高さをwaypoint_altぴったりに合わせる
         goal_abs_alt = await pixhawk.get_position_alt()
         goal_lidar_alt = await pixhawk.get_distance_alt()
@@ -102,7 +103,7 @@ async def run():
     await pixhawk.start_mission()
     await pixhawk.gather_main_coroutines()
     try:
-        await asyncio.wait_for(img_navigation(pixhawk), timeout = 10) 
+        await asyncio.wait_for(img_navigation(pixhawk), timeout = 5*60) 
     except asyncio.TimeoutError:
         logger_info.info("TimeoutError")
         await pixhawk.land()
