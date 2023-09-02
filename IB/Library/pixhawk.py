@@ -282,7 +282,7 @@ class Pixhawk:
             try:
                 await self.pix.action.arm()
             except mavsdk.action.ActionError:
-                logger_info.info("Arm ActionError")
+                logger_info.info("Arming denied")
                 await asyncio.sleep(0.1)
             else:
                 logger_info.info("Armed!")
