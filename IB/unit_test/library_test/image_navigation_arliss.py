@@ -33,9 +33,9 @@ async def run():
 
     lora = Lora(
         lora_power_pin,
-        lora_sleep_time     
-        )
-
+        lora_sleep_time
+    )
+    
     pixhawk = Pixhawk(
                  fuse_PIN,
                  wait_time,
@@ -48,7 +48,8 @@ async def run():
                  waypoint_alt,
                  mission_speed,
                  lora,
-                 use_camera
+                 use_camera,
+                 use_gps_config = False,
                  )
       
     await pixhawk.connect()
