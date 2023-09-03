@@ -52,7 +52,7 @@ class Lora:
                 break
         logger_info.info("Serial port OK.")
         self.operation_write()
-        self.serial.write(b"Lora start\r\n")
+        self.serial.write(("Lora start\r\n").encode())
         logger_info.info("Lora READY")
     
         
