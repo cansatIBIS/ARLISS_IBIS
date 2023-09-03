@@ -20,6 +20,7 @@ async def run():
     
     print("Take care that raspi uses pin power suply")
     lora.serial_connect()
+    print("sending")
     await lora.write("land judge start")
 
 
