@@ -15,8 +15,8 @@ fuse_time = 0
 land_timelimit = 0
 land_judge_len = 30
 health_continuous_count = 1
-waypoint_lat = 35.7978746
-waypoint_lng = 139.8925349
+waypoint_lat = 35.71583
+waypoint_lng = 139.76472
 waypoint_alt = 3
 mission_speed = 5
 lora_power_pin = 4
@@ -59,7 +59,7 @@ async def run():
 
     await pixhawk.upload_mission()
 
-    await pixhawk.health_check()
+    # await pixhawk.health_check()
 
     await pixhawk.arm()
 
