@@ -8,7 +8,7 @@ from lora import Lora
 
 # parameters---------------------
 lora_power_pin = 4
-lora_sleep_time = 3
+lora_sleep_time = 10
 #--------------------------------
 
 async def run():
