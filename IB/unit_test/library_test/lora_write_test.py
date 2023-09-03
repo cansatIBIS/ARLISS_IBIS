@@ -22,6 +22,7 @@ async def run():
     lora.serial_connect()
     print("sending")
     await lora.write("land judge start")
+    await lora.write("1")
 
 
 if __name__ == "__main__":
