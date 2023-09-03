@@ -18,8 +18,8 @@ class Lora:
             JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
             f = open(JSON_PASS_other_param , "r")
             other_param = json.load(f)
-            self.lora_power_pin = other_param["lora_power_pin"]
-            self.lora_sleep_time = other_param["lora_sleep_time"]
+            self.lora_power_pin = float(other_param["lora_power_pin"])
+            self.lora_sleep_time = float(other_param["lora_sleep_time"])
             f.close()
         else:
             self.lora_power_pin = lora_power_pin
