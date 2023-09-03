@@ -23,8 +23,8 @@ async def run():
     print("sending")
     await lora.write("lat:error")
     await lora.write("land judge start")
-    await lora.write(msg)
     msg = "land judge start"
+    await lora.write(msg)
     await lora.write("1")
 
 
