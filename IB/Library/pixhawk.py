@@ -574,7 +574,7 @@ class Pixhawk:
             GPIO.output(self.fuse_pin, 1)
             
 
-    def fuse(self):
+    def LED(self):
         
         try:
             GPIO.setmode(GPIO.BCM)
