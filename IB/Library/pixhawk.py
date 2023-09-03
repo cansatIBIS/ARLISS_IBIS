@@ -318,13 +318,15 @@ class Pixhawk:
             return
         
         else:
+            pre_time = 0
             start_time = time.time()
             logger_info.info("Waiting for store")
             while True:
                 time_now = time.time()
                 time_passed = int((time_now-start_time)//1)
-                if time_passed < self.wait_time:
+                if time_now > pre_time+0.3:
                     logger_info.info("{} seconds passed".format(time_passed))
+                    pre_time = time_now
                 else:
                     break
             logger_info.info("{} seconds passed. Wait phase finished".format(self.wait_time))
