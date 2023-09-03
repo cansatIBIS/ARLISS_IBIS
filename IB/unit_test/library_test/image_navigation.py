@@ -48,6 +48,7 @@ async def run():
                  waypoint_alt,
                  mission_speed,
                  lora,
+                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  use_camera
                  )
     
