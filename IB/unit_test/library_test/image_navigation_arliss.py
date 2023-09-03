@@ -92,7 +92,7 @@ async def run():
                  waypoint_alt,
                  mission_speed,
                  lora,
-                 use_camera = True,
+                 use_camera = use_camera,
                  use_gps_config = False
                  )
       
