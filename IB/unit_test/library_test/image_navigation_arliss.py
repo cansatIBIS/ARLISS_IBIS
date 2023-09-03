@@ -107,7 +107,7 @@ async def run():
         pass
     try:
         try:
-            await asyncio.wait_for(img_navigation(pixhawk), timeout = 5*60) 
+            await asyncio.wait_for(img_navigation(pixhawk), timeout = 30) 
         except asyncio.TimeoutError:
             logger_info.info("TimeoutError")
             await pixhawk.land()
