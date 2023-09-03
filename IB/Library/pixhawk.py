@@ -37,8 +37,8 @@ class Pixhawk:
         self.lora = lora
         
         if use_gps_config:
-            JSON_PASS_gps = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
-            f = open(JSON_PASS_gps , "r")
+            json_pass_gps = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
+            f = open(json_pass_gps , "r")
             waypoint = json.load(f)
             self.waypoint_lat = float(waypoint["waypoint_lat"])
             self.waypoint_lng = float(waypoint["waypoint_lng"])
@@ -49,8 +49,8 @@ class Pixhawk:
             
     
         if use_other_param_config:
-            JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
-            f = open(JSON_PASS_other_param , "r")
+            json_pass_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
+            f = open(json_pass_other_param , "r")
             other_param = json.load(f)
             self.fuse_pin = float(other_param["fuse_pin"])
             self.wait_time = float(other_param["wait_time"])
