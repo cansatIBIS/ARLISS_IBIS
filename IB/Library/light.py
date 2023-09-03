@@ -20,8 +20,8 @@ class Light:
         self.lora = lora
         
         if use_other_param_config:
-            JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
-            f = open(JSON_PASS_other_param , "r")
+            json_pass_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
+            f = open(json_pass_other_param , "r")
             other_param = json.load(f)
             self.light_threshold = float(other_param["light_threshold"])
             self.stored_timelimit = float(other_param["stored_timelimit"])
