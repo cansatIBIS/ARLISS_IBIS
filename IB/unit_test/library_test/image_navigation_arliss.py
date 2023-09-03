@@ -98,13 +98,12 @@ async def run():
       
     await pixhawk.connect()
     await pixhawk.upload_mission()
-    # await pixhawk.health_check()
+    await pixhawk.health_check()
     await pixhawk.arm()
-    try:
-        await pixhawk.start_mission()
-        await pixhawk.gather_main_coroutines()
-    except Exception:
-        pass
+
+    await pixhawk.start_mission()
+    await pixhawk.gather_main_coroutines()
+ 
     try:
         try:
             await asyncio.wait_for(img_navigation(pixhawk), timeout = 30) 
