@@ -40,8 +40,8 @@ class Pixhawk:
             JSON_PASS_gps = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
             f = open(JSON_PASS_gps , "r")
             waypoint = json.load(f)
-            self.waypoint_lat = waypoint["waypoint_lat"]
-            self.waypoint_lng = waypoint["waypoint_lng"]
+            self.waypoint_lat = float(waypoint["waypoint_lat"])
+            self.waypoint_lng = float(waypoint["waypoint_lng"])
             f.close()
         else:
             self.waypoint_lat = waypoint_lat
@@ -52,14 +52,14 @@ class Pixhawk:
             JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
             f = open(JSON_PASS_other_param , "r")
             other_param = json.load(f)
-            self.fuse_pin = other_param["fuse_pin"]
-            self.wait_time = other_param["wait_time"]
-            self.fuse_time = other_param["fuse_time"]
-            self.land_timelimit = other_param["land_timelimit"]
-            self.land_judge_len = other_param["land_judge_len"]
-            self.health_continuous_count = other_param["health_continuous_count"]
-            self.mission_speed = other_param["mission_speed"]
-            self.waypoint_alt = other_param["waypoint_alt"]
+            self.fuse_pin = float(other_param["fuse_pin"])
+            self.wait_time = float(other_param["wait_time"])
+            self.fuse_time = float(other_param["fuse_time"])
+            self.land_timelimit = float(other_param["land_timelimit"])
+            self.land_judge_len = float(other_param["land_judge_len"])
+            self.health_continuous_count = float(other_param["health_continuous_count"])
+            self.mission_speed = float(other_param["mission_speed"])
+            self.waypoint_alt = float(other_param["waypoint_alt"])
             f.close()
         else:
             self.fuse_pin = fuse_pin
