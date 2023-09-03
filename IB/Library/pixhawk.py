@@ -683,6 +683,7 @@ class Pixhawk:
             self.cycle_mission_progress(),
             self.cycle_position_lat_lng(),
             self.cycle_lidar(),
+            self.cycle_show(),
             self.cycle_wait_mission_finished()
         ]
         tasks = asyncio.gather(*main_coroutines)
