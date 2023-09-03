@@ -1,0 +1,41 @@
+2023-09-03 18:38:11.566 [INFO]: Lora initialized
+2023-09-03 18:38:11.570 [INFO]: Pixhawk initialized
+2023-09-03 18:38:11.572 [INFO]: Waiting for drone to connect...
+2023-09-03 18:38:12.725 [INFO]: Drone connected!
+2023-09-03 18:38:12.727 [INFO]: Serial port OK.
+2023-09-03 18:38:14.730 [INFO]: Lora READY
+2023-09-03 18:38:14.731 [INFO]: Waiting for store
+2023-09-03 18:38:14.732 [INFO]: 0 seconds passed
+2023-09-03 18:38:14.733 [INFO]: 10 seconds passed. Wait phase finished
+2023-09-03 18:38:14.734 [INFO]: -------------------- Land judge start --------------------
+2023-09-03 18:38:17.755 [INFO]: Time passed:0
+2023-09-03 18:38:18.541 [INFO]: Can't catch GPS
+2023-09-03 18:38:21.546 [INFO]: lat:error
+2023-09-03 18:38:24.551 [INFO]: lng:error
+2023-09-03 18:38:27.555 [INFO]: alt:error
+2023-09-03 18:38:27.564 [INFO]: Too high or distance sensor might have some error
+2023-09-03 18:38:27.565 [INFO]: Time passed:9
+2023-09-03 18:38:28.359 [INFO]: Can't catch GPS
+2023-09-03 18:38:31.364 [INFO]: lat:error
+2023-09-03 18:38:34.370 [INFO]: lng:error
+2023-09-03 18:38:37.376 [INFO]: alt:error
+2023-09-03 18:38:37.384 [INFO]: Too high or distance sensor might have some error
+2023-09-03 18:38:37.386 [INFO]: Time passed:19
+2023-09-03 18:38:38.183 [INFO]: Can't catch GPS
+2023-09-03 18:38:41.188 [INFO]: lat:error
+2023-09-03 18:38:44.193 [INFO]: lng:error
+2023-09-03 18:38:47.199 [INFO]: alt:error
+2023-09-03 18:38:47.207 [INFO]: Too high or distance sensor might have some error
+2023-09-03 18:38:47.208 [INFO]: Time passed:29
+2023-09-03 18:38:48.4   [INFO]: Can't catch GPS
+2023-09-03 18:38:51.9   [INFO]: lat:error
+2023-09-03 18:38:54.15  [INFO]: lng:error
+2023-09-03 18:38:57.19  [INFO]: alt:error
+2023-09-03 18:38:57.27  [INFO]: Too high or distance sensor might have some error
+2023-09-03 18:38:57.29  [INFO]: Time passed:39
+2023-09-03 18:38:57.29  [INFO]: -- Timer Judge
+2023-09-03 18:38:57.30  [INFO]: -------------------- Land judge finish --------------------
+2023-09-03 18:38:57.823 [INFO]: Can't catch GPS
+2023-09-03 18:39:00.828 [INFO]: lat:error
+2023-09-03 18:39:03.832 [INFO]: lng:error
+2023-09-03 18:39:06.837 [INFO]: alt:error

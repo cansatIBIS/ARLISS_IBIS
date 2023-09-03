@@ -1,0 +1,33 @@
+2023-09-03 19:10:00.262 [INFO]: Lora initialized
+2023-09-03 19:10:00.265 [INFO]: Pixhawk initialized
+2023-09-03 19:10:00.266 [INFO]: Waiting for drone to connect...
+2023-09-03 19:10:02.249 [INFO]: Drone connected!
+2023-09-03 19:10:02.251 [INFO]: Serial port OK.
+2023-09-03 19:10:04.254 [INFO]: Lora READY
+2023-09-03 19:10:04.255 [INFO]: Waiting for store
+2023-09-03 19:10:04.256 [INFO]: 0 seconds passed
+2023-09-03 19:10:04.256 [INFO]: 10 seconds passed. Wait phase finished
+2023-09-03 19:10:04.258 [INFO]: -------------------- Land judge start --------------------
+2023-09-03 19:10:08.280 [INFO]: Time passed:0
+2023-09-03 19:10:09.67  [INFO]: Can't catch GPS
+2023-09-03 19:10:13.73  [INFO]: lat:error
+2023-09-03 19:10:17.81  [INFO]: lng:error
+2023-09-03 19:10:21.88  [INFO]: alt:error
+2023-09-03 19:10:21.98  [INFO]: Too high or distance sensor might have some error
+2023-09-03 19:10:21.99  [INFO]: Time passed:12
+2023-09-03 19:10:21.895 [INFO]: Can't catch GPS
+2023-09-03 19:10:25.901 [INFO]: lat:error
+2023-09-03 19:10:29.909 [INFO]: lng:error
+2023-09-03 19:10:33.917 [INFO]: alt:error
+2023-09-03 19:10:33.926 [INFO]: Too high or distance sensor might have some error
+2023-09-03 19:10:33.928 [INFO]: Time passed:25
+2023-09-03 19:10:34.725 [INFO]: Can't catch GPS
+2023-09-03 19:10:38.731 [INFO]: lat:error
+2023-09-03 19:10:42.739 [INFO]: lng:error
+2023-09-03 19:10:46.747 [INFO]: alt:error
+2023-09-03 19:10:46.754 [INFO]: Too high or distance sensor might have some error
+2023-09-03 19:10:46.756 [INFO]: Time passed:38
+2023-09-03 19:10:46.757 [INFO]: -- Timer Judge
+2023-09-03 19:10:46.758 [INFO]: -------------------- Land judge finish --------------------
+2023-09-03 19:10:47.551 [INFO]: Can't catch GPS
+2023-09-03 19:10:51.558 [INFO]: lat:error
