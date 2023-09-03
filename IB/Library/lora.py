@@ -15,8 +15,8 @@ class Lora:
                  use_other_param_config = False):
         
         if use_other_param_config:
-            JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
-            f = open(JSON_PASS_other_param , "r")
+            json_pass_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
+            f = open(json_pass_other_param , "r")
             other_param = json.load(f)
             self.lora_power_pin = float(other_param["lora_power_pin"])
             self.lora_sleep_time = float(other_param["lora_sleep_time"])
