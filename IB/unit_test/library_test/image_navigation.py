@@ -49,8 +49,7 @@ async def run():
                  waypoint_alt,
                  mission_speed,
                  lora,
-                 deamon_pass,
-                 use_camera
+                 use_camera = use_camera
                  )
     
     
