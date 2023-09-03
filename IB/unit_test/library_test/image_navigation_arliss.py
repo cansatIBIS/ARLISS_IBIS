@@ -93,7 +93,7 @@ async def run():
                  mission_speed,
                  lora,
                  use_camera,
-                 use_gps_config = False,
+                 use_gps_config = False
                  )
       
     await pixhawk.connect()

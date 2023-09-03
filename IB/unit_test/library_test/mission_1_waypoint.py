@@ -42,7 +42,7 @@ async def run():
                  waypoint_alt,
                  mission_speed,
                  lora,
-                 use_gps_config = False,
+                 use_gps_config = False
                  )
 
     main_coroutines = [
