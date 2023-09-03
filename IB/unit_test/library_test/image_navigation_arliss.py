@@ -4,29 +4,24 @@ ibis_directory = "/home/pi/ARLISS_IBIS/IB/Library"
 sys.path.append(ibis_directory)
 
 import asyncio
-import numpy as np
 from pixhawk import Pixhawk
-from logger_lib import logger_info
 from lora import Lora
+from logger_lib import logger_info
 
 # parameters---------------------
 fuse_PIN = 0
 wait_time = 0
+lora_sleep_time = 0
 fuse_time = 0
 land_timelimit = 0
 land_judge_len = 30
-health_continuous_count = 3
+health_continuous_count = 1
 waypoint_lat = 35.7978746
 waypoint_lng = 139.8925349
-waypoint_alt =  3
+waypoint_alt = 3
 mission_speed = 5
 lora_power_pin = 4
 lora_sleep_time = 0
-use_camera = True
-hsv_min_1 = np.array([0,85,0])
-hsv_max_1 = np.array([5,255,255])
-hsv_min_2 = np.array([150,85,0])
-hsv_max_2 = np.array([180,255,255])
 #--------------------------------
 
 
