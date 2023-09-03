@@ -324,7 +324,7 @@ class Pixhawk:
                 time_now = time.time()
                 time_passed = int(time_now-start_time)
                 if time_passed < self.wait_time:
-                    logger_info.info("{} seconds passed".format(time_passed)//1)
+                    logger_info.info("{} seconds passed".format(str(time_passed))//1)
                 else:
                     break
             logger_info.info("{} seconds passed. Wait phase finished".format(self.wait_time))
