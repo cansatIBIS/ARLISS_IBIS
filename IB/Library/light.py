@@ -23,11 +23,11 @@ class Light:
             JSON_PASS_other_param = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/other_param_matsudo_config.json"
             f = open(JSON_PASS_other_param , "r")
             other_param = json.load(f)
-            self.light_threshold = other_param["light_threshold"]
-            self.stored_timelimit = other_param["stored_timelimit"]
-            self.stored_judge_time = other_param["stored_judge_time"]
-            self.released_timelimit = other_param["released_timelimit"]
-            self.released_judge_time = other_param["released_judge_time"]
+            self.light_threshold = float(other_param["light_threshold"])
+            self.stored_timelimit = float(other_param["stored_timelimit"])
+            self.stored_judge_time = float(other_param["stored_judge_time"])
+            self.released_timelimit = float(other_param["released_timelimit"])
+            self.released_judge_time = float(other_param["released_judge_time"])
             f.close()
         else:
             self.light_threshold = light_threshold
