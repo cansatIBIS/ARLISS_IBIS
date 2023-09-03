@@ -15,7 +15,7 @@ async def run():
   
   lora = Lora(lora_power_pin,
               lora_sleep_time)
-  lora.write("land judge start")
+  await lora.write("land judge start")
   
 
 
