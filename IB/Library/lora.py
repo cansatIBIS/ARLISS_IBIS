@@ -81,7 +81,7 @@ class Lora:
         self.is_lora_power_on = True
             
     
-    async def write(self, message: str):
+    def write(self, message: str):
         
         msg_send = str(message) + self.CRLF
         self.serial.write(msg_send.encode("ascii"))

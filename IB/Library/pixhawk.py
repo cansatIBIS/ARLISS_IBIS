@@ -314,7 +314,7 @@ class Pixhawk:
         
         if "{} seconds passed".format(self.wait_time) in self.deamon_log:
             msg = "skipped store wait"
-            await self.lora.write(msg)
+            self.lora.write(msg)
             logger_info.info("skipped store wait")
             return
         
@@ -342,7 +342,7 @@ class Pixhawk:
         else:
             logger_info.info("-------------------- Land judge start --------------------")
             msg = "land judge start"
-            await self.lora.write(msg)
+            self.lora.write(msg)
             start_time = time.time()
             while True:
         
@@ -436,13 +436,13 @@ class Pixhawk:
                 self.lat = "lat:" + str(lat_deg)
                 self.lng = "lng:" + str(lng_deg)
                 self.alt = "alt:" + str(alt)
-                await self.lora.write(self.lat)
+                self.lora.write(self.lat)
                 logger_info.info(self.lat)
                 await asyncio.sleep(0)
-                await self.lora.write(self.lng)
+                self.lora.write(self.lng)
                 logger_info.info(self.lng)
                 await asyncio.sleep(0)
-                await self.lora.write(self.alt)
+                self.lora.write(self.alt)
                 logger_info.info(self.alt)
                 await asyncio.sleep(0)
             
