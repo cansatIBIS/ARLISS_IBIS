@@ -27,6 +27,7 @@ hsv_min_1 = np.array([0,85,0])
 hsv_max_1 = np.array([5,255,255])
 hsv_min_2 = np.array([150,85,0])
 hsv_max_2 = np.array([180,255,255])
+deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
 #--------------------------------
 
 async def run():
@@ -48,7 +49,7 @@ async def run():
                  waypoint_alt,
                  mission_speed,
                  lora,
-                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+                 deamon_pass,
                  use_camera
                  )
     
