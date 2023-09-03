@@ -90,7 +90,7 @@ class Pixhawk:
         
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)
-        self.deamon_log = ""
+        self.deamon_log = self.deamon_file.read()
         
         self.is_tasks_cancel_ok = False
         self.is_landed = False 
