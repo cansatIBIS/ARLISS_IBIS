@@ -85,4 +85,4 @@ class Lora:
         
         msg_send = str(message) + self.CRLF
         self.serial.write(msg_send.encode("ascii"))
-        await asyncio.sleep(self.lora_sleep_time)
+        time.sleep(self.lora_sleep_time)
