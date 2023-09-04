@@ -20,6 +20,7 @@ waypoint_lat = 35.7978746
 waypoint_lng = 139.8925349
 waypoint_alt =  3
 mission_speed = 5
+image_navigation_timeout = 5 * 60
 lora_power_pin = 4
 lora_sleep_time = 0
 use_camera = True
@@ -91,6 +92,7 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 image_navigation_timeout,
                  lora,
                  use_camera = use_camera,
                  use_gps_config = False
@@ -100,25 +102,11 @@ async def run():
     await pixhawk.upload_mission()
     await pixhawk.health_check()
     await pixhawk.arm()
-
     await pixhawk.start_mission()
     await pixhawk.gather_main_coroutines()
- 
-    try:
-        try:
-            await asyncio.wait_for(img_navigation(pixhawk), timeout = 30) 
-        except asyncio.TimeoutError:
-            logger_info.info("TimeoutError")
-            await pixhawk.land()
-    except Exception:
-        await pixhawk.land()
-
-
-    
+    await pixhawk.perform_image_navigation_with_timeout()
 
 
 if __name__ == "__main__":
-
-    
 
     asyncio.run(run())
