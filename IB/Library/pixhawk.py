@@ -329,8 +329,10 @@ class Pixhawk:
                 if time_now > pre_time+0.3:
                     logger_info.info("{} seconds passed".format(time_passed))
                     pre_time = time_now
-                else:
+                if time_passed > self.wait_time:
                     break
+                else:
+                    continue
             logger_info.info("{} seconds passed. Wait phase finished".format(self.wait_time))
             
             
@@ -523,20 +525,9 @@ class Pixhawk:
     def IQR_removal(self, data):
         data.sort()
         l = len(data)
-        flag = l%4
         value_25 = l//4
-        if flag == 0:
-            quartile_25 = (data[value_25]+data[value_25+1])/2
-            quartile_75 = (data[value_25*3]+data[value_25*3+1])/2
-        elif flag == 1:
-            quartile_25 = (data[value_25]+data[value_25+1])/2
-            quartile_75 = (data[value_25*3+1]+data[value_25*3+2])/2
-        elif flag == 2:
-            quartile_25 = data[value_25]
-            quartile_75 = data[value_25*3]
-        elif flag == 3:
-            quartile_25 = data[value_25]
-            quartile_75 = data[value_25*3+1]
+        quartile_25 = data[value_25]
+        quartile_75 = data[value_25*3]
         IQR = quartile_75-quartile_25
         true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
         return true_data
