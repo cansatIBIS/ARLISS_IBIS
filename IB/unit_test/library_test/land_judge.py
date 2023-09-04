@@ -43,13 +43,13 @@ async def run():
                  lora
                  )
     
-    print("Take care that raspi uses pin power suply")
+    # print("Take care that raspi uses pin power suply to LED")
     await pixhawk.connect()
     lora.serial_connect()
     await pixhawk.wait_store()
     await pixhawk.landjudge_and_sendgps()
-    # pixhawk.fuse()
-    pixhawk.LED()
+    pixhawk.fuse()
+    # pixhawk.LED()
 
 
 if __name__ == "__main__":
