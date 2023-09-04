@@ -526,8 +526,11 @@ class Pixhawk:
         data.sort()
         l = len(data)
         value_25 = l//4
-        quartile_25 = data[value_25]
-        quartile_75 = data[value_25*3]
+        if value_25 == 0:
+            return []
+        else:
+            quartile_25 = data[value_25]
+            quartile_75 = data[value_25*3]
         IQR = quartile_75-quartile_25
         true_data = [i for i in data if quartile_25-1.5*IQR <= i <= quartile_75+1.5*IQR]
         return true_data
