@@ -18,6 +18,7 @@ class Ibis:
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 image_navigation_timeout,
                # light
                  light_threshold,
                  stored_timelimit,
@@ -50,6 +51,7 @@ class Ibis:
                                 waypoint_lng,
                                 waypoint_alt,
                                 mission_speed,
+                                image_navigation_timeout,
                                 self.lora,
                                 deamon_pass,
                                 use_camera,
@@ -104,7 +106,7 @@ class Ibis:
         await self.pixhawk.arm()
         await self.pixhawk.start_mission()
         await self.pixhawk.gather_main_coroutines()
-        await self.pixhawk.land()
+        await self.pixhawk.perform_image_navigation_with_timeout()
         logger_info.info("#################### Flying phase finished ####################")
     
     

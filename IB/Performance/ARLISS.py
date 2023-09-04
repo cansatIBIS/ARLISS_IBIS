@@ -18,6 +18,7 @@ waypoint_lat = 0
 waypoint_lng = 0
 waypoint_alt = 0
 mission_speed = 0
+image_navigation_timeout = 5 * 60
 light_threshold = 400
 stored_timelimit = 60
 stored_judge_time = 10
@@ -44,6 +45,7 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 image_navigation_timeout,
                # light
                  light_threshold,
                  stored_timelimit,
