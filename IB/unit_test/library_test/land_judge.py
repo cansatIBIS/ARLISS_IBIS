@@ -20,6 +20,7 @@ waypoint_lat = 40.19373
 waypoint_lng = 140.05923
 waypoint_alt = 5
 mission_speed = 5
+image_navigation_timeout = 0
 #--------------------------------
 
 async def run():
@@ -40,6 +41,7 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 image_navigation_timeout,
                  lora
                  )
     
