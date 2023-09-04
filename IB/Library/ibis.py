@@ -89,6 +89,7 @@ class Ibis:
         await self.light.stored_judge()
         await self.light.released_judge()
         await self.lora.power_on()
+        await self.lora.write("Ibis released")
         await self.pixhawk.landjudge_and_sendgps()
         logger_info.info("#################### Judge phase finished ####################")
     

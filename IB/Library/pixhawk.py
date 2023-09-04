@@ -342,8 +342,6 @@ class Pixhawk:
         
         else:
             logger_info.info("-------------------- Land judge start --------------------")
-            msg = "land judge start"
-            await self.lora.write(msg)
             start_time = time.time()
             while True:
         
