@@ -395,16 +395,25 @@ class Pixhawk:
                         else:
                             self.change_low_alt(ave)
                             if self.is_low_alt:
-                                continue
+                                for distance in true_dist:
+                                    if abs(ave-distance) > 0.01:
+                                        logger_info.info("-- Moving")
+                                        break
+                                else:
+                                    self.is_landed = True
+                                    
+                                if self.is_landed:
+                                    logger_info.info("-- Lidar Judge")
+                                    break
                             else:
                                 logger_info.info("-- Over 1m")
                     else:
                         try :
                             alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
-                            self.change_judge_alt(alt_now)
                         except asyncio.TimeoutError:
                             logger_info.info("Too high or distance sensor might have some error")
                             continue
+                        self.change_judge_alt(alt_now)
                 else:
                     self.is_landed = True
                     if self.is_landed:
