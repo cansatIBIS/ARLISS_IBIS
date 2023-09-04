@@ -316,7 +316,6 @@ class Pixhawk:
         
         if "{} seconds passed".format(self.wait_time) in self.deamon_log:
             msg = "skipped store wait"
-            await self.lora.write(msg)
             logger_info.info("skipped store wait")
             return
         
