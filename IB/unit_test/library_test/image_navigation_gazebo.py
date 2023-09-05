@@ -7,7 +7,7 @@ import asyncio
 import numpy as np
 from pixhawk import Pixhawk
 from logger_lib import logger_info
-from lora import Lora
+# from lora import Lora
 
 # parameters---------------------
 fuse_PIN = 0
@@ -93,7 +93,7 @@ async def run():
                  waypoint_alt,
                  mission_speed,
                  image_navigation_timeout,
-                 lora,
+                #  lora,
                  use_camera = use_camera,
                  use_gps_config = False
                  )

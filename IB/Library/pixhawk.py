@@ -26,7 +26,7 @@ class Pixhawk:
                  waypoint_alt,
                  mission_speed,
                  image_navigation_timeout,
-                 lora,
+                #  lora,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  use_camera = False,
                  use_gps_config = False,
@@ -35,7 +35,7 @@ class Pixhawk:
         self.pix = System()
         if use_camera:
             self.camera = Camera()
-        self.lora = lora
+        # self.lora = lora
         
         if use_gps_config:
             json_pass_gps = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
