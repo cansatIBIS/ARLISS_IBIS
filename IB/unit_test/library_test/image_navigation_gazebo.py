@@ -1,6 +1,6 @@
 import sys
 
-ibis_directory = "/home/ibis/PX4-Autopilot/ARLISS-IBIS/IB/Library"
+ibis_directory = "/home/ibis/PX4-Autopilot/ARLISS_IBIS/IB/Library"
 sys.path.append(ibis_directory)
 
 import asyncio
