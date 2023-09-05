@@ -1,7 +1,7 @@
 import time
 import os
 import sys
-import picamera
+# import picamera
 import cv2
 import numpy as np
 import datetime
