@@ -19,7 +19,7 @@ class Camera:
                  pixel_number_y = 1944,
                  pixel_size = 1.4,
                  focal_length = 3.6,
-                 image_path = "/home/pi/ARLISS_IBIS/IB/Images/" 
+                 image_path = "/home/ibis/PX4-Autopilot/ARLISS_IBIS/IB/Images/" 
                  + str(os.path.splitext(os.path.basename(sys.argv[0]))[0])
                  + "_"
                  + str(datetime.datetime.now())

@@ -27,7 +27,7 @@ class Pixhawk:
                  mission_speed,
                  image_navigation_timeout,
                 #  lora,
-                 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+                 deamon_pass = "/home/ibis/PX4-Autopilot/ARLISS_IBIS/IB/log/Performance_log.txt",
                  use_camera = False,
                  use_gps_config = False,
                  use_other_param_config = False):
