@@ -76,10 +76,10 @@ async def img_navigation(pixhawk):
 
 async def run():
 
-    # lora = Lora(
-    #     lora_power_pin,
-    #     lora_sleep_time
-    # )
+    lora = Lora(
+        lora_power_pin,
+        lora_sleep_time
+    )
     
     pixhawk = Pixhawk(
                  fuse_PIN,

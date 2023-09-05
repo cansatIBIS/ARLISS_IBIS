@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import serial
 import asyncio
 from logger_lib import logger_info
