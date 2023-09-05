@@ -3,7 +3,9 @@
 import asyncio
 from mavsdk import System
 
-
+gazebo_lat = 47.3977506
+gazebo_lng = 8.5456074
+per_m = 0.000009009
 async def run():
     drone = System()
     await drone.connect(system_address="udp://:14540")
@@ -35,11 +37,13 @@ async def run():
     # To fly drone  3m above the ground plane
     flying_alt = absolute_altitude + 3.0
     # goto_location() takes Absolute MSL altitude
-    await drone.action.goto_location(47.3977506,8.5456074, flying_alt, 0)
+    await drone.action.goto_location(gazebo_lat * 5 * per_m, gazebo_lng, flying_alt, 0)
 
-    while True:
-        print("Staying connected, press Ctrl-C to exit")
-        await asyncio.sleep(1)
+    # while True:
+    #     print("Staying connected, press Ctrl-C to exit")
+    #     await asyncio.sleep(1)
+    await asyncio.sleep(10)
+    await drone.action.land()
 
 
 
