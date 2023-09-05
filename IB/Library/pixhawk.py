@@ -317,7 +317,6 @@ class Pixhawk:
     async def wait_store(self):
         
         if "{} seconds passed".format(self.wait_time) in self.deamon_log:
-            msg = "skipped store wait"
             logger_info.info("skipped store wait")
             return
         
