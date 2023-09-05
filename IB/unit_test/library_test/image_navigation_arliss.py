@@ -100,10 +100,10 @@ async def run():
       
     await pixhawk.connect()
     await pixhawk.upload_mission()
-    await pixhawk.health_check()
+    # await pixhawk.health_check()
     await pixhawk.arm()
-    await pixhawk.start_mission()
-    await pixhawk.gather_main_coroutines()
+    # await pixhawk.start_mission()
+    # await pixhawk.gather_main_coroutines()
     # await pixhawk.perform_image_navigation_with_timeout()
     try:
         await asyncio.wait_for(img_navigation(), timeout = 3*60) 
