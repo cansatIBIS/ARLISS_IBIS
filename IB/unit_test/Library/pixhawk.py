@@ -5,7 +5,7 @@ from logger_lib import logger_info, logger_debug
 from lora import Lora
 import time
 import datetime
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 
 
 class Pixhawk:
