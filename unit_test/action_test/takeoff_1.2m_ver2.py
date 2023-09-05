@@ -34,7 +34,7 @@ async def run():
     # await cycle_log_task
     print("Waiting for drone to connect...")
     # await drone.connect(system_address="udp://:14540")
-    await drone.connect(system_address="system_address="udp://:14540"")
+    await drone.connect(system_address="udp://:14540")
 
     
     logger_info.info("Waiting for drone to connect...")
