@@ -761,15 +761,15 @@ class Pixhawk:
 
     async def estimate_target_position(self):
 
-        async for d in self.pix.telemetry.distance_sensor(): #? 測れなかったらどうしよう
-            lidar_height = d.current_distance_m
-            logger_info.info(f"current height:{lidar_height}m")
-            break
+        # async for d in self.pix.telemetry.distance_sensor(): #? 測れなかったらどうしよう
+        #     lidar_height = d.current_distance_m
+        #     logger_info.info(f"current height:{lidar_height}m")
+        #     break
 
-        async for heading in self.pix.telemetry.heading():
-            heading_deg = heading.heading_deg
-            logger_info.info(f"current heading: {heading_deg}") 
-            break
+        # async for heading in self.pix.telemetry.heading():
+        #     heading_deg = heading.heading_deg
+        #     logger_info.info(f"current heading: {heading_deg}") 
+        #     break
         
         self.camera.take_pic()
         self.image_res = self.camera.detect_center()
