@@ -33,7 +33,7 @@ async def run():
 
     await asyncio.sleep(1)
     # To fly drone 20m above the ground plane
-    flying_alt = absolute_altitude + 20.0
+    flying_alt = absolute_altitude + 5.0
     # goto_location() takes Absolute MSL altitude
     await drone.action.goto_location(47.397723, 8.5456074, flying_alt, 0)
 
