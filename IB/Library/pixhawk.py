@@ -9,7 +9,7 @@ from logger_lib import logger_info
 from camera import Camera
 import time
 import datetime
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 
 
 class Pixhawk:
