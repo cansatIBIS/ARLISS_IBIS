@@ -7,7 +7,7 @@ import asyncio
 import numpy as np
 from pixhawk import Pixhawk
 from logger_lib import logger_info
-# from lora import Lora
+from lora import Lora
 
 # parameters---------------------
 fuse_PIN = 0
