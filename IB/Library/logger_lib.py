@@ -3,7 +3,7 @@ import os
 import datetime
 
 def create_logger_log_file():
-    LOG_DIR = "/home/pi/ARLISS_IBIS/IB/log"
+    LOG_DIR = "/home/ibis/PX4-Autopilot/ARLISS_IBIS/IB/log"
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
     log_path = LOG_DIR + "/" + str(datetime.date.today())
