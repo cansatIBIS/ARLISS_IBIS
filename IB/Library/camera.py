@@ -25,7 +25,7 @@ class Camera:
                  + str(datetime.datetime.now())
                  + ".jpg"):
 
-        self.camera = picamera.PiCamera()
+        # self.camera = picamera.PiCamera()
         self.hsv_min_1 = hsv_min_1
         self.hsv_max_1 = hsv_max_1
         self.hsv_min_2 = hsv_min_2
