@@ -272,7 +272,7 @@ class Pixhawk:
     async def connect(self):
 
         logger_info.info("Waiting for drone to connect...")
-        await self.pix.connect(system_address="serial:///dev/ttyACM0:115200")
+        await self.pix.connect(system_address="udp://:14540")
         async for state in self.pix.core.connection_state():
             if state.is_connected:
                 logger_info.info("Drone connected!")
