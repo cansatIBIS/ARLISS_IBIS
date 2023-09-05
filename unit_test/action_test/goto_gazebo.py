@@ -37,9 +37,8 @@ async def run():
     # goto_location() takes Absolute MSL altitude
     await drone.action.goto_location(47.3972146, 8.5455619, flying_alt, 0)
 
-    while True:
-        print("Staying connected, press Ctrl-C to exit")
-        await asyncio.sleep(1)
+    await asyncio.sleep(30)
+    await drone.action.land()
 
 
 if __name__ == "__main__":
