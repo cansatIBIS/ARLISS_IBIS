@@ -5,6 +5,7 @@ from mavsdk import System
 from logger import logger_info, logger_debug
 
 altitude = 2.5
+land_alt = 1.2
 mode = None
 
 async def run():
@@ -126,8 +127,8 @@ async def print_altitude(drone):
 
             logger_info.info(f"mode:{mode} lidar:{altitude_now}m")
        
-        if altitude_now > 0.3:
-            print("over 0.3")
+        if altitude_now > land_alt:
+            print("over {}".format(land_alt))
             await drone.action.land()
 
 
