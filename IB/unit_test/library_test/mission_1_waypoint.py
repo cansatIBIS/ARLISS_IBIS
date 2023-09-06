@@ -19,6 +19,7 @@ waypoint_lat = 35.7974653
 waypoint_lng = 139.89156599999998
 waypoint_alt = 3
 mission_speed = 5
+image_navigation_timeout = 0
 lora_power_pin = 4
 lora_sleep_time = 0
 use_camera = True
@@ -42,6 +43,7 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
+                 image_navigation_timeout,
                  lora,
                  use_camera = use_camera,
                  use_gps_config = False
