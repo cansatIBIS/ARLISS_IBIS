@@ -35,10 +35,10 @@ async def img_navigation(pixhawk):
 
         logger_info.info("Start image navigation")
         # 高さをwaypoint_altぴったりに合わせる
-        # goal_abs_alt = await pixhawk.get_position_alt()
-        # goal_lidar_alt = await pixhawk.get_distance_alt()
-        # await pixhawk.goto_location(waypoint_lat, waypoint_lng, goal_abs_alt - goal_lidar_alt + waypoint_alt)
-        # await asyncio.sleep(5)
+        goal_abs_alt = await pixhawk.get_position_alt()
+        goal_lidar_alt = await pixhawk.get_distance_alt()
+        await pixhawk.goto_location(waypoint_lat, waypoint_lng, goal_abs_alt - goal_lidar_alt + waypoint_alt)
+        await asyncio.sleep(5)
 
         # 10mの高さで画像航法。赤が真下にあっても着陸はしない。
         red_lat, red_lng, abs_alt, is_red_right_below= await pixhawk.calc_red_position()
