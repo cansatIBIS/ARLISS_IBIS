@@ -858,12 +858,12 @@ class Pixhawk:
 
         logger_info.info("Start image navigation")
         goal_abs_alt = await self.get_position_alt()
-        goal_lidar_alt = await self.get_distance_alt()
+        goal_lidar_alt = 11
         await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_abs_alt - goal_lidar_alt + self.waypoint_alt)
         await asyncio.sleep(5)
 
-        red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
-        lidar_alt = await self.get_distance_alt()
+        red_lat, red_lng, abs_alt, is_red_right_below= 47.3977415, 8.5456982, 12, True
+        lidar_alt = 10
         logger_info.info(f"lidar:{lidar_alt}")
         logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 5}, abs_alt:{abs_alt}")
         await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 5)
