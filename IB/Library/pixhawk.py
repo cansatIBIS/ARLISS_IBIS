@@ -764,7 +764,7 @@ class Pixhawk:
         logger_info.info("Setting goto_location...")
         await self.pix.action.goto_location(lat, lng, abs_alt, 0)
         logger_info.info("Going to location...")
-        await asyncio.sleep(20)
+        await asyncio.sleep(10)
 
 
     async def estimate_target_position(self):
