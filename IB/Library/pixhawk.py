@@ -910,6 +910,7 @@ class Pixhawk:
         except Exception:
             await self.land()
 
+
     async def arliss_land(self):
         logger_info.info("Landing")
         await self.pix.action.land()
@@ -920,7 +921,7 @@ class Pixhawk:
             logger_info.info(f"is_in_air:{is_in_air}, pitch:{pitch}, roll:{roll}")
             if not is_in_air:
                 break
-            if abs(float(roll)) > 0 or abs(float(pitch)) > 0:
+            if abs(float(roll)) > 30 or abs(float(pitch)) > 30:
                 logger_info.info("Hit the target!")
                 await self.kill_forever()
 
