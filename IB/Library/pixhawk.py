@@ -741,10 +741,10 @@ class Pixhawk:
         while True:
             await asyncio.sleep(0.001)
             logger_info.info(self.is_in_air)
-            if abs(float(self.roll_deg)) > 60 or abs(float(self.pitch_deg)) > 60:
-                logger_info.info("Hit the target!")
-                await self.kill_forever()
-            elif not self.is_in_air:
+            # if abs(float(self.roll_deg)) > 60 or abs(float(self.pitch_deg)) > 60:
+            #     logger_info.info("Hit the target!")
+            #     await self.kill_forever()
+            if not self.is_in_air:
                 logger_info.info("Landed!")
                 break
         self.is_tasks_cancel_ok = True 
