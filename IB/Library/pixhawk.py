@@ -737,6 +737,7 @@ class Pixhawk:
         logger_info.info("Landing...")
         await self.pix.action.land()
         logger_info.info("Land start")
+        self.is_in_air = True
         while True:
             await asyncio.sleep(1)
             logger_info.info(self.is_in_air)
