@@ -5,7 +5,7 @@ from mavsdk import System
 from logger import logger_info, logger_debug
 
 altitude = 2.5
-land_alt = 1.2
+land_alt = 0.7
 mode = None
 
 async def run():
