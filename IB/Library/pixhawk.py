@@ -739,7 +739,7 @@ class Pixhawk:
         logger_info.info("Land start")
         self.is_in_air = True
         while True:
-            await asyncio.sleep(0.001)
+            await asyncio.sleep(0.1)
             logger_info.info(self.is_in_air)
             # if abs(float(self.roll_deg)) > 60 or abs(float(self.pitch_deg)) > 60:
             #     logger_info.info("Hit the target!")
