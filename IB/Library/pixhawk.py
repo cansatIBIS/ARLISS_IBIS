@@ -163,7 +163,7 @@ class Pixhawk:
 
     async def get_pitch_roll(self):
         
-        async for angle in self.drone.telemetry.attitude_euler():
+        async for angle in self.pix.telemetry.attitude_euler():
             self.pitch_deg = angle.pitch_deg
             self.roll_deg = angle.roll_deg
 
@@ -172,6 +172,12 @@ class Pixhawk:
 
         async for is_in_air in self.pix.telemetry.in_air():
             return is_in_air
+        
+
+    async def return_pitch_roll(self):
+        
+        async for angle in self.pix.telemetry.attitude_euler():
+            return angle.pitch_deg, angle.roll_deg
 
 
     async def cycle_flight_mode(self):
@@ -231,7 +237,7 @@ class Pixhawk:
         try:
             while True:
                 await self.get_pitch_roll()
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.1)
         except asyncio.CancelledError:
             pass
 
@@ -241,7 +247,7 @@ class Pixhawk:
         try:
             while True:
                 await self.get_in_air()
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.1)
         except asyncio.CancelledError:
             pass
 
@@ -903,3 +909,15 @@ class Pixhawk:
             await self.land()
         except Exception:
             await self.land()
+
+    async def arliss_land(self):
+        logger_info.info("Landing")
+        await self.pix.action.land()
+        while True:
+            await asyncio.sleep(1)
+            is_in_air = await self.return_in_air()
+            pitch, roll = 
+            logger_info.info(f"is_in_air:{is_in_air}")
+            if not is_in_air:
+                break
+        logger_info.info("Landed!")
