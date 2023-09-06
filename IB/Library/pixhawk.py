@@ -787,7 +787,7 @@ class Pixhawk:
             await self.land()
         else:
             logger_info.info(f"Target detected!")
-            x_m, y_m = self.camera.get_target_position(self, lidar_height)
+            x_m, y_m = self.camera.get_target_position(lidar_height)
 
             self.east_m = -np.cos(heading_deg*np.pi/180)*x_m-np.sin(heading_deg*np.pi/180)*y_m
             self.north_m = -np.sin(heading_deg*np.pi/180)*x_m+np.cos(heading_deg*np.pi/180)*y_m
