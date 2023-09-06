@@ -106,7 +106,8 @@ async def run():
     await pixhawk.arm()
     await pixhawk.start_mission()
     await pixhawk.gather_main_coroutines()
-    await pixhawk.perform_image_navigation_with_timeout()
+    # await pixhawk.perform_image_navigation_with_timeout()
+    await pixhawk.gather_land_coroutines()
     # try:
     #     await asyncio.wait_for(img_navigation(pixhawk), timeout = 3*60) 
     # except asyncio.TimeoutError:
