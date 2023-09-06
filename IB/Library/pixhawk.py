@@ -231,7 +231,7 @@ class Pixhawk:
         try:
             while True:
                 await self.get_pitch_roll()
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(1)
         except asyncio.CancelledError:
             pass
 
@@ -241,7 +241,7 @@ class Pixhawk:
         try:
             while True:
                 await self.get_in_air()
-                await asyncio.sleep(0.1)
+                await asyncio.sleep(1)
         except asyncio.CancelledError:
             pass
 
