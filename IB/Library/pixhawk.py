@@ -157,8 +157,8 @@ class Pixhawk:
     
     async def get_in_air(self):
 
-        async for is_in_air in self.pix.telemetry.in_air():
-            self.is_in_air = is_in_air
+        async for in_air in self.pix.telemetry.in_air():
+            self.is_in_air = in_air
 
 
     async def get_pitch_roll(self):
