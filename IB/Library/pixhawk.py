@@ -170,6 +170,13 @@ class Pixhawk:
 
         async for is_in_air in self.pix.telemetry.in_air():
             return is_in_air
+        
+
+    async def return_pitch_roll(self):
+        
+        async for angle in self.pix.telemetry.attitude_euler():
+            return angle.pitch_deg, angle.roll_deg
+
 
 
     async def cycle_flight_mode(self):
@@ -784,7 +791,7 @@ class Pixhawk:
         logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
         if self.image_res['percent'] <= 1e-7:
             logger_info.info(f"Failed image navigation")
-            await self.land()
+            await self.arliss_land()
         else:
             logger_info.info(f"Target detected!")
             x_m, y_m = self.camera.get_target_position(lidar_height)
@@ -872,7 +879,7 @@ class Pixhawk:
         logger_info.info(f"lidar:{lidar_alt}")
         if is_red_right_below:
             logger_info.info(f"Image Navigation Success!")
-            await self.land()
+            await self.arliss_land()
         else :
             logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 3}, abs_alt:{abs_alt}")
             await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 3)
@@ -890,7 +897,7 @@ class Pixhawk:
 
         logger_info.info(f"Image Navigation Success!")
         # await self.gather_land_coroutines()
-        await self.land()
+        await self.arliss_land()
 
 
     async def perform_image_navigation_with_timeout(self):
@@ -904,3 +911,21 @@ class Pixhawk:
             logger_info.info(e)
             logger_info.info("Wild card error")
             await self.land()
+
+
+    async def arliss_land(self):
+
+
+        await self.pix.action.land()
+        logger_info.info("Landing...")
+        while True:
+            await asyncio.sleep(0.01)
+            is_in_air = await self.return_in_air()
+            pitch, roll = await self.return_pitch_roll()
+            logger_info.info(f"is_in_air:{is_in_air}, pitch:{pitch}, roll:{roll}")
+            if not is_in_air:
+                break
+            if abs(float(roll)) > 30 or abs(float(pitch)) > 30:
+                logger_info.info("Hit the target!")
+                await self.kill_forever()
+        logger_info.info("Landed!")
