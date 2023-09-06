@@ -920,7 +920,7 @@ class Pixhawk:
             logger_info.info(f"is_in_air:{is_in_air}, pitch:{pitch}, roll:{roll}")
             if not is_in_air:
                 break
-            if abs(float(roll)) > 60 or abs(float(pitch)) > 60:
+            if abs(float(roll)) > 0 or abs(float(pitch)) > 0:
                 logger_info.info("Hit the target!")
                 await self.kill_forever()
 
