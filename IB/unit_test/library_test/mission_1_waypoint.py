@@ -22,7 +22,7 @@ mission_speed = 5
 image_navigation_timeout = 0
 lora_power_pin = 4
 lora_sleep_time = 0
-use_camera = True
+use_camera = False
 #--------------------------------
 
 async def run():
