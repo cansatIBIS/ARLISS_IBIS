@@ -900,5 +900,7 @@ class Pixhawk:
         except asyncio.TimeoutError:
             logger_info.info("TimeoutError")
             await self.land()
-        except Exception:
+        except Exception as e:
+            logger_info.info(e)
+            logger_info.info("Wild card error")
             await self.land()
