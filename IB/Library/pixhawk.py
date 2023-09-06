@@ -898,10 +898,9 @@ class Pixhawk:
     async def perform_image_navigation_with_timeout(self):
         
         try:
-            try:
-                await asyncio.wait_for(self.image_navigation_arliss(), timeout = self.image_navigation_timeout)
-            except asyncio.TimeoutError:
-                logger_info.info("TimeoutError")
-                await self.land()
+            await asyncio.wait_for(self.image_navigation_arliss(), timeout = self.image_navigation_timeout)
+        except asyncio.TimeoutError:
+            logger_info.info("TimeoutError")
+            await self.land()
         except Exception:
             await self.land()
