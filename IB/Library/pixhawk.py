@@ -136,7 +136,9 @@ class Pixhawk:
     async def get_position_alt(self):
 
         async for position in self.pix.telemetry.position():
-            return position.absolute_altitude_m
+            abs_alt = position.absolute_altitude_m
+            break
+        return abs_alt
         
         
     async def get_position_lat_lng(self):
