@@ -734,12 +734,12 @@ class Pixhawk:
 
     async def cycle_land(self):
 
-        await self.land()
+        await self.pix.action.land()
         while True:
             if abs(float(self.roll_deg)) > 60 or abs(float(self.pitch_deg)) > 60:
                 logger_info.info("Hit the target!")
                 await self.kill_forever()
-            elif self.is_in_air == False:
+            elif not self.is_in_air:
                 logger_info.info("Landed!")
                 break
             await asyncio.sleep(0.01)
