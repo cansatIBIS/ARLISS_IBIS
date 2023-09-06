@@ -35,7 +35,8 @@ async def img_navigation(pixhawk):
 
         logger_info.info("Start image navigation")
         # 高さをwaypoint_altぴったりに合わせる
-        goal_abs_alt = await pixhawk.get_position_alt()
+        # goal_abs_alt = await pixhawk.get_position_alt()
+        goal_abs_alt = 488.288
         logger_info.info(goal_abs_alt)
         goal_lidar_alt = 11
         await pixhawk.goto_location(waypoint_lat, waypoint_lng, goal_abs_alt - goal_lidar_alt + waypoint_alt)
