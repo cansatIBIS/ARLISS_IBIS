@@ -917,7 +917,7 @@ class Pixhawk:
             await asyncio.sleep(0.01)
             is_in_air = await self.return_in_air()
             pitch, roll = await self.return_pitch_roll()
-            logger_info.info(f"is_in_air:{is_in_air}")
+            logger_info.info(f"is_in_air:{is_in_air}, pitch:{pitch}, roll:{roll}")
             if not is_in_air:
                 break
             if abs(float(roll)) > 60 or abs(float(pitch)) > 60:
