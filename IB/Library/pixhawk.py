@@ -890,7 +890,8 @@ class Pixhawk:
                 break
 
         logger_info.info(f"Image Navigation Success!")
-        await self.gather_land_coroutines()
+        # await self.gather_land_coroutines()
+        await self.land()
 
 
     async def perform_image_navigation_with_timeout(self):
