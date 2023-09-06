@@ -737,7 +737,7 @@ class Pixhawk:
 
     async def cycle_land(self):
 
-        await self.pix.action.land
+        await self.pix.action.land()
         while True:
             if abs(float(self.roll_deg)) > 60 or abs(float(self.pitch_deg)) > 60:
                 logger_info.info("Hit the target!")
@@ -763,8 +763,8 @@ class Pixhawk:
 
         logger_info.info("Setting goto_location...")
         await self.pix.action.goto_location(lat, lng, abs_alt, 0)
-        logger_info.info("Going to location...")
-        await asyncio.sleep(10)
+        # logger_info.info("Going to location...")
+        # await asyncio.sleep(10)
 
 
     async def estimate_target_position(self):
@@ -867,17 +867,16 @@ class Pixhawk:
         await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 5)
         await asyncio.sleep(5)
 
-        if self.waypoint_alt > 5:
-            red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
-            lidar_alt = await self.get_distance_alt()
-            logger_info.info(f"lidar:{lidar_alt}")
-            if is_red_right_below:
-                logger_info.info(f"Image Navigation Success!")
-                await self.land()
-            else :
-                logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 3}, abs_alt:{abs_alt}")
-                await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 3)
-                await asyncio.sleep(5)
+        red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
+        lidar_alt = await self.get_distance_alt()
+        logger_info.info(f"lidar:{lidar_alt}")
+        if is_red_right_below:
+            logger_info.info(f"Image Navigation Success!")
+            await self.land()
+        else :
+            logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 3}, abs_alt:{abs_alt}")
+            await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 3)
+            await asyncio.sleep(5)
 
         while True:
             red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
