@@ -253,17 +253,13 @@ class Pixhawk:
                 log_txt = (
                     " mode:"
                     + str(self.flight_mode)
-                    + " mission progress:"
-                    + str(self.mp_current)
-                    + "/"
-                    + str(self.mp_total)
                     + " lat:"
                     + str(self.latitude_deg)
                     + " lng:"
                     + str(self.longitude_deg)
                     + " lidar:"
                     + str(self.lidar)
-                    + "m"
+                    + " m"
                 )
                 logger_info.info(str(log_txt))
                 await asyncio.sleep(0.3)
@@ -696,7 +692,6 @@ class Pixhawk:
 
         main_coroutines = [
             self.cycle_flight_mode(),
-            self.cycle_mission_progress(),
             self.cycle_position_lat_lng(),
             self.cycle_lidar(),
             self.cycle_show(),
