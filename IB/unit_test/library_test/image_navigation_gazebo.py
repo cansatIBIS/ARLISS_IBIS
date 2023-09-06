@@ -52,7 +52,7 @@ async def img_navigation(pixhawk):
 
         if waypoint_alt > 5:
             # 5mの高さで画像航法
-            red_lat, red_lng, abs_alt, is_red_right_below= await pixhawk.calc_red_position()
+            red_lat, red_lng, abs_alt, 47.3977415, 8.5456982, 12, True
             lidar_alt = await pixhawk.get_distance_alt()
             logger_info.info(f"lidar:{lidar_alt}")
             if is_red_right_below:

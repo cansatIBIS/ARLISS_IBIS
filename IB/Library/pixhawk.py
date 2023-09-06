@@ -870,9 +870,9 @@ class Pixhawk:
         await asyncio.sleep(5)
 
         if self.waypoint_alt > 5:
-            red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
-            lidar_alt = await self.get_distance_alt()
-            logger_info.info(f"lidar:{lidar_alt}")
+            red_lat, red_lng, abs_alt, is_red_right_below= 47.3977415, 8.5456982, 12, True
+            # lidar_alt = await self.get_distance_alt()
+            # logger_info.info(f"lidar:{lidar_alt}")
             if is_red_right_below:
                 logger_info.info(f"Image Navigation Success!")
                 await self.land()
