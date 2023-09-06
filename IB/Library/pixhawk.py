@@ -910,14 +910,14 @@ class Pixhawk:
         except Exception:
             await self.land()
 
-    async def arliss_land(self):
-        logger_info.info("Landing")
-        await self.pix.action.land()
-        while True:
-            await asyncio.sleep(1)
-            is_in_air = await self.return_in_air()
-            pitch, roll = 
-            logger_info.info(f"is_in_air:{is_in_air}")
-            if not is_in_air:
-                break
-        logger_info.info("Landed!")
+    # async def arliss_land(self):
+    #     logger_info.info("Landing")
+    #     await self.pix.action.land()
+    #     while True:
+    #         await asyncio.sleep(1)
+    #         is_in_air = await self.return_in_air()
+    #         pitch, roll = 
+    #         logger_info.info(f"is_in_air:{is_in_air}")
+    #         if not is_in_air:
+    #             break
+    #     logger_info.info("Landed!")
