@@ -456,9 +456,13 @@ class Pixhawk:
                 await self.lora.write(self.lat)
                 logger_info.info(self.lat)
                 await asyncio.sleep(1)
+                if self.is_judge_alt:
+                    break
                 await self.lora.write(self.lng)
                 logger_info.info(self.lng)
                 await asyncio.sleep(1)
+                if self.is_judge_alt:
+                    break
                 await self.lora.write(self.alt)
                 logger_info.info(self.alt)
                 await asyncio.sleep(1)
