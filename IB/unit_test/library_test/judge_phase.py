@@ -57,6 +57,7 @@ async def run():
               is_destruct_deamon = True)
     
   await ibis.judge_phase()
+  await ibis.destruct_deamon()
 
 
 if __name__ == "__main__":
