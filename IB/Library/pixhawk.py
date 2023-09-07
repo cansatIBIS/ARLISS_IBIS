@@ -354,6 +354,9 @@ class Pixhawk:
             start_time = time.time()
             while True:
                 
+                if self.is_landed:
+                    break
+                
                 try :
                     alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
                     self.change_judge_alt(alt_now)
