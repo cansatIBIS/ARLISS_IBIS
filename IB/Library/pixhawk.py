@@ -97,7 +97,6 @@ class Pixhawk:
         self.is_tasks_cancel_ok = False
         self.is_landed = False 
         self.is_judge_alt = False
-        self.is_low_alt = False
         
         logger_info.info("Pixhawk initialized")
         
@@ -353,7 +352,7 @@ class Pixhawk:
                     self.change_judge_alt(alt_now)
                 except asyncio.TimeoutError:
                     logger_info.info("Too high or distance sensor might have some error")
-                await asyncio.sleep(0)
+                await asyncio.sleep(1)
                 time_now = time.time()
                 time_passed = int((time_now-start_time)//1)
                 logger_info.info("Time passed:{}".format(time_passed))
@@ -363,49 +362,39 @@ class Pixhawk:
                     if self.is_judge_alt:
                         
                         while True:
-                            true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
-                            if len(true_dist) == 0:
-                                true_posi = self.IQR_removal(await self.get_alt_list("POSITION"))
-                                if len(true_posi) == 0:
-                                    continue
-                                try:
-                                    ave = sum(true_posi)/len(true_posi)
-                                except ZeroDivisionError as e:
-                                    logger_info.info(e)
-                                    continue
-                                for position in true_posi:
-                                    if abs(ave-position) > 0.1:
-                                        logger_info.info("-- Moving")
+                            time_now = time.time()
+                            time_passed = int((time_now-start_time)//1)
+                            logger_info.info("Time passed:{}".format(time_passed))
+                            if time_passed < self.land_timelimit:
+                                
+                                true_dist = self.IQR_removal(await self.get_alt_list("LIDAR"))
+                                if len(true_dist) == 0:
+                                    true_posi = self.IQR_removal(await self.get_alt_list("POSITION"))
+                                    if len(true_posi) == 0:
                                         continue
-                                else:
-                                    self.is_landed = True
-                                    
-                                if self.is_landed:
-                                    logger_info.info("-- Position Judge")
-                                    break
-                            else:
-                                try:
-                                    ave = sum(true_dist)/len(true_dist)
-                                except ZeroDivisionError as e:
-                                    logger_info.info(e)
-                                    continue
-                            
-                            if self.is_low_alt:
-                                for distance in true_dist:
-                                    if abs(ave-distance) > 0.01:
-                                        logger_info.info("-- Moving")
+                                    try:
+                                        ave = sum(true_posi)/len(true_posi)
+                                    except ZeroDivisionError as e:
+                                        logger_info.info(e)
+                                        continue
+                                    for position in true_posi:
+                                        if abs(ave-position) > 0.05:
+                                            logger_info.info("-- Moving")
+                                            continue
+                                    else:
+                                        self.is_landed = True
+                                        
+                                    if self.is_landed:
+                                        logger_info.info("-- Position Judge")
                                         break
                                 else:
-                                    self.is_landed = True
-                                    
-                                if self.is_landed:
-                                    logger_info.info("-- Lidar Judge")
-                                    break
-                            else:
-                                self.change_low_alt(ave)
-                                if self.is_low_alt:
+                                    try:
+                                        ave = sum(true_dist)/len(true_dist)
+                                    except ZeroDivisionError as e:
+                                        logger_info.info(e)
+                                        continue
                                     for distance in true_dist:
-                                        if abs(ave-distance) > 0.01:
+                                        if abs(ave-distance) > 0.05:
                                             logger_info.info("-- Moving")
                                             break
                                     else:
@@ -414,8 +403,14 @@ class Pixhawk:
                                     if self.is_landed:
                                         logger_info.info("-- Lidar Judge")
                                         break
-                                else:
-                                    logger_info.info("-- Over 1m")
+                                    
+                            else:
+                                self.is_landed = True
+                                if self.is_landed:
+                                    logger_info.info("-- Timer Judge")
+                                    break
+                    else:
+                        logger_info.info("-- Over 15m")
                 else:
                     self.is_landed = True
                     if self.is_landed:
@@ -450,13 +445,13 @@ class Pixhawk:
                 self.alt = "alt:" + str(alt)
                 await self.lora.write(self.lat)
                 logger_info.info(self.lat)
-                await asyncio.sleep(0)
+                await asyncio.sleep(1)
                 await self.lora.write(self.lng)
                 logger_info.info(self.lng)
-                await asyncio.sleep(0)
+                await asyncio.sleep(1)
                 await self.lora.write(self.alt)
                 logger_info.info(self.alt)
-                await asyncio.sleep(0)
+                await asyncio.sleep(1)
             
             
     async def get_gps(self):
@@ -480,18 +475,6 @@ class Pixhawk:
                 self.lng = str(position.longitude_deg)
                 self.alt = str(position.relative_altitude_m)
                 break
-
-            
-    def change_low_alt(self, alt):
-        
-        if ~self.is_low_alt:
-            if alt < 1:
-                self.is_low_alt = True
-                logger_info.info("-- Under 1m")
-            else:
-                self.is_low_alt = False
-        else:
-            pass
 
 
     def change_judge_alt(self, alt):
