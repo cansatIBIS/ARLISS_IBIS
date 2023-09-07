@@ -51,11 +51,9 @@ class Camera:
         self.camera.capture(self.image_path)
 
 
-
     def save_detected_img(self):
 
-        if self.res['percent'] > 0.001:
-            cv2.circle(self.img, (int(self.center_px[0]), int(self.center_px[1])), 30, (0, 200, 0),
+        cv2.circle(self.img, (int(self.center_px[0]), int(self.center_px[1])), 30, (0, 200, 0),
                     thickness=3, lineType=cv2.LINE_AA)
         cv2.imwrite(self.image_path, self.img)
 
