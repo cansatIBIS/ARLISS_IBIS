@@ -10,7 +10,7 @@ from ibis import Ibis
 fuse_pin = 3
 wait_time = 10
 lora_sleep_time = 3 
-fuse_time = 3
+fuse_time = 5
 land_timelimit = 10
 land_judge_len = 30
 health_continuous_count = 0
