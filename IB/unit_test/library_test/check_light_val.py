@@ -28,4 +28,7 @@ light = Light(light_threshold,
             deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
             use_other_param_config = False)
 
-light.stored_judge()
+async def run():
+    await light.stored_judge()
+    
+asyncio.run(run())
