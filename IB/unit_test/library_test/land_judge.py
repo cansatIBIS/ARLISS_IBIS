@@ -9,11 +9,11 @@ from lora import Lora
 
 # parameters---------------------
 lora_power_pin = 4
-lora_sleep_time = 4
+lora_sleep_time = 3
 fuse_PIN = 3
 wait_time = 10
 fuse_time = 3
-land_timelimit = 30
+land_timelimit = 10
 land_judge_len = 20
 health_continuous_count = 10
 waypoint_lat = 40.19373

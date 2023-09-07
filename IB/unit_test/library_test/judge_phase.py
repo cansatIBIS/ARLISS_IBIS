@@ -8,20 +8,21 @@ from ibis import Ibis
 
 
 fuse_pin = 3
-wait_time = 6
+wait_time = 10
 lora_sleep_time = 3 
 fuse_time = 3
-land_timelimit = 8
+land_timelimit = 10
 land_judge_len = 30
 health_continuous_count = 0
 waypoint_lat = 0
 waypoint_lng = 0
 waypoint_alt = 0
 mission_speed = 0
-light_threshold = 400
+image_navigation_timeout = 5 * 60
+light_threshold = 300
 stored_timelimit = 60
 stored_judge_time = 5
-released_timelimit = 8
+released_timelimit = 60
 released_judge_time = 5
 lora_power_pin = 4
 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
@@ -41,6 +42,7 @@ async def run():
               waypoint_lng,
               waypoint_alt,
               mission_speed,
+              image_navigation_timeout,
               # light
               light_threshold,
               stored_timelimit,
