@@ -26,10 +26,10 @@ released_timelimit = 8
 released_judge_time = 5
 lora_power_pin = 4
 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
-is_destruct_deamon = True
+is_destruct_deamon = False
 use_camera = True
-use_gps_config = True
-use_other_param_config = True
+use_gps_config = False
+use_other_param_config = False
 
 
 async def run():
