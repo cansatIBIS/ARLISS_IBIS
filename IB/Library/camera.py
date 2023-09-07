@@ -11,9 +11,9 @@ from logger_lib import logger_info
 class Camera:
 
     def __init__(self,
-                 hsv_min_1 = np.array([0,127,127]),
+                 hsv_min_1 = np.array([0, 85, 0]),
                  hsv_max_1 = np.array([5,255,255]),
-                 hsv_min_2 = np.array([150,127,127]),
+                 hsv_min_2 = np.array([150,85,0]),
                  hsv_max_2 = np.array([180,255,255]),
                  pixel_number_x = 2592,
                  pixel_number_y = 1944,
@@ -51,11 +51,9 @@ class Camera:
         self.camera.capture(self.image_path)
 
 
-
     def save_detected_img(self):
 
-        if self.res['percent'] > 0.001:
-            cv2.circle(self.img, (int(self.center_px[0]), int(self.center_px[1])), 30, (0, 200, 0),
+        cv2.circle(self.img, (int(self.center_px[0]), int(self.center_px[1])), 30, (0, 200, 0),
                     thickness=3, lineType=cv2.LINE_AA)
         cv2.imwrite(self.image_path, self.img)
 

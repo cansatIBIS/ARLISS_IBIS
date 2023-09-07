@@ -24,8 +24,12 @@ image_navigation_timeout = 5 * 60
 lora_power_pin = 4
 lora_sleep_time = 0
 use_camera = True
-hsv_min_1 = np.array([284,35,183])
-hsv_max_1 = np.array([360,255,255])
+# hsv_min_1 = np.array([284,35,183])
+# hsv_max_1 = np.array([360,255,255])
+# hsv_min_2 = np.array([150,85,0])
+# hsv_max_2 = np.array([180,255,255])
+hsv_min_1 = np.array([0, 85, 0])
+hsv_max_1 = np.array([5,255,255])
 hsv_min_2 = np.array([150,85,0])
 hsv_max_2 = np.array([180,255,255])
 #--------------------------------
