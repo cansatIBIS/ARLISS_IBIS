@@ -530,6 +530,11 @@ class Pixhawk:
                     logger_info.info("altitude of POSITION:{}".format(position))
                     pre_time = print_time
                 altitude_list.append(position)
+            
+            else:
+                altitude_list =[]
+                return altitude_list
+                
         return altitude_list
             
 
