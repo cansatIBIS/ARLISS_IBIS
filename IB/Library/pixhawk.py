@@ -789,7 +789,7 @@ class Pixhawk:
             self.east_m = -np.cos(heading_deg*np.pi/180)*x_m-np.sin(heading_deg*np.pi/180)*y_m
             self.north_m = -np.sin(heading_deg*np.pi/180)*x_m+np.cos(heading_deg*np.pi/180)*y_m
 
-            logger_info.info(f"go to the red position:North:{self.north_m}m,East:{self.east_m}")
+            logger_info.info(f"go to the red position -- North:{self.north_m}m,East:{self.east_m}")
         
 
     async def start_offboard_ned(self):
