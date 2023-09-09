@@ -67,12 +67,12 @@ class Light:
     
     async def stored_judge(self):
     
-        if "stored judge finish" in self.deamon_log:
-            logger_info.info("skipped stored judge")
+        if "Stored judge finish" in self.deamon_log:
+            logger_info.info("Skipped stored judge")
             return
         
         else:
-            logger_info.info("-------------------- stored judge start --------------------")
+            logger_info.info("-------------------- Stored judge start --------------------")
 
             start_time = time.perf_counter()
             duration_start_time = time.perf_counter()
@@ -114,17 +114,17 @@ class Light:
                     logger_info.info("-- Timer Judge")
                     break
 
-            logger_info.info("-------------------- stored judge finish --------------------")
+            logger_info.info("-------------------- Stored judge finish --------------------")
 
 
     async def released_judge(self):
         
-        if "released judge finish" in self.deamon_log:
-            logger_info.info("skipped released judge")
+        if "Released judge finish" in self.deamon_log:
+            logger_info.info("Skipped released judge")
             return
         
         else:
-            logger_info.info("-------------------- released judge start --------------------")
+            logger_info.info("-------------------- Released judge start --------------------")
 
             start_time = time.perf_counter()
             duration_start_time = time.perf_counter()
@@ -165,7 +165,7 @@ class Light:
                     logger_info.info("-- Timer Judge")
                     break
 
-            logger_info.info("-------------------- released judge finish --------------------")
+            logger_info.info("-------------------- Released judge finish --------------------")
 
 
     def __del__(self):

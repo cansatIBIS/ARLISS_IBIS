@@ -342,8 +342,8 @@ class Pixhawk:
             
     async def land_judge(self):
         
-        if "land judge finish" in self.deamon_log:
-            logger_info.info("skipped land judge")
+        if "Land judge finish" in self.deamon_log:
+            logger_info.info("Skipped land judge")
             return
         
         else:
