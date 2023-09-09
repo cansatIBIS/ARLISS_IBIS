@@ -1,4 +1,3 @@
-import time
 import os
 import sys
 import picamera
@@ -18,12 +17,7 @@ class Camera:
                  pixel_number_x = 2592,
                  pixel_number_y = 1944,
                  pixel_size = 1.4,
-                 focal_length = 3.6,
-                 image_path = "/home/pi/ARLISS_IBIS/IB/Images/" 
-                 + str(os.path.splitext(os.path.basename(sys.argv[0]))[0])
-                 + "_"
-                 + str(datetime.datetime.now())
-                 + ".jpg"):
+                 focal_length = 3.6):
 
         self.camera = picamera.PiCamera()
         self.hsv_min_1 = hsv_min_1
@@ -34,7 +28,6 @@ class Camera:
         self.pixel_number_y = pixel_number_y
         self.pixel_size = pixel_size
         self.focal_length = focal_length
-        self.image_path = image_path
 
         self.img  = None
         self.center_px = None
@@ -46,9 +39,14 @@ class Camera:
 
 
     def take_pic(self):
-
-        logger_info.info("taking pic...: {}".format(self.image_path))
-        self.camera.capture(self.image_path)
+        
+        image_path = "/home/pi/ARLISS_IBIS/IB/Images/" 
+        + str(os.path.splitext(os.path.basename(sys.argv[0]))[0])
+        + "_"
+        + str(datetime.datetime.now())
+        + ".jpg"              
+        logger_info.info("taking pic...: {}".format(image_path))
+        self.camera.capture(image_path)
 
 
     def save_detected_img(self):
