@@ -8,7 +8,6 @@ from mavsdk.offboard import (OffboardError, PositionNedYaw)
 from logger_lib import logger_info
 from camera import Camera
 import time
-import datetime
 import RPi.GPIO as GPIO
 
 
