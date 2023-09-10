@@ -412,7 +412,7 @@ class Pixhawk:
                                         continue
                                     if ave < 1:
                                         for distance in true_dist:
-                                            if abs(ave-distance) > 0.05:
+                                            if abs(ave-distance) > 0.03:
                                                 logger_info.info("-- Moving")
                                                 break
                                         else:
