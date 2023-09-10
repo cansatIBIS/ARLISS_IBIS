@@ -410,12 +410,13 @@ class Pixhawk:
                                     except ZeroDivisionError as e:
                                         logger_info.info(e)
                                         continue
-                                    for distance in true_dist:
-                                        if abs(ave-distance) > 0.05:
-                                            logger_info.info("-- Moving")
-                                            break
-                                    else:
-                                        self.is_landed = True
+                                    if ave < 1:
+                                        for distance in true_dist:
+                                            if abs(ave-distance) > 0.05:
+                                                logger_info.info("-- Moving")
+                                                break
+                                        else:
+                                            self.is_landed = True
                                         
                                     if self.is_landed:
                                         logger_info.info("-- Lidar Judge")
