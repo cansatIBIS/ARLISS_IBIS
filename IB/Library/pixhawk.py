@@ -204,7 +204,7 @@ class Pixhawk:
                 await self.get_position_lat_lng()
                 await self.lora.write(str(self.latitude_deg))
                 await self.lora.write(str(self.longitude_deg))
-                await asyncio.sleep(3)
+                await asyncio.sleep(0.1)
         except asyncio.CancelledError:
             pass
     
@@ -269,7 +269,7 @@ class Pixhawk:
                     + "m"
                 )
                 logger_info.info(str(log_txt))
-                await asyncio.sleep(0.3)
+                await asyncio.sleep(1.0)
         except asyncio.CancelledError:
             pass
             
