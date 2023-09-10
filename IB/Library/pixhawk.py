@@ -469,7 +469,7 @@ class Pixhawk:
     
         lat, lng, alt = "0", "0", "0"
         try:
-            await asyncio.wait_for(self.update_gps(), timeout=0.8)
+            await asyncio.wait_for(self.update_gps(), timeout=1.0)
         except asyncio.TimeoutError:
             logger_info.info("Can't catch GPS")
             lat = "error"
