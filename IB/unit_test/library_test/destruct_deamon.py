@@ -33,6 +33,7 @@ async def run():
   ibis = Ibis(# pixhawk
               fuse_pin,
               wait_time,
+              lora_sleep_time,
               fuse_time,
               land_timelimit,
               land_judge_len,
