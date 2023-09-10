@@ -527,6 +527,10 @@ class Pixhawk:
                 if print_time > pre_time+0.3:
                     logger_info.info("altitude of LIDAR:{}".format(distance))
                     pre_time = print_time
+                if distance > 12:
+                    logger_info.info("Too high or distance sensor might have some error")
+                    altitude_list =[]
+                    return altitude_list
                 altitude_list.append(distance)
                 
             elif priority == "POSITION":
