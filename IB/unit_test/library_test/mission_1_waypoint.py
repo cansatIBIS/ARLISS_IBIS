@@ -70,7 +70,7 @@ async def run():
 
     await pixhawk.start_mission()
 
-    await asyncio.gather(*main_coroutines)
+    await pixhawk.gather_main_coroutines()
 
 if __name__ == "__main__":
 
