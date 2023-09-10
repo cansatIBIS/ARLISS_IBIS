@@ -664,7 +664,22 @@ class Pixhawk:
     async def start_mission(self):
 
         logger_info.info("Starting mission")
-        await self.pix.mission.start_mission()
+        while True:
+            try:
+                await self.pix.mission.start_mission()
+            except Exception as e:
+                logger_info.info(e)
+                logger_info.info("Failed start mission")
+                await asyncio.sleep(0.1)
+            else:
+                logger_info.info("Started mission!")
+                break
+        try:
+            await self.pix.mission.start_mission()
+        except Exception as e:
+            logger_info.info(e)
+            logger_info.info("Failed start mission")
+            await
 
 
         
