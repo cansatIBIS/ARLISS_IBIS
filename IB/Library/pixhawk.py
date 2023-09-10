@@ -755,6 +755,7 @@ class Pixhawk:
             mission_finished = await self.pix.mission.is_mission_finished()
             if mission_finished:
                 logger_info.info("Mission finished")
+                await self.lora.write("Mission finished")
                 break
         self.is_tasks_cancel_ok = True 
 
