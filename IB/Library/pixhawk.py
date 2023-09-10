@@ -907,6 +907,12 @@ class Pixhawk:
             except asyncio.TimeoutError:
                 logger_info.info("TimeoutError")
                 await self.arliss_land()
+        if self.lidar > 15:
+            await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_start_abs_alt - 5)
+            await asyncio.sleep(5)
+            await self.measure_lidar_alt()
+            if self.lidar > 15:
+                await self.arliss_land()
         goal_lidar_alt = self.lidar
         goal_abs_alt = await self.get_position_alt()
         await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_abs_alt - goal_lidar_alt + self.waypoint_alt)
