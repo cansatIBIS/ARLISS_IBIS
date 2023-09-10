@@ -666,6 +666,7 @@ class Pixhawk:
         logger_info.info("Starting mission")
         await self.pix.mission.start_mission()
 
+
         
     async def print_mission_progress(self):
         
@@ -824,6 +825,7 @@ class Pixhawk:
         
 
     async def calc_red_position(self):
+
         lat_deg_per_m = 0.000008983148616
         lng_deg_per_m = 0.000008983668124
 
@@ -851,6 +853,7 @@ class Pixhawk:
         
 
     async def stop_offboard(self):
+
         logger_info.info("-- Stopping offboard")
         try:
             await self.pix.offboard.stop()
@@ -867,11 +870,29 @@ class Pixhawk:
             await asyncio.sleep(0.1)
 
 
+    async def measure_lidar_alt(self):
+
+        async for distance in self.pix.telemetry.distance_sensor():
+            self.lidar = distance.current_distance_m
+            break
+
+        
     async def image_navigation_arliss(self):
 
         logger_info.info("Start image navigation")
+        goal_start_abs_alt = await self.get_position_alt()
+        try:
+            await asyncio.wait_for(self.measure_lidar_alt(), timeout = 1)
+        except asyncio.TimeoutError:
+            logger_info.info("TimeoutError")
+            await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_start_abs_alt - 5)
+            try:
+                await asyncio.wait_for(self.measure_lidar_alt(), timeout = 1)
+            except asyncio.TimeoutError:
+                logger_info.info("TimeoutError")
+                await self.arliss_land()
+        goal_lidar_alt = self.lidar
         goal_abs_alt = await self.get_position_alt()
-        goal_lidar_alt = await self.get_distance_alt()
         await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_abs_alt - goal_lidar_alt + self.waypoint_alt)
         await asyncio.sleep(5)
 
