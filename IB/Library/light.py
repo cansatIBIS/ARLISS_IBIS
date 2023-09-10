@@ -138,7 +138,7 @@ class Light:
                 time_stamp = time.perf_counter() - duration_start_time
                 if abs(pre_time_stamp - time_stamp) > 0.4:
                     pre_time_stamp = time_stamp
-                    logger_info.info("{:5.1f}| Light Value:{:>3d}, Continuation:{}".format(time_stamp, light_val, is_continue))
+                    logger_info.info("{:5.1f}| Light Value:{:>3}, Continuation:{}".format(time_stamp, light_val, is_continue))
                     
                 if is_continue:
                     
