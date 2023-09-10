@@ -11,7 +11,7 @@ from lora import Lora
 lora_power_pin = 4
 lora_sleep_time = 3
 fuse_PIN = 3
-wait_time = 10
+wait_time = 3
 fuse_time = 3
 land_timelimit = 30
 land_judge_len = 20
