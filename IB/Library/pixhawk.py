@@ -397,7 +397,7 @@ class Pixhawk:
                                     for position in true_posi:
                                         if abs(ave-position) > 0.005:
                                             logger_info.info("-- Moving")
-                                            continue
+                                            break
                                     else:
                                         self.is_landed = True
                                         
