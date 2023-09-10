@@ -8,22 +8,22 @@ from ibis import Ibis
 
 
 fuse_pin = 3
-wait_time = 4 * 60
+wait_time = 10
 lora_sleep_time = 3 
 fuse_time = 3
-land_timelimit = 10 * 60
+land_timelimit = 10
 land_judge_len = 30
 health_continuous_count = 3
-waypoint_lat = 35.797028999999995
-waypoint_lng = 139.892011
+waypoint_lat = 39.522982899999993
+waypoint_lng = -119.81465159999999
 waypoint_alt = 5
 mission_speed = 5
 image_navigation_timeout = 6 * 60
-light_threshold = 400
-stored_timelimit = 3 * 60
-stored_judge_time = 30
-released_timelimit = 30 * 60
-released_judge_time = 15
+light_threshold = 300
+stored_timelimit = 10
+stored_judge_time = 3
+released_timelimit = 10
+released_judge_time = 3
 lora_power_pin = 4
 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
 is_destruct_deamon = False
