@@ -51,14 +51,14 @@ async def run():
     
     lora.serial_connect()
 
-    main_coroutines = [
-        pixhawk.cycle_flight_mode(),
-        pixhawk.cycle_position_lat_lng(), 
-        pixhawk.cycle_lidar(),
-        pixhawk.cycle_lora(),
-        pixhawk.cycle_show(),
-        pixhawk.mission_land()
-        ]
+    # main_coroutines = [
+    #     pixhawk.cycle_flight_mode(),
+    #     pixhawk.cycle_position_lat_lng(), 
+    #     pixhawk.cycle_lidar(),
+    #     pixhawk.cycle_lora(),
+    #     pixhawk.cycle_show(),
+    #     pixhawk.mission_land()
+    #     ]
     
     await pixhawk.connect()
 
