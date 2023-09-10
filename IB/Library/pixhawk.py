@@ -901,6 +901,7 @@ class Pixhawk:
         except asyncio.TimeoutError:
             logger_info.info("TimeoutError")
             await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_start_abs_alt - 5)
+            await asyncio.sleep(5)
             try:
                 await asyncio.wait_for(self.measure_lidar_alt(), timeout = 1)
             except asyncio.TimeoutError:
