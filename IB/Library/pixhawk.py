@@ -333,12 +333,14 @@ class Pixhawk:
         
         if "{} seconds passed".format(self.wait_time) in self.deamon_log:
             logger_info.info("skipped store wait")
+            await self.lora.write("02")
             return
         
         else:
             pre_time = 0
             start_time = time.time()
             logger_info.info("Waiting for store")
+            await self.lora.write("00")
             while True:
                 time_now = time.time()
                 time_passed = int((time_now-start_time)//1)
@@ -348,16 +350,19 @@ class Pixhawk:
                 if time_passed > self.wait_time:
                     break
             logger_info.info("{} seconds passed. Wait phase finished".format(self.wait_time))
+            await self.lora.write("01")
             
             
     async def land_judge(self):
         
         if "Land judge finish" in self.deamon_log:
             logger_info.info("Skipped land judge")
+            await self.lora.write("32")
             return
         
         else:
             logger_info.info("-------------------- Land judge start --------------------")
+            await self.lora.write("30")
             start_time = time.time()
             while True:
                 
@@ -436,6 +441,7 @@ class Pixhawk:
                         break
                         
             logger_info.info("-------------------- Land judge finish --------------------")
+            await self.lora.write("31")
     
     
     async def landjudge_and_sendgps(self):
