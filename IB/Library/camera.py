@@ -29,6 +29,7 @@ class Camera:
         self.pixel_size = pixel_size
         self.focal_length = focal_length
 
+        self.image_path = None
         self.img  = None
         self.center_px = None
         self.image_length = None
@@ -39,13 +40,13 @@ class Camera:
 
 
     def take_pic(self):
-        image_path = "/home/pi/ARLISS_IBIS/IB/Images/" \
+        self.image_path = "/home/pi/ARLISS_IBIS/IB/Images/" \
                     + str(os.path.splitext(os.path.basename(sys.argv[0]))[0]) \
                     + "_" \
                     + str(datetime.datetime.now()) \
                     + ".jpg"
-        logger_info.info("taking pic...: {}".format(image_path))
-        self.camera.capture(image_path)
+        logger_info.info("taking pic...: {}".format(self.image_path))
+        self.camera.capture(self.image_path)
 
 
     def save_detected_img(self):
