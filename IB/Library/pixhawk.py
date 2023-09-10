@@ -674,15 +674,8 @@ class Pixhawk:
             else:
                 logger_info.info("Started mission!")
                 break
-        try:
-            await self.pix.mission.start_mission()
-        except Exception as e:
-            logger_info.info(e)
-            logger_info.info("Failed start mission")
-            await
 
 
-        
     async def print_mission_progress(self):
         
         async for mission_progress in self.pix.mission.mission_progress():
