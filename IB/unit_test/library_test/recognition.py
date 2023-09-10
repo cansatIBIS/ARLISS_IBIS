@@ -1,5 +1,6 @@
 import sys
 import numpy as np
+import time
 
 ibis_directory = "/home/pi/ARLISS_IBIS/IB/Library"
 sys.path.append(ibis_directory)
@@ -12,16 +13,17 @@ hsv_min_2 = np.array([150,85,0])
 hsv_max_2 = np.array([180,255,255])
 
 def run():
-    
-    camera = Camera(hsv_min_1,
-                    hsv_max_1,
-                    hsv_min_2,
-                    hsv_max_2)
-        
+    for _ in range(10):
+        camera = Camera(hsv_min_1,
+                        hsv_max_1,
+                        hsv_min_2,
+                        hsv_max_2)
+            
 
-    camera.take_pic()
-    res = camera.detect_center()
-    print('percent={}, center={}'.format(res['percent'], res['center']))
+        camera.take_pic()
+        res = camera.detect_center()
+        print('percent={}, center={}'.format(res['percent'], res['center']))
+        time.sleep(10)
 
     # distance = 1
     # x_m, y_m = camera.get_target_position(distance)
