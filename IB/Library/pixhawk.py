@@ -211,9 +211,9 @@ class Pixhawk:
         
         try:
             while True:
-                await self.lora.write(str(self.latitude_deg))
+                await self.lora.write("lat:"+str(self.latitude_deg))
                 await asyncio.sleep(1)
-                await self.lora.write(str(self.longitude_deg))
+                await self.lora.write("lng:"+str(self.longitude_deg))
                 await asyncio.sleep(1)
         except asyncio.CancelledError:
             pass
