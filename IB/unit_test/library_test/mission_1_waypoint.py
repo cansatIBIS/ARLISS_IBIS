@@ -48,6 +48,8 @@ async def run():
                  use_camera = use_camera,
                  use_gps_config = False
                  )
+    
+    lora.serial_connect()
 
     main_coroutines = [
         pixhawk.cycle_flight_mode(),
