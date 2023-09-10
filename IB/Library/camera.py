@@ -39,12 +39,11 @@ class Camera:
 
 
     def take_pic(self):
-        
-        image_path = "/home/pi/ARLISS_IBIS/IB/Images/" 
-        + str(os.path.splitext(os.path.basename(sys.argv[0]))[0])
-        + "_"
-        + str(datetime.datetime.now())
-        + ".jpg"              
+        image_path = "/home/pi/ARLISS_IBIS/IB/Images/" \
+                    + str(os.path.splitext(os.path.basename(sys.argv[0]))[0]) \
+                    + "_" \
+                    + str(datetime.datetime.now()) \
+                    + ".jpg"
         logger_info.info("taking pic...: {}".format(image_path))
         self.camera.capture(image_path)
 
