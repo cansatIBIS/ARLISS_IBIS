@@ -469,7 +469,7 @@ class Pixhawk:
     
         lat, lng, alt = "0", "0", "0"
         try:
-            await asyncio.wait_for(self.update_gps(), timeout=1.0)
+            lat, lng, alt = await asyncio.wait_for(self.update_gps(), timeout=1.0)
         except asyncio.TimeoutError:
             logger_info.info("Can't catch GPS")
             lat = "error"
@@ -482,10 +482,10 @@ class Pixhawk:
         
         async for position in self.pix.telemetry.position():
                 logger_info.info(position)
-                self.lat = str(position.latitude_deg)
-                self.lng = str(position.longitude_deg)
-                self.alt = str(position.relative_altitude_m)
-                break
+                lat = str(position.latitude_deg)
+                lng = str(position.longitude_deg)
+                alt = str(position.relative_altitude_m)
+                return lat, lng, alt
 
 
     def change_judge_alt(self, alt):
