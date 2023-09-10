@@ -202,9 +202,19 @@ class Pixhawk:
         try:
             while True:
                 await self.get_position_lat_lng()
-                await self.lora.write(str(self.latitude_deg))
-                await self.lora.write(str(self.longitude_deg))
                 await asyncio.sleep(0.1)
+        except asyncio.CancelledError:
+            pass
+        
+    
+    async def cycle_lora(self):
+        
+        try:
+            while True:
+                await self.lora.write(str(self.latitude_deg))
+                await asyncio.sleep(1)
+                await self.lora.write(str(self.longitude_deg))
+                await asyncio.sleep(1)
         except asyncio.CancelledError:
             pass
     
@@ -696,6 +706,7 @@ class Pixhawk:
             self.cycle_mission_progress(),
             self.cycle_position_lat_lng(),
             self.cycle_lidar(),
+            self.cycle_lora(),
             self.cycle_show(),
             self.cycle_wait_mission_finished()
         ]
