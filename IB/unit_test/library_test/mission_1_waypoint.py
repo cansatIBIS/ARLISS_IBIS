@@ -53,6 +53,7 @@ async def run():
         pixhawk.cycle_flight_mode(),
         pixhawk.cycle_position_lat_lng(), 
         pixhawk.cycle_lidar(),
+        pixhawk.cycle_lora(),
         pixhawk.cycle_show(),
         pixhawk.mission_land()
         ]
