@@ -64,7 +64,7 @@ async def run():
 
     await pixhawk.upload_mission()
 
-    # await pixhawk.health_check()
+    await pixhawk.health_check()
 
     await pixhawk.arm()
 
