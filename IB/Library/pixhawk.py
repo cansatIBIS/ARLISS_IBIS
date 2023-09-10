@@ -395,7 +395,7 @@ class Pixhawk:
                                         logger_info.info(e)
                                         continue
                                     for position in true_posi:
-                                        if abs(ave-position) > 0.005:
+                                        if abs(ave-position) > 0.03:
                                             logger_info.info("-- Moving")
                                             break
                                     else:
