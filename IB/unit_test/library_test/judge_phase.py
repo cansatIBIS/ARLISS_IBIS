@@ -56,6 +56,7 @@ async def run():
               deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
               is_destruct_deamon = True)
     
+  await ibis.wait_store()
   await ibis.judge_phase()
   # await ibis.fuse_phase()
   await ibis.destruct_deamon()
