@@ -19,7 +19,7 @@ def run():
                     hsv_min_2,
                     hsv_max_2)
         
-    camera.change_iso(100)
+    camera.change_iso(10)
     camera.take_pic()
     res = camera.detect_center()
     print('percent={}, center={}'.format(res['percent'], res['center']))
