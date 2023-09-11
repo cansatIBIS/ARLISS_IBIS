@@ -102,6 +102,7 @@ async def run():
       
     await pixhawk.connect()
     await pixhawk.upload_mission()
+    await pixhawk.hold()
     await pixhawk.health_check()
     await pixhawk.arm()
     await pixhawk.start_mission()
