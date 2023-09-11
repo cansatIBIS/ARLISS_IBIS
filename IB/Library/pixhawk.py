@@ -843,7 +843,7 @@ class Pixhawk:
         self.camera.take_pic()
         self.image_res = self.camera.detect_center()
         logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
-        if self.image_res['percent'] <= 1e-7:
+        if self.image_res['percent'] <= 1e-8:
             logger_info.info(f"Failed image navigation")
             await self.arliss_land()
         else:
