@@ -104,6 +104,7 @@ class Light:
 
                     if duration_time > self.stored_judge_time:
                         logger_info.info("-- Light Judge")
+                        await self.lora.write("110")
                         break
                 
                 elif light_val < self.light_threshold:
@@ -114,10 +115,10 @@ class Light:
 
                 if elapsed_time > self.stored_timelimit:
                     logger_info.info("-- Timer Judge")
+                    await self.lora.write("112")
                     break
 
             logger_info.info("-------------------- Stored judge finish --------------------")
-            await self.lora.write("11")
 
 
     async def released_judge(self):
@@ -158,6 +159,7 @@ class Light:
 
                     if duration_time > self.released_judge_time:
                         logger_info.info("-- Light Judge")
+                        await self.lora.write("210")
                         break
                 
                 elif light_val > self.light_threshold:
@@ -168,10 +170,10 @@ class Light:
 
                 if elapsed_time > self.released_timelimit:
                     logger_info.info("-- Timer Judge")
+                    await self.lora.write("212")
                     break
 
             logger_info.info("-------------------- Released judge finish --------------------")
-            await self.lora.write("21")
 
 
     def __del__(self):
