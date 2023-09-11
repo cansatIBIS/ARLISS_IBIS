@@ -426,6 +426,7 @@ class Pixhawk:
                                         
                                     if self.is_landed:
                                         logger_info.info("-- Position Judge")
+                                        await self.lora.write("311")
                                         break
                                 else:
                                     try:
@@ -443,12 +444,14 @@ class Pixhawk:
                                         
                                     if self.is_landed:
                                         logger_info.info("-- Lidar Judge")
+                                        await self.lora.write("310")
                                         break
                                     
                             else:
                                 self.is_landed = True
                                 if self.is_landed:
                                     logger_info.info("-- Timer Judge")
+                                    await self.lora.write("312")
                                     break
                     else:
                         logger_info.info("-- Over 15m")
@@ -459,7 +462,6 @@ class Pixhawk:
                         break
                         
             logger_info.info("-------------------- Land judge finish --------------------")
-            await self.lora.write("31")
     
     
     async def landjudge_and_sendgps(self):
@@ -779,7 +781,7 @@ class Pixhawk:
             mission_finished = await self.pix.mission.is_mission_finished()
             if mission_finished:
                 logger_info.info("Mission finished")
-                await self.lora.write("Mission finished")
+                await self.lora.write("99")
                 break
         self.is_tasks_cancel_ok = True 
 
