@@ -103,7 +103,7 @@ class Ibis:
     async def flying_phase(self):
         
         logger_info.info("#################### Flying phase start ####################")
-        # await self.pixhawk.hold()
+        await self.pixhawk.hold()
         await self.pixhawk.health_check()
         await self.pixhawk.arm()
         await self.pixhawk.start_mission()
