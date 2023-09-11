@@ -861,8 +861,8 @@ class Pixhawk:
 
     async def calc_red_position(self):
 
-        lat_deg_per_m = 0.000008983148616
-        lng_deg_per_m = 0.000008983668124
+        lat_deg_per_m = 1.1883598784654418e-05
+        lng_deg_per_m = 0.000008983148616
 
         await self.estimate_target_position()
 
