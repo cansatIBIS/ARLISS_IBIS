@@ -8,7 +8,7 @@ from ibis import Ibis
 
 
 fuse_pin = 3
-wait_time = 10
+wait_time = 10 * 60
 lora_sleep_time = 3 
 fuse_time = 3
 land_timelimit = 20 * 60
@@ -22,7 +22,7 @@ image_navigation_timeout = 5 * 60
 light_threshold = 120
 stored_timelimit = 3 * 60
 stored_judge_time = 30
-released_timelimit = 46 * 60
+released_timelimit = 36 * 60
 released_judge_time = 15
 lora_power_pin = 4
 deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt"
