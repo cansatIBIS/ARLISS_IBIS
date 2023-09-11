@@ -20,7 +20,7 @@ def run():
                     hsv_max_2)
         
     camera.change_iso(100)
-    camera.change_shutter_speed(10000)
+    camera.change_shutter_speed(1000)
     camera.take_pic()
     res = camera.detect_center()
     print('percent={}, center={}'.format(res['percent'], res['center']))
