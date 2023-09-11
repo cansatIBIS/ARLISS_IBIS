@@ -297,18 +297,27 @@ class Pixhawk:
     async def hold(self):
 
         logger_info.info("Waiting for drone to hold...")
-        is_hold = False
+        # is_hold = False
+        # while True:
+        #     if is_hold:
+        #         logger_info.info("Checked hold mode")
+        #         break
+        #     async for flight_mode in self.pix.telemetry.flight_mode():
+        #         if str(flight_mode) == "HOLD":
+        #             is_hold = True
+        #             break
+        #         else:
+        #             logger_info.info(f"mode:{flight_mode}")
+        #             await self.pix.action.hold()
         while True:
-            if is_hold:
-                logger_info.info("Checked hold mode")
-                break
-            async for flight_mode in self.pix.telemetry.flight_mode():
-                if str(flight_mode) == "HOLD":
-                    is_hold = True
-                    break
-                else:
-                    logger_info.info(f"mode:{flight_mode}")
-                    await self.pix.action.hold()
+            try:
+                await self.pix.action.hold()
+            except mavsdk.action.ActionError:
+                logger_info.info("Hold denied")
+                await asyncio.sleep(0.1)
+            else:
+                logger_info.info("Hold mode!")
+                break 
 
         
     async def arm(self):
