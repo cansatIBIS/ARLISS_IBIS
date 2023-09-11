@@ -10,9 +10,9 @@ from logger_lib import logger_info
 class Camera:
 
     def __init__(self,
-                 hsv_min_1 = np.array([0, 80, 70]),
+                 hsv_min_1 = np.array([0, 80, 0]),
                  hsv_max_1 = np.array([5,255,255]),
-                 hsv_min_2 = np.array([150,80,70]),
+                 hsv_min_2 = np.array([150,80,0]),
                  hsv_max_2 = np.array([180,255,255]),
                  pixel_number_x = 2592,
                  pixel_number_y = 1944,
