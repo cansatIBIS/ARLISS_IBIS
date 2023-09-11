@@ -8,7 +8,7 @@ from ibis import Ibis
 
 
 fuse_pin = 3
-wait_time = 10 * 60
+wait_time = 0
 lora_sleep_time = 3 
 fuse_time = 4
 land_timelimit = 20 * 60
