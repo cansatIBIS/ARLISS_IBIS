@@ -294,7 +294,25 @@ class Pixhawk:
                 await asyncio.sleep(0.1)
             else:
                 logger_info.info("Armed!")
-                break    
+                break
+
+
+    async def hold(self):
+
+        logger_info.info("Waiting for drone to hold...")
+        is_hold = False
+        while True:
+            if is_hold:
+                logger_info.info("Checked hold mode")
+                break
+            async for flight_mode in self.pix.telemetry.flight_mode():
+                if str(flight_mode) == "HOLD":
+                    logger_info.info("Checked hold mode")
+                    is_hold = True
+                    break
+                else:
+                    logger_info.info(f"mode:{flight_mode}")
+                    await self.pix.action.hold()
 
         
     async def takeoff(self):
