@@ -8,14 +8,14 @@ from ibis import Ibis
 
 
 fuse_pin = 3
-wait_time = 0
+wait_time = 10 * 60
 lora_sleep_time = 3 
 fuse_time = 4
 land_timelimit = 20 * 60
 land_judge_len = 30
 health_continuous_count = 1
-waypoint_lat = 40.86698611
-waypoint_lng = -119.10434166
+waypoint_lat = 40.89352777
+waypoint_lng = -119.10940277
 waypoint_alt = 10
 mission_speed = 8.5
 image_navigation_timeout = 5 * 60
