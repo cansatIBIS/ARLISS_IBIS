@@ -13,17 +13,16 @@ hsv_min_2 = np.array([150,85,0])
 hsv_max_2 = np.array([180,255,255])
 
 def run():
-    for _ in range(10):
-        camera = Camera(hsv_min_1,
-                        hsv_max_1,
-                        hsv_min_2,
-                        hsv_max_2)
-            
 
-        camera.take_pic()
-        res = camera.detect_center()
-        print('percent={}, center={}'.format(res['percent'], res['center']))
-        time.sleep(10)
+    camera = Camera(hsv_min_1,
+                    hsv_max_1,
+                    hsv_min_2,
+                    hsv_max_2)
+        
+
+    camera.take_pic()
+    res = camera.detect_center()
+    print('percent={}, center={}'.format(res['percent'], res['center']))
 
     # distance = 1
     # x_m, y_m = camera.get_target_position(distance)
