@@ -62,7 +62,7 @@ async def run():
     # center_lng_deg_ave = sum(center_lng_deg_list)/1
     
     # center = [center_lat_deg_ave, center_lng_deg_ave]
-    center = [35.797379299999996, 139.8922272]
+    center = [40.7099648, -119.2854470]
 
     
     waypoint1 = [center[0] + lat_deg_per_m * north_m, center[1]]
