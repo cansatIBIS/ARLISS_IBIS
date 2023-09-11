@@ -829,6 +829,8 @@ class Pixhawk:
             logger_info.info(f"current heading: {heading_deg}") 
             break
         
+        self.camera.change_iso(100)
+        self.camera.change_shutter_speed(1000)
         self.camera.take_pic()
         self.image_res = self.camera.detect_center()
         logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
