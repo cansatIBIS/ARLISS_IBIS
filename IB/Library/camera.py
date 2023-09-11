@@ -126,4 +126,7 @@ class Camera:
     def change_iso(self, iso_value):
         self.camera.iso = iso_value
 
+    def change_shutter_speed(self, speed):
+        self.camera.shutter_speed = speed
+
 
