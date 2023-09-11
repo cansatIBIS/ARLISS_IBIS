@@ -304,12 +304,11 @@ class Pixhawk:
                 break
             async for flight_mode in self.pix.telemetry.flight_mode():
                 if str(flight_mode) == "HOLD":
-                    logger_info.info("Checked hold mode")
                     is_hold = True
                     break
                 else:
                     logger_info.info(f"mode:{flight_mode}")
-                    await self.pix.action.hold() #HOLDコマンドを送る
+                    await self.pix.action.hold()
 
         
     async def arm(self):
