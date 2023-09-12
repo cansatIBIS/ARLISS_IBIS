@@ -65,6 +65,24 @@ class Light:
         return value
     
     
+    async def print_light_val(self):
+
+        duration_start_time = time.perf_counter()
+        is_upper_threshold = False
+        pre_time_stamp = 0
+        while True:
+            light_val = self.get_light_val()
+            time_stamp = time.perf_counter() - duration_start_time
+            if light_val >= self.light_threshold:
+                is_upper_threshold = True
+            else:
+                is_upper_threshold = False
+            if abs(pre_time_stamp - time_stamp) > 0.5:
+                pre_time_stamp = time_stamp
+                logger_info.info("{:5.1f}| Light Value:{:>3d}, Continuation:{}".format(time_stamp, light_val, is_upper_threshold))
+                    
+    
+    
     async def stored_judge(self):
     
         if "Stored judge finish" in self.deamon_log:
@@ -88,7 +106,7 @@ class Light:
                 time_stamp = time.perf_counter() - duration_start_time
                 if abs(pre_time_stamp - time_stamp) > 0.4:
                     pre_time_stamp = time_stamp
-                    logger_info.info("{:5.1f}| Light Value:{:>3}, Continuation:{}".format(time_stamp, light_val, is_continue))
+                    logger_info.info("{:5.1f}| Light Value:{:>3d}, Continuation:{}".format(time_stamp, light_val, is_continue))
                     
                 
                 if light_val < self.light_threshold:
@@ -144,7 +162,7 @@ class Light:
                 time_stamp = time.perf_counter() - duration_start_time
                 if abs(pre_time_stamp - time_stamp) > 0.4:
                     pre_time_stamp = time_stamp
-                    logger_info.info("{:5.1f}| Light Value:{:>3}, Continuation:{}".format(time_stamp, light_val, is_continue))
+                    logger_info.info("{:5.1f}| Light Value:{:>3d}, Continuation:{}".format(time_stamp, light_val, is_continue))
                     
                 if is_continue:
                     
