@@ -368,7 +368,7 @@ class Pixhawk:
             logger_info.info("Waiting for store")
             await self.lora.write("00")
             while True:
-                await asyncio.sleep(0)
+                await asyncio.sleep(0.5)
                 time_now = time.time()
                 time_passed = int((time_now-start_time)//1)
                 if time_now > pre_time+1.0:
