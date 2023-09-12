@@ -368,6 +368,7 @@ class Pixhawk:
             logger_info.info("Waiting for store")
             await self.lora.write("00")
             while True:
+                await asyncio.sleep(0)
                 time_now = time.time()
                 time_passed = int((time_now-start_time)//1)
                 if time_now > pre_time+1.0:
@@ -557,7 +558,7 @@ class Pixhawk:
                     logger_info.info("Too high or distance sensor might have some error")
                     altitude_list =[]
                     return altitude_list
-                if distance > 12:
+                if distance > 15:
                     logger_info.info("Too high or distance sensor might have some error")
                     altitude_list =[]
                     return altitude_list
