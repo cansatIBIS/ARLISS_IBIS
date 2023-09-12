@@ -557,7 +557,7 @@ class Pixhawk:
                     logger_info.info("Too high or distance sensor might have some error")
                     altitude_list =[]
                     return altitude_list
-                if distance > 12:
+                if distance > 15:
                     logger_info.info("Too high or distance sensor might have some error")
                     altitude_list =[]
                     return altitude_list
