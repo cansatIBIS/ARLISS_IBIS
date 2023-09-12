@@ -1,0 +1,1379 @@
+000 already exists
+001 already exists
+002 already exists
+003 already exists
+004 already exists
+005 already exists
+006 already exists
+007 already exists
+008 already exists
+009 already exists
+010 already exists
+011 already exists
+012 already exists
+013 already exists
+014 already exists
+015 already exists
+016 already exists
+017 already exists
+018 already exists
+019 already exists
+020 already exists
+021 already exists
+022 already exists
+023 already exists
+024 already exists
+025 already exists
+026 already exists
+027 already exists
+028 already exists
+029 already exists
+030 already exists
+031 already exists
+032 already exists
+033 already exists
+2023-09-13 03:20:20.170 [INFO]: #################### Initializing Ibis ####################
+2023-09-13 03:20:20.297 [INFO]: Lora initialized
+06:53:36.519 [INFO]: Light initialized
+2023-09-12 06:53:36.519 [INFO]: #################### Ibis initialized ####################
+2023-09-12 06:53:36.520 [INFO]: #################### IBIS MISSION START ####################
+2023-09-12 06:53:36.520 [INFO]: #################### Wait store phase start ####################
+2023-09-12 06:53:36.520 [INFO]: Lora power on
+2023-09-12 06:53:36.522 [INFO]: Serial port OK.
+2023-09-12 06:53:38.525 [INFO]: Lora READY
+2023-09-12 06:53:38.526 [INFO]: Waiting for store
+2023-09-12 06:53:41.531 [INFO]: 3 seconds passed
+2023-09-12 06:53:42.531 [INFO]: 4 seconds passed
+2023-09-12 06:53:43.531 [INFO]: 5 seconds passed
+2023-09-12 06:53:44.531 [INFO]: 6 seconds passed
+2023-09-12 06:53:45.531 [INFO]: 7 seconds passed
+2023-09-12 06:53:46.531 [INFO]: 8 seconds passed
+2023-09-12 06:53:47.531 [INFO]: 9 seconds passed
+2023-09-12 06:53:48.531 [INFO]: 10 seconds passed
+2023-09-12 06:53:49.531 [INFO]: 11 seconds passed
+2023-09-12 06:53:50.531 [INFO]: 12 seconds passed
+2023-09-12 06:53:51.531 [INFO]: 13 seconds passed
+2023-09-12 06:53:52.531 [INFO]: 14 seconds passed
+2023-09-12 06:53:53.531 [INFO]: 15 seconds passed
+2023-09-12 06:53:54.531 [INFO]: 16 seconds passed
+2023-09-12 06:53:55.531 [INFO]: 17 seconds passed
+2023-09-12 06:53:56.531 [INFO]: 18 seconds passed
+2023-09-12 06:53:57.531 [INFO]: 19 seconds passed
+2023-09-12 06:53:58.531 [INFO]: 20 seconds passed
+2023-09-12 06:53:59.531 [INFO]: 21 seconds passed
+2023-09-12 06:54:00.531 [INFO]: 22 seconds passed
+2023-09-12 06:54:01.531 [INFO]: 23 seconds passed
+2023-09-12 06:54:02.531 [INFO]: 24 seconds passed
+2023-09-12 06:54:03.531 [INFO]: 25 seconds passed
+2023-09-12 06:54:04.531 [INFO]: 26 seconds passed
+2023-09-12 06:54:05.531 [INFO]: 27 seconds passed
+2023-09-12 06:54:06.531 [INFO]: 28 seconds passed
+2023-09-12 06:54:07.531 [INFO]: 29 seconds passed
+2023-09-12 06:54:08.531 [INFO]: 30 seconds passed
+2023-09-12 06:54:09.531 [INFO]: 31 seconds passed
+2023-09-12 06:54:10.531 [INFO]: 32 seconds passed
+2023-09-12 06:54:11.531 [INFO]: 33 seconds passed
+2023-09-12 06:54:12.531 [INFO]: 34 seconds passed
+2023-09-12 06:54:13.531 [INFO]: 35 seconds passed
+2023-09-12 06:54:14.531 [INFO]: 36 seconds passed
+2023-09-12 06:54:15.531 [INFO]: 37 seconds passed
+2023-09-12 06:54:16.531 [INFO]: 38 seconds passed
+2023-09-12 06:54:17.531 [INFO]: 39 seconds passed
+2023-09-12 06:54:18.531 [INFO]: 40 seconds passed
+2023-09-12 06:54:19.531 [INFO]: 41 seconds passed
+2023-09-12 06:54:20.531 [INFO]: 42 seconds passed
+2023-09-12 06:54:21.531 [INFO]: 43 seconds passed
+2023-09-12 06:54:22.531 [INFO]: 44 seconds passed
+2023-09-12 06:54:23.531 [INFO]: 45 seconds passed
+2023-09-12 06:54:24.531 [INFO]: 46 seconds passed
+2023-09-12 06:54:25.531 [INFO]: 47 seconds passed
+2023-09-12 06:54:26.531 [INFO]: 48 seconds passed
+2023-09-12 06:54:27.531 [INFO]: 49 seconds passed
+2023-09-12 06:54:28.531 [INFO]: 50 seconds passed
+2023-09-12 06:54:29.531 [INFO]: 51 seconds passed
+2023-09-12 06:54:30.531 [INFO]: 52 seconds passed
+2023-09-12 06:54:31.531 [INFO]: 53 seconds passed
+2023-09-12 06:54:32.531 [INFO]: 54 seconds passed
+2023-09-12 06:54:33.531 [INFO]: 55 seconds passed
+2023-09-12 06:54:34.531 [INFO]: 56 seconds passed
+2023-09-12 06:54:35.531 [INFO]: 57 seconds passed
+2023-09-12 06:54:36.531 [INFO]: 58 seconds passed
+2023-09-12 06:54:37.531 [INFO]: 59 seconds passed
+2023-09-12 06:54:38.531 [INFO]: 60 seconds passed
+2023-09-12 06:54:39.531 [INFO]: 61 seconds passed
+2023-09-12 06:54:40.531 [INFO]: 62 seconds passed
+2023-09-12 06:54:41.531 [INFO]: 63 seconds passed
+2023-09-12 06:54:42.531 [INFO]: 64 seconds passed
+2023-09-12 06:54:43.531 [INFO]: 65 seconds passed
+2023-09-12 06:54:44.531 [INFO]: 66 seconds passed
+2023-09-12 06:54:45.531 [INFO]: 67 seconds passed
+2023-09-12 06:54:46.531 [INFO]: 68 seconds passed
+2023-09-12 06:54:47.531 [INFO]: 69 seconds passed
+2023-09-12 06:54:48.531 [INFO]: 70 seconds passed
+2023-09-12 06:54:49.531 [INFO]: 71 seconds passed
+2023-09-12 06:54:50.531 [INFO]: 72 seconds passed
+2023-09-12 06:54:51.531 [INFO]: 73 seconds passed
+2023-09-12 06:54:52.531 [INFO]: 74 seconds passed
+2023-09-12 06:54:53.531 [INFO]: 75 seconds passed
+2023-09-12 06:54:54.531 [INFO]: 76 seconds passed
+2023-09-12 06:54:55.531 [INFO]: 77 seconds passed
+2023-09-12 06:54:56.531 [INFO]: 78 seconds passed
+2023-09-12 06:54:57.531 [INFO]: 79 seconds passed
+2023-09-12 06:54:58.531 [INFO]: 80 seconds passed
+2023-09-12 06:54:59.531 [INFO]: 81 seconds passed
+2023-09-12 06:55:00.531 [INFO]: 82 seconds passed
+2023-09-12 06:55:01.531 [INFO]: 83 seconds passed
+2023-09-12 06:55:02.531 [INFO]: 84 seconds passed
+2023-09-12 06:55:03.531 [INFO]: 85 seconds passed
+2023-09-12 06:55:04.531 [INFO]: 86 seconds passed
+2023-09-12 06:55:05.531 [INFO]: 87 seconds passed
+2023-09-12 06:55:06.531 [INFO]: 88 seconds passed
+2023-09-12 06:55:07.531 [INFO]: 89 seconds passed
+2023-09-12 06:55:08.531 [INFO]: 90 seconds passed
+2023-09-12 06:55:09.531 [INFO]: 91 seconds passed
+2023-09-12 06:55:10.531 [INFO]: 92 seconds passed
+2023-09-12 06:55:11.531 [INFO]: 93 seconds passed
+2023-09-12 06:55:12.531 [INFO]: 94 seconds passed
+2023-09-12 06:55:13.531 [INFO]: 95 seconds passed
+2023-09-12 06:55:14.531 [INFO]: 96 seconds passed
+2023-09-12 06:55:15.531 [INFO]: 97 seconds passed
+2023-09-12 06:55:16.531 [INFO]: 98 seconds passed
+2023-09-12 06:55:17.531 [INFO]: 99 seconds passed
+2023-09-12 06:55:18.531 [INFO]: 100 seconds passed
+2023-09-12 06:55:19.531 [INFO]: 101 seconds passed
+2023-09-12 06:55:20.531 [INFO]: 102 seconds passed
+2023-09-12 06:55:21.531 [INFO]: 103 seconds passed
+2023-09-12 06:55:22.531 [INFO]: 104 seconds passed
+2023-09-12 06:55:23.531 [INFO]: 105 seconds passed
+2023-09-12 06:55:24.531 [INFO]: 106 seconds passed
+2023-09-12 06:55:25.531 [INFO]: 107 seconds passed
+2023-09-12 06:55:26.531 [INFO]: 108 seconds passed
+2023-09-12 06:55:27.531 [INFO]: 109 seconds passed
+2023-09-12 06:55:28.531 [INFO]: 110 seconds passed
+2023-09-12 06:55:29.531 [INFO]: 111 seconds passed
+2023-09-12 06:55:30.531 [INFO]: 112 seconds passed
+2023-09-12 06:55:31.531 [INFO]: 113 seconds passed
+2023-09-12 06:55:32.531 [INFO]: 114 seconds passed
+2023-09-12 06:55:33.531 [INFO]: 115 seconds passed
+2023-09-12 06:55:34.531 [INFO]: 116 seconds passed
+2023-09-12 06:55:35.531 [INFO]: 117 seconds passed
+2023-09-12 06:55:36.531 [INFO]: 118 seconds passed
+2023-09-12 06:55:37.531 [INFO]: 119 seconds passed
+2023-09-12 06:55:38.531 [INFO]: 120 seconds passed
+2023-09-12 06:55:39.531 [INFO]: 121 seconds passed
+2023-09-12 06:55:40.531 [INFO]: 122 seconds passed
+2023-09-12 06:55:41.531 [INFO]: 123 seconds passed
+2023-09-12 06:55:42.531 [INFO]: 124 seconds passed
+2023-09-12 06:55:43.531 [INFO]: 125 seconds passed
+2023-09-12 06:55:44.531 [INFO]: 126 seconds passed
+2023-09-12 06:55:45.531 [INFO]: 127 seconds passed
+2023-09-12 06:55:46.531 [INFO]: 128 seconds passed
+2023-09-12 06:55:47.531 [INFO]: 129 seconds passed
+2023-09-12 06:55:48.531 [INFO]: 130 seconds passed
+2023-09-12 06:55:49.531 [INFO]: 131 seconds passed
+2023-09-12 06:55:50.531 [INFO]: 132 seconds passed
+2023-09-12 06:55:51.531 [INFO]: 133 seconds passed
+2023-09-12 06:55:52.531 [INFO]: 134 seconds passed
+2023-09-12 06:55:53.531 [INFO]: 135 seconds passed
+2023-09-12 06:55:54.531 [INFO]: 136 seconds passed
+2023-09-12 06:55:55.531 [INFO]: 137 seconds passed
+2023-09-12 06:55:56.531 [INFO]: 138 seconds passed
+2023-09-12 06:55:57.531 [INFO]: 139 seconds passed
+2023-09-12 06:55:58.531 [INFO]: 140 seconds passed
+2023-09-12 06:55:59.531 [INFO]: 141 seconds passed
+2023-09-12 06:56:00.531 [INFO]: 142 seconds passed
+2023-09-12 06:56:01.531 [INFO]: 143 seconds passed
+2023-09-12 06:56:02.531 [INFO]: 144 seconds passed
+2023-09-12 06:56:03.531 [INFO]: 145 seconds passed
+2023-09-12 06:56:04.531 [INFO]: 146 seconds passed
+2023-09-12 06:56:05.531 [INFO]: 147 seconds passed
+2023-09-12 06:56:06.531 [INFO]: 148 seconds passed
+2023-09-12 06:56:07.531 [INFO]: 149 seconds passed
+2023-09-12 06:56:08.531 [INFO]: 150 seconds passed
+2023-09-12 06:56:09.531 [INFO]: 151 seconds passed
+2023-09-12 06:56:10.531 [INFO]: 152 seconds passed
+2023-09-12 06:56:11.531 [INFO]: 153 seconds passed
+2023-09-12 06:56:12.531 [INFO]: 154 seconds passed
+2023-09-12 06:56:13.531 [INFO]: 155 seconds passed
+2023-09-12 06:56:14.531 [INFO]: 156 seconds passed
+2023-09-12 06:56:15.531 [INFO]: 157 seconds passed
+2023-09-12 06:56:16.531 [INFO]: 158 seconds passed
+2023-09-12 06:56:17.531 [INFO]: 159 seconds passed
+2023-09-12 06:56:18.531 [INFO]: 160 seconds passed
+2023-09-12 06:56:19.531 [INFO]: 161 seconds passed
+2023-09-12 06:56:20.531 [INFO]: 162 seconds passed
+2023-09-12 06:56:21.531 [INFO]: 163 seconds passed
+2023-09-12 06:56:22.531 [INFO]: 164 seconds passed
+2023-09-12 06:56:23.531 [INFO]: 165 seconds passed
+2023-09-12 06:56:24.531 [INFO]: 166 seconds passed
+2023-09-12 06:56:25.531 [INFO]: 167 seconds passed
+2023-09-12 06:56:26.531 [INFO]: 168 seconds passed
+2023-09-12 06:56:27.531 [INFO]: 169 seconds passed
+2023-09-12 06:56:28.531 [INFO]: 170 seconds passed
+2023-09-12 06:56:29.531 [INFO]: 171 seconds passed
+2023-09-12 06:56:30.531 [INFO]: 172 seconds passed
+2023-09-12 06:56:31.531 [INFO]: 173 seconds passed
+2023-09-12 06:56:32.531 [INFO]: 174 seconds passed
+2023-09-12 06:56:33.531 [INFO]: 175 seconds passed
+2023-09-12 06:56:34.531 [INFO]: 176 seconds passed
+2023-09-12 06:56:35.531 [INFO]: 177 seconds passed
+2023-09-12 06:56:36.531 [INFO]: 178 seconds passed
+2023-09-12 06:56:37.531 [INFO]: 179 seconds passed
+2023-09-12 06:56:38.531 [INFO]: 180 seconds passed
+2023-09-12 06:56:39.531 [INFO]: 181 seconds passed
+2023-09-12 06:56:40.531 [INFO]: 182 seconds passed
+2023-09-12 06:56:41.531 [INFO]: 183 seconds passed
+2023-09-12 06:56:42.531 [INFO]: 184 seconds passed
+2023-09-12 06:56:43.531 [INFO]: 185 seconds passed
+2023-09-12 06:56:44.531 [INFO]: 186 seconds passed
+2023-09-12 06:56:45.531 [INFO]: 187 seconds passed
+2023-09-12 06:56:46.531 [INFO]: 188 seconds passed
+2023-09-12 06:56:47.531 [INFO]: 189 seconds passed
+2023-09-12 06:56:48.531 [INFO]: 190 seconds passed
+2023-09-12 06:56:49.531 [INFO]: 191 seconds passed
+2023-09-12 06:56:50.531 [INFO]: 192 seconds passed
+2023-09-12 06:56:51.531 [INFO]: 193 seconds passed
+2023-09-12 06:56:52.531 [INFO]: 194 seconds passed
+2023-09-12 06:56:53.531 [INFO]: 195 seconds passed
+2023-09-12 06:56:54.531 [INFO]: 196 seconds passed
+2023-09-12 06:56:55.531 [INFO]: 197 seconds passed
+2023-09-12 06:56:56.531 [INFO]: 198 seconds passed
+2023-09-12 06:56:57.531 [INFO]: 199 seconds passed
+2023-09-12 06:56:58.531 [INFO]: 200 seconds passed
+2023-09-12 06:56:59.531 [INFO]: 201 seconds passed
+2023-09-12 06:57:00.531 [INFO]: 202 seconds passed
+2023-09-12 06:57:01.531 [INFO]: 203 seconds passed
+2023-09-12 06:57:02.531 [INFO]: 204 seconds passed
+2023-09-12 06:57:03.531 [INFO]: 205 seconds passed
+2023-09-12 06:57:04.531 [INFO]: 206 seconds passed
+2023-09-12 06:57:05.531 [INFO]: 207 seconds passed
+2023-09-12 06:57:06.531 [INFO]: 208 seconds passed
+2023-09-12 06:57:07.531 [INFO]: 209 seconds passed
+2023-09-12 06:57:08.531 [INFO]: 210 seconds passed
+2023-09-12 06:57:09.531 [INFO]: 211 seconds passed
+2023-09-12 06:57:10.531 [INFO]: 212 seconds passed
+2023-09-12 06:57:11.531 [INFO]: 213 seconds passed
+2023-09-12 06:57:12.531 [INFO]: 214 seconds passed
+2023-09-12 06:57:13.531 [INFO]: 215 seconds passed
+2023-09-12 06:57:14.531 [INFO]: 216 seconds passed
+2023-09-12 06:57:15.531 [INFO]: 217 seconds passed
+2023-09-12 06:57:16.531 [INFO]: 218 seconds passed
+2023-09-12 06:57:17.531 [INFO]: 219 seconds passed
+2023-09-12 06:57:18.531 [INFO]: 220 seconds passed
+2023-09-12 06:57:19.531 [INFO]: 221 seconds passed
+2023-09-12 06:57:20.531 [INFO]: 222 seconds passed
+2023-09-12 06:57:21.531 [INFO]: 223 seconds passed
+2023-09-12 06:57:22.531 [INFO]: 224 seconds passed
+2023-09-12 06:57:23.531 [INFO]: 225 seconds passed
+2023-09-12 06:57:24.531 [INFO]: 226 seconds passed
+2023-09-12 06:57:25.531 [INFO]: 227 seconds passed
+2023-09-12 06:57:26.531 [INFO]: 228 seconds passed
+2023-09-12 06:57:27.531 [INFO]: 229 seconds passed
+2023-09-12 06:57:28.531 [INFO]: 230 seconds passed
+2023-09-12 06:57:29.531 [INFO]: 231 seconds passed
+2023-09-12 06:57:30.531 [INFO]: 232 seconds passed
+2023-09-12 06:57:31.531 [INFO]: 233 seconds passed
+2023-09-12 06:57:32.531 [INFO]: 234 seconds passed
+2023-09-12 06:57:33.531 [INFO]: 235 seconds passed
+2023-09-12 06:57:34.531 [INFO]: 236 seconds passed
+2023-09-12 06:57:35.531 [INFO]: 237 seconds passed
+2023-09-12 06:57:36.531 [INFO]: 238 seconds passed
+2023-09-12 06:57:37.531 [INFO]: 239 seconds passed
+2023-09-12 06:57:38.531 [INFO]: 240 seconds passed
+2023-09-12 06:57:39.531 [INFO]: 241 seconds passed
+2023-09-12 06:57:40.531 [INFO]: 242 seconds passed
+2023-09-12 06:57:41.531 [INFO]: 243 seconds passed
+2023-09-12 06:57:42.531 [INFO]: 244 seconds passed
+2023-09-12 06:57:43.531 [INFO]: 245 seconds passed
+2023-09-12 06:57:44.531 [INFO]: 246 seconds passed
+2023-09-12 06:57:45.531 [INFO]: 247 seconds passed
+2023-09-12 06:57:46.531 [INFO]: 248 seconds passed
+2023-09-12 06:57:47.531 [INFO]: 249 seconds passed
+2023-09-12 06:57:48.531 [INFO]: 250 seconds passed
+2023-09-12 06:57:49.531 [INFO]: 251 seconds passed
+2023-09-12 06:57:50.531 [INFO]: 252 seconds passed
+2023-09-12 06:57:51.531 [INFO]: 253 seconds passed
+2023-09-12 06:57:52.531 [INFO]: 254 seconds passed
+2023-09-12 06:57:53.531 [INFO]: 255 seconds passed
+2023-09-12 06:57:54.531 [INFO]: 256 seconds passed
+2023-09-12 06:57:55.531 [INFO]: 257 seconds passed
+2023-09-12 06:57:56.531 [INFO]: 258 seconds passed
+2023-09-12 06:57:57.531 [INFO]: 259 seconds passed
+2023-09-12 06:57:58.531 [INFO]: 260 seconds passed
+2023-09-12 06:57:59.531 [INFO]: 261 seconds passed
+2023-09-12 06:58:00.531 [INFO]: 262 seconds passed
+2023-09-12 06:58:01.531 [INFO]: 263 seconds passed
+2023-09-12 06:58:02.531 [INFO]: 264 seconds passed
+2023-09-12 06:58:03.531 [INFO]: 265 seconds passed
+2023-09-12 06:58:04.531 [INFO]: 266 seconds passed
+2023-09-12 06:58:05.531 [INFO]: 267 seconds passed
+2023-09-12 06:58:06.531 [INFO]: 268 seconds passed
+2023-09-12 06:58:07.531 [INFO]: 269 seconds passed
+2023-09-12 06:58:08.531 [INFO]: 270 seconds passed
+2023-09-12 06:58:09.531 [INFO]: 271 seconds passed
+2023-09-12 06:58:10.531 [INFO]: 272 seconds passed
+2023-09-12 06:58:11.531 [INFO]: 273 seconds passed
+2023-09-12 06:58:12.531 [INFO]: 274 seconds passed
+2023-09-12 06:58:13.531 [INFO]: 275 seconds passed
+2023-09-12 06:58:14.531 [INFO]: 276 seconds passed
+2023-09-12 06:58:15.531 [INFO]: 277 seconds passed
+2023-09-12 06:58:16.531 [INFO]: 278 seconds passed
+2023-09-12 06:58:17.531 [INFO]: 279 seconds passed
+2023-09-12 06:58:18.531 [INFO]: 280 seconds passed
+2023-09-12 06:58:19.531 [INFO]: 281 seconds passed
+2023-09-12 06:58:20.531 [INFO]: 282 seconds passed
+2023-09-12 06:58:21.531 [INFO]: 283 seconds passed
+2023-09-12 06:58:22.531 [INFO]: 284 seconds passed
+2023-09-12 06:58:23.531 [INFO]: 285 seconds passed
+2023-09-12 06:58:24.531 [INFO]: 286 seconds passed
+2023-09-12 06:58:25.531 [INFO]: 287 seconds passed
+2023-09-12 06:58:26.531 [INFO]: 288 seconds passed
+2023-09-12 06:58:27.531 [INFO]: 289 seconds passed
+2023-09-12 06:58:28.531 [INFO]: 290 seconds passed
+2023-09-12 06:58:29.531 [INFO]: 291 seconds passed
+2023-09-12 06:58:30.531 [INFO]: 292 seconds passed
+2023-09-12 06:58:31.531 [INFO]: 293 seconds passed
+2023-09-12 06:58:32.531 [INFO]: 294 seconds passed
+2023-09-12 06:58:33.531 [INFO]: 295 seconds passed
+2023-09-12 06:58:34.531 [INFO]: 296 seconds passed
+2023-09-12 06:58:35.531 [INFO]: 297 seconds passed
+2023-09-12 06:58:36.531 [INFO]: 298 seconds passed
+2023-09-12 06:58:37.531 [INFO]: 299 seconds passed
+2023-09-12 06:58:38.531 [INFO]: 300 seconds passed
+2023-09-12 06:58:39.526 [INFO]: 300 seconds passed. Wait phase finished
+2023-09-12 06:58:42.530 [INFO]: #################### Wait store phase finished ####################
+2023-09-12 06:58:42.531 [INFO]: #################### Judge phase start ####################
+2023-09-12 06:58:42.532 [INFO]: Waiting for drone to connect...
+2023-09-12 06:58:44.422 [INFO]: Drone connected!
+2023-09-12 06:58:44.467 [INFO]: Uploading mission
+2023-09-12 06:58:45.636 [INFO]: -------------------- Stored judge start --------------------
+2023-09-12 06:58:49.40  [INFO]:   0.4| Light Value:329, Continuation:True
+2023-09-12 06:58:49.440 [INFO]:   0.8| Light Value:331, Continuation:True
+2023-09-12 06:58:49.840 [INFO]:   1.2| Light Value:329, Continuation:True
+2023-09-12 06:58:50.240 [INFO]:   1.6| Light Value:330, Continuation:True
+2023-09-12 06:58:50.640 [INFO]:   2.0| Light Value:330, Continuation:True
+2023-09-12 06:58:51.40  [INFO]:   2.4| Light Value:330, Continuation:True
+2023-09-12 06:58:51.440 [INFO]:   2.8| Light Value:331, Continuation:True
+2023-09-12 06:58:51.840 [INFO]:   3.2| Light Value:329, Continuation:True
+2023-09-12 06:58:52.241 [INFO]:   3.6| Light Value:330, Continuation:True
+2023-09-12 06:58:52.641 [INFO]:   4.0| Light Value:329, Continuation:True
+2023-09-12 06:58:53.41  [INFO]:   4.4| Light Value:330, Continuation:True
+2023-09-12 06:58:53.441 [INFO]:   4.8| Light Value:329, Continuation:True
+2023-09-12 06:58:53.841 [INFO]:   5.2| Light Value:330, Continuation:True
+2023-09-12 06:58:54.241 [INFO]:   5.6| Light Value:330, Continuation:True
+2023-09-12 06:58:54.641 [INFO]:   6.0| Light Value:329, Continuation:True
+2023-09-12 06:58:55.41  [INFO]:   6.4| Light Value:329, Continuation:True
+2023-09-12 06:58:55.441 [INFO]:   6.8| Light Value:329, Continuation:True
+2023-09-12 06:58:55.841 [INFO]:   7.2| Light Value:330, Continuation:True
+2023-09-12 06:58:56.241 [INFO]:   7.6| Light Value:329, Continuation:True
+2023-09-12 06:58:56.641 [INFO]:   8.0| Light Value:329, Continuation:True
+2023-09-12 06:58:57.41  [INFO]:   8.4| Light Value:330, Continuation:True
+2023-09-12 06:58:57.441 [INFO]:   8.8| Light Value:329, Continuation:True
+2023-09-12 06:58:57.841 [INFO]:   9.2| Light Value:329, Continuation:True
+2023-09-12 06:58:58.241 [INFO]:   9.6| Light Value:331, Continuation:True
+2023-09-12 06:58:58.641 [INFO]:  10.0| Light Value:329, Continuation:True
+2023-09-12 06:58:59.41  [INFO]:  10.4| Light Value:330, Continuation:True
+2023-09-12 06:58:59.441 [INFO]:  10.8| Light Value:330, Continuation:True
+2023-09-12 06:58:59.841 [INFO]:  11.2| Light Value:330, Continuation:True
+2023-09-12 06:59:00.241 [INFO]:  11.6| Light Value:331, Continuation:True
+2023-09-12 06:59:00.641 [INFO]:  12.0| Light Value:330, Continuation:True
+2023-09-12 06:59:01.41  [INFO]:  12.4| Light Value:330, Continuation:True
+2023-09-12 06:59:01.441 [INFO]:  12.8| Light Value:330, Continuation:True
+2023-09-12 06:59:01.841 [INFO]:  13.2| Light Value:329, Continuation:True
+2023-09-12 06:59:02.241 [INFO]:  13.6| Light Value:330, Continuation:True
+2023-09-12 06:59:02.641 [INFO]:  14.0| Light Value:330, Continuation:True
+2023-09-12 06:59:03.41  [INFO]:  14.4| Light Value:330, Continuation:True
+2023-09-12 06:59:03.441 [INFO]:  14.8| Light Value:330, Continuation:True
+2023-09-12 06:59:03.841 [INFO]:  15.2| Light Value:330, Continuation:True
+2023-09-12 06:59:04.241 [INFO]:  15.6| Light Value:330, Continuation:True
+2023-09-12 06:59:04.641 [INFO]:  16.0| Light Value:330, Continuation:True
+2023-09-12 06:59:05.41  [INFO]:  16.4| Light Value:330, Continuation:True
+2023-09-12 06:59:05.441 [INFO]:  16.8| Light Value:330, Continuation:True
+2023-09-12 06:59:05.841 [INFO]:  17.2| Light Value:330, Continuation:True
+2023-09-12 06:59:06.241 [INFO]:  17.6| Light Value:330, Continuation:True
+2023-09-12 06:59:06.641 [INFO]:  18.0| Light Value:330, Continuation:True
+2023-09-12 06:59:07.41  [INFO]:  18.4| Light Value:330, Continuation:True
+2023-09-12 06:59:07.441 [INFO]:  18.8| Light Value:330, Continuation:True
+2023-09-12 06:59:07.842 [INFO]:  19.2| Light Value:330, Continuation:True
+2023-09-12 06:59:08.242 [INFO]:  19.6| Light Value:330, Continuation:True
+2023-09-12 06:59:08.642 [INFO]:  20.0| Light Value:330, Continuation:True
+2023-09-12 06:59:09.42  [INFO]:  20.4| Light Value:330, Continuation:True
+2023-09-12 06:59:09.442 [INFO]:  20.8| Light Value:330, Continuation:True
+2023-09-12 06:59:09.842 [INFO]:  21.2| Light Value:330, Continuation:True
+2023-09-12 06:59:10.242 [INFO]:  21.6| Light Value:330, Continuation:True
+2023-09-12 06:59:10.642 [INFO]:  22.0| Light Value:330, Continuation:True
+2023-09-12 06:59:11.42  [INFO]:  22.4| Light Value:330, Continuation:True
+2023-09-12 06:59:11.442 [INFO]:  22.8| Light Value:330, Continuation:True
+2023-09-12 06:59:11.842 [INFO]:  23.2| Light Value:330, Continuation:True
+2023-09-12 06:59:12.242 [INFO]:  23.6| Light Value:330, Continuation:True
+2023-09-12 06:59:12.642 [INFO]:  24.0| Light Value:330, Continuation:True
+2023-09-12 06:59:13.42  [INFO]:  24.4| Light Value:330, Continuation:True
+2023-09-12 06:59:13.442 [INFO]:  24.8| Light Value:329, Continuation:True
+2023-09-12 06:59:13.842 [INFO]:  25.2| Light Value:328, Continuation:True
+2023-09-12 06:59:14.242 [INFO]:  25.6| Light Value:327, Continuation:True
+2023-09-12 06:59:14.642 [INFO]:  26.0| Light Value:327, Continuation:True
+2023-09-12 06:59:15.42  [INFO]:  26.4| Light Value:326, Continuation:True
+2023-09-12 06:59:15.442 [INFO]:  26.8| Light Value:326, Continuation:True
+2023-09-12 06:59:15.842 [INFO]:  27.2| Light Value:327, Continuation:True
+2023-09-12 06:59:16.242 [INFO]:  27.6| Light Value:329, Continuation:True
+2023-09-12 06:59:16.642 [INFO]:  28.0| Light Value:329, Continuation:True
+2023-09-12 06:59:17.42  [INFO]:  28.4| Light Value:329, Continuation:True
+2023-09-12 06:59:17.442 [INFO]:  28.8| Light Value:329, Continuation:True
+2023-09-12 06:59:17.842 [INFO]:  29.2| Light Value:329, Continuation:True
+2023-09-12 06:59:18.242 [INFO]:  29.6| Light Value:329, Continuation:True
+2023-09-12 06:59:18.640 [INFO]: -- Light Judge
+2023-09-12 06:59:21.645 [INFO]: -------------------- Stored judge finish --------------------
+2023-09-12 06:59:21.645 [INFO]: -------------------- Released judge start --------------------
+2023-09-12 06:59:25.49  [INFO]:   0.4| Light Value:331, Continuation:False
+2023-09-12 06:59:25.449 [INFO]:   0.8| Light Value:331, Continuation:False
+2023-09-12 06:59:25.849 [INFO]:   1.2| Light Value:331, Continuation:False
+2023-09-12 06:59:26.249 [INFO]:   1.6| Light Value:331, Continuation:False
+2023-09-12 06:59:26.649 [INFO]:   2.0| Light Value:330, Continuation:False
+2023-09-12 06:59:27.50  [INFO]:   2.4| Light Value:331, Continuation:False
+2023-09-12 06:59:27.450 [INFO]:   2.8| Light Value:330, Continuation:False
+2023-09-12 06:59:27.850 [INFO]:   3.2| Light Value:331, Continuation:False
+2023-09-12 06:59:28.250 [INFO]:   3.6| Light Value:328, Continuation:False
+2023-09-12 06:59:28.650 [INFO]:   4.0| Light Value:331, Continuation:False
+2023-09-12 06:59:29.50  [INFO]:   4.4| Light Value:332, Continuation:False
+2023-09-12 06:59:29.450 [INFO]:   4.8| Light Value:331, Continuation:False
+2023-09-12 06:59:29.850 [INFO]:   5.2| Light Value:332, Continuation:False
+2023-09-12 06:59:30.250 [INFO]:   5.6| Light Value:331, Continuation:False
+2023-09-12 06:59:30.650 [INFO]:   6.0| Light Value:331, Continuation:False
+2023-09-12 06:59:31.50  [INFO]:   6.4| Light Value:331, Continuation:False
+2023-09-12 06:59:31.450 [INFO]:   6.8| Light Value:330, Continuation:False
+2023-09-12 06:59:31.850 [INFO]:   7.2| Light Value:331, Continuation:False
+2023-09-12 06:59:32.250 [INFO]:   7.6| Light Value:331, Continuation:False
+2023-09-12 06:59:32.650 [INFO]:   8.0| Light Value:331, Continuation:False
+2023-09-12 06:59:33.50  [INFO]:   8.4| Light Value:332, Continuation:False
+2023-09-12 06:59:33.450 [INFO]:   8.8| Light Value:331, Continuation:False
+2023-09-12 06:59:33.850 [INFO]:   9.2| Light Value:330, Continuation:False
+2023-09-12 06:59:34.250 [INFO]:   9.6| Light Value:331, Continuation:False
+2023-09-12 06:59:34.650 [INFO]:  10.0| Light Value:330, Continuation:False
+2023-09-12 06:59:35.50  [INFO]:  10.4| Light Value:332, Continuation:False
+2023-09-12 06:59:35.450 [INFO]:  10.8| Light Value:330, Continuation:False
+2023-09-12 06:59:35.850 [INFO]:  11.2| Light Value:331, Continuation:False
+2023-09-12 06:59:36.250 [INFO]:  11.6| Light Value:330, Continuation:False
+2023-09-12 06:59:36.650 [INFO]:  12.0| Light Value:332, Continuation:False
+2023-09-12 06:59:37.50  [INFO]:  12.4| Light Value:331, Continuation:False
+2023-09-12 06:59:37.450 [INFO]:  12.8| Light Value:332, Continuation:False
+2023-09-12 06:59:37.850 [INFO]:  13.2| Light Value:331, Continuation:False
+2023-09-12 06:59:38.250 [INFO]:  13.6| Light Value:330, Continuation:False
+2023-09-12 06:59:38.650 [INFO]:  14.0| Light Value:330, Continuation:False
+2023-09-12 06:59:39.50  [INFO]:  14.4| Light Value:331, Continuation:False
+2023-09-12 06:59:39.450 [INFO]:  14.8| Light Value:330, Continuation:False
+2023-09-12 06:59:39.850 [INFO]:  15.2| Light Value:331, Continuation:False
+2023-09-12 06:59:40.250 [INFO]:  15.6| Light Value:330, Continuation:False
+2023-09-12 06:59:40.650 [INFO]:  16.0| Light Value:331, Continuation:False
+2023-09-12 06:59:41.50  [INFO]:  16.4| Light Value:332, Continuation:False
+2023-09-12 06:59:41.450 [INFO]:  16.8| Light Value:330, Continuation:False
+2023-09-12 06:59:41.850 [INFO]:  17.2| Light Value:331, Continuation:False
+2023-09-12 06:59:42.250 [INFO]:  17.6| Light Value:330, Continuation:False
+2023-09-12 06:59:42.650 [INFO]:  18.0| Light Value:330, Continuation:False
+2023-09-12 06:59:43.50  [INFO]:  18.4| Light Value:332, Continuation:False
+2023-09-12 06:59:43.450 [INFO]:  18.8| Light Value:331, Continuation:False
+2023-09-12 06:59:43.850 [INFO]:  19.2| Light Value:330, Continuation:False
+2023-09-12 06:59:44.250 [INFO]:  19.6| Light Value:331, Continuation:False
+2023-09-12 06:59:44.650 [INFO]:  20.0| Light Value:331, Continuation:False
+2023-09-12 06:59:45.50  [INFO]:  20.4| Light Value:330, Continuation:False
+2023-09-12 06:59:45.450 [INFO]:  20.8| Light Value:330, Continuation:False
+2023-09-12 06:59:45.850 [INFO]:  21.2| Light Value:331, Continuation:False
+2023-09-12 06:59:46.250 [INFO]:  21.6| Light Value:332, Continuation:False
+2023-09-12 06:59:46.650 [INFO]:  22.0| Light Value:330, Continuation:False
+2023-09-12 06:59:47.50  [INFO]:  22.4| Light Value:331, Continuation:False
+2023-09-12 06:59:47.450 [INFO]:  22.8| Light Value:331, Continuation:False
+2023-09-12 06:59:47.850 [INFO]:  23.2| Light Value:331, Continuation:False
+2023-09-12 06:59:48.250 [INFO]:  23.6| Light Value:331, Continuation:False
+2023-09-12 06:59:48.650 [INFO]:  24.0| Light Value:331, Continuation:False
+2023-09-12 06:59:49.50  [INFO]:  24.4| Light Value:331, Continuation:False
+2023-09-12 06:59:49.450 [INFO]:  24.8| Light Value:331, Continuation:False
+2023-09-12 06:59:49.851 [INFO]:  25.2| Light Value:331, Continuation:False
+2023-09-12 06:59:50.251 [INFO]:  25.6| Light Value:331, Continuation:False
+2023-09-12 06:59:50.651 [INFO]:  26.0| Light Value:331, Continuation:False
+2023-09-12 06:59:51.51  [INFO]:  26.4| Light Value:331, Continuation:False
+2023-09-12 06:59:51.451 [INFO]:  26.8| Light Value:331, Continuation:False
+2023-09-12 06:59:51.851 [INFO]:  27.2| Light Value:331, Continuation:False
+2023-09-12 06:59:52.251 [INFO]:  27.6| Light Value:331, Continuation:False
+2023-09-12 06:59:52.651 [INFO]:  28.0| Light Value:331, Continuation:False
+2023-09-12 06:59:53.51  [INFO]:  28.4| Light Value:331, Continuation:False
+2023-09-12 06:59:53.451 [INFO]:  28.8| Light Value:331, Continuation:False
+2023-09-12 06:59:53.851 [INFO]:  29.2| Light Value:331, Continuation:False
+2023-09-12 06:59:54.251 [INFO]:  29.6| Light Value:331, Continuation:False
+2023-09-12 06:59:54.651 [INFO]:  30.0| Light Value:331, Continuation:False
+2023-09-12 06:59:55.51  [INFO]:  30.4| Light Value:331, Continuation:False
+2023-09-12 06:59:55.451 [INFO]:  30.8| Light Value:331, Continuation:False
+2023-09-12 06:59:55.851 [INFO]:  31.2| Light Value:331, Continuation:False
+2023-09-12 06:59:56.251 [INFO]:  31.6| Light Value:332, Continuation:False
+2023-09-12 06:59:56.651 [INFO]:  32.0| Light Value:332, Continuation:False
+2023-09-12 06:59:57.51  [INFO]:  32.4| Light Value:331, Continuation:False
+2023-09-12 06:59:57.451 [INFO]:  32.8| Light Value:332, Continuation:False
+2023-09-12 06:59:57.851 [INFO]:  33.2| Light Value:331, Continuation:False
+2023-09-12 06:59:58.251 [INFO]:  33.6| Light Value:331, Continuation:False
+2023-09-12 06:59:58.651 [INFO]:  34.0| Light Value:332, Continuation:False
+2023-09-12 06:59:59.51  [INFO]:  34.4| Light Value:332, Continuation:False
+2023-09-12 06:59:59.451 [INFO]:  34.8| Light Value:331, Continuation:False
+2023-09-12 06:59:59.851 [INFO]:  35.2| Light Value:331, Continuation:False
+2023-09-12 07:00:00.251 [INFO]:  35.6| Light Value:331, Continuation:False
+2023-09-12 07:00:00.651 [INFO]:  36.0| Light Value:331, Continuation:False
+2023-09-12 07:00:01.51  [INFO]:  36.4| Light Value:331, Continuation:False
+2023-09-12 07:00:01.451 [INFO]:  36.8| Light Value:331, Continuation:False
+2023-09-12 07:00:01.851 [INFO]:  37.2| Light Value:331, Continuation:False
+2023-09-12 07:00:02.251 [INFO]:  37.6| Light Value:331, Continuation:False
+2023-09-12 07:00:02.651 [INFO]:  38.0| Light Value:332, Continuation:False
+2023-09-12 07:00:03.51  [INFO]:  38.4| Light Value:331, Continuation:False
+2023-09-12 07:00:03.451 [INFO]:  38.8| Light Value:331, Continuation:False
+2023-09-12 07:00:03.851 [INFO]:  39.2| Light Value:331, Continuation:False
+2023-09-12 07:00:04.251 [INFO]:  39.6| Light Value:331, Continuation:False
+2023-09-12 07:00:04.651 [INFO]:  40.0| Light Value:331, Continuation:False
+2023-09-12 07:00:05.51  [INFO]:  40.4| Light Value:331, Continuation:False
+2023-09-12 07:00:05.451 [INFO]:  40.8| Light Value:332, Continuation:False
+2023-09-12 07:00:05.851 [INFO]:  41.2| Light Value:332, Continuation:False
+2023-09-12 07:00:06.251 [INFO]:  41.6| Light Value:331, Continuation:False
+2023-09-12 07:00:06.651 [INFO]:  42.0| Light Value:331, Continuation:False
+2023-09-12 07:00:07.51  [INFO]:  42.4| Light Value:332, Continuation:False
+2023-09-12 07:00:07.451 [INFO]:  42.8| Light Value:332, Continuation:False
+2023-09-12 07:00:07.851 [INFO]:  43.2| Light Value:332, Continuation:False
+2023-09-12 07:00:08.251 [INFO]:  43.6| Light Value:332, Continuation:False
+2023-09-12 07:00:08.651 [INFO]:  44.0| Light Value:332, Continuation:False
+2023-09-12 07:00:09.51  [INFO]:  44.4| Light Value:331, Continuation:False
+2023-09-12 07:00:09.451 [INFO]:  44.8| Light Value:332, Continuation:False
+2023-09-12 07:00:09.851 [INFO]:  45.2| Light Value:332, Continuation:False
+2023-09-12 07:00:10.252 [INFO]:  45.6| Light Value:332, Continuation:False
+2023-09-12 07:00:10.652 [INFO]:  46.0| Light Value:332, Continuation:False
+2023-09-12 07:00:11.52  [INFO]:  46.4| Light Value:332, Continuation:False
+2023-09-12 07:00:11.452 [INFO]:  46.8| Light Value:332, Continuation:False
+2023-09-12 07:00:11.852 [INFO]:  47.2| Light Value:332, Continuation:False
+2023-09-12 07:00:12.252 [INFO]:  47.6| Light Value:332, Continuation:False
+2023-09-12 07:00:12.652 [INFO]:  48.0| Light Value:332, Continuation:False
+2023-09-12 07:00:13.52  [INFO]:  48.4| Light Value:332, Continuation:False
+2023-09-12 07:00:13.452 [INFO]:  48.8| Light Value:332, Continuation:False
+2023-09-12 07:00:13.852 [INFO]:  49.2| Light Value:332, Continuation:False
+2023-09-12 07:00:14.252 [INFO]:  49.6| Light Value:332, Continuation:False
+2023-09-12 07:00:14.652 [INFO]:  50.0| Light Value:332, Continuation:False
+2023-09-12 07:00:15.52  [INFO]:  50.4| Light Value:331, Continuation:False
+2023-09-12 07:00:15.452 [INFO]:  50.8| Light Value:332, Continuation:False
+2023-09-12 07:00:15.852 [INFO]:  51.2| Light Value:331, Continuation:False
+2023-09-12 07:00:16.252 [INFO]:  51.6| Light Value:331, Continuation:False
+2023-09-12 07:00:16.652 [INFO]:  52.0| Light Value:333, Continuation:False
+2023-09-12 07:00:17.52  [INFO]:  52.4| Light Value:331, Continuation:False
+2023-09-12 07:00:17.452 [INFO]:  52.8| Light Value:333, Continuation:False
+2023-09-12 07:00:17.852 [INFO]:  53.2| Light Value:332, Continuation:False
+2023-09-12 07:00:18.252 [INFO]:  53.6| Light Value:332, Continuation:False
+2023-09-12 07:00:18.652 [INFO]:  54.0| Light Value:332, Continuation:False
+2023-09-12 07:00:19.52  [INFO]:  54.4| Light Value:332, Continuation:False
+2023-09-12 07:00:19.452 [INFO]:  54.8| Light Value:333, Continuation:False
+2023-09-12 07:00:19.852 [INFO]:  55.2| Light Value:331, Continuation:False
+2023-09-12 07:00:20.252 [INFO]:  55.6| Light Value:332, Continuation:False
+2023-09-12 07:00:20.652 [INFO]:  56.0| Light Value:333, Continuation:False
+2023-09-12 07:00:21.52  [INFO]:  56.4| Light Value:331, Continuation:False
+2023-09-12 07:00:21.452 [INFO]:  56.8| Light Value:331, Continuation:False
+2023-09-12 07:00:21.852 [INFO]:  57.2| Light Value:332, Continuation:False
+2023-09-12 07:00:22.252 [INFO]:  57.6| Light Value:331, Continuation:False
+2023-09-12 07:00:22.652 [INFO]:  58.0| Light Value:333, Continuation:False
+2023-09-12 07:00:23.52  [INFO]:  58.4| Light Value:333, Continuation:False
+2023-09-12 07:00:23.452 [INFO]:  58.8| Light Value:333, Continuation:False
+2023-09-12 07:00:23.852 [INFO]:  59.2| Light Value:332, Continuation:False
+2023-09-12 07:00:24.252 [INFO]:  59.6| Light Value:331, Continuation:False
+2023-09-12 07:00:24.652 [INFO]:  60.0| Light Value:331, Continuation:False
+2023-09-12 07:00:25.52  [INFO]:  60.4| Light Value:331, Continuation:False
+2023-09-12 07:00:25.452 [INFO]:  60.8| Light Value:333, Continuation:False
+2023-09-12 07:00:25.852 [INFO]:  61.2| Light Value:331, Continuation:False
+2023-09-12 07:00:26.252 [INFO]:  61.6| Light Value:333, Continuation:False
+2023-09-12 07:00:26.652 [INFO]:  62.0| Light Value:331, Continuation:False
+2023-09-12 07:00:27.52  [INFO]:  62.4| Light Value:332, Continuation:False
+2023-09-12 07:00:27.452 [INFO]:  62.8| Light Value:331, Continuation:False
+2023-09-12 07:00:27.852 [INFO]:  63.2| Light Value:333, Continuation:False
+2023-09-12 07:00:28.252 [INFO]:  63.6| Light Value:332, Continuation:False
+2023-09-12 07:00:28.652 [INFO]:  64.0| Light Value:331, Continuation:False
+2023-09-12 07:00:29.52  [INFO]:  64.4| Light Value:333, Continuation:False
+2023-09-12 07:00:29.452 [INFO]:  64.8| Light Value:331, Continuation:False
+2023-09-12 07:00:29.852 [INFO]:  65.2| Light Value:332, Continuation:False
+2023-09-12 07:00:30.252 [INFO]:  65.6| Light Value:333, Continuation:False
+2023-09-12 07:00:30.652 [INFO]:  66.0| Light Value:332, Continuation:False
+2023-09-12 07:00:31.52  [INFO]:  66.4| Light Value:331, Continuation:False
+2023-09-12 07:00:31.452 [INFO]:  66.8| Light Value:332, Continuation:False
+2023-09-12 07:00:31.852 [INFO]:  67.2| Light Value:330, Continuation:False
+2023-09-12 07:00:32.252 [INFO]:  67.6| Light Value:333, Continuation:False
+2023-09-12 07:00:32.652 [INFO]:  68.0| Light Value:331, Continuation:False
+2023-09-12 07:00:33.52  [INFO]:  68.4| Light Value:332, Continuation:False
+2023-09-12 07:00:33.453 [INFO]:  68.8| Light Value:331, Continuation:False
+2023-09-12 07:00:33.853 [INFO]:  69.2| Light Value:331, Continuation:False
+2023-09-12 07:00:34.253 [INFO]:  69.6| Light Value:331, Continuation:False
+2023-09-12 07:00:34.653 [INFO]:  70.0| Light Value:328, Continuation:False
+2023-09-12 07:00:35.53  [INFO]:  70.4| Light Value:328, Continuation:False
+2023-09-12 07:00:35.453 [INFO]:  70.8| Light Value:329, Continuation:False
+2023-09-12 07:00:35.853 [INFO]:  71.2| Light Value:328, Continuation:False
+2023-09-12 07:00:36.253 [INFO]:  71.6| Light Value:327, Continuation:False
+2023-09-12 07:00:36.653 [INFO]:  72.0| Light Value:327, Continuation:False
+2023-09-12 07:00:37.53  [INFO]:  72.4| Light Value:327, Continuation:False
+2023-09-12 07:00:37.453 [INFO]:  72.8| Light Value:328, Continuation:False
+2023-09-12 07:00:37.853 [INFO]:  73.2| Light Value:328, Continuation:False
+2023-09-12 07:00:38.253 [INFO]:  73.6| Light Value:328, Continuation:False
+2023-09-12 07:00:38.653 [INFO]:  74.0| Light Value:327, Continuation:False
+2023-09-12 07:00:39.53  [INFO]:  74.4| Light Value:327, Continuation:False
+2023-09-12 07:00:39.453 [INFO]:  74.8| Light Value:328, Continuation:False
+2023-09-12 07:00:39.853 [INFO]:  75.2| Light Value:327, Continuation:False
+2023-09-12 07:00:40.253 [INFO]:  75.6| Light Value:328, Continuation:False
+2023-09-12 07:00:40.653 [INFO]:  76.0| Light Value:328, Continuation:False
+2023-09-12 07:00:41.53  [INFO]:  76.4| Light Value:328, Continuation:False
+2023-09-12 07:00:41.453 [INFO]:  76.8| Light Value:328, Continuation:False
+2023-09-12 07:00:41.853 [INFO]:  77.2| Light Value:327, Continuation:False
+2023-09-12 07:00:42.253 [INFO]:  77.6| Light Value:328, Continuation:False
+2023-09-12 07:00:42.653 [INFO]:  78.0| Light Value:329, Continuation:False
+2023-09-12 07:00:43.53  [INFO]:  78.4| Light Value:327, Continuation:False
+2023-09-12 07:00:43.453 [INFO]:  78.8| Light Value:329, Continuation:False
+2023-09-12 07:00:43.853 [INFO]:  79.2| Light Value:327, Continuation:False
+2023-09-12 07:00:44.253 [INFO]:  79.6| Light Value:328, Continuation:False
+2023-09-12 07:00:44.653 [INFO]:  80.0| Light Value:329, Continuation:False
+2023-09-12 07:00:45.53  [INFO]:  80.4| Light Value:328, Continuation:False
+2023-09-12 07:00:45.453 [INFO]:  80.8| Light Value:328, Continuation:False
+2023-09-12 07:00:45.853 [INFO]:  81.2| Light Value:328, Continuation:False
+2023-09-12 07:00:46.253 [INFO]:  81.6| Light Value:328, Continuation:False
+2023-09-12 07:00:46.653 [INFO]:  82.0| Light Value:328, Continuation:False
+2023-09-12 07:00:47.53  [INFO]:  82.4| Light Value:328, Continuation:False
+2023-09-12 07:00:47.453 [INFO]:  82.8| Light Value:328, Continuation:False
+2023-09-12 07:00:47.853 [INFO]:  83.2| Light Value:328, Continuation:False
+2023-09-12 07:00:48.253 [INFO]:  83.6| Light Value:328, Continuation:False
+2023-09-12 07:00:48.653 [INFO]:  84.0| Light Value:328, Continuation:False
+2023-09-12 07:00:49.53  [INFO]:  84.4| Light Value:328, Continuation:False
+2023-09-12 07:00:49.453 [INFO]:  84.8| Light Value:328, Continuation:False
+2023-09-12 07:00:49.853 [INFO]:  85.2| Light Value:328, Continuation:False
+2023-09-12 07:00:50.253 [INFO]:  85.6| Light Value:328, Continuation:False
+2023-09-12 07:00:50.653 [INFO]:  86.0| Light Value:328, Continuation:False
+2023-09-12 07:00:51.53  [INFO]:  86.4| Light Value:328, Continuation:False
+2023-09-12 07:00:51.453 [INFO]:  86.8| Light Value:328, Continuation:False
+2023-09-12 07:00:51.853 [INFO]:  87.2| Light Value:328, Continuation:False
+2023-09-12 07:00:52.253 [INFO]:  87.6| Light Value:328, Continuation:False
+2023-09-12 07:00:52.653 [INFO]:  88.0| Light Value:328, Continuation:False
+2023-09-12 07:00:53.53  [INFO]:  88.4| Light Value:328, Continuation:False
+2023-09-12 07:00:53.453 [INFO]:  88.8| Light Value:328, Continuation:False
+2023-09-12 07:00:53.853 [INFO]:  89.2| Light Value:328, Continuation:False
+2023-09-12 07:00:54.253 [INFO]:  89.6| Light Value:328, Continuation:False
+2023-09-12 07:00:54.653 [INFO]:  90.0| Light Value:328, Continuation:False
+2023-09-12 07:00:55.53  [INFO]:  90.4| Light Value:328, Continuation:False
+2023-09-12 07:00:55.454 [INFO]:  90.8| Light Value:328, Continuation:False
+2023-09-12 07:00:55.854 [INFO]:  91.2| Light Value:328, Continuation:False
+2023-09-12 07:00:56.254 [INFO]:  91.6| Light Value:328, Continuation:False
+2023-09-12 07:00:56.654 [INFO]:  92.0| Light Value:328, Continuation:False
+2023-09-12 07:00:57.54  [INFO]:  92.4| Light Value:328, Continuation:False
+2023-09-12 07:00:57.454 [INFO]:  92.8| Light Value:328, Continuation:False
+2023-09-12 07:00:57.854 [INFO]:  93.2| Light Value:329, Continuation:False
+2023-09-12 07:00:58.254 [INFO]:  93.6| Light Value:328, Continuation:False
+2023-09-12 07:00:58.654 [INFO]:  94.0| Light Value:328, Continuation:False
+2023-09-12 07:00:59.54  [INFO]:  94.4| Light Value:328, Continuation:False
+2023-09-12 07:00:59.454 [INFO]:  94.8| Light Value:328, Continuation:False
+2023-09-12 07:00:59.854 [INFO]:  95.2| Light Value:328, Continuation:False
+2023-09-12 07:01:00.254 [INFO]:  95.6| Light Value:329, Continuation:False
+2023-09-12 07:01:00.654 [INFO]:  96.0| Light Value:328, Continuation:False
+2023-09-12 07:01:01.54  [INFO]:  96.4| Light Value:328, Continuation:False
+2023-09-12 07:01:01.454 [INFO]:  96.8| Light Value:328, Continuation:False
+2023-09-12 07:01:01.854 [INFO]:  97.2| Light Value:328, Continuation:False
+2023-09-12 07:01:02.254 [INFO]:  97.6| Light Value:328, Continuation:False
+2023-09-12 07:01:02.654 [INFO]:  98.0| Light Value:329, Continuation:False
+2023-09-12 07:01:03.54  [INFO]:  98.4| Light Value:328, Continuation:False
+2023-09-12 07:01:03.454 [INFO]:  98.8| Light Value:328, Continuation:False
+2023-09-12 07:01:03.854 [INFO]:  99.2| Light Value:328, Continuation:False
+2023-09-12 07:01:04.254 [INFO]:  99.6| Light Value:329, Continuation:False
+2023-09-12 07:01:04.654 [INFO]: 100.0| Light Value:328, Continuation:False
+2023-09-12 07:01:05.54  [INFO]: 100.4| Light Value:329, Continuation:False
+2023-09-12 07:01:05.454 [INFO]: 100.8| Light Value:329, Continuation:False
+2023-09-12 07:01:05.854 [INFO]: 101.2| Light Value:329, Continuation:False
+2023-09-12 07:01:06.254 [INFO]: 101.6| Light Value:328, Continuation:False
+2023-09-12 07:01:06.654 [INFO]: 102.0| Light Value:329, Continuation:False
+2023-09-12 07:01:07.54  [INFO]: 102.4| Light Value:328, Continuation:False
+2023-09-12 07:01:07.454 [INFO]: 102.8| Light Value:329, Continuation:False
+2023-09-12 07:01:07.854 [INFO]: 103.2| Light Value:329, Continuation:False
+2023-09-12 07:01:08.254 [INFO]: 103.6| Light Value:329, Continuation:False
+2023-09-12 07:01:08.654 [INFO]: 104.0| Light Value:329, Continuation:False
+2023-09-12 07:01:09.54  [INFO]: 104.4| Light Value:328, Continuation:False
+2023-09-12 07:01:09.454 [INFO]: 104.8| Light Value:329, Continuation:False
+2023-09-12 07:01:09.854 [INFO]: 105.2| Light Value:329, Continuation:False
+2023-09-12 07:01:10.254 [INFO]: 105.6| Light Value:328, Continuation:False
+2023-09-12 07:01:10.654 [INFO]: 106.0| Light Value:329, Continuation:False
+2023-09-12 07:01:11.54  [INFO]: 106.4| Light Value:329, Continuation:False
+2023-09-12 07:01:11.454 [INFO]: 106.8| Light Value:328, Continuation:False
+2023-09-12 07:01:11.854 [INFO]: 107.2| Light Value:329, Continuation:False
+2023-09-12 07:01:12.254 [INFO]: 107.6| Light Value:329, Continuation:False
+2023-09-12 07:01:12.654 [INFO]: 108.0| Light Value:329, Continuation:False
+2023-09-12 07:01:13.54  [INFO]: 108.4| Light Value:329, Continuation:False
+2023-09-12 07:01:13.454 [INFO]: 108.8| Light Value:329, Continuation:False
+2023-09-12 07:01:13.854 [INFO]: 109.2| Light Value:330, Continuation:False
+2023-09-12 07:01:14.254 [INFO]: 109.6| Light Value:328, Continuation:False
+2023-09-12 07:01:14.654 [INFO]: 110.0| Light Value:328, Continuation:False
+2023-09-12 07:01:15.54  [INFO]: 110.4| Light Value:328, Continuation:False
+2023-09-12 07:01:15.454 [INFO]: 110.8| Light Value:330, Continuation:False
+2023-09-12 07:01:15.854 [INFO]: 111.2| Light Value:330, Continuation:False
+2023-09-12 07:01:16.254 [INFO]: 111.6| Light Value:328, Continuation:False
+2023-09-12 07:01:16.654 [INFO]: 112.0| Light Value:330, Continuation:False
+2023-09-12 07:01:17.54  [INFO]: 112.4| Light Value:328, Continuation:False
+2023-09-12 07:01:17.454 [INFO]: 112.8| Light Value:328, Continuation:False
+2023-09-12 07:01:17.854 [INFO]: 113.2| Light Value:329, Continuation:False
+2023-09-12 07:01:18.254 [INFO]: 113.6| Light Value:329, Continuation:False
+2023-09-12 07:01:18.655 [INFO]: 114.0| Light Value:328, Continuation:False
+2023-09-12 07:01:19.55  [INFO]: 114.4| Light Value:329, Continuation:False
+2023-09-12 07:01:19.455 [INFO]: 114.8| Light Value:329, Continuation:False
+2023-09-12 07:01:19.855 [INFO]: 115.2| Light Value:328, Continuation:False
+2023-09-12 07:01:20.255 [INFO]: 115.6| Light Value:329, Continuation:False
+2023-09-12 07:01:20.655 [INFO]: 116.0| Light Value:328, Continuation:False
+2023-09-12 07:01:21.55  [INFO]: 116.4| Light Value:330, Continuation:False
+2023-09-12 07:01:21.455 [INFO]: 116.8| Light Value:329, Continuation:False
+2023-09-12 07:01:21.855 [INFO]: 117.2| Light Value:329, Continuation:False
+2023-09-12 07:01:22.255 [INFO]: 117.6| Light Value:329, Continuation:False
+2023-09-12 07:01:22.655 [INFO]: 118.0| Light Value:329, Continuation:False
+2023-09-12 07:01:23.55  [INFO]: 118.4| Light Value:328, Continuation:False
+2023-09-12 07:01:23.455 [INFO]: 118.8| Light Value:328, Continuation:False
+2023-09-12 07:01:23.855 [INFO]: 119.2| Light Value:330, Continuation:False
+2023-09-12 07:01:24.255 [INFO]: 119.6| Light Value:328, Continuation:False
+2023-09-12 07:01:24.655 [INFO]: 120.0| Light Value:329, Continuation:False
+2023-09-12 07:01:25.55  [INFO]: 120.4| Light Value:328, Continuation:False
+2023-09-12 07:01:25.455 [INFO]: 120.8| Light Value:329, Continuation:False
+2023-09-12 07:01:25.855 [INFO]: 121.2| Light Value:330, Continuation:False
+2023-09-12 07:01:26.255 [INFO]: 121.6| Light Value:328, Continuation:False
+2023-09-12 07:01:26.655 [INFO]: 122.0| Light Value:329, Continuation:False
+2023-09-12 07:01:27.55  [INFO]: 122.4| Light Value:330, Continuation:False
+2023-09-12 07:01:27.455 [INFO]: 122.8| Light Value:329, Continuation:False
+2023-09-12 07:01:27.855 [INFO]: 123.2| Light Value:330, Continuation:False
+2023-09-12 07:01:28.255 [INFO]: 123.6| Light Value:328, Continuation:False
+2023-09-12 07:01:28.655 [INFO]: 124.0| Light Value:329, Continuation:False
+2023-09-12 07:01:29.55  [INFO]: 124.4| Light Value:328, Continuation:False
+2023-09-12 07:01:29.455 [INFO]: 124.8| Light Value:329, Continuation:False
+2023-09-12 07:01:29.855 [INFO]: 125.2| Light Value:330, Continuation:False
+2023-09-12 07:01:30.255 [INFO]: 125.6| Light Value:328, Continuation:False
+2023-09-12 07:01:30.655 [INFO]: 126.0| Light Value:328, Continuation:False
+2023-09-12 07:01:31.55  [INFO]: 126.4| Light Value:328, Continuation:False
+2023-09-12 07:01:31.455 [INFO]: 126.8| Light Value:330, Continuation:False
+2023-09-12 07:01:31.855 [INFO]: 127.2| Light Value:329, Continuation:False
+2023-09-12 07:01:32.255 [INFO]: 127.6| Light Value:328, Continuation:False
+2023-09-12 07:01:32.655 [INFO]: 128.0| Light Value:328, Continuation:False
+2023-09-12 07:01:33.55  [INFO]: 128.4| Light Value:330, Continuation:False
+2023-09-12 07:01:33.455 [INFO]: 128.8| Light Value:329, Continuation:False
+2023-09-12 07:01:33.855 [INFO]: 129.2| Light Value:328, Continuation:False
+2023-09-12 07:01:34.255 [INFO]: 129.6| Light Value:330, Continuation:False
+2023-09-12 07:01:34.655 [INFO]: 130.0| Light Value:329, Continuation:False
+2023-09-12 07:01:35.55  [INFO]: 130.4| Light Value:330, Continuation:False
+2023-09-12 07:01:35.455 [INFO]: 130.8| Light Value:329, Continuation:False
+2023-09-12 07:01:35.855 [INFO]: 131.2| Light Value:330, Continuation:False
+2023-09-12 07:01:36.255 [INFO]: 131.6| Light Value:328, Continuation:False
+2023-09-12 07:01:36.655 [INFO]: 132.0| Light Value:328, Continuation:False
+2023-09-12 07:01:37.55  [INFO]: 132.4| Light Value:329, Continuation:False
+2023-09-12 07:01:37.455 [INFO]: 132.8| Light Value:330, Continuation:False
+2023-09-12 07:01:37.855 [INFO]: 133.2| Light Value:329, Continuation:False
+2023-09-12 07:01:38.255 [INFO]: 133.6| Light Value:329, Continuation:False
+2023-09-12 07:01:38.655 [INFO]: 134.0| Light Value:328, Continuation:False
+2023-09-12 07:01:39.56  [INFO]: 134.4| Light Value:328, Continuation:False
+2023-09-12 07:01:39.456 [INFO]: 134.8| Light Value:329, Continuation:False
+2023-09-12 07:01:39.856 [INFO]: 135.2| Light Value:330, Continuation:False
+2023-09-12 07:01:40.256 [INFO]: 135.6| Light Value:329, Continuation:False
+2023-09-12 07:01:40.656 [INFO]: 136.0| Light Value:329, Continuation:False
+2023-09-12 07:01:41.56  [INFO]: 136.4| Light Value:330, Continuation:False
+2023-09-12 07:01:41.456 [INFO]: 136.8| Light Value:329, Continuation:False
+2023-09-12 07:01:41.856 [INFO]: 137.2| Light Value:330, Continuation:False
+2023-09-12 07:01:42.256 [INFO]: 137.6| Light Value:330, Continuation:False
+2023-09-12 07:01:42.656 [INFO]: 138.0| Light Value:329, Continuation:False
+2023-09-12 07:01:43.56  [INFO]: 138.4| Light Value:329, Continuation:False
+2023-09-12 07:01:43.456 [INFO]: 138.8| Light Value:329, Continuation:False
+2023-09-12 07:01:43.856 [INFO]: 139.2| Light Value:329, Continuation:False
+2023-09-12 07:01:44.256 [INFO]: 139.6| Light Value:329, Continuation:False
+2023-09-12 07:01:44.656 [INFO]: 140.0| Light Value:330, Continuation:False
+2023-09-12 07:01:45.56  [INFO]: 140.4| Light Value:329, Continuation:False
+2023-09-12 07:01:45.456 [INFO]: 140.8| Light Value:329, Continuation:False
+2023-09-12 07:01:45.856 [INFO]: 141.2| Light Value:329, Continuation:False
+2023-09-12 07:01:46.256 [INFO]: 141.6| Light Value:329, Continuation:False
+2023-09-12 07:01:46.656 [INFO]: 142.0| Light Value:330, Continuation:False
+2023-09-12 07:01:47.56  [INFO]: 142.4| Light Value:329, Continuation:False
+2023-09-12 07:01:47.456 [INFO]: 142.8| Light Value:329, Continuation:False
+2023-09-12 07:01:47.856 [INFO]: 143.2| Light Value:329, Continuation:False
+2023-09-12 07:01:48.256 [INFO]: 143.6| Light Value:329, Continuation:False
+2023-09-12 07:01:48.656 [INFO]: 144.0| Light Value:329, Continuation:False
+2023-09-12 07:01:49.56  [INFO]: 144.4| Light Value:329, Continuation:False
+2023-09-12 07:01:49.456 [INFO]: 144.8| Light Value:329, Continuation:False
+2023-09-12 07:01:49.856 [INFO]: 145.2| Light Value:329, Continuation:False
+2023-09-12 07:01:50.256 [INFO]: 145.6| Light Value:329, Continuation:False
+2023-09-12 07:01:50.656 [INFO]: 146.0| Light Value:330, Continuation:False
+2023-09-12 07:01:51.56  [INFO]: 146.4| Light Value:330, Continuation:False
+2023-09-12 07:01:51.456 [INFO]: 146.8| Light Value:330, Continuation:False
+2023-09-12 07:01:51.856 [INFO]: 147.2| Light Value:329, Continuation:False
+2023-09-12 07:01:52.256 [INFO]: 147.6| Light Value:329, Continuation:False
+2023-09-12 07:01:52.656 [INFO]: 148.0| Light Value:329, Continuation:False
+2023-09-12 07:01:53.56  [INFO]: 148.4| Light Value:330, Continuation:False
+2023-09-12 07:01:53.456 [INFO]: 148.8| Light Value:329, Continuation:False
+2023-09-12 07:01:53.856 [INFO]: 149.2| Light Value:329, Continuation:False
+2023-09-12 07:01:54.256 [INFO]: 149.6| Light Value:330, Continuation:False
+2023-09-12 07:01:54.656 [INFO]: 150.0| Light Value:330, Continuation:False
+2023-09-12 07:01:55.56  [INFO]: 150.4| Light Value:329, Continuation:False
+2023-09-12 07:01:55.456 [INFO]: 150.8| Light Value:330, Continuation:False
+2023-09-12 07:01:55.856 [INFO]: 151.2| Light Value:329, Continuation:False
+2023-09-12 07:01:56.256 [INFO]: 151.6| Light Value:330, Continuation:False
+2023-09-12 07:01:56.656 [INFO]: 152.0| Light Value:330, Continuation:False
+2023-09-12 07:01:57.56  [INFO]: 152.4| Light Value:330, Continuation:False
+2023-09-12 07:01:57.456 [INFO]: 152.8| Light Value:330, Continuation:False
+2023-09-12 07:01:57.856 [INFO]: 153.2| Light Value:330, Continuation:False
+2023-09-12 07:01:58.256 [INFO]: 153.6| Light Value:330, Continuation:False
+2023-09-12 07:01:58.656 [INFO]: 154.0| Light Value:329, Continuation:False
+2023-09-12 07:01:59.56  [INFO]: 154.4| Light Value:330, Continuation:False
+2023-09-12 07:01:59.456 [INFO]: 154.8| Light Value:330, Continuation:False
+2023-09-12 07:01:59.856 [INFO]: 155.2| Light Value:330, Continuation:False
+2023-09-12 07:02:00.256 [INFO]: 155.6| Light Value:330, Continuation:False
+2023-09-12 07:02:00.657 [INFO]: 156.0| Light Value:330, Continuation:False
+2023-09-12 07:02:01.57  [INFO]: 156.4| Light Value:330, Continuation:False
+2023-09-12 07:02:01.457 [INFO]: 156.8| Light Value:330, Continuation:False
+2023-09-12 07:02:01.857 [INFO]: 157.2| Light Value:330, Continuation:False
+2023-09-12 07:02:02.257 [INFO]: 157.6| Light Value:330, Continuation:False
+2023-09-12 07:02:02.657 [INFO]: 158.0| Light Value:330, Continuation:False
+2023-09-12 07:02:03.57  [INFO]: 158.4| Light Value:330, Continuation:False
+2023-09-12 07:02:03.457 [INFO]: 158.8| Light Value:330, Continuation:False
+2023-09-12 07:02:03.857 [INFO]: 159.2| Light Value:330, Continuation:False
+2023-09-12 07:02:04.257 [INFO]: 159.6| Light Value:330, Continuation:False
+2023-09-12 07:02:04.657 [INFO]: 160.0| Light Value:330, Continuation:False
+2023-09-12 07:02:05.57  [INFO]: 160.4| Light Value:330, Continuation:False
+2023-09-12 07:02:05.457 [INFO]: 160.8| Light Value:330, Continuation:False
+2023-09-12 07:02:05.857 [INFO]: 161.2| Light Value:330, Continuation:False
+2023-09-12 07:02:06.257 [INFO]: 161.6| Light Value:330, Continuation:False
+2023-09-12 07:02:06.657 [INFO]: 162.0| Light Value:330, Continuation:False
+2023-09-12 07:02:07.57  [INFO]: 162.4| Light Value:330, Continuation:False
+2023-09-12 07:02:07.457 [INFO]: 162.8| Light Value:330, Continuation:False
+2023-09-12 07:02:07.857 [INFO]: 163.2| Light Value:330, Continuation:False
+2023-09-12 07:02:08.257 [INFO]: 163.6| Light Value:330, Continuation:False
+2023-09-12 07:02:08.657 [INFO]: 164.0| Light Value:330, Continuation:False
+2023-09-12 07:02:09.57  [INFO]: 164.4| Light Value:330, Continuation:False
+2023-09-12 07:02:09.457 [INFO]: 164.8| Light Value:330, Continuation:False
+2023-09-12 07:02:09.857 [INFO]: 165.2| Light Value:330, Continuation:False
+2023-09-12 07:02:10.257 [INFO]: 165.6| Light Value:330, Continuation:False
+2023-09-12 07:02:10.657 [INFO]: 166.0| Light Value:330, Continuation:False
+2023-09-12 07:02:11.57  [INFO]: 166.4| Light Value:331, Continuation:False
+2023-09-12 07:02:11.457 [INFO]: 166.8| Light Value:331, Continuation:False
+2023-09-12 07:02:11.857 [INFO]: 167.2| Light Value:330, Continuation:False
+2023-09-12 07:02:12.257 [INFO]: 167.6| Light Value:329, Continuation:False
+2023-09-12 07:02:12.657 [INFO]: 168.0| Light Value:330, Continuation:False
+2023-09-12 07:02:13.57  [INFO]: 168.4| Light Value:330, Continuation:False
+2023-09-12 07:02:13.457 [INFO]: 168.8| Light Value:331, Continuation:False
+2023-09-12 07:02:13.857 [INFO]: 169.2| Light Value:331, Continuation:False
+2023-09-12 07:02:14.257 [INFO]: 169.6| Light Value:330, Continuation:False
+2023-09-12 07:02:14.657 [INFO]: 170.0| Light Value:329, Continuation:False
+2023-09-12 07:02:15.57  [INFO]: 170.4| Light Value:331, Continuation:False
+2023-09-12 07:02:15.457 [INFO]: 170.8| Light Value:330, Continuation:False
+2023-09-12 07:02:15.857 [INFO]: 171.2| Light Value:332, Continuation:False
+2023-09-12 07:02:16.257 [INFO]: 171.6| Light Value:329, Continuation:False
+2023-09-12 07:02:16.657 [INFO]: 172.0| Light Value:330, Continuation:False
+2023-09-12 07:02:17.57  [INFO]: 172.4| Light Value:330, Continuation:False
+2023-09-12 07:02:17.457 [INFO]: 172.8| Light Value:331, Continuation:False
+2023-09-12 07:02:17.857 [INFO]: 173.2| Light Value:331, Continuation:False
+2023-09-12 07:02:18.257 [INFO]: 173.6| Light Value:330, Continuation:False
+2023-09-12 07:02:18.657 [INFO]: 174.0| Light Value:331, Continuation:False
+2023-09-12 07:02:19.57  [INFO]: 174.4| Light Value:329, Continuation:False
+2023-09-12 07:02:19.457 [INFO]: 174.8| Light Value:331, Continuation:False
+2023-09-12 07:02:19.857 [INFO]: 175.2| Light Value:329, Continuation:False
+2023-09-12 07:02:20.257 [INFO]: 175.6| Light Value:331, Continuation:False
+2023-09-12 07:02:20.657 [INFO]: 176.0| Light Value:329, Continuation:False
+2023-09-12 07:02:21.57  [INFO]: 176.4| Light Value:330, Continuation:False
+2023-09-12 07:02:21.457 [INFO]: 176.8| Light Value:331, Continuation:False
+2023-09-12 07:02:21.857 [INFO]: 177.2| Light Value:329, Continuation:False
+2023-09-12 07:02:22.257 [INFO]: 177.6| Light Value:329, Continuation:False
+2023-09-12 07:02:22.657 [INFO]: 178.0| Light Value:331, Continuation:False
+2023-09-12 07:02:23.58  [INFO]: 178.4| Light Value:331, Continuation:False
+2023-09-12 07:02:23.458 [INFO]: 178.8| Light Value:331, Continuation:False
+2023-09-12 07:02:23.858 [INFO]: 179.2| Light Value:331, Continuation:False
+2023-09-12 07:02:24.258 [INFO]: 179.6| Light Value:331, Continuation:False
+2023-09-12 07:02:24.658 [INFO]: 180.0| Light Value:330, Continuation:False
+2023-09-12 07:02:25.58  [INFO]: 180.4| Light Value:330, Continuation:False
+2023-09-12 07:02:25.458 [INFO]: 180.8| Light Value:331, Continuation:False
+2023-09-12 07:02:25.858 [INFO]: 181.2| Light Value:330, Continuation:False
+2023-09-12 07:02:26.258 [INFO]: 181.6| Light Value:330, Continuation:False
+2023-09-12 07:02:26.658 [INFO]: 182.0| Light Value:331, Continuation:False
+2023-09-12 07:02:27.58  [INFO]: 182.4| Light Value:330, Continuation:False
+2023-09-12 07:02:27.458 [INFO]: 182.8| Light Value:332, Continuation:False
+2023-09-12 07:02:27.858 [INFO]: 183.2| Light Value:330, Continuation:False
+2023-09-12 07:02:28.258 [INFO]: 183.6| Light Value:331, Continuation:False
+2023-09-12 07:02:28.658 [INFO]: 184.0| Light Value:331, Continuation:False
+2023-09-12 07:02:29.58  [INFO]: 184.4| Light Value:331, Continuation:False
+2023-09-12 07:02:29.458 [INFO]: 184.8| Light Value:329, Continuation:False
+2023-09-12 07:02:29.858 [INFO]: 185.2| Light Value:332, Continuation:False
+2023-09-12 07:02:30.258 [INFO]: 185.6| Light Value:331, Continuation:False
+2023-09-12 07:02:30.658 [INFO]: 186.0| Light Value:331, Continuation:False
+2023-09-12 07:02:31.58  [INFO]: 186.4| Light Value:329, Continuation:False
+2023-09-12 07:02:31.458 [INFO]: 186.8| Light Value:331, Continuation:False
+2023-09-12 07:02:31.858 [INFO]: 187.2| Light Value:331, Continuation:False
+2023-09-12 07:02:32.258 [INFO]: 187.6| Light Value:331, Continuation:False
+2023-09-12 07:02:32.658 [INFO]: 188.0| Light Value:330, Continuation:False
+2023-09-12 07:02:33.58  [INFO]: 188.4| Light Value:331, Continuation:False
+2023-09-12 07:02:33.458 [INFO]: 188.8| Light Value:330, Continuation:False
+2023-09-12 07:02:33.858 [INFO]: 189.2| Light Value:331, Continuation:False
+2023-09-12 07:02:34.258 [INFO]: 189.6| Light Value:330, Continuation:False
+2023-09-12 07:02:34.658 [INFO]: 190.0| Light Value:330, Continuation:False
+2023-09-12 07:02:35.58  [INFO]: 190.4| Light Value:330, Continuation:False
+2023-09-12 07:02:35.458 [INFO]: 190.8| Light Value:330, Continuation:False
+2023-09-12 07:02:35.858 [INFO]: 191.2| Light Value:330, Continuation:False
+2023-09-12 07:02:36.258 [INFO]: 191.6| Light Value:331, Continuation:False
+2023-09-12 07:02:36.658 [INFO]: 192.0| Light Value:330, Continuation:False
+2023-09-12 07:02:37.58  [INFO]: 192.4| Light Value:331, Continuation:False
+2023-09-12 07:02:37.458 [INFO]: 192.8| Light Value:331, Continuation:False
+2023-09-12 07:02:37.858 [INFO]: 193.2| Light Value:331, Continuation:False
+2023-09-12 07:02:38.258 [INFO]: 193.6| Light Value:330, Continuation:False
+2023-09-12 07:02:38.658 [INFO]: 194.0| Light Value:332, Continuation:False
+2023-09-12 07:02:39.58  [INFO]: 194.4| Light Value:331, Continuation:False
+2023-09-12 07:02:39.458 [INFO]: 194.8| Light Value:331, Continuation:False
+2023-09-12 07:02:39.858 [INFO]: 195.2| Light Value:332, Continuation:False
+2023-09-12 07:02:40.258 [INFO]: 195.6| Light Value:330, Continuation:False
+2023-09-12 07:02:40.658 [INFO]: 196.0| Light Value:331, Continuation:False
+2023-09-12 07:02:41.58  [INFO]: 196.4| Light Value:331, Continuation:False
+2023-09-12 07:02:41.458 [INFO]: 196.8| Light Value:331, Continuation:False
+2023-09-12 07:02:41.858 [INFO]: 197.2| Light Value:331, Continuation:False
+2023-09-12 07:02:42.258 [INFO]: 197.6| Light Value:331, Continuation:False
+2023-09-12 07:02:42.659 [INFO]: 198.0| Light Value:331, Continuation:False
+2023-09-12 07:02:43.59  [INFO]: 198.4| Light Value:331, Continuation:False
+2023-09-12 07:02:43.459 [INFO]: 198.8| Light Value:331, Continuation:False
+2023-09-12 07:02:43.859 [INFO]: 199.2| Light Value:331, Continuation:False
+2023-09-12 07:02:44.259 [INFO]: 199.6| Light Value:331, Continuation:False
+2023-09-12 07:02:44.659 [INFO]: 200.0| Light Value:331, Continuation:False
+2023-09-12 07:02:45.59  [INFO]: 200.4| Light Value:331, Continuation:False
+2023-09-12 07:02:45.459 [INFO]: 200.8| Light Value:331, Continuation:False
+2023-09-12 07:02:45.859 [INFO]: 201.2| Light Value:331, Continuation:False
+2023-09-12 07:02:46.259 [INFO]: 201.6| Light Value:331, Continuation:False
+2023-09-12 07:02:46.659 [INFO]: 202.0| Light Value:331, Continuation:False
+2023-09-12 07:02:47.59  [INFO]: 202.4| Light Value:331, Continuation:False
+2023-09-12 07:02:47.459 [INFO]: 202.8| Light Value:331, Continuation:False
+2023-09-12 07:02:47.859 [INFO]: 203.2| Light Value:331, Continuation:False
+2023-09-12 07:02:48.259 [INFO]: 203.6| Light Value:331, Continuation:False
+2023-09-12 07:02:48.659 [INFO]: 204.0| Light Value:331, Continuation:False
+2023-09-12 07:02:49.59  [INFO]: 204.4| Light Value:331, Continuation:False
+2023-09-12 07:02:49.459 [INFO]: 204.8| Light Value:331, Continuation:False
+2023-09-12 07:02:49.859 [INFO]: 205.2| Light Value:331, Continuation:False
+2023-09-12 07:02:50.259 [INFO]: 205.6| Light Value:331, Continuation:False
+2023-09-12 07:02:50.659 [INFO]: 206.0| Light Value:331, Continuation:False
+2023-09-12 07:02:51.59  [INFO]: 206.4| Light Value:331, Continuation:False
+2023-09-12 07:02:51.459 [INFO]: 206.8| Light Value:331, Continuation:False
+2023-09-12 07:02:51.859 [INFO]: 207.2| Light Value:331, Continuation:False
+2023-09-12 07:02:52.259 [INFO]: 207.6| Light Value:332, Continuation:False
+2023-09-12 07:02:52.659 [INFO]: 208.0| Light Value:331, Continuation:False
+2023-09-12 07:02:53.59  [INFO]: 208.4| Light Value:331, Continuation:False
+2023-09-12 07:02:53.459 [INFO]: 208.8| Light Value:331, Continuation:False
+2023-09-12 07:02:53.859 [INFO]: 209.2| Light Value:331, Continuation:False
+2023-09-12 07:02:54.259 [INFO]: 209.6| Light Value:331, Continuation:False
+2023-09-12 07:02:54.659 [INFO]: 210.0| Light Value:331, Continuation:False
+2023-09-12 07:02:55.59  [INFO]: 210.4| Light Value:332, Continuation:False
+2023-09-12 07:02:55.459 [INFO]: 210.8| Light Value:331, Continuation:False
+2023-09-12 07:02:55.859 [INFO]: 211.2| Light Value:331, Continuation:False
+2023-09-12 07:02:56.259 [INFO]: 211.6| Light Value:331, Continuation:False
+2023-09-12 07:02:56.659 [INFO]: 212.0| Light Value:331, Continuation:False
+2023-09-12 07:02:57.59  [INFO]: 212.4| Light Value:331, Continuation:False
+2023-09-12 07:02:57.459 [INFO]: 212.8| Light Value:331, Continuation:False
+2023-09-12 07:02:57.859 [INFO]: 213.2| Light Value:331, Continuation:False
+2023-09-12 07:02:58.259 [INFO]: 213.6| Light Value:331, Continuation:False
+2023-09-12 07:02:58.659 [INFO]: 214.0| Light Value:331, Continuation:False
+2023-09-12 07:02:59.59  [INFO]: 214.4| Light Value:331, Continuation:False
+2023-09-12 07:02:59.459 [INFO]: 214.8| Light Value:332, Continuation:False
+2023-09-12 07:02:59.859 [INFO]: 215.2| Light Value:332, Continuation:False
+2023-09-12 07:03:00.259 [INFO]: 215.6| Light Value:331, Continuation:False
+2023-09-12 07:03:00.659 [INFO]: 216.0| Light Value:331, Continuation:False
+2023-09-12 07:03:01.59  [INFO]: 216.4| Light Value:331, Continuation:False
+2023-09-12 07:03:01.459 [INFO]: 216.8| Light Value:332, Continuation:False
+2023-09-12 07:03:01.860 [INFO]: 217.2| Light Value:331, Continuation:False
+2023-09-12 07:03:02.260 [INFO]: 217.6| Light Value:331, Continuation:False
+2023-09-12 07:03:02.660 [INFO]: 218.0| Light Value:332, Continuation:False
+2023-09-12 07:03:03.60  [INFO]: 218.4| Light Value:331, Continuation:False
+2023-09-12 07:03:03.460 [INFO]: 218.8| Light Value:331, Continuation:False
+2023-09-12 07:03:03.860 [INFO]: 219.2| Light Value:332, Continuation:False
+2023-09-12 07:03:04.260 [INFO]: 219.6| Light Value:332, Continuation:False
+2023-09-12 07:03:04.660 [INFO]: 220.0| Light Value:332, Continuation:False
+2023-09-12 07:03:05.60  [INFO]: 220.4| Light Value:346, Continuation:False
+2023-09-12 07:03:05.460 [INFO]: 220.8| Light Value:383, Continuation:False
+2023-09-12 07:03:05.860 [INFO]: 221.2| Light Value:392, Continuation:False
+2023-09-12 07:03:06.260 [INFO]: 221.6| Light Value:407, Continuation:False
+2023-09-12 07:03:06.660 [INFO]: 222.0| Light Value:429, Continuation:False
+2023-09-12 07:03:07.60  [INFO]: 222.4| Light Value:437, Continuation:False
+2023-09-12 07:03:07.274 [INFO]:   0.0| Light Value:450, Continuation:True
+2023-09-12 07:03:07.797 [INFO]:   0.4| Light Value:472, Continuation:True
+2023-09-12 07:03:08.197 [INFO]:   0.8| Light Value:487, Continuation:True
+2023-09-12 07:03:08.597 [INFO]:   1.2| Light Value:494, Continuation:True
+2023-09-12 07:03:08.997 [INFO]:   1.6| Light Value:504, Continuation:True
+2023-09-12 07:03:09.397 [INFO]:   2.0| Light Value:510, Continuation:True
+2023-09-12 07:03:09.797 [INFO]:   2.4| Light Value:516, Continuation:True
+2023-09-12 07:03:10.197 [INFO]:   2.8| Light Value:515, Continuation:True
+2023-09-12 07:03:10.597 [INFO]:   3.2| Light Value:517, Continuation:True
+2023-09-12 07:03:10.997 [INFO]:   3.6| Light Value:517, Continuation:True
+2023-09-12 07:03:11.397 [INFO]:   4.0| Light Value:515, Continuation:True
+2023-09-12 07:03:11.797 [INFO]:   4.4| Light Value:518, Continuation:True
+2023-09-12 07:03:12.197 [INFO]:   4.8| Light Value:519, Continuation:True
+2023-09-12 07:03:12.597 [INFO]:   5.2| Light Value:518, Continuation:True
+2023-09-12 07:03:12.997 [INFO]:   5.6| Light Value:517, Continuation:True
+2023-09-12 07:03:13.397 [INFO]:   6.0| Light Value:521, Continuation:True
+2023-09-12 07:03:13.797 [INFO]:   6.4| Light Value:518, Continuation:True
+2023-09-12 07:03:14.197 [INFO]:   6.8| Light Value:519, Continuation:True
+2023-09-12 07:03:14.597 [INFO]:   7.2| Light Value:523, Continuation:True
+2023-09-12 07:03:14.997 [INFO]:   7.6| Light Value:523, Continuation:True
+2023-09-12 07:03:15.398 [INFO]:   8.0| Light Value:522, Continuation:True
+2023-09-12 07:03:15.798 [INFO]:   8.4| Light Value:524, Continuation:True
+2023-09-12 07:03:16.198 [INFO]:   8.8| Light Value:526, Continuation:True
+2023-09-12 07:03:16.598 [INFO]:   9.2| Light Value:527, Continuation:True
+2023-09-12 07:03:16.998 [INFO]:   9.6| Light Value:527, Continuation:True
+2023-09-12 07:03:17.398 [INFO]:  10.0| Light Value:524, Continuation:True
+2023-09-12 07:03:17.798 [INFO]:  10.4| Light Value:524, Continuation:True
+2023-09-12 07:03:18.198 [INFO]:  10.8| Light Value:523, Continuation:True
+2023-09-12 07:03:18.598 [INFO]:  11.2| Light Value:522, Continuation:True
+2023-09-12 07:03:18.998 [INFO]:  11.6| Light Value:520, Continuation:True
+2023-09-12 07:03:19.398 [INFO]:  12.0| Light Value:521, Continuation:True
+2023-09-12 07:03:19.798 [INFO]:  12.4| Light Value:519, Continuation:True
+2023-09-12 07:03:20.198 [INFO]:  12.8| Light Value:516, Continuation:True
+2023-09-12 07:03:20.598 [INFO]:  13.2| Light Value:514, Continuation:True
+2023-09-12 07:03:20.998 [INFO]:  13.6| Light Value:513, Continuation:True
+2023-09-12 07:03:21.398 [INFO]:  14.0| Light Value:512, Continuation:True
+2023-09-12 07:03:21.798 [INFO]:  14.4| Light Value:513, Continuation:True
+2023-09-12 07:03:22.198 [INFO]:  14.8| Light Value:509, Continuation:True
+2023-09-12 07:03:22.397 [INFO]: -- Light Judge
+2023-09-12 07:03:25.404 [INFO]: -------------------- Released judge finish --------------------
+2023-09-12 07:03:28.408 [INFO]: -------------------- Land judge start --------------------
+2023-09-12 07:03:29.414 [INFO]: Can't catch GPS
+2023-09-12 07:03:31.472 [INFO]: -- Under 15m
+2023-09-12 07:03:32.419 [INFO]: lat:error
+2023-09-12 07:03:32.474 [INFO]: Time passed:1
+2023-09-12 07:03:32.474 [INFO]: Time passed:1
+2023-09-12 07:03:32.542 [INFO]: altitude of LIDAR:0.05999999865889549
+2023-09-12 07:03:32.942 [INFO]: altitude of LIDAR:0.05999999865889549
+2023-09-12 07:03:33.340 [INFO]: altitude of LIDAR:0.05999999865889549
+2023-09-12 07:03:33.642 [INFO]: altitude of LIDAR:0.05999999865889549
+2023-09-12 07:03:34.40  [INFO]: altitude of LIDAR:0.05999999865889549
+2023-09-12 07:03:34.342 [INFO]: altitude of LIDAR:0.05999999865889549
+2023-09-12 07:03:34.742 [INFO]: altitude of LIDAR:0.05999999865889549
+2023-09-12 07:03:35.40  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:35.843 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:35.844 [INFO]: Time passed:4
+2023-09-12 07:03:35.942 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:36.745 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:36.747 [INFO]: Time passed:5
+2023-09-12 07:03:36.841 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:37.645 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:37.646 [INFO]: Time passed:6
+2023-09-12 07:03:37.741 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:38.545 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:38.547 [INFO]: Time passed:7
+2023-09-12 07:03:38.641 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:39.447 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:39.449 [INFO]: Time passed:8
+2023-09-12 07:03:39.540 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:40.344 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:40.345 [INFO]: Time passed:8
+2023-09-12 07:03:40.440 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:41.244 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:41.245 [INFO]: Time passed:9
+2023-09-12 07:03:41.341 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:42.145 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:42.146 [INFO]: Time passed:10
+2023-09-12 07:03:42.241 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:43.46  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:43.47  [INFO]: Time passed:11
+2023-09-12 07:03:43.140 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:43.943 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:43.952 [INFO]: Time passed:12
+2023-09-12 07:03:44.39  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:44.842 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:44.844 [INFO]: Time passed:13
+2023-09-12 07:03:44.941 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:45.745 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:45.746 [INFO]: Time passed:14
+2023-09-12 07:03:45.839 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:46.643 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:46.645 [INFO]: Time passed:15
+2023-09-12 07:03:46.742 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:47.546 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:47.548 [INFO]: Time passed:16
+2023-09-12 07:03:47.640 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:48.444 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:48.446 [INFO]: Time passed:17
+2023-09-12 07:03:48.539 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:49.343 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:49.348 [INFO]: Time passed:17
+2023-09-12 07:03:49.442 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:50.245 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:50.247 [INFO]: Time passed:18
+2023-09-12 07:03:50.340 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:51.144 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:51.146 [INFO]: Time passed:19
+2023-09-12 07:03:51.240 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:52.43  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:52.45  [INFO]: Time passed:20
+2023-09-12 07:03:52.138 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:52.942 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:52.943 [INFO]: Time passed:21
+2023-09-12 07:03:53.38  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:53.842 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:53.844 [INFO]: Time passed:22
+2023-09-12 07:03:53.939 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:54.743 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:54.744 [INFO]: Time passed:23
+2023-09-12 07:03:54.840 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:55.644 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:55.645 [INFO]: Time passed:24
+2023-09-12 07:03:55.740 [INFO]: altitude of LIDAR:4.019999980926514
+2023-09-12 07:03:55.839 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:56.642 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:56.644 [INFO]: Time passed:25
+2023-09-12 07:03:56.738 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:57.542 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:57.543 [INFO]: Time passed:26
+2023-09-12 07:03:57.638 [INFO]: altitude of LIDAR:3.6399998664855957
+2023-09-12 07:03:57.739 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:58.543 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:58.544 [INFO]: Time passed:27
+2023-09-12 07:03:58.637 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:03:59.441 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:03:59.442 [INFO]: Time passed:28
+2023-09-12 07:03:59.539 [INFO]: altitude of LIDAR:3.7699999809265137
+2023-09-12 07:03:59.639 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:00.442 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:00.445 [INFO]: Time passed:29
+2023-09-12 07:04:00.537 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:01.341 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:01.343 [INFO]: Time passed:29
+2023-09-12 07:04:01.437 [INFO]: altitude of LIDAR:3.9700000286102295
+2023-09-12 07:04:01.540 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:02.343 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:02.345 [INFO]: Time passed:30
+2023-09-12 07:04:02.438 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:03.242 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:03.244 [INFO]: Time passed:31
+2023-09-12 07:04:03.337 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:04.141 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:04.143 [INFO]: Time passed:32
+2023-09-12 07:04:04.240 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:05.43  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:05.45  [INFO]: Time passed:33
+2023-09-12 07:04:05.139 [INFO]: altitude of LIDAR:3.43999981880188
+2023-09-12 07:04:05.238 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:06.42  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:06.45  [INFO]: Time passed:34
+2023-09-12 07:04:06.137 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:06.941 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:06.942 [INFO]: Time passed:35
+2023-09-12 07:04:07.37  [INFO]: altitude of LIDAR:2.5299999713897705
+2023-09-12 07:04:07.139 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:07.942 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:07.944 [INFO]: Time passed:36
+2023-09-12 07:04:08.38  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:08.841 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:08.843 [INFO]: Time passed:37
+2023-09-12 07:04:08.937 [INFO]: altitude of LIDAR:3.6599998474121094
+2023-09-12 07:04:09.38  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:09.841 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:09.842 [INFO]: Time passed:38
+2023-09-12 07:04:09.937 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:10.741 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:10.743 [INFO]: Time passed:39
+2023-09-12 07:04:10.837 [INFO]: altitude of LIDAR:3.5899999141693115
+2023-09-12 07:04:10.936 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:11.740 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:11.745 [INFO]: Time passed:40
+2023-09-12 07:04:11.837 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:12.641 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:12.642 [INFO]: Time passed:41
+2023-09-12 07:04:12.739 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:13.543 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:13.545 [INFO]: Time passed:42
+2023-09-12 07:04:13.637 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:14.440 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:14.442 [INFO]: Time passed:43
+2023-09-12 07:04:14.537 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:15.341 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:15.343 [INFO]: Time passed:43
+2023-09-12 07:04:15.438 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:16.242 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:16.243 [INFO]: Time passed:44
+2023-09-12 07:04:16.338 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:17.142 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:17.145 [INFO]: Time passed:45
+2023-09-12 07:04:17.237 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:18.41  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:18.42  [INFO]: Time passed:46
+2023-09-12 07:04:18.136 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:18.939 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:18.941 [INFO]: Time passed:47
+2023-09-12 07:04:19.39  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:19.842 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:19.844 [INFO]: Time passed:48
+2023-09-12 07:04:19.937 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:20.741 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:20.743 [INFO]: Time passed:49
+2023-09-12 07:04:20.836 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:21.641 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:21.642 [INFO]: Time passed:50
+2023-09-12 07:04:21.736 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:22.540 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:22.543 [INFO]: Time passed:51
+2023-09-12 07:04:22.635 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:23.439 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:23.441 [INFO]: Time passed:52
+2023-09-12 07:04:23.537 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:24.341 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:24.343 [INFO]: Time passed:52
+2023-09-12 07:04:24.435 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:25.239 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:25.240 [INFO]: Time passed:53
+2023-09-12 07:04:25.338 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:26.141 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:26.142 [INFO]: Time passed:54
+2023-09-12 07:04:26.238 [INFO]: altitude of LIDAR:3.9099998474121094
+2023-09-12 07:04:26.335 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:27.139 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:27.140 [INFO]: Time passed:55
+2023-09-12 07:04:27.238 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:28.41  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:28.45  [INFO]: Time passed:56
+2023-09-12 07:04:28.136 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:28.939 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:28.941 [INFO]: Time passed:57
+2023-09-12 07:04:29.36  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:29.840 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:29.842 [INFO]: Time passed:58
+2023-09-12 07:04:29.936 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:30.739 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:30.741 [INFO]: Time passed:59
+2023-09-12 07:04:30.837 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:31.641 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:31.643 [INFO]: Time passed:60
+2023-09-12 07:04:31.735 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:32.538 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:32.540 [INFO]: Time passed:61
+2023-09-12 07:04:32.636 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:33.440 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:33.444 [INFO]: Time passed:62
+2023-09-12 07:04:33.536 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:34.339 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:34.341 [INFO]: Time passed:62
+2023-09-12 07:04:34.434 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:35.238 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:35.239 [INFO]: Time passed:63
+2023-09-12 07:04:35.335 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:36.139 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:36.141 [INFO]: Time passed:64
+2023-09-12 07:04:36.234 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:37.38  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:37.39  [INFO]: Time passed:65
+2023-09-12 07:04:37.134 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:37.938 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:37.939 [INFO]: Time passed:66
+2023-09-12 07:04:38.36  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:38.840 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:38.843 [INFO]: Time passed:67
+2023-09-12 07:04:38.936 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:39.739 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:39.741 [INFO]: Time passed:68
+2023-09-12 07:04:39.834 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:40.638 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:40.639 [INFO]: Time passed:69
+2023-09-12 07:04:40.734 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:41.537 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:41.539 [INFO]: Time passed:70
+2023-09-12 07:04:41.634 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:42.438 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:42.439 [INFO]: Time passed:71
+2023-09-12 07:04:42.536 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:43.339 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:43.341 [INFO]: Time passed:71
+2023-09-12 07:04:43.435 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:44.238 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:44.242 [INFO]: Time passed:72
+2023-09-12 07:04:44.333 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:45.137 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:45.138 [INFO]: Time passed:73
+2023-09-12 07:04:45.236 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:46.39  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:46.41  [INFO]: Time passed:74
+2023-09-12 07:04:46.135 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:46.939 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:46.941 [INFO]: Time passed:75
+2023-09-12 07:04:47.36  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:47.840 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:47.841 [INFO]: Time passed:76
+2023-09-12 07:04:47.933 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:48.737 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:48.738 [INFO]: Time passed:77
+2023-09-12 07:04:48.836 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:49.639 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:49.641 [INFO]: Time passed:78
+2023-09-12 07:04:49.735 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:50.539 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:50.541 [INFO]: Time passed:79
+2023-09-12 07:04:50.634 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:51.437 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:51.439 [INFO]: Time passed:80
+2023-09-12 07:04:51.535 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:52.338 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:52.340 [INFO]: Time passed:80
+2023-09-12 07:04:52.434 [INFO]: altitude of LIDAR:3.5799999237060547
+2023-09-12 07:04:52.535 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:53.338 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:53.340 [INFO]: Time passed:81
+2023-09-12 07:04:53.433 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:54.236 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:54.238 [INFO]: Time passed:82
+2023-09-12 07:04:54.334 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:55.138 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:55.142 [INFO]: Time passed:83
+2023-09-12 07:04:55.234 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:56.38  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:56.40  [INFO]: Time passed:84
+2023-09-12 07:04:56.133 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:56.937 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:56.939 [INFO]: Time passed:85
+2023-09-12 07:04:57.32  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:57.836 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:57.838 [INFO]: Time passed:86
+2023-09-12 07:04:57.935 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:58.738 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:58.740 [INFO]: Time passed:87
+2023-09-12 07:04:58.834 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:04:59.636 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:04:59.638 [INFO]: Time passed:88
+2023-09-12 07:04:59.733 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:00.537 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:00.538 [INFO]: Time passed:89
+2023-09-12 07:05:00.632 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:01.436 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:01.437 [INFO]: Time passed:90
+2023-09-12 07:05:01.533 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:02.336 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:02.338 [INFO]: Time passed:90
+2023-09-12 07:05:02.433 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:03.237 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:03.238 [INFO]: Time passed:91
+2023-09-12 07:05:03.333 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:04.136 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:04.138 [INFO]: Time passed:92
+2023-09-12 07:05:04.232 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:05.36  [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:05.37  [INFO]: Time passed:93
+2023-09-12 07:05:05.132 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:05.936 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:05.939 [INFO]: Time passed:94
+2023-09-12 07:05:06.33  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:06.836 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:06.838 [INFO]: Time passed:95
+2023-09-12 07:05:06.933 [INFO]: altitude of LIDAR:3.879999876022339
+2023-09-12 07:05:07.31  [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:07.835 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:07.837 [INFO]: Time passed:96
+2023-09-12 07:05:07.933 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:08.737 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:08.738 [INFO]: Time passed:97
+2023-09-12 07:05:08.834 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:09.637 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:09.639 [INFO]: Time passed:98
+2023-09-12 07:05:09.733 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:10.536 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:10.537 [INFO]: Time passed:99
+2023-09-12 07:05:10.633 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:11.437 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:11.438 [INFO]: Time passed:100
+2023-09-12 07:05:11.533 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:12.337 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:12.338 [INFO]: Time passed:100
+2023-09-12 07:05:12.433 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:13.236 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:13.238 [INFO]: Time passed:101
+2023-09-12 07:05:13.331 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:14.134 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:14.135 [INFO]: Time passed:102
+2023-09-12 07:05:14.231 [INFO]: altitude of LIDAR:3.619999885559082
+2023-09-12 07:05:14.332 [INFO]: Too high or distance sensor might have some error
+2023-09-12 07:05:15.136 [INFO]: GPS can't catch or pixhawk might have some error
+2023-09-12 07:05:15.137 [INFO]: Time passed:103
+2023-09-12 07:05:15.232 [INFO]: Too high or distance sensor might have some error
+                                                                                                                                                                                                                   
