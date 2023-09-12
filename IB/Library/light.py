@@ -3,6 +3,7 @@ import spidev
 from logger_lib import logger_info
 import time
 import json
+import asyncio
 
 
 class Light:
@@ -71,6 +72,7 @@ class Light:
         is_upper_threshold = False
         pre_time_stamp = 0
         while True:
+            await asyncio.sleep(0)
             light_val = self.get_light_val()
             time_stamp = time.perf_counter() - duration_start_time
             if light_val >= self.light_threshold:
