@@ -33,8 +33,14 @@ class Pixhawk:
                  use_other_param_config = False):
         
         self.pix = System()
+        self.available_camera = True
         if use_camera:
-            self.camera = Camera()
+            try:
+                self.camera = Camera()
+            except Exception as e:
+                logger_info.info(e)
+                self.available_camera = False
+            
         self.lora = lora
         self.light = light
         
@@ -300,18 +306,6 @@ class Pixhawk:
     async def hold(self):
 
         logger_info.info("Waiting for drone to hold...")
-        # is_hold = False
-        # while True:
-        #     if is_hold:
-        #         logger_info.info("Checked hold mode")
-        #         break
-        #     async for flight_mode in self.pix.telemetry.flight_mode():
-        #         if str(flight_mode) == "HOLD":
-        #             is_hold = True
-        #             break
-        #         else:
-        #             logger_info.info(f"mode:{flight_mode}")
-        #             await self.pix.action.hold()
         while True:
             try:
                 await self.pix.action.hold()
@@ -865,13 +859,11 @@ class Pixhawk:
 
         logger_info.info("Setting goto_location...")
         await self.pix.action.goto_location(lat, lng, abs_alt, 0)
-        # logger_info.info("Going to location...")
-        # await asyncio.sleep(10)
 
 
     async def estimate_target_position(self):
 
-        async for d in self.pix.telemetry.distance_sensor(): #? 測れなかったらどうしよう
+        async for d in self.pix.telemetry.distance_sensor():
             lidar_height = d.current_distance_m
             logger_info.info(f"current height:{lidar_height}m")
             break
@@ -951,6 +943,11 @@ class Pixhawk:
             await self.land()
 
 
+    async def kill(self):
+
+        await self.pix.action.kill()
+
+
     async def kill_forever(self):
 
         while True:
@@ -967,61 +964,63 @@ class Pixhawk:
         
     async def image_navigation_arliss(self):
 
-        logger_info.info("Start image navigation")
-        goal_start_abs_alt = await self.get_position_alt()
-        try:
-            await asyncio.wait_for(self.measure_lidar_alt(), timeout = 1)
-        except asyncio.TimeoutError:
-            logger_info.info("TimeoutError")
-            await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_start_abs_alt - 5)
-            await asyncio.sleep(5)
+        if self.available_camera:
+            logger_info.info("Start image navigation")
+            goal_start_abs_alt = await self.get_position_alt()
             try:
                 await asyncio.wait_for(self.measure_lidar_alt(), timeout = 1)
             except asyncio.TimeoutError:
                 logger_info.info("TimeoutError")
-                await self.arliss_land()
-        if self.lidar > 15:
-            await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_start_abs_alt - 5)
-            await asyncio.sleep(5)
-            await self.measure_lidar_alt()
+                await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_start_abs_alt - 5)
+                await asyncio.sleep(5)
+                try:
+                    await asyncio.wait_for(self.measure_lidar_alt(), timeout = 1)
+                except asyncio.TimeoutError:
+                    logger_info.info("TimeoutError")
+                    await self.arliss_land()
             if self.lidar > 15:
-                await self.arliss_land()
-        goal_lidar_alt = self.lidar
-        goal_abs_alt = await self.get_position_alt()
-        await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_abs_alt - goal_lidar_alt + self.waypoint_alt)
-        await asyncio.sleep(5)
-
-        red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
-        lidar_alt = await self.get_distance_alt()
-        logger_info.info(f"lidar:{lidar_alt}")
-        logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 5}, abs_alt:{abs_alt}")
-        await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 5)
-        await asyncio.sleep(5)
-
-        red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
-        lidar_alt = await self.get_distance_alt()
-        logger_info.info(f"lidar:{lidar_alt}")
-        if is_red_right_below:
-            logger_info.info(f"Image Navigation Success!")
-            await self.arliss_land()
-        else :
-            logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 3}, abs_alt:{abs_alt}")
-            await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 3)
+                await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_start_abs_alt - 5)
+                await asyncio.sleep(5)
+                await self.measure_lidar_alt()
+                if self.lidar > 15:
+                    await self.arliss_land()
+            goal_lidar_alt = self.lidar
+            goal_abs_alt = await self.get_position_alt()
+            await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_abs_alt - goal_lidar_alt + self.waypoint_alt)
             await asyncio.sleep(5)
 
-        while True:
             red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
             lidar_alt = await self.get_distance_alt()
             logger_info.info(f"lidar:{lidar_alt}")
-            logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, abs_alt:{abs_alt}")
-            await self.goto_location(red_lat, red_lng, abs_alt)
+            logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 5}, abs_alt:{abs_alt}")
+            await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 5)
             await asyncio.sleep(5)
-            if is_red_right_below:
-                break
 
-        logger_info.info(f"Image Navigation Success!")
-        # await self.gather_land_coroutines()
-        await self.arliss_land()
+            red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
+            lidar_alt = await self.get_distance_alt()
+            logger_info.info(f"lidar:{lidar_alt}")
+            if is_red_right_below:
+                logger_info.info(f"Image Navigation Success!")
+                await self.arliss_land()
+            else :
+                logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 3}, abs_alt:{abs_alt}")
+                await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 3)
+                await asyncio.sleep(5)
+
+            while True:
+                red_lat, red_lng, abs_alt, is_red_right_below= await self.calc_red_position()
+                lidar_alt = await self.get_distance_alt()
+                logger_info.info(f"lidar:{lidar_alt}")
+                logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, abs_alt:{abs_alt}")
+                await self.goto_location(red_lat, red_lng, abs_alt)
+                await asyncio.sleep(5)
+                if is_red_right_below:
+                    break
+
+            logger_info.info(f"Image Navigation Success!")
+            await self.arliss_land()
+        else:
+            await self.arliss_land()
 
 
     async def perform_image_navigation_with_timeout(self):
@@ -1048,8 +1047,13 @@ class Pixhawk:
             pitch, roll = await self.return_pitch_roll()
             logger_info.info(f"is_in_air:{is_in_air}, pitch:{pitch}, roll:{roll}")
             if not is_in_air:
+                logger_info.info("Landed!")
                 break
             if abs(float(roll)) > 30 or abs(float(pitch)) > 30:
                 logger_info.info("Hit the target!")
-                await self.kill_forever()
-        logger_info.info("Landed!")
+                await self.kill()
+                await asyncio.sleep(5)
+                logger_info.info("Killed!")
+                break
+
+        
