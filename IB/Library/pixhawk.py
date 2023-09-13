@@ -943,6 +943,11 @@ class Pixhawk:
             await self.land()
 
 
+    async def kill(self):
+
+        await self.pix.action.kill()
+
+
     async def kill_forever(self):
 
         while True:
@@ -1042,8 +1047,13 @@ class Pixhawk:
             pitch, roll = await self.return_pitch_roll()
             logger_info.info(f"is_in_air:{is_in_air}, pitch:{pitch}, roll:{roll}")
             if not is_in_air:
+                logger_info.info("Landed!")
                 break
             if abs(float(roll)) > 30 or abs(float(pitch)) > 30:
                 logger_info.info("Hit the target!")
-                await self.kill_forever()
-        logger_info.info("Landed!")
+                await self.kill()
+                await asyncio.sleep(5)
+                logger_info.info("Killed!")
+                break
+
+        
