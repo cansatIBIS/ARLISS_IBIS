@@ -79,7 +79,7 @@ async def run():
 
     await pixhawk.start_mission()
 
-    await pixhawk.gather_main_coroutines()
+    # await pixhawk.gather_main_coroutines()
     try:
         await asyncio.wait_for(pixhawk.gather_main_coroutines(), timeout = 10)
     except asyncio.TimeoutError:
