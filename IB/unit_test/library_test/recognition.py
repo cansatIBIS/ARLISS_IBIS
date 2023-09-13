@@ -19,7 +19,7 @@ def run():
                     hsv_min_2,
                     hsv_max_2)
         
-    camera.change_iso(100)3
+    camera.change_iso(100)
     camera.change_shutter_speed(1000)
     camera.take_pic()
     res = camera.detect_center()
