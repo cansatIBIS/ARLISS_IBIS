@@ -306,18 +306,6 @@ class Pixhawk:
     async def hold(self):
 
         logger_info.info("Waiting for drone to hold...")
-        # is_hold = False
-        # while True:
-        #     if is_hold:
-        #         logger_info.info("Checked hold mode")
-        #         break
-        #     async for flight_mode in self.pix.telemetry.flight_mode():
-        #         if str(flight_mode) == "HOLD":
-        #             is_hold = True
-        #             break
-        #         else:
-        #             logger_info.info(f"mode:{flight_mode}")
-        #             await self.pix.action.hold()
         while True:
             try:
                 await self.pix.action.hold()
@@ -871,13 +859,11 @@ class Pixhawk:
 
         logger_info.info("Setting goto_location...")
         await self.pix.action.goto_location(lat, lng, abs_alt, 0)
-        # logger_info.info("Going to location...")
-        # await asyncio.sleep(10)
 
 
     async def estimate_target_position(self):
 
-        async for d in self.pix.telemetry.distance_sensor(): #? 測れなかったらどうしよう
+        async for d in self.pix.telemetry.distance_sensor():
             lidar_height = d.current_distance_m
             logger_info.info(f"current height:{lidar_height}m")
             break
@@ -1027,7 +1013,6 @@ class Pixhawk:
                     break
 
             logger_info.info(f"Image Navigation Success!")
-            # await self.gather_land_coroutines()
             await self.arliss_land()
         else:
             await self.arliss_land()
