@@ -1,6 +1,6 @@
 import sys
 import numpy as np
-# import time
+import time
 
 ibis_directory = "/home/pi/ARLISS_IBIS/IB/Library"
 sys.path.append(ibis_directory)
