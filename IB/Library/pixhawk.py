@@ -406,6 +406,7 @@ class Pixhawk:
                 distance = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
             except asyncio.TimeoutError:
                 logger_info.info("Too high or distance sensor might have some error")
+                distance = "error"
             print("Lidar:".format(distance))
             if self.is_waited:
                 break
