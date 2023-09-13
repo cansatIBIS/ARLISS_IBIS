@@ -389,26 +389,26 @@ class Pixhawk:
         pre_time_stamp = 0
         while True:
             await asyncio.sleep(0.5)
+            if self.is_waited:
+                break
             light_val = self.light.get_light_val()
             time_stamp = time.perf_counter() - duration_start_time
             if abs(pre_time_stamp - time_stamp) > 0.5:
                 pre_time_stamp = time_stamp
                 logger_info.info("{:5.1f}| Light Value:{:>3d}".format(time_stamp, light_val))
-            if self.is_waited:
-                break
             
     
     async def print_lidar(self):
         
         while True:
             await asyncio.sleep(0.5)
+            if self.is_waited:
+                break
             try :
                 distance = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
                 logger_info.info("Lidar:".format(distance))
             except asyncio.TimeoutError:
                 logger_info.info("Too high or distance sensor might have some error")
-            if self.is_waited:
-                break
             
     
     async def print_and_wait(self):
