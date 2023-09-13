@@ -81,7 +81,7 @@ class Light:
                 is_upper_threshold = False
             if abs(pre_time_stamp - time_stamp) > 0.5:
                 pre_time_stamp = time_stamp
-                logger_info.info("{:5.1f}| Light Value:{:>3d}, Continuation:{}".format(time_stamp, light_val, is_upper_threshold))
+                logger_info.info("{:5.1f}| Light Value:{:>3d}, Is upper threshold:{}".format(time_stamp, light_val, is_upper_threshold))
                     
     
     
