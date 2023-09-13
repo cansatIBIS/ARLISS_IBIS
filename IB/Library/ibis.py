@@ -2,7 +2,6 @@ from pixhawk import Pixhawk
 from lora import Lora
 from light import Light
 from logger_lib import logger_info
-import asyncio
 
 
 class Ibis:
@@ -80,12 +79,7 @@ class Ibis:
         
         logger_info.info("#################### Wait store phase start ####################")
         await self.lora.power_on()
-        wait_coroutines = [
-            self.pixhawk.wait_store(),
-            self.light.print_light_val()
-        ]
-        wait_task = asyncio.gather(*wait_coroutines)
-        await wait_task
+        await self.pixhawk.print_and_wait()
         logger_info.info("#################### Wait store phase finished ####################")
         
         

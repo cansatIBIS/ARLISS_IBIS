@@ -375,7 +375,6 @@ class Pixhawk:
                 time_now = time.time()
                 time_passed = int((time_now-start_time)//1)
                 if time_now > pre_time+1.0:
-                    logger_info.info("{} seconds passed".format(time_passed))
                     pre_time = time_now
                 if time_passed > self.wait_time:
                     self.is_waited = True
@@ -397,6 +396,30 @@ class Pixhawk:
                 logger_info.info("{:5.1f}| Light Value:{:>3d}".format(time_stamp, light_val))
             if self.is_waited:
                 break
+            
+    
+    async def print_lidar(self):
+        
+        while True:
+            await asyncio.sleep(0.5)
+            try :
+                distance = await asyncio.wait_for(self.get_distance_alt(), timeout = 0.8)
+            except asyncio.TimeoutError:
+                logger_info.info("Too high or distance sensor might have some error")
+            print(distance)
+            if self.is_waited:
+                break
+            
+    
+    async def print_and_wait(self):
+        
+        wait_coroutines = [
+            self.wait_store(),
+            self.print_light_val(),
+            self.print_lidar()
+        ]
+        wait_task = asyncio.gather(*wait_coroutines)
+        await wait_task
             
             
     async def land_judge(self):
