@@ -79,6 +79,7 @@ class Ibis:
         
         logger_info.info("#################### Wait store phase start ####################")
         await self.lora.power_on()
+        await self.pixhawk.connect()
         await self.pixhawk.print_and_wait()
         logger_info.info("#################### Wait store phase finished ####################")
         
@@ -86,7 +87,6 @@ class Ibis:
     async def judge_phase(self):
         
         logger_info.info("#################### Judge phase start ####################")
-        await self.pixhawk.connect()
         await self.pixhawk.upload_mission()
         await self.light.stored_judge()
         await self.light.released_judge()
