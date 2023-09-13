@@ -42,6 +42,14 @@ class Ibis:
         self.lora = Lora(lora_power_pin,
                           lora_sleep_time)
         
+        self.light = Light(light_threshold,
+                            stored_timelimit,
+                            stored_judge_time,
+                            released_timelimit,
+                            released_judge_time,
+                            self.lora,
+                            deamon_pass)
+        
         self.pixhawk = Pixhawk(fuse_pin,
                                 wait_time,
                                 fuse_time,
@@ -54,18 +62,11 @@ class Ibis:
                                 mission_speed,
                                 image_navigation_timeout,
                                 self.lora,
+                                self.light,
                                 deamon_pass,
                                 use_camera,
                                 use_gps_config,
                                 use_other_param_config)
-        
-        self.light = Light(light_threshold,
-                            stored_timelimit,
-                            stored_judge_time,
-                            released_timelimit,
-                            released_judge_time,
-                            self.lora,
-                            deamon_pass)
         
         self.deamon_pass = deamon_pass
         self.deamon_file = open(self.deamon_pass)

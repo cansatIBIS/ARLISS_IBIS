@@ -9,6 +9,7 @@ from logger_lib import logger_info
 from mavsdk import System
 from mavsdk.mission import (MissionItem, MissionPlan)
 from lora import Lora
+from light import Light
 
 # parameters---------------------
 fuse_PIN = 0
@@ -22,6 +23,11 @@ waypoint_lat = 35.79695235999999
 waypoint_lng = 139.8920656
 waypoint_alt = 5
 mission_speed = 5
+light_threshold = 100
+stored_timelimit = 100
+stored_judge_time = 100
+released_timelimit = 100
+released_judge_time = 100
 lora_power_pin = 4
 lora_sleep_time = 0
 #--------------------------------
@@ -32,6 +38,15 @@ async def run():
         lora_power_pin,
         lora_sleep_time     
         )
+    
+    light = Light(light_threshold,
+                stored_timelimit,
+                stored_judge_time,
+                released_timelimit,
+                released_judge_time,
+                lora,
+                deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+                use_other_param_config = False)
 
     pixhawk = Pixhawk(
                  fuse_PIN,
@@ -44,7 +59,8 @@ async def run():
                  waypoint_lng,
                  waypoint_alt,
                  mission_speed,
-                 lora
+                 lora,
+                 light
                  )
     
     await pixhawk.connect()

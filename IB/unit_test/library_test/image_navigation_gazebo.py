@@ -8,6 +8,7 @@ import numpy as np
 from pixhawk import Pixhawk
 from logger_lib import logger_info
 from lora import Lora
+from light import Light
 
 # parameters---------------------
 fuse_PIN = 0
@@ -21,6 +22,11 @@ waypoint_lng = 8.5455619
 waypoint_alt =  3
 mission_speed = 5
 image_navigation_timeout = 5 * 60
+light_threshold = 100
+stored_timelimit = 100
+stored_judge_time = 100
+released_timelimit = 100
+released_judge_time = 100
 lora_power_pin = 4
 lora_sleep_time = 0
 use_camera = True
@@ -80,6 +86,15 @@ async def run():
         lora_power_pin,
         lora_sleep_time
     )
+      
+    light = Light(light_threshold,
+                stored_timelimit,
+                stored_judge_time,
+                released_timelimit,
+                released_judge_time,
+                lora,
+                deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
+                use_other_param_config = False)
     
     pixhawk = Pixhawk(
                  fuse_PIN,
@@ -94,10 +109,11 @@ async def run():
                  mission_speed,
                  image_navigation_timeout,
                  lora,
+                 light,
                  use_camera = use_camera,
                  use_gps_config = False
                  )
-      
+    
     await pixhawk.connect()
     await pixhawk.upload_mission()
     await pixhawk.health_check()

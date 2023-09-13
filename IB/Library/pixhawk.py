@@ -26,6 +26,7 @@ class Pixhawk:
                  mission_speed,
                  image_navigation_timeout,
                  lora,
+                 light,
                  deamon_pass = "/home/pi/ARLISS_IBIS/IB/log/Performance_log.txt",
                  use_camera = False,
                  use_gps_config = False,
@@ -35,6 +36,7 @@ class Pixhawk:
         if use_camera:
             self.camera = Camera()
         self.lora = lora
+        self.light = light
         
         if use_gps_config:
             json_pass_gps = "/home/pi/ARLISS_IBIS/IB/config/matsudo_config/GPS_matsudo_config.json"
@@ -93,6 +95,7 @@ class Pixhawk:
         self.deamon_file = open(self.deamon_pass)
         self.deamon_log = self.deamon_file.read()
         
+        self.is_waited = False
         self.is_tasks_cancel_ok = False
         self.is_landed = False 
         self.is_judge_alt = False
@@ -375,9 +378,25 @@ class Pixhawk:
                     logger_info.info("{} seconds passed".format(time_passed))
                     pre_time = time_now
                 if time_passed > self.wait_time:
+                    self.is_waited = True
                     break
             logger_info.info("{} seconds passed. Wait phase finished".format(self.wait_time))
             await self.lora.write("01")
+    
+    
+    async def print_light_val(self):
+
+        duration_start_time = time.perf_counter()
+        pre_time_stamp = 0
+        while True:
+            await asyncio.sleep(0.5)
+            light_val = self.light.get_light_val()
+            time_stamp = time.perf_counter() - duration_start_time
+            if abs(pre_time_stamp - time_stamp) > 0.5:
+                pre_time_stamp = time_stamp
+                logger_info.info("{:5.1f}| Light Value:{:>3d}".format(time_stamp, light_val))
+            if self.is_waited:
+                break
             
             
     async def land_judge(self):
