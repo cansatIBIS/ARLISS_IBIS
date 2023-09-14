@@ -7,9 +7,9 @@ sys.path.append(ibis_directory)
 
 from camera import Camera
 
-hsv_min_1 = np.array([0, 85, 0])
+hsv_min_1 = np.array([0, 0, 0])
 hsv_max_1 = np.array([5,255,255])
-hsv_min_2 = np.array([150,85,0])
+hsv_min_2 = np.array([150,0,0])
 hsv_max_2 = np.array([180,255,255])
 
 def run():

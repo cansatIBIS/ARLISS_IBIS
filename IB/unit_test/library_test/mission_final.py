@@ -66,15 +66,6 @@ async def run():
                  )
     
     lora.serial_connect()
-
-    # main_coroutines = [
-    #     pixhawk.cycle_flight_mode(),
-    #     pixhawk.cycle_position_lat_lng(), 
-    #     pixhawk.cycle_lidar(),
-    #     pixhawk.cycle_lora(),
-    #     pixhawk.cycle_show(),
-    #     pixhawk.mission_land()
-    #     ]
     
     await pixhawk.connect()
 
@@ -90,7 +81,11 @@ async def run():
 
     await pixhawk.gather_main_coroutines()
 
-    await  pixhawk.land()
+    print("wait 100s")
+
+    await asyncio.sleep(100)
+
+    await pixhawk.land()
 
 if __name__ == "__main__":
 
