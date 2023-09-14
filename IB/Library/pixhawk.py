@@ -433,11 +433,7 @@ class Pixhawk:
                     break
                 
                 try :
-                    total = 0
-                    for _ in range(3):
-                        alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
-                        total += alt_now
-                    alt_now = total/3
+                    alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
                     self.change_judge_alt(alt_now)
                 except asyncio.TimeoutError:
                     logger_info.info("Too high or distance sensor might have some error")
