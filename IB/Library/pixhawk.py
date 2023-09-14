@@ -432,11 +432,11 @@ class Pixhawk:
                 if self.is_landed:
                     break
                 
-                # try :
-                #     alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
-                #     self.change_judge_alt(alt_now)
-                # except asyncio.TimeoutError:
-                #     logger_info.info("Too high or distance sensor might have some error")
+                try :
+                    alt_now = await(asyncio.wait_for(self.get_distance_alt(), timeout = 0.8))
+                    self.change_judge_alt(alt_now)
+                except asyncio.TimeoutError:
+                    logger_info.info("Too high or distance sensor might have some error")
                 await asyncio.sleep(1)
                 time_now = time.time()
                 time_passed = int((time_now-start_time)//1)
@@ -444,7 +444,7 @@ class Pixhawk:
 
                 if time_passed < self.land_timelimit:
                     
-                    # if self.is_judge_alt:
+                    if self.is_judge_alt:
                         
                         while True:
                             time_now = time.time()
@@ -498,8 +498,8 @@ class Pixhawk:
                                     logger_info.info("-- Timer Judge")
                                     await self.lora.write("312")
                                     break
-                    # else:
-                    #     logger_info.info("-- Over 15m")
+                    else:
+                        logger_info.info("-- Over 15m")
                 else:
                     self.is_landed = True
                     if self.is_landed:
