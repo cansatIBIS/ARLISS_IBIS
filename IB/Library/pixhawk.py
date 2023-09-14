@@ -880,7 +880,7 @@ class Pixhawk:
         logger_info.info('percent={}, center={}'.format(self.image_res['percent'], self.image_res['center']))
         if self.image_res['percent'] <= 1e-8:
             logger_info.info(f"Failed image navigation")
-            await self.arliss_land()
+            await self.land()
         else:
             logger_info.info(f"Target detected!")
             x_m, y_m = self.camera.get_target_position(lidar_height)
@@ -977,13 +977,13 @@ class Pixhawk:
                     await asyncio.wait_for(self.measure_lidar_alt(), timeout = 1)
                 except asyncio.TimeoutError:
                     logger_info.info("TimeoutError")
-                    await self.arliss_land()
+                    await self.land()
             if self.lidar > 15:
                 await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_start_abs_alt - 5)
                 await asyncio.sleep(5)
                 await self.measure_lidar_alt()
                 if self.lidar > 15:
-                    await self.arliss_land()
+                    await self.land()
             goal_lidar_alt = self.lidar
             goal_abs_alt = await self.get_position_alt()
             await self.goto_location(self.waypoint_lat, self.waypoint_lng, goal_abs_alt - goal_lidar_alt + self.waypoint_alt)
@@ -1001,7 +1001,7 @@ class Pixhawk:
             logger_info.info(f"lidar:{lidar_alt}")
             if is_red_right_below:
                 logger_info.info(f"Image Navigation Success!")
-                await self.arliss_land()
+                await self.land()
             else :
                 logger_info.info(f"[go to] red_lat:{red_lat}, red_lng:{red_lng}, alt:{goal_abs_alt - goal_lidar_alt + 3}, abs_alt:{abs_alt}")
                 await self.goto_location(red_lat, red_lng, goal_abs_alt - goal_lidar_alt + 3)
@@ -1018,9 +1018,9 @@ class Pixhawk:
                     break
 
             logger_info.info(f"Image Navigation Success!")
-            await self.arliss_land()
+            await self.land()
         else:
-            await self.arliss_land()
+            await self.land()
 
 
     async def perform_image_navigation_with_timeout(self):
