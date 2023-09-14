@@ -90,6 +90,8 @@ async def run():
 
     await pixhawk.gather_main_coroutines()
 
+    await  pixhawk.land()
+
 if __name__ == "__main__":
 
     asyncio.run(run())
