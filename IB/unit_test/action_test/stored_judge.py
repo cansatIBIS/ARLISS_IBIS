@@ -82,7 +82,7 @@ if __name__ == "__main__":
     spi.max_speed_hz = 1000000 
 
     stored_judge()
-    fusing()
+    # fusing()
 
     spi.close()
     sys.exit()
