@@ -2,6 +2,7 @@ from pixhawk import Pixhawk
 from lora import Lora
 from light import Light
 from logger_lib import logger_info
+import time
 
 
 class Ibis:
@@ -97,6 +98,8 @@ class Ibis:
     async def fuse_phase(self):
       
         logger_info.info("#################### Fuse phase start ####################")
+        self.pixhawk.fuse()
+        time.sleep(2)
         self.pixhawk.fuse()
         logger_info.info("#################### Fuse phase finished ####################")
         
