@@ -55,7 +55,11 @@ async def arm_takeoff(drone):
     file_path = '/home/pi/ARLISS_IBIS/IB/Images/arliss_{}.jpg'.format(datetime.datetime.now())
 
     logger_info.info("taking pic...: {}".format(file_path))
-    take_pic(camera,file_path) 
+    take_pic(camera,file_path)
+
+    await asyncio.sleep(60)
+    await drone.action.land()
+
     
 
 def take_pic(camera,file_path):
