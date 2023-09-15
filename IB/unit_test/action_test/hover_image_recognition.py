@@ -45,10 +45,9 @@ async def arm_takeoff(drone):
     await drone.action.set_takeoff_altitude(altitude)
     await drone.action.takeoff()
 
-    await asyncio.sleep(20)
+    await asyncio.sleep(10)
 
-    logger_info.info("-- Landing")
-    await drone.action.land()
+    
 
 
 async def print_altitude(drone, camera):
