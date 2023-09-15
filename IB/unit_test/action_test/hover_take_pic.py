@@ -45,16 +45,19 @@ async def arm_takeoff(drone):
     file_path = '/home/pi/ARLISS_IBISIB/IB/Images/arliss_{}.jpg'.format(datetime.datetime.now())
 
     logger_info.info("taking pic...: {}".format(file_path))
+    await asyncio.sleep(10)
     take_pic(camera,file_path) # 写真を撮る
 
     file_path = '/home/pi/ARLISS_IBIS/IB/Images/arliss_{}.jpg'.format(datetime.datetime.now())
 
     logger_info.info("taking pic...: {}".format(file_path))
+    await asyncio.sleep(10)
     take_pic(camera,file_path) 
     
     file_path = '/home/pi/ARLISS_IBIS/IB/Images/arliss_{}.jpg'.format(datetime.datetime.now())
 
     logger_info.info("taking pic...: {}".format(file_path))
+    await asyncio.sleep(10)
     take_pic(camera,file_path)
 
     await asyncio.sleep(60)
